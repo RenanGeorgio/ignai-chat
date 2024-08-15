@@ -35,7 +35,9 @@
       "@controllers": ["controllers/index"],
       "@helpers/*": ["helpers/*"],
       "@views": ["views/index"],
-      "@utils/*": ["utils/*"]
+      "@utils/*": ["utils/*"],
+      "@config": ["config/index"],
+      "@controllers/*": ["controllers/*", "controllers/*/index", "controllers/index"]
     },
     "incremental": true
   },
