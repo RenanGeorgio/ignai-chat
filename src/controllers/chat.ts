@@ -1,21 +1,22 @@
+import { getToken } from "@helpers/getClient";
 import { ChatApi } from "@services";
 
 export async function getChat(basePath: string) {
+  const token = getToken;
   try {
     const response = await ChatApi(basePath, {
-      method: "GET",
+      method: 'GET',
       headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${wb.accessToken}`,
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
       }
     });
     
     if (response) {
       return response;
     }
-    else {
-      return null;
-    }
+
+    return null;
   } catch (error: any) {
     console.log(error);
     return null;
@@ -23,12 +24,13 @@ export async function getChat(basePath: string) {
 }
 
 export async function postChat(basePath: string, body: any) {
+  const token = getToken;
   try {
     const response = await ChatApi(basePath, {
-      method: "POST",
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${wb.accessToken}`,
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
       },
       data: body
     });
@@ -36,9 +38,8 @@ export async function postChat(basePath: string, body: any) {
     if (response) {
       return response;
     }
-    else {
-      return null;
-    }
+   
+    return null;
   } catch (error: any) {
     console.log(error);
     return null;
