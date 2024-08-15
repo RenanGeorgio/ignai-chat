@@ -30,6 +30,7 @@
       "@libs/*": ["libs/*"],
       "@styles/*": ["styles/*"],
       "@contexts/*": ["contexts/*"],
+      "@providers": ["contexts/index"],
       "@services": ["services/index"],
       "@assets/*": ["assets/*"],
       "@controllers": ["controllers/index"],
