@@ -55,6 +55,10 @@ export const CallProvider = ({ children }: CallProviderProps) => {
   }, []);
 
   useEffect(() => {
+    if (twilioToken == null) {
+      return
+    }
+
     device.current = new Device(twilioToken, {
       logLevel: 1,
       codecPreferences: ['opus', 'pcmu'],

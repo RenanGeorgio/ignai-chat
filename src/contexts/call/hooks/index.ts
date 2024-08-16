@@ -1,5 +1,5 @@
-import useChat from "./useChat";
+import useCall from "./useCall";
 
 export {
-  useChat
+  useCall
 }
