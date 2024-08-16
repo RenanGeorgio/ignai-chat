@@ -9,7 +9,6 @@ import compareArrays from "@helpers/compareArrays";
 import { baseUrl } from "@config";
 import { Chat, ChatClient, Message, OnlineUser, ChatStatus } from "../types";
 
-
 type ChatProviderProps = {
   children: ReactNode
 }
