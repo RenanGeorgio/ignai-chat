@@ -1,7 +1,8 @@
 import type { NextPage } from "next";
 import { TextField, InputAdornment, Icon, IconButton } from "@mui/material";
 import SideBar from "@components/side-bar";
-import QueueItems from "@components/queue-items";
+import { TicketsComponent } from "@components/Tickets";
+import { QueueComponent } from "@components/Queue";
 
 const Dashboard: NextPage = () => {
   return (
@@ -12,125 +13,7 @@ const Dashboard: NextPage = () => {
       <main className="flex-1 flex flex-col items-start justify-start min-w-[57.188rem] max-w-full mq1225:min-w-full">
         <section className="self-stretch border-darkslategray-200 border-l-[1px] border-solid box-border flex flex-col items-start justify-start relative max-w-full text-left text-[0.75rem] text-neutral-06-100 font-caption-1">
           <div className="self-stretch flex flex-row items-start justify-start [row-gap:20px] max-w-full text-[2rem] text-white font-body-regular mq1225:flex-wrap">
-            <div className="w-[26.75rem] overflow-hidden shrink-0 flex flex-col items-start justify-start pt-[0rem] px-[0rem] pb-[7.5rem] box-border min-w-[26.75rem] max-w-full mq850:pb-[3.188rem] mq850:box-border mq850:min-w-full mq1225:flex-1 mq1225:pb-[4.875rem] mq1225:box-border">
-              <div className="self-stretch border-darkslategray-300 border-b-[1px] border-solid flex flex-row items-center justify-start pt-[2.25rem] px-[2rem] pb-[2.125rem] gap-[0.75rem] mq450:flex-wrap">
-                <h1 className="m-0 flex-1 relative text-inherit leading-[2.5rem] font-semibold font-[inherit] inline-block min-w-[9.063rem] mq450:text-[1.188rem] mq450:leading-[1.5rem] mq850:text-[1.625rem] mq850:leading-[2rem]">
-                  Messagens
-                </h1>
-                <div className="h-[3rem] w-[3rem] rounded-31xl border-darkslategray-300 border-[1px] border-solid box-border flex flex-row items-center justify-center py-[0.75rem] px-[0.687rem]">
-                  <img
-                    className="h-[1.5rem] w-[1.5rem] relative"
-                    alt=""
-                    src="/icon16lineedit.svg"
-                  />
-                </div>
-                <div className="h-[3rem] w-[3rem] rounded-31xl border-darkslategray-300 border-[1px] border-solid box-border flex flex-row items-center justify-center py-[0.75rem] px-[0.687rem]">
-                  <img
-                    className="h-[1.5rem] w-[1.5rem] relative"
-                    alt=""
-                    src="/search.svg"
-                  />
-                </div>
-              </div>
-              <div className="self-stretch flex flex-col items-start justify-start pt-[2.5rem] px-[0rem] pb-[0rem] text-[0.875rem] text-gray-2 mq450:gap-[1.25rem]">
-                <div className="self-stretch flex flex-col items-start justify-start pt-[0rem] px-[2rem] pb-[19.75rem] gap-[1rem] mq850:pb-[8.313rem] mq850:box-border mq1225:pb-[12.813rem] mq1225:box-border">
-                  <div className="self-stretch relative leading-[1.5rem]">
-                    Hoje
-                  </div>
-                  <div className="self-stretch flex flex-col items-start justify-start gap-[1.25rem] text-white">
-                    <div className="self-stretch rounded-341xl border-darkslategray-100 border-[1px] border-solid flex flex-row items-start justify-start py-[0.875rem] px-[0.937rem] gap-[0.5rem] whitespace-nowrap">
-                      <img
-                        className="h-[1.5rem] w-[1.5rem] relative overflow-hidden shrink-0 min-h-[1.5rem]"
-                        alt=""
-                        src="/chat-1.svg"
-                      />
-                      <div className="flex-1 relative leading-[1.5rem] whitespace-pre-wrap">
-                        554356 início: 15:45 status: on 5:27
-                      </div>
-                    </div>
-                    <div className="self-stretch rounded-341xl flex flex-row items-start justify-start p-[1rem] gap-[0.5rem]">
-                      <img
-                        className="h-[1.5rem] w-[1.5rem] relative overflow-hidden shrink-0 min-h-[1.5rem]"
-                        alt=""
-                        src="/chat-1-1.svg"
-                      />
-                      <div className="flex-1 relative leading-[1.5rem] whitespace-pre-wrap shrink-0">
-                        554355 início: 15:43 status: espera 03:45
-                      </div>
-                    </div>
-                    <div className="self-stretch rounded-341xl flex flex-row items-start justify-start p-[1rem] gap-[0.5rem]">
-                      <img
-                        className="h-[1.5rem] w-[1.5rem] relative overflow-hidden shrink-0 min-h-[1.5rem]"
-                        loading="lazy"
-                        alt=""
-                        src="/chat-1-2.svg"
-                      />
-                      <div className="flex-1 relative leading-[1.5rem] whitespace-pre-wrap shrink-0">
-                        554354 início: 15:40 fim: 15:42 - ÑR
-                      </div>
-                    </div>
-                    <div className="self-stretch rounded-341xl flex flex-row items-start justify-start p-[1rem] gap-[0.5rem]">
-                      <img
-                        className="h-[1.5rem] w-[1.5rem] relative overflow-hidden shrink-0 min-h-[1.5rem]"
-                        loading="lazy"
-                        alt=""
-                        src="/chat-1-3.svg"
-                      />
-                      <div className="flex-1 relative leading-[1.5rem] whitespace-pre-wrap shrink-0">{`554353   início: 15:30  fim: 15:40 - R `}</div>
-                    </div>
-                    <div className="self-stretch rounded-341xl flex flex-row items-start justify-start p-[1rem] gap-[0.5rem]">
-                      <img
-                        className="h-[1.5rem] w-[1.5rem] relative overflow-hidden shrink-0 min-h-[1.5rem]"
-                        loading="lazy"
-                        alt=""
-                        src="/chat-1-4.svg"
-                      />
-                      <div className="flex-1 relative leading-[1.5rem] whitespace-pre-wrap shrink-0">{`554352   início: 15:20  fim: 15:30 - R `}</div>
-                    </div>
-                    <div className="self-stretch rounded-341xl flex flex-row items-start justify-start p-[1rem] gap-[0.5rem]">
-                      <img
-                        className="h-[1.5rem] w-[1.5rem] relative overflow-hidden shrink-0 min-h-[1.5rem]"
-                        alt=""
-                        src="/chat-1-5.svg"
-                      />
-                      <div className="flex-1 relative leading-[1.5rem] whitespace-pre-wrap shrink-0">{`554351   início: 15:10  fim: 15:15 - R `}</div>
-                    </div>
-                    <div className="self-stretch rounded-341xl flex flex-row items-start justify-start p-[1rem] relative gap-[0.5rem]">
-                      <img
-                        className="h-[1.5rem] w-[1.5rem] relative overflow-hidden shrink-0 min-h-[1.5rem]"
-                        alt=""
-                        src="/chat-1-6.svg"
-                      />
-                      <div className="flex-1 relative leading-[1.5rem] whitespace-pre-wrap shrink-0">{`554350   início: 15:06  fim: 15:13 - ÑR `}</div>
-                      <img
-                        className="h-[1rem] w-[1.125rem] absolute !m-[0] top-[1.125rem] left-[1.188rem] z-[1]"
-                        loading="lazy"
-                        alt=""
-                        src="/headphones.svg"
-                      />
-                    </div>
-                    <div className="self-stretch rounded-341xl flex flex-row items-start justify-start p-[1rem] gap-[0.5rem]">
-                      <img
-                        className="h-[1.5rem] w-[1.5rem] relative overflow-hidden shrink-0 min-h-[1.5rem]"
-                        loading="lazy"
-                        alt=""
-                        src="/chat-1-7.svg"
-                      />
-                      <div className="flex-1 relative leading-[1.5rem] whitespace-pre-wrap shrink-0">{`554349   início: 15:01  fim: 15:05 - R `}</div>
-                    </div>
-                    <div className="self-stretch rounded-341xl flex flex-row items-start justify-start p-[1rem] gap-[0.5rem]">
-                      <img
-                        className="h-[1.5rem] w-[1.5rem] relative overflow-hidden shrink-0 min-h-[1.5rem]"
-                        loading="lazy"
-                        alt=""
-                        src="/chat-1-8.svg"
-                      />
-                      <div className="flex-1 relative leading-[1.5rem] whitespace-pre-wrap shrink-0">{`554349   início: 14:55  fim: 15:00 - R `}</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <TicketsComponent />
             <div className="flex-1 rounded-tl-3xl rounded-tr-none rounded-br-none rounded-bl-3xl bg-whitesmoke-100 flex flex-col items-end justify-start min-w-[39.813rem] max-w-full text-[0.875rem] text-black mq850:min-w-full">
               <header className="self-stretch bg-white border-line border-b-[1px] border-solid box-border flex flex-row items-center justify-start pt-[2.125rem] px-[2rem] pb-[2rem] sticky gap-[1.25rem] top-[0] z-[99] max-w-full text-left text-[0.875rem] text-gray-1 font-body-regular">
                 <div className="flex-1 flex flex-row items-center justify-start gap-[0.75rem] max-w-full">
@@ -414,23 +297,7 @@ const Dashboard: NextPage = () => {
           Copy
         </div>
       </div>
-      <div className="w-[25.75rem] bg-white border-line border-l-[1px] border-solid box-border flex flex-col items-start justify-start pt-[0rem] px-[0rem] pb-[14.687rem] gap-[1.25rem] max-w-full text-center text-[1.25rem] text-black font-body-regular mq850:pb-[6.188rem] mq850:box-border mq1225:pb-[9.563rem] mq1225:box-border">
-        <div className="self-stretch border-line border-b-[1px] border-solid flex flex-row items-start justify-start pt-[2.125rem] px-[0.5rem] pb-[1.75rem] [row-gap:20px] mq450:flex-wrap">
-          <div className="w-[19.063rem] flex flex-col items-start justify-start py-[0rem] px-[0rem] box-border">
-            <h3 className="mr-[-5.688rem] m-0 w-[24.75rem] relative text-inherit leading-[1.75rem] font-semibold font-[inherit] inline-block shrink-0 max-w-[130%] mq450:text-[1rem] mq450:leading-[1.375rem]">
-              Fila de atendimento
-            </h3>
-          </div>
-          <img
-            className="h-[2rem] w-[2rem] relative overflow-hidden shrink-0"
-            alt=""
-            src="/video-2.svg"
-          />
-        </div>
-        <div className="self-stretch flex flex-row items-start justify-start py-[0rem] px-[1.75rem] box-border max-w-full">
-          <QueueItems />
-        </div>
-      </div>
+      <QueueComponent />
       <div className="rounded-md bg-neutral-03-100 hidden flex-row items-center justify-center py-[0.125rem] px-[0.5rem] gap-[0.5rem] z-[9]">
         <img
           className="h-[1.5rem] w-[1.5rem] relative object-cover min-h-[1.5rem]"
