@@ -51,8 +51,17 @@ export const ChatProvider = ({ children }: ChatProviderProps) => {
 
   const { user } = useUser();
 
-  const updateUserState = () => {
-    
+  const updateUserState = (stateType: any, conn: any) => {
+    setUserState(stateType);
+    setConnection(conn);
+
+    const incomingState = {
+      identity: currentState.identity,
+      status: conn.status(),
+      ready: true
+    }
+
+    setCurrentState(incomingState);
   }
 
   // INICIALIZAÇÃO
@@ -136,16 +145,7 @@ export const ChatProvider = ({ children }: ChatProviderProps) => {
     });
 
     device.current.on('incoming', (connection: any) => {
-      setUserState(USER_STATE.INCOMING);
-      setConnection(connection);
-
-      const incomingState = {
-        identity: currentState.identity,
-        status: connection.status(),
-        ready: true
-      }
-
-      setCurrentState(incomingState);
+      updateUserState(USER_STATE.INCOMING, connection)
 
       connection.on("reject", () => {
         setUserState(USER_STATE.READY);
