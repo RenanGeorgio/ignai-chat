@@ -1,5 +1,5 @@
 import type { NextPage } from "next";
-import FrameComponent from "../frame-component";
+import FrameComponent from "./frame-component";
 
 export type QueueItemsType = {
   className?: string;
