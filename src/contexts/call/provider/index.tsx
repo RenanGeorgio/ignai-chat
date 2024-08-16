@@ -5,7 +5,7 @@ import { CallContext } from "../CallContext";
 import { getChat, postChat } from "@controllers/chat";
 import { useUser } from "@contexts/user/hooks";
 import compareArrays from "@helpers/compareArrays";
-import { Chat, ChatClient, Message, OnlineUser, ChatStatus, USER_STATE, CallState, ConsumersQueue } from "../types";
+import { Chat, ChatClient, Message, OnlineUser, ChatStatus, USER_STATE, CallState, ConsumersQueue, ServicesPerformed } from "../types";
 
 type ChatProviderProps = {
   children: ReactNode
@@ -27,10 +27,11 @@ function getQueryParameters(location) {
 }
 
 export const ChatProvider = ({ children }: ChatProviderProps) => {
-  const [userChats, setUserChats] = useState<Chat[]>([]);
+  const [servicesPerformed, setServicesPerformed] = useState<ServicesPerformed[]>([]);
+  const [potentialChats, setPotentialChats] = useState<ChatClient[] | null>(null);
+
   const [isUserChatsLoading, setIsUserChatsLoading] = useState<boolean>(false);
   const [userChatsError, setUserChatsError] = useState<string | null>(null);
-  const [potentialChats, setPotentialChats] = useState<ChatClient[] | null>(null);
   const [currentChat, setCurrentChat] = useState<Chat | null>(null);
   const [isMessagesLoading, setIsMessagesLoading] = useState<boolean>(false);
   const [messageError, setMessageError] = useState<string | null>(null);
@@ -232,8 +233,8 @@ export const ChatProvider = ({ children }: ChatProviderProps) => {
     }
 
     device.current.on('newUserChat', (client: Chat) => {
-      if (userChats != undefined) {
-        const isChatCreated = userChats?.some((chat: Chat) =>
+      if (servicesPerformed != undefined) {
+        const isChatCreated = servicesPerformed?.some((chat: Chat) =>
           compareArrays(chat?.members, client?.members) &&
           client.status === chat.status
         );
@@ -243,16 +244,16 @@ export const ChatProvider = ({ children }: ChatProviderProps) => {
         }
       }
 
-      setUserChats((prev: any) => [...(prev || []), client]);
+      setServicesPerformed((prev: any) => [...(prev || []), client]);
     });
 
     return () => {
       device.current.off('newUserChat');
     }
-  }, [device.current, userChats]);
+  }, [device.current, servicesPerformed]);
 
   useEffect(() => {
-    if (!userChats) {
+    if (!servicesPerformed) {
       return
     }
 
@@ -274,8 +275,8 @@ export const ChatProvider = ({ children }: ChatProviderProps) => {
           return false
         }
 
-        if (userChats) {
-          isChatCreated = userChats?.some((chat: any) => {
+        if (servicesPerformed) {
+          isChatCreated = servicesPerformed?.some((chat: any) => {
             const members_: string[] = chat.members;
 
             return members_?.includes(client._id) && chat.status === ChatStatus.ACTIVE;
@@ -289,7 +290,7 @@ export const ChatProvider = ({ children }: ChatProviderProps) => {
     }
 
     getClients();
-  }, [user, userChats]);
+  }, [user, servicesPerformed]);
 
   // PEGA TODOS OS CHATS PARA UMA DETERMINADA COMPANIA
   useEffect(() => {
@@ -305,7 +306,7 @@ export const ChatProvider = ({ children }: ChatProviderProps) => {
 
         const data: Chat[] = await response.json();
 
-        setUserChats(data);
+        setServicesPerformed(data);
       }
     }
 
@@ -338,27 +339,10 @@ export const ChatProvider = ({ children }: ChatProviderProps) => {
     setCurrentChat(chat);
   }, []);
 
-  // DESCONECTAR ???
-  useEffect(() => {
-    if (!device?.current) {
-      return;
-    }
-
-    device.current?.on("disconnectClient", () => {
-      console.log("evento de desconexão")
-      if (currentChat) {
-        setCurrentChat((prev: Chat) => ({
-          ...prev,
-          status: ChatStatus.FINISHED
-        }));
-      }
-    });
-  }, [device.current, currentChat]);
-
   return (
     <CallContext.Provider
       value={{
-        userChats,
+        servicesPerformed,
         isUserChatsLoading,
         userChatsError,
         potentialChats,

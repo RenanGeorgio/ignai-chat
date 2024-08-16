@@ -27,6 +27,18 @@ export interface ChatClient {
   updatedAt?: string
 }
 
+export interface ServicesPerformed {
+  info: Obj
+  chat: Chat
+  updatedAt: string
+  createdAt: string
+}
+
+export interface ITicket extends ServicesPerformed {
+  avaliation: number
+  sugestion?: string
+}
+
 export type Chat = {
   _id: string
   members: string[]
@@ -63,7 +75,7 @@ export type CallType = {
 }
 
 export type CallContextType = {
-  userChats: Chat[]
+  servicesPerformed: Chat[]
   isUserChatsLoading: boolean
   userChatsError: string | null
   potentialChats: ChatClient[] | null
