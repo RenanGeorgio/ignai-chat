@@ -10,21 +10,6 @@ type CallProviderProps = {
   children: ReactNode
 }
 
-/**
- * Get a {@link Location}'s query parameters.
- * @param {Location} location
- * @returns {Map<string, Array<string>>} queryParameters
- */
-function getQueryParameters(location) {
-  return (location.search.split('?')[1] || '').split('&').reduce((queryParameters, keyValuePair) => {
-    var [key, value] = keyValuePair.split('=');
-    key = decodeURIComponent(key);
-    value = decodeURIComponent(value);
-    queryParameters.set(key, (queryParameters.get(key) || []).concat([value]));
-    return queryParameters;
-  }, new Map());
-}
-
 export const CallProvider = ({ children }: CallProviderProps) => {
   const [servicesPerformed, setServicesPerformed] = useState<ServicesPerformed[]>([]);
   const [isUserChatsLoading, setIsUserChatsLoading] = useState<boolean>(false);
@@ -33,9 +18,6 @@ export const CallProvider = ({ children }: CallProviderProps) => {
   const [messages, setMessages] = useState<Message[] | null>(null);
   const [newMessage, setNewMessage] = useState<Message | null>(null);
   const [consumersQueue, setconsumersQueue] = useState<ConsumersQueue[]>([]);
-
-  const device = useRef<Device | null>(null);
-
   const [userState, setUserState] = useState(USER_STATE.OFFLINE);
   const [phoneNumber, setPhoneNumber] = useState<string>("");
   const [connection, setConnection] = useState<any>(null);
@@ -45,7 +27,9 @@ export const CallProvider = ({ children }: CallProviderProps) => {
     ready: false,
   });
 
-  const { user } = useUser();
+  const device = useRef<Device | null>(null);
+
+  const { twilioToken, user } = useUser();
 
   const updateUserState = (stateType: any, conn: any) => {
     setUserState(stateType);
@@ -71,7 +55,7 @@ export const CallProvider = ({ children }: CallProviderProps) => {
   }, []);
 
   useEffect(() => {
-    device.current = new Device(token, {
+    device.current = new Device(twilioToken, {
       logLevel: 1,
       codecPreferences: ['opus', 'pcmu'],
       fakeLocalDTMF: true,
@@ -82,10 +66,9 @@ export const CallProvider = ({ children }: CallProviderProps) => {
 
     return () => {
       device.current.destroy();
-      //setDevice(undefined);
       setUserState(USER_STATE.OFFLINE);
     }
-  }, [user]);
+  }, [twilioToken]);
 
   useEffect(() => {
     if (!device?.current) {
@@ -179,7 +162,7 @@ export const CallProvider = ({ children }: CallProviderProps) => {
         setIsUserChatsLoading(true);
 
         const response = await getCall(`chat/${user.companyId}`);
-
+        
         if (!response.ok) {
           return setUserChatsError('error');
         }

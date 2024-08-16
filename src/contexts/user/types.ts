@@ -9,5 +9,6 @@ export type User = {
 export interface UserContextInterface {
   isAuthenticated?: boolean
   user: User
+  twilioToken: string | undefined
   setUser?: (user: User | null) => void
 }
