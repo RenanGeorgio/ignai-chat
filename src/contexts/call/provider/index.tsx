@@ -176,39 +176,6 @@ export const ChatProvider = ({ children }: ChatProviderProps) => {
     });
   }, [device.current]);
 
-  // FILA DE CUSTOMERS ONLINES AGUARDANDO
-  useEffect(() => {
-    if (device?.current === null) {
-      return
-    }
-
-    device.current.emit('addNewUser', { userId: user?.companyId, platform: 'typebot' });
-
-    device.current.on('consumersQueue', (users: OnlineUser[]) => {
-      setconsumersQueue(users);
-    });
-
-    return () => {
-      device.current.off('consumersQueue');
-    }
-  }, [device.current, user?.companyId]);
-
-  useEffect(() => {
-    if (!device?.current) {
-      return
-    }
-    
-    const recipientId = currentChat?.members?.find((id: string) => id !== user?.companyId);
-
-    if (!recipientId) {
-      return
-    }
-
-    console.log("send message event");
-    device.current.emit('sendMessage', { ...newMessage, recipientId });
-    setNewMessage(null);
-  }, [newMessage, device.current]);
-
   useEffect(() => {
     if (!device?.current) {
       return
@@ -338,6 +305,10 @@ export const ChatProvider = ({ children }: ChatProviderProps) => {
   const updateCurrentChat = useCallback((chat: Chat) => {
     setCurrentChat(chat);
   }, []);
+
+  useEffect(() => {
+
+  },[]);
 
   return (
     <CallContext.Provider
