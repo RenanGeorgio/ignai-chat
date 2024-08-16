@@ -1,11 +1,11 @@
 import React, { useCallback, useEffect, useState, ReactNode, useRef } from "react";
-import { Device } from "@twilio/voice-sdk";
+import { Device, Call } from "@twilio/voice-sdk";
 
 import { CallContext } from "../CallContext";
 import { getChat, postChat } from "@controllers/chat";
 import { useUser } from "@contexts/user/hooks";
 import compareArrays from "@helpers/compareArrays";
-import { Chat, ChatClient, Message, OnlineUser, ChatStatus, USER_STATE, CallState } from "../types";
+import { Chat, ChatClient, Message, OnlineUser, ChatStatus, USER_STATE, CallState, ConsumersQueue } from "../types";
 
 type ChatProviderProps = {
   children: ReactNode
@@ -36,7 +36,7 @@ export const ChatProvider = ({ children }: ChatProviderProps) => {
   const [messageError, setMessageError] = useState<string | null>(null);
   const [messages, setMessages] = useState<Message[] | null>(null);
   const [newMessage, setNewMessage] = useState<Message | null>(null);
-  const [consumersQueue, setconsumersQueue] = useState<OnlineUser[]>([]);
+  const [consumersQueue, setconsumersQueue] = useState<ConsumersQueue[]>([]);
 
   const device = useRef<Device | null>(null);
 
@@ -55,9 +55,15 @@ export const ChatProvider = ({ children }: ChatProviderProps) => {
     setUserState(stateType);
     setConnection(conn);
 
+    let st = null;
+
+    if (conn != null) {
+      st = conn.status();
+    }
+  
     const incomingState = {
       identity: currentState.identity,
-      status: conn.status(),
+      status: st,
       ready: true
     }
 
@@ -144,13 +150,28 @@ export const ChatProvider = ({ children }: ChatProviderProps) => {
       setCurrentState(disconnectState);
     });
 
-    device.current.on('incoming', (connection: any) => {
-      updateUserState(USER_STATE.INCOMING, connection)
+    device.current.on('incoming', (connection: Call) => {
+      updateUserState(USER_STATE.INCOMING, connection);
 
-      connection.on("reject", () => {
-        setUserState(USER_STATE.READY);
-        setConnection(null);
+      const queue = consumersQueue;
+      const currentDate = (Date.now()).toString();
+
+      const queueState = {
+        queueId: queue.lenght(),
+        callData: connection,
+        updatedAt: currentDate,
+        createdAt: currentDate,
+      }
+
+      queue.push(queueState);
+      setconsumersQueue(queue);
+
+      connection.on('reject', () => {
+        updateUserState(USER_STATE.READY, null);
       });
+
+      //connection.on('accept', () => {
+      //});
     });
   }, [device.current]);
 

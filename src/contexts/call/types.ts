@@ -1,3 +1,6 @@
+import { CallerInfo } from "@twilio/voice-sdk";
+import { Obj } from "@types";
+
 export interface Message {
   _id: string
   senderId: string
@@ -41,6 +44,22 @@ export type Chat = {
 export interface OnlineUser  {
   userId: string
   socketId: string
+}
+
+export interface ConsumersQueue {
+  queueId: string | number
+  callData: CallType
+  priority?: number
+  updatedAt: string
+  createdAt: string
+}
+
+export type CallType = {
+  callerInfo?: CallerInfo | null
+  parameters: Obj
+  defaultMaxListeners: number
+  customParameters?: any
+  outboundConnectionId?: undefined | string
 }
 
 export type CallContextType = {
