@@ -51,6 +51,10 @@ export const ChatProvider = ({ children }: ChatProviderProps) => {
 
   const { user } = useUser();
 
+  const updateUserState = () => {
+    
+  }
+
   // INICIALIZAÇÃO
   useEffect(() => {
     device.current = new Device(token, {
@@ -142,6 +146,11 @@ export const ChatProvider = ({ children }: ChatProviderProps) => {
       }
 
       setCurrentState(incomingState);
+
+      connection.on("reject", () => {
+        setUserState(USER_STATE.READY);
+        setConnection(null);
+      });
     });
   }, [device.current]);
 
