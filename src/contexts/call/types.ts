@@ -11,22 +11,6 @@ export interface Message {
   updatedAt?: string
 }
 
-export interface User {
-  id: string
-  name: string
-  email: string
-  companyId?: string
-}
-
-export interface ChatClient {
-  _id: string
-  name: string
-  lastName?: string
-  username: string
-  createdAt?: string
-  updatedAt?: string
-}
-
 export interface ServicesPerformed {
   info: Obj
   chat: Chat
@@ -37,6 +21,43 @@ export interface ServicesPerformed {
 export interface ITicket extends ServicesPerformed {
   avaliation: number
   sugestion?: string
+}
+
+export interface ConsumersQueue {
+  queueId: string | number
+  callData: CallType
+  priority?: number
+  updatedAt: string
+  createdAt: string
+}
+
+export interface CallContextType {
+  servicesPerformed: ServicesPerformed[]
+  isUserChatsLoading: boolean
+  userChatsError: string | null
+  updateCurrentChat: (chat: Chat) => void
+  currentChat: Chat | null
+  messages: Message[] | null
+  sendTextMessage?: (
+    textMessage: string,
+    sender: { companyId: string },
+    currentChatId: string,
+    setTextMessage: (text: string) => void
+  ) => Promise<void>
+  sendMessageHttp?: (
+    textMessage: string,
+    sender: { companyId: string },
+    currentChatId: string
+  ) => void
+  consumersQueue: ConsumersQueue[]
+}
+
+export type CallType = {
+  callerInfo?: CallerInfo | null
+  parameters: Obj
+  defaultMaxListeners: number
+  customParameters?: any
+  outboundConnectionId?: undefined | string
 }
 
 export type Chat = {
@@ -53,49 +74,10 @@ export type Chat = {
   __v?: number
 }
 
-export interface OnlineUser  {
-  userId: string
-  socketId: string
-}
-
-export interface ConsumersQueue {
-  queueId: string | number
-  callData: CallType
-  priority?: number
-  updatedAt: string
-  createdAt: string
-}
-
-export type CallType = {
-  callerInfo?: CallerInfo | null
-  parameters: Obj
-  defaultMaxListeners: number
-  customParameters?: any
-  outboundConnectionId?: undefined | string
-}
-
-export type CallContextType = {
-  servicesPerformed: Chat[]
-  isUserChatsLoading: boolean
-  userChatsError: string | null
-  potentialChats: ChatClient[] | null
-  updateCurrentChat: (chat: Chat) => void
-  currentChat: Chat | null
-  messages: Message[] | null
-  isMessagesLoading: boolean
-  messageError: string | null
-  sendTextMessage: (
-    textMessage: string,
-    sender: { companyId: string },
-    currentChatId: string,
-    setTextMessage: (text: string) => void
-  ) => Promise<void>
-  sendMessageHttp?: (
-    textMessage: string,
-    sender: { companyId: string },
-    currentChatId: string
-  ) => void
-  consumersQueue: OnlineUser[]
+export type CallState = {
+  identity: string
+  status: any
+  ready: boolean
 }
 
 export enum Platforms {
@@ -104,19 +86,14 @@ export enum Platforms {
   TELEGRAM = 'telegram',
   WEB = 'web',
   WHATSAPP = 'whatsapp',
+  PHONE = 'phone'
 }
 
 export enum ChatStatus {
   ACTIVE = "active",
   FINISHED = "finished",
   ARCHIVED = "archived",
-  // DELETED = "deleted",
-}
-
-export type CallState = {
-  identity: string
-  status: any
-  ready: boolean
+  DELETED = "deleted",
 }
 
 export enum USER_STATE {

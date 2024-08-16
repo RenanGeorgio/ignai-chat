@@ -2,12 +2,11 @@ import React, { useCallback, useEffect, useState, ReactNode, useRef } from "reac
 import { Device, Call } from "@twilio/voice-sdk";
 
 import { CallContext } from "../CallContext";
-import { getChat, postChat } from "@controllers/chat";
+import { getCall } from "@controllers/call";
 import { useUser } from "@contexts/user/hooks";
-import compareArrays from "@helpers/compareArrays";
-import { Chat, ChatClient, Message, OnlineUser, ChatStatus, USER_STATE, CallState, ConsumersQueue, ServicesPerformed } from "../types";
+import { Chat, Message, USER_STATE, CallState, ConsumersQueue, ServicesPerformed } from "../types";
 
-type ChatProviderProps = {
+type CallProviderProps = {
   children: ReactNode
 }
 
@@ -26,15 +25,11 @@ function getQueryParameters(location) {
   }, new Map());
 }
 
-export const ChatProvider = ({ children }: ChatProviderProps) => {
+export const CallProvider = ({ children }: CallProviderProps) => {
   const [servicesPerformed, setServicesPerformed] = useState<ServicesPerformed[]>([]);
-  const [potentialChats, setPotentialChats] = useState<ChatClient[] | null>(null);
-
   const [isUserChatsLoading, setIsUserChatsLoading] = useState<boolean>(false);
   const [userChatsError, setUserChatsError] = useState<string | null>(null);
   const [currentChat, setCurrentChat] = useState<Chat | null>(null);
-  const [isMessagesLoading, setIsMessagesLoading] = useState<boolean>(false);
-  const [messageError, setMessageError] = useState<string | null>(null);
   const [messages, setMessages] = useState<Message[] | null>(null);
   const [newMessage, setNewMessage] = useState<Message | null>(null);
   const [consumersQueue, setconsumersQueue] = useState<ConsumersQueue[]>([]);
@@ -71,7 +66,10 @@ export const ChatProvider = ({ children }: ChatProviderProps) => {
     setCurrentState(incomingState);
   }
 
-  // INICIALIZAÇÃO
+  const updateCurrentChat = useCallback((chat: Chat) => {
+    setCurrentChat(chat);
+  }, []);
+
   useEffect(() => {
     device.current = new Device(token, {
       logLevel: 1,
@@ -89,7 +87,6 @@ export const ChatProvider = ({ children }: ChatProviderProps) => {
     }
   }, [user]);
 
-  // FILA DE CUSTOMERS ONLINES AGUARDANDO
   useEffect(() => {
     if (!device?.current) {
       return;
@@ -177,137 +174,23 @@ export const ChatProvider = ({ children }: ChatProviderProps) => {
   }, [device.current]);
 
   useEffect(() => {
-    if (!device?.current) {
-      return
-    }
-
-    device.current.on('getMessage', (res: Message) => {
-      if (currentChat?._id !== res.chatId) {
-        return
-      }
-
-      setMessages((prev: any) => [...(prev || []), res]);
-    });
-
-    return () => {
-      device.current.off('getMessage');
-    }
-  }, [device.current, currentChat]);
-
-  useEffect(() => {
-    if (device?.current === null) {
-      return
-    }
-
-    device.current.on('newUserChat', (client: Chat) => {
-      if (servicesPerformed != undefined) {
-        const isChatCreated = servicesPerformed?.some((chat: Chat) =>
-          compareArrays(chat?.members, client?.members) &&
-          client.status === chat.status
-        );
-
-        if (isChatCreated) {
-          return
-        }
-      }
-
-      setServicesPerformed((prev: any) => [...(prev || []), client]);
-    });
-
-    return () => {
-      device.current.off('newUserChat');
-    }
-  }, [device.current, servicesPerformed]);
-
-  useEffect(() => {
-    if (!servicesPerformed) {
-      return
-    }
-
-    const getClients = async () => {
-      const response = await getChat('chat/clients');
-
-      if (!response.ok) {
-        const value = JSON.stringify(response?.body);
-
-        return setUserChatsError(value);
-      }
-
-      const data: ChatClient[] | Chat[] = await response.json();
-
-      const pChats = data?.filter((client) => {
-        let isChatCreated = false;
-
-        if (!(user?._id === client?._id)) {
-          return false
-        }
-
-        if (servicesPerformed) {
-          isChatCreated = servicesPerformed?.some((chat: any) => {
-            const members_: string[] = chat.members;
-
-            return members_?.includes(client._id) && chat.status === ChatStatus.ACTIVE;
-          });
-        }
-
-        return !isChatCreated
-      });
-      
-      setPotentialChats(pChats);
-    }
-
-    getClients();
-  }, [user, servicesPerformed]);
-
-  // PEGA TODOS OS CHATS PARA UMA DETERMINADA COMPANIA
-  useEffect(() => {
     const getUserChats = async () => {
       if (user?.companyId) {
         setIsUserChatsLoading(true);
 
-        const response = await getChat(`chat/${user.companyId}`);
+        const response = await getCall(`chat/${user.companyId}`);
 
         if (!response.ok) {
           return setUserChatsError('error');
         }
 
-        const data: Chat[] = await response.json();
+        const data: ServicesPerformed[] = await response.json();
 
         setServicesPerformed(data);
       }
     }
 
     getUserChats();
-  }, [user, consumersQueue]);
-
-  useEffect(() => {
-    const getMessages = async () => {
-      setIsMessagesLoading(true);
-      setMessageError(null);
-      if (currentChat) {
-        const response = await getChat(`chat/message/${currentChat._id}`);
-
-        setIsMessagesLoading(false);
-
-        const data: Message[] = await response.json();
-
-        if (!response.ok && 'message' in data) {
-          setMessageError(data.message as string);
-        }
-
-        setMessages(data);
-      }
-    }
-
-    getMessages();
-  }, [currentChat]);
-
-  const updateCurrentChat = useCallback((chat: Chat) => {
-    setCurrentChat(chat);
-  }, []);
-
-  useEffect(() => {
-
   },[]);
 
   return (
@@ -316,13 +199,10 @@ export const ChatProvider = ({ children }: ChatProviderProps) => {
         servicesPerformed,
         isUserChatsLoading,
         userChatsError,
-        potentialChats,
         updateCurrentChat,
         currentChat,
         messages,
-        isMessagesLoading,
-        messageError,
-        consumersQueue,
+        consumersQueue
       }}
     >
       {children}

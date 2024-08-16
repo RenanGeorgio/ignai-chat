@@ -16,3 +16,13 @@ export function getClientToken(ctx?: any) {
 
   return AuthApi;
 }
+
+export function getTwilioToken(ctx?: any) {
+  const { 'twilio.token': token } = parseCookies(ctx);
+
+  AuthApi.interceptors.request.use((config: any) => {
+    return config;
+  })
+
+  return token;
+}
