@@ -1,12 +1,12 @@
-import type { NextPage } from "next";
-import { TextField, InputAdornment, Icon, IconButton } from "@mui/material";
+import React from "react";
+import { TextField } from "@mui/material";
 import Input from "./input";
 
 export type ConversationType = {
   className?: string;
 };
 
-const Conversation: NextPage<ConversationType> = ({ className = "" }) => {
+const Conversation: React.FC<ConversationType> = ({ className = "" }) => {
   return (
     <div
       className={`flex-1 rounded-tl-3xl rounded-tr-none rounded-br-none rounded-bl-3xl bg-whitesmoke-100 overflow-hidden flex flex-col items-end justify-start min-w-[39.813rem] max-w-full text-left text-[0.875rem] text-gray-2 font-body-regular mq850:min-w-full ${className}`}
@@ -45,12 +45,14 @@ const Conversation: NextPage<ConversationType> = ({ className = "" }) => {
             variant="outlined"
             sx={{
               "& fieldset": { border: "none" },
+              /*
               "& .MuiInputBase-root": {
                 height: "48px",
                 backgroundColor: "#202226",
                 borderRadius: "12px 0px 12px 12px",
                 fontSize: "14px",
               },
+              */
               "& .MuiInputBase-input": { color: "#fff" },
             }}
           />

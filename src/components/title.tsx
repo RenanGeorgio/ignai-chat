@@ -1,5 +1,4 @@
-import type { NextPage } from "next";
-import { useMemo, type CSSProperties } from "react";
+import React, { useMemo, CSSProperties } from "react";
 
 export type TitleType = {
   className?: string;
@@ -11,7 +10,7 @@ export type TitleType = {
   propMinWidth?: CSSProperties["minWidth"];
 };
 
-const Title: NextPage<TitleType> = ({
+const Title: React.FC<TitleType> = ({
   className = "",
   fAQ,
   icon16LineEdit,
@@ -35,20 +34,24 @@ const Title: NextPage<TitleType> = ({
         {fAQ}
       </h1>
       <div className="h-[3rem] w-[3rem] rounded-31xl border-darkslategray-300 border-[1px] border-solid box-border flex flex-row items-center justify-center py-[0.75rem] px-[0.687rem]">
-        <img
-          className="h-[1.5rem] w-[1.5rem] relative"
-          loading="lazy"
-          alt=""
-          src={icon16LineEdit}
-        />
+        {icon16LineEdit && (
+          <img
+            className="h-[1.5rem] w-[1.5rem] relative"
+            loading="lazy"
+            alt=""
+            src={icon16LineEdit}
+          />
+        )}
       </div>
       <div className="h-[3rem] w-[3rem] rounded-31xl border-darkslategray-300 border-[1px] border-solid box-border flex flex-row items-center justify-center py-[0.75rem] px-[0.687rem]">
-        <img
-          className="h-[1.5rem] w-[1.5rem] relative"
-          loading="lazy"
-          alt=""
-          src={search}
-        />
+        {search && (
+          <img
+            className="h-[1.5rem] w-[1.5rem] relative"
+            loading="lazy"
+            alt=""
+            src={search}
+          />
+        )}
       </div>
     </div>
   );

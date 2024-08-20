@@ -1,16 +1,12 @@
-import type { NextPage } from "next";
-import { TextField, InputAdornment, Icon, IconButton } from "@mui/material";
-import SideBar from "@components/side-bar";
+import React from "react";
+import { TextField } from "@mui/material";
+import SideBar from "../../components/side-bar";
 
-const Page: NextPage = () => {
+const Page: React.FC = () => {
   return (
     <div className="w-full relative rounded-13xl bg-black overflow-hidden flex flex-row items-start justify-start leading-[normal] tracking-[normal] mq1050:pl-[1.25rem] mq1050:pr-[1.25rem] mq1050:box-border">
       <div className="h-[81.25rem] w-[6.25rem] flex flex-row items-start justify-start mq1050:hidden">
-        <SideBar
-          chatBubble1="/chatbubble-1@2x.png"
-          activity="/activity.svg"
-          activity="/paper.svg"
-        />
+        <SideBar />
       </div>
       <main className="flex-1 border-darkslategray-200 border-l-[1px] border-solid box-border overflow-hidden flex flex-col items-start justify-start max-w-[calc(100%_-_100px)] mq1050:max-w-full">
         <section className="self-stretch flex flex-row items-start justify-start py-[0rem] pl-[0rem] pr-[50.875rem] box-border relative max-w-full text-left text-[2rem] text-white font-body-regular lg:pr-[25.438rem] lg:box-border mq450:pr-[1.25rem] mq450:box-border mq750:pr-[12.688rem] mq750:box-border">
@@ -35,12 +31,14 @@ const Page: NextPage = () => {
                   variant="outlined"
                   sx={{
                     "& fieldset": { borderColor: "#3e4249" },
+                    /*
                     "& .MuiInputBase-root": {
                       height: "56px",
                       borderRadius: "360px",
                       fontSize: "14px",
                     },
                     "& .MuiInputBase-input": { color: "#fff" },
+                    */
                   }}
                 />
                 <TextField
@@ -49,12 +47,14 @@ const Page: NextPage = () => {
                   variant="outlined"
                   sx={{
                     "& fieldset": { borderColor: "#3e4249" },
+                    /*
                     "& .MuiInputBase-root": {
                       height: "56px",
                       borderRadius: "360px",
                       fontSize: "14px",
                     },
                     "& .MuiInputBase-input": { color: "#fff" },
+                    */
                   }}
                 />
                 <TextField
@@ -63,12 +63,14 @@ const Page: NextPage = () => {
                   variant="outlined"
                   sx={{
                     "& fieldset": { borderColor: "#3e4249" },
+                    /*
                     "& .MuiInputBase-root": {
                       height: "56px",
                       borderRadius: "360px",
                       fontSize: "14px",
                     },
                     "& .MuiInputBase-input": { color: "#fff" },
+                    */
                   }}
                 />
                 <TextField
@@ -77,12 +79,14 @@ const Page: NextPage = () => {
                   variant="outlined"
                   sx={{
                     "& fieldset": { borderColor: "#3e4249" },
+                    /*
                     "& .MuiInputBase-root": {
                       height: "56px",
                       borderRadius: "360px",
                       fontSize: "14px",
                     },
                     "& .MuiInputBase-input": { color: "#fff" },
+                    */
                   }}
                 />
               </div>

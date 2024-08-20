@@ -1,5 +1,4 @@
-import type { NextPage } from "next";
-import { useMemo, type CSSProperties } from "react";
+import React, { useMemo, type CSSProperties } from "react";
 
 export type FrameComponentType = {
   className?: string;
@@ -11,7 +10,7 @@ export type FrameComponentType = {
   propPadding1?: CSSProperties["padding"];
 };
 
-const FrameComponent: NextPage<FrameComponentType> = ({
+const FrameComponent: React.FC<FrameComponentType> = ({
   className = "",
   headphones,
   propPadding,

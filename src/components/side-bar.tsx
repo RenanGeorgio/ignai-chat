@@ -1,4 +1,4 @@
-import type { NextPage } from "next";
+import React from "react";
 import CustomElement from "./custom-element";
 
 export type SideBarType = {
@@ -8,7 +8,7 @@ export type SideBarType = {
   activity?: string;
 };
 
-const SideBar: NextPage<SideBarType> = ({
+const SideBar: React.FC<SideBarType> = ({
   className = "",
   chatBubble,
   commandSymbol,
@@ -21,30 +21,34 @@ const SideBar: NextPage<SideBarType> = ({
       <div className="w-[5rem] h-[5.563rem]" />
       <div className="self-stretch flex-1 flex flex-col items-start justify-start gap-[1rem]">
         <div className="self-stretch bg-mediumslateblue border-primary border-r-[3px] border-solid flex flex-row items-center justify-center py-[1.125rem] px-[2.25rem] gap-[1.75rem]">
-          <img
-            className="h-[1.5rem] w-[1.5rem] relative overflow-hidden shrink-0 object-contain"
-            alt=""
-            src={chatBubble}
-          />
+          {chatBubble && (
+            <img
+              className="h-[1.5rem] w-[1.5rem] relative overflow-hidden shrink-0 object-contain"
+              alt=""
+              src={chatBubble}
+            />
+          )}
           <div className="w-[11.625rem] relative leading-[2rem] font-semibold hidden mq450:text-[1.125rem] mq450:leading-[1.625rem]">
             Search
           </div>
-          <div className="h-[1.75rem] rounded-3xs bg-background hidden flex-row items-center justify-start py-[0.375rem] px-[0.75rem] box-border gap-[0.25rem] text-[1rem]">
-            <img
-              className="h-[1rem] w-[1rem] relative overflow-hidden shrink-0 min-h-[1rem]"
-              alt=""
-              src={commandSymbol}
-            />
-            <b className="self-stretch relative leading-[1rem]">F</b>
-          </div>
+          {commandSymbol && (
+            <div className="h-[1.75rem] rounded-3xs bg-background hidden flex-row items-center justify-start py-[0.375rem] px-[0.75rem] box-border gap-[0.25rem] text-[1rem]">
+              <img
+                className="h-[1rem] w-[1rem] relative overflow-hidden shrink-0 min-h-[1rem]"
+                alt=""
+                src={commandSymbol}
+              />
+              <b className="self-stretch relative leading-[1rem]">F</b>
+            </div>
+          )}
         </div>
         <CustomElement
           activity={activity}
-          commandSymbol="/commandsymbol-1-1.svg"
+        //  commandSymbol="/commandsymbol-1-1.svg"
         />
         <CustomElement
           activity={activity}
-          commandSymbol="/commandsymbol-1-2.svg"
+        //  commandSymbol="/commandsymbol-1-2.svg"
         />
       </div>
       <img
@@ -61,6 +65,6 @@ const SideBar: NextPage<SideBarType> = ({
       />
     </div>
   );
-}
+};
 
 export default SideBar;

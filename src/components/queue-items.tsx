@@ -1,11 +1,11 @@
-import type { NextPage } from "next";
+import React from "react";
 import FrameComponent from "./frame-component";
 
 export type QueueItemsType = {
   className?: string;
 };
 
-const QueueItems: NextPage<QueueItemsType> = ({ className = "" }) => {
+const QueueItems: React.FC<QueueItemsType> = ({ className = "" }) => {
   return (
     <div
       className={`flex-1 flex flex-col items-start justify-start gap-[1rem] max-w-full text-left text-[0.875rem] text-ghostwhite font-body-regular ${className}`}

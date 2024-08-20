@@ -1,19 +1,14 @@
-import type { NextPage } from "next";
-import { TextField, InputAdornment, Icon, IconButton } from "@mui/material";
-import SideBar from "@components/side-bar";
-import Title from "@components/title";
-import Conversation from "@components/conversation";
+import React from "react";
+import { TextField } from "@mui/material";
+import SideBar from "../../components/side-bar";
+import Title from "../../components/title";
+import Conversation from "../../components/conversation";
 
-const Page: NextPage = () => {
+const Page: React.FC = () => {
   return (
     <div className="w-full relative rounded-13xl bg-black overflow-hidden flex flex-row items-start justify-start leading-[normal] tracking-[normal] [row-gap:20px] text-center text-[1.25rem] text-black font-body-regular mq1525:flex-wrap mq1525:pl-[1.25rem] mq1525:pr-[1.25rem] mq1525:box-border">
       <div className="h-[81.25rem] w-[6.25rem] flex flex-row items-start justify-start mq1525:hidden">
-        <SideBar
-          chatBubble1="/chatbubble-1@2x.png"
-          commandSymbol1="/commandsymbol-1.svg"
-          activity="/activity.svg"
-          activity="/paper.svg"
-        />
+        <SideBar />
       </div>
       <main className="flex-1 border-darkslategray-200 border-l-[1px] border-solid box-border overflow-hidden flex flex-col items-start justify-start min-w-[57.188rem] max-w-full mq1225:min-w-full">
         <section className="self-stretch flex flex-row items-start justify-start [row-gap:20px] max-w-full text-left text-[0.875rem] text-white font-body-regular mq1225:flex-wrap">
@@ -106,11 +101,13 @@ const Page: NextPage = () => {
                 variant="outlined"
                 sx={{
                   "& fieldset": { border: "none" },
+                  /*
                   "& .MuiInputBase-root": {
                     height: "39px",
                     backgroundColor: "#c0bfc8",
                     borderRadius: "24px",
                   },
+                  */
                   width: "356px",
                 }}
               />
@@ -119,11 +116,13 @@ const Page: NextPage = () => {
                 variant="outlined"
                 sx={{
                   "& fieldset": { border: "none" },
+                  /*
                   "& .MuiInputBase-root": {
                     height: "39px",
                     backgroundColor: "#c0bfc8",
                     borderRadius: "24px",
                   },
+                  */
                   width: "356px",
                 }}
               />

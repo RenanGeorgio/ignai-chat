@@ -1,9 +1,9 @@
-import type { NextPage } from "next";
-import { TextField, InputAdornment, Icon, IconButton } from "@mui/material";
-import SideBar from "@components/side-bar";
-import QueueItems from "@components/queue-items";
+import React from "react";
+import { TextField } from "@mui/material";
+import SideBar from "../../components/side-bar";
+import QueueItems from "../../components/queue-items";
 
-const Dashboard: NextPage = () => {
+const Dashboard: React.FC = () => {
   return (
     <div className="w-full relative rounded-[32px] bg-black overflow-hidden flex flex-row items-start justify-start leading-[normal] tracking-[normal] [row-gap:20px] text-left text-[0.75rem] text-neutral-04-50 font-caption-1 mq1525:flex-wrap mq1525:pl-[1.25rem] mq1525:pr-[1.25rem] mq1525:box-border">
       <div className="h-[81.25rem] w-[6.25rem] flex flex-row items-start justify-start mq1525:hidden">
@@ -206,6 +206,7 @@ const Dashboard: NextPage = () => {
                     variant="outlined"
                     sx={{
                       "& fieldset": { border: "none" },
+                      /*
                       "& .MuiInputBase-root": {
                         height: "43px",
                         backgroundColor: "#eaeaea",
@@ -213,6 +214,7 @@ const Dashboard: NextPage = () => {
                         fontSize: "14px",
                       },
                       "& .MuiInputBase-input": { color: "#202226" },
+                      */
                       width: "725px",
                     }}
                   />
@@ -304,6 +306,7 @@ const Dashboard: NextPage = () => {
                     variant="outlined"
                     sx={{
                       "& fieldset": { border: "none" },
+                      /*
                       "& .MuiInputBase-root": {
                         height: "48px",
                         backgroundColor: "#202226",
@@ -311,6 +314,7 @@ const Dashboard: NextPage = () => {
                         fontSize: "14px",
                       },
                       "& .MuiInputBase-input": { color: "#fff" },
+                      */
                     }}
                   />
                 </div>

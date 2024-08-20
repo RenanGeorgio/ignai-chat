@@ -1,4 +1,4 @@
-import type { NextPage } from "next";
+import React from "react";
 
 export type ElementType = {
   className?: string;
@@ -6,7 +6,7 @@ export type ElementType = {
   commandSymbol1?: string;
 };
 
-const CustomElement: NextPage<ElementType> = ({
+const CustomElement: React.FC<ElementType> = ({
   className = "",
   activity,
   commandSymbol1,
