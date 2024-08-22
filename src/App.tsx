@@ -7,7 +7,6 @@ import Faq from "./pages/faq/faqPage";
 import User from "./pages/user/userPage";
 
 function App() {
-
   return (
     <div className="app-container">
       <Sidebar />
