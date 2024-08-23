@@ -5,6 +5,7 @@
   flex-direction: row;
   align-items: flex-start;
   justify-content: flex-start;
+  background-color: #000;
 }
 .messagens {
   margin: 0;
@@ -16,6 +17,9 @@
   font-family: inherit;
   display: inline-block;
   min-width: 9.063rem;
+}
+.separador{
+  border-radius: 85px;
 }
 .icon16lineedit {
   height: 1.5rem;
@@ -997,21 +1001,19 @@
 .conversation {
   flex: 1;
   border-radius: var(--br-5xl) 0 0 var(--br-5xl);
-  background-color: var(--color-whitesmoke-100);
+  background-color:#fff;
+  color: #000;
   flex-direction: column;
   align-items: flex-end;
-  min-width: 39.813rem;
+  width: 100%;
   font-size: var(--body-regular-size);
-  color: var(--black);
 }
 .container {
   align-self: stretch;
   flex-direction: row;
   align-items: flex-start;
   row-gap: 20px;
-  font-size: var(--font-size-13xl);
-  color: var(--white);
-  font-family: var(--heading);
+  background-color: #fff;
 }
 .pauseCircleIcon {
   width: 1rem;
@@ -1060,30 +1062,12 @@
   justify-content: flex-start;
   padding: var(--padding-11xs) 0 0;
 }
-.incioAtendimentoHumano {
-  position: relative;
-  letter-spacing: -0.02em;
-  line-height: 1.25rem;
-  font-weight: 500;
-}
 .content,
-.contentWrapper,
-.status1 {
+.contentWrapper {
+  background-color: #fff;
   display: flex;
   align-items: flex-start;
   justify-content: flex-start;
-}
-.status1 {
-  margin: 0 !important;
-  position: absolute;
-  right: 22.375rem;
-  bottom: 34.5rem;
-  border-radius: var(--br-7xs);
-  background-color: var(--neutral-03-100);
-  flex-direction: row;
-  padding: var(--padding-11xs) var(--padding-5xs);
-  gap: var(--gap-5xs);
-  z-index: 1;
 }
 .content,
 .contentWrapper {
@@ -1096,13 +1080,12 @@
   box-sizing: border-box;
   position: relative;
   text-align: left;
-  font-size: var(--caption-1-size);
-  color: var(--neutral-06-100);
-  font-family: var(--caption-1);
+  background-color: #fff;
 }
 .contentWrapper {
   flex: 1;
   min-width: 57.188rem;
+  border-right: 1px solid #e0e0e0;
 }
 .headphonesIcon1 {
   height: 1rem;
@@ -1290,9 +1273,10 @@
 }
 .dashboard {
   width: 100%;
+  height: 950px;
   position: relative;
   border-radius: var(--br-13xl);
-  background-color: var(--black);
+  background-color: #fff;
   overflow: hidden;
   display: flex;
   flex-direction: row;
@@ -1303,7 +1287,7 @@
   row-gap: 20px;
   text-align: left;
   font-size: var(--caption-1-size);
-  color: var(--neutral-04-50);
+  color: #fff;
   font-family: var(--caption-1);
 }
 @media screen and (max-width: 1525px) {
