@@ -1,0 +1,55 @@
+.img {
+  width: 10.625rem;
+  height: 11.063rem;
+  position: relative;
+  border-radius: var(--br-5xl);
+  background-color: var(--color-silver-200);
+  display: none;
+}
+.headphonesIcon {
+  width: 1.938rem;
+  height: 1.625rem;
+  position: relative;
+  z-index: 1;
+}
+.incio1545,
+.p {
+  margin: 0;
+  white-space: pre-wrap;
+}
+.espera0527,
+.statusOn {
+  margin: 0;
+}
+.incio1545StatusContainer {
+  flex: 1;
+  position: relative;
+  line-height: 1.5rem;
+  flex-shrink: 0;
+  z-index: 1;
+}
+.imgParent,
+.incio1545StatusOnEsperWrapper {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.incio1545StatusOnEsperWrapper {
+  align-self: stretch;
+  flex-direction: row;
+  padding: 0 var(--padding-11xs) 0 var(--padding-9xs);
+}
+.imgParent {
+  flex: 1;
+  border-radius: var(--br-5xl);
+  background-color: var(--color-silver-200);
+  flex-direction: column;
+  padding: var(--padding-4xl) var(--padding-4xs);
+  box-sizing: border-box;
+  gap: var(--gap-4xs);
+  min-width: 9.875rem;
+  text-align: left;
+  font-size: var(--body-regular-size);
+  color: var(--color-ghostwhite);
+  font-family: var(--heading);
+}

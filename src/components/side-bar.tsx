@@ -1,38 +1,55 @@
-import React from "react";
-import '../style/sidebar.css';
+import { FunctionComponent } from "react";
+import CustomElement from "./custom-element";
+import styles from "../style/sidebar.module.css";
 
-export type SideBarType = {
+export type SideBar1Type = {
   className?: string;
-  white?: string;
-  groupIcon?: string;
-  f?: string;
-  m?: string;
 };
 
-const SideBar: React.FC<SideBarType> = ({
-  className = "",
-  white,
-  groupIcon,
-  f,
-  m,
-}) => {
+const SideBar: FunctionComponent<SideBar1Type> = ({ className = "" }) => {
   return (
-    <div className={`container ${className}`}>
-      <div className="placeholder" />
-      <div className="itemsContainer">
-        <div className="item">
-          <img className="image" alt="" src={white} />
-          <div className="text">Inbox</div>
-          <div className="iconContainer">
-            <img className="icon" alt="" src={groupIcon} />
-            <b className="iconText">F</b>
+    <div className={[styles.sideBar, className].join(" ")}>
+      <div className={styles.logo} />
+      <div className={styles.options}>
+        <div className={styles.element}>
+          <img
+            className={styles.chatBubble1Icon}
+            alt=""
+            src="/chatbubble-1@2x.png"
+          />
+          <div className={styles.search}>Search</div>
+          <div className={styles.tooltips}>
+            <img
+              className={styles.commandSymbol1Icon}
+              alt=""
+              src="/commandsymbol-1.svg"
+            />
+            <b className={styles.f}>F</b>
           </div>
         </div>
+        <CustomElement
+          activity="/activity.svg"
+          commandSymbol1="/commandsymbol-1-1.svg"
+        />
+        <CustomElement
+          activity="/paper.svg"
+          commandSymbol1="/commandsymbol-1-2.svg"
+        />
       </div>
-      <img className="logout" alt="" src={m} />
-      <img className="logo" alt="" src={f} />
+      <img
+        className={styles.logoutIcon}
+        loading="lazy"
+        alt=""
+        src="/logout.svg"
+      />
+      <img
+        className={styles.blackBackground1}
+        loading="lazy"
+        alt=""
+        src="/black-background-1@2x.png"
+      />
     </div>
   );
-};
+}
 
 export default SideBar;

@@ -1,0 +1,420 @@
+.chat2Icon,
+.img {
+  position: relative;
+}
+.img {
+  width: 10.625rem;
+  height: 11.063rem;
+  border-radius: var(--br-5xl);
+  background-color: var(--color-silver-200);
+  display: none;
+}
+.chat2Icon {
+  width: 1.5rem;
+  height: 1.5rem;
+  overflow: hidden;
+  flex-shrink: 0;
+  z-index: 1;
+}
+.contactIcons {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-end;
+  padding: 0 0 var(--padding-10xs);
+}
+.blackAndWhiteDarkGreyFace {
+  height: 1.938rem;
+  width: 1.875rem;
+  position: relative;
+  object-fit: cover;
+  z-index: 1;
+}
+.contactItems {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: flex-start;
+  gap: var(--gap-base);
+}
+.incio1545,
+.p {
+  margin: 0;
+  white-space: pre-wrap;
+}
+.espera0527,
+.statusOn {
+  margin: 0;
+}
+.incio1545StatusContainer {
+  flex: 1;
+  position: relative;
+  line-height: 1.5rem;
+  flex-shrink: 0;
+  z-index: 1;
+}
+.queueContactStatuses {
+  align-self: stretch;
+  flex-direction: row;
+  padding: 0 0 0 var(--padding-7xs);
+}
+.queueContactStatuses,
+.queueContacts,
+.queueHeadings {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.queueContacts {
+  flex: 1;
+  border-radius: var(--br-5xl);
+  background-color: var(--color-silver-200);
+  flex-direction: column;
+  padding: var(--padding-5xs) var(--padding-10xs) var(--padding-12xl)
+    var(--padding-mini);
+  box-sizing: border-box;
+  gap: var(--gap-2xs);
+  min-width: 9.875rem;
+}
+.queueHeadings {
+  align-self: stretch;
+  flex-direction: row;
+  gap: var(--gap-base);
+}
+.img1 {
+  width: 10.625rem;
+  height: 11.063rem;
+  position: relative;
+  border-radius: var(--br-5xl);
+  background-color: var(--color-silver-200);
+  display: none;
+}
+.chat3Icon {
+  height: 1.5rem;
+  width: 1.5rem;
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+  z-index: 1;
+}
+.logoMediaSocialWhatsappIcoIcon {
+  width: 1.875rem;
+  height: 1.688rem;
+  position: relative;
+  object-fit: cover;
+  z-index: 1;
+}
+.logoMediaSocialWhatsappIcoWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-end;
+  padding: 0 0 var(--padding-12xs);
+}
+.chat3Parent {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: flex-start;
+  gap: var(--gap-base);
+}
+.incio15451,
+.p1 {
+  margin: 0;
+  white-space: pre-wrap;
+}
+.espera05271,
+.statusOn1 {
+  margin: 0;
+}
+.incio1545StatusContainer1 {
+  flex: 1;
+  position: relative;
+  line-height: 1.5rem;
+  flex-shrink: 0;
+  z-index: 1;
+}
+.incio1545StatusOnEsperWrapper {
+  align-self: stretch;
+  flex-direction: row;
+  padding: 0 0 0 var(--padding-7xs);
+}
+.imgParent,
+.incio1545StatusOnEsperWrapper,
+.queueHeadings1 {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.imgParent {
+  flex: 1;
+  border-radius: var(--br-5xl);
+  background-color: var(--color-silver-200);
+  flex-direction: column;
+  padding: var(--padding-4xs) var(--padding-10xs) var(--padding-2xl)
+    var(--padding-mini);
+  box-sizing: border-box;
+  gap: var(--gap-4xl);
+  min-width: 9.875rem;
+}
+.queueHeadings1 {
+  align-self: stretch;
+  flex-direction: row;
+  gap: var(--gap-base);
+}
+.img2 {
+  width: 10.625rem;
+  height: 11.063rem;
+  position: relative;
+  border-radius: var(--br-5xl);
+  background-color: var(--color-silver-200);
+  display: none;
+}
+.chat4Icon {
+  height: 1.5rem;
+  width: 1.5rem;
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+  z-index: 1;
+}
+.logoMediaSocialWwwIcon {
+  height: 1.875rem;
+  width: 1.875rem;
+  position: relative;
+  object-fit: cover;
+  z-index: 1;
+}
+.chat4Parent {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: flex-start;
+  gap: var(--gap-base);
+}
+.incio15452,
+.p2 {
+  margin: 0;
+  white-space: pre-wrap;
+}
+.espera05272,
+.statusOn2 {
+  margin: 0;
+}
+.incio1545StatusContainer2 {
+  flex: 1;
+  position: relative;
+  line-height: 1.5rem;
+  flex-shrink: 0;
+  z-index: 1;
+}
+.incio1545StatusOnEsperContainer {
+  align-self: stretch;
+  flex-direction: row;
+  padding: 0 0 0 var(--padding-8xs);
+}
+.imgGroup,
+.incio1545StatusOnEsperContainer,
+.queueHeadings2 {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.imgGroup {
+  flex: 1;
+  border-radius: var(--br-5xl);
+  background-color: var(--color-silver-200);
+  flex-direction: column;
+  padding: var(--padding-mini) var(--padding-9xs) var(--padding-lg)
+    var(--padding-mini);
+  box-sizing: border-box;
+  gap: var(--gap-lg);
+  min-width: 9.875rem;
+}
+.queueHeadings2 {
+  align-self: stretch;
+  flex-direction: row;
+  gap: var(--gap-base);
+}
+.img3 {
+  width: 10.625rem;
+  height: 11.063rem;
+  position: relative;
+  border-radius: var(--br-5xl);
+  background-color: var(--color-silver-200);
+  display: none;
+}
+.chat5Icon {
+  height: 1.5rem;
+  width: 1.5rem;
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+  z-index: 1;
+}
+.logoMediaSocialWhatsappIcoIcon1 {
+  width: 1.875rem;
+  height: 1.688rem;
+  position: relative;
+  object-fit: cover;
+  z-index: 1;
+}
+.whatsappIconContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-end;
+  padding: 0 0 var(--padding-12xs);
+}
+.chat5Parent {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: flex-start;
+  gap: var(--gap-base);
+}
+.incio15453,
+.p3 {
+  margin: 0;
+  white-space: pre-wrap;
+}
+.espera05273,
+.statusOn3 {
+  margin: 0;
+}
+.incio1545StatusContainer3 {
+  align-self: stretch;
+  position: relative;
+  line-height: 1.5rem;
+  flex-shrink: 0;
+  z-index: 1;
+}
+.contactData,
+.singleContactInfo {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.contactData {
+  flex: 0.9605;
+  border-radius: var(--br-5xl);
+  background-color: var(--color-silver-200);
+  flex-direction: column;
+  padding: var(--padding-7xl) var(--padding-4xs) var(--padding-xs)
+    var(--padding-mini);
+  gap: var(--gap-mini);
+}
+.singleContactInfo {
+  align-self: stretch;
+  flex-direction: row;
+  gap: var(--gap-base);
+}
+.img4 {
+  width: 10.625rem;
+  height: 11.063rem;
+  position: relative;
+  border-radius: var(--br-5xl);
+  background-color: var(--color-silver-200);
+  display: none;
+}
+.chat6Icon {
+  width: 1.5rem;
+  height: 1.5rem;
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+  z-index: 1;
+}
+.instagramContact {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: var(--padding-10xs) 0 0;
+}
+.blackAndWhiteDarkGreyInst {
+  height: 1.875rem;
+  width: 1.875rem;
+  position: relative;
+  object-fit: cover;
+  min-height: 1.875rem;
+  z-index: 1;
+}
+.secondContactInfo {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: var(--gap-base);
+}
+.incio15454,
+.p4 {
+  margin: 0;
+  white-space: pre-wrap;
+}
+.espera05274,
+.statusOn4 {
+  margin: 0;
+}
+.incio1545StatusContainer4 {
+  flex: 1;
+  position: relative;
+  line-height: 1.5rem;
+  flex-shrink: 0;
+  z-index: 1;
+}
+.contactStatusContainer {
+  align-self: stretch;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 0 0 0 var(--padding-8xs);
+}
+.queueItems,
+.secondContact,
+.singleContact {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+.secondContact {
+  width: 10.625rem;
+  border-radius: var(--br-5xl);
+  background-color: var(--color-silver-200);
+  align-items: flex-start;
+  padding: var(--padding-9xl) var(--padding-9xs) var(--padding-5xs)
+    var(--padding-mini);
+  box-sizing: border-box;
+  gap: var(--gap-mini);
+}
+.queueItems,
+.singleContact {
+  gap: var(--gap-base);
+}
+.singleContact {
+  align-self: stretch;
+  align-items: flex-end;
+}
+.queueItems {
+  flex: 1;
+  align-items: flex-start;
+  max-width: 100%;
+  text-align: left;
+  font-size: var(--body-regular-size);
+  color: var(--color-ghostwhite);
+  font-family: var(--heading);
+}
+@media screen and (max-width: 450px) {
+  .queueHeadings,
+  .queueHeadings1,
+  .queueHeadings2 {
+    flex-wrap: wrap;
+  }
+  .contactData {
+    flex: 1;
+  }
+  .singleContactInfo {
+    flex-wrap: wrap;
+  }
+}
