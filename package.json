@@ -17,8 +17,6 @@
     "@types/react-dom": "^18.3.0",
     "axios": "^1.7.4",
     "framer-motion": "^11.3.19",
-    "ignai-chat": "file:",
-    "ignai-samarco": "file:",
     "nookies": "^2.5.2",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
