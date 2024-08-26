@@ -9,7 +9,7 @@ import styles from "./tickets.module.css";
 const TicketsComponent: React.FC = () => {
   const { servicesPerformed } = useCall();
   
-  const [selected, setSelected] = useState<number | null>(null);
+  const [selected, setSelected] = useState<number>(0);
 
   const handleSelect = (index: number) => {
     setSelected(index);
