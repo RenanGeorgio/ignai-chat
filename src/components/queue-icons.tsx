@@ -1,31 +1,39 @@
 import { FunctionComponent, useMemo, type CSSProperties } from "react";
-import styles from "../style/frameComponent.module.css";
+import styles from "../style/queueIcons.module.css";
 
-export type FrameComponentType = {
+export type QueueIconsType = {
   className?: string;
   headphones?: string;
 
   /** Style props */
+  propBackgroundColor?: CSSProperties["backgroundColor"];
   propPadding?: CSSProperties["padding"];
-  propGap?: CSSProperties["gap"];
+  propBackgroundColor1?: CSSProperties["backgroundColor"];
   propPadding1?: CSSProperties["padding"];
 };
 
-const FrameComponent: FunctionComponent<FrameComponentType> = ({
+const QueueIcons: FunctionComponent<QueueIconsType> = ({
   className = "",
   headphones,
+  propBackgroundColor,
   propPadding,
-  propGap,
+  propBackgroundColor1,
   propPadding1,
 }) => {
-  const frameDivStyle: CSSProperties = useMemo(() => {
+  const queueIconsStyle: CSSProperties = useMemo(() => {
     return {
+      backgroundColor: propBackgroundColor,
       padding: propPadding,
-      gap: propGap,
     };
-  }, [propPadding, propGap]);
+  }, [propBackgroundColor, propPadding]);
 
-  const frameDiv1Style: CSSProperties = useMemo(() => {
+  const iMGStyle: CSSProperties = useMemo(() => {
+    return {
+      backgroundColor: propBackgroundColor1,
+    };
+  }, [propBackgroundColor1]);
+
+  const queueStatusesStyle: CSSProperties = useMemo(() => {
     return {
       padding: propPadding1,
     };
@@ -33,20 +41,17 @@ const FrameComponent: FunctionComponent<FrameComponentType> = ({
 
   return (
     <div
-      className={[styles.imgParent, className].join(" ")}
-      style={frameDivStyle}
+      className={[styles.queueIcons, className].join(" ")}
+      style={queueIconsStyle}
     >
-      <div className={styles.img} />
+      <div className={styles.img} style={iMGStyle} />
       <img
         className={styles.headphonesIcon}
         loading="lazy"
         alt=""
         src={headphones}
       />
-      <div
-        className={styles.incio1545StatusOnEsperWrapper}
-        style={frameDiv1Style}
-      >
+      <div className={styles.queueStatuses} style={queueStatusesStyle}>
         <div className={styles.incio1545StatusContainer}>
           <p className={styles.p}>{`554356   `}</p>
           <p className={styles.incio1545}>{`início: 15:45  `}</p>
@@ -58,4 +63,4 @@ const FrameComponent: FunctionComponent<FrameComponentType> = ({
   );
 }
 
-export default FrameComponent;
+export default QueueIcons;

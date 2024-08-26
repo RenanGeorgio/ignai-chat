@@ -1,17 +1,17 @@
 import axios from "axios";
 import https from "https";
-import { parseCookies } from "nookies";
+// import { parseCookies } from "nookies";
 
-import { baseUrl } from "@config";
+// import { baseUrl } from "@config";
 
 const AuthApi = axios.create({
-  baseURL: baseUrl,
+//  baseURL: baseUrl,
   withCredentials: true,
   httpsAgent: new https.Agent({  
     rejectUnauthorized: false
   })
 }); 
-
+/*
 AuthApi.interceptors.request.use(
   config => {
     const { 'token': token } = parseCookies();
@@ -24,5 +24,5 @@ AuthApi.interceptors.request.use(
   },
   error => Promise.reject(error)
 );
-
+*/
 export default AuthApi;

@@ -1,9 +1,9 @@
 import React, { useCallback, useEffect, useState, ReactNode, useRef } from "react";
-import { Device, Call } from "@twilio/voice-sdk";
+// import { Device, Call } from "@twilio/voice-sdk";
 
 import { CallContext } from "../CallContext";
-import { getCall } from "@controllers/call";
-import { useUser } from "@contexts/user/hooks";
+// import { getCall } from "../../../controllers/call";
+import { useUser } from "../../user/hooks";
 import { Chat, Message, USER_STATE, CallState, ConsumersQueue, ServicesPerformed } from "../types";
 
 type CallProviderProps = {
@@ -27,7 +27,7 @@ export const CallProvider = ({ children }: CallProviderProps) => {
     ready: false,
   });
 
-  const device = useRef<Device | null>(null);
+  // const device = useRef<Device | null>(null);
 
   const { twilioToken, user } = useUser();
 
@@ -58,7 +58,7 @@ export const CallProvider = ({ children }: CallProviderProps) => {
     if (twilioToken == null) {
       return
     }
-
+    /*
     device.current = new Device(twilioToken, {
       logLevel: 1,
       codecPreferences: ['opus', 'pcmu'],
@@ -72,8 +72,10 @@ export const CallProvider = ({ children }: CallProviderProps) => {
       device.current.destroy();
       setUserState(USER_STATE.OFFLINE);
     }
+    */
   }, [twilioToken]);
 
+  /*
   useEffect(() => {
     if (!device?.current) {
       return;
@@ -159,21 +161,21 @@ export const CallProvider = ({ children }: CallProviderProps) => {
       //});
     });
   }, [device.current]);
-
+  */
   useEffect(() => {
     const getUserChats = async () => {
       if (user?.companyId) {
         setIsUserChatsLoading(true);
 
+        /*
         const response = await getCall(`chat/${user.companyId}`);
-        
         if (!response.ok) {
           return setUserChatsError('error');
         }
-
         const data: ServicesPerformed[] = await response.json();
-
+        
         setServicesPerformed(data);
+        */
       }
     }
 
