@@ -1,25 +1,52 @@
-import { useCall } from "@contexts/call/hooks";
-import { TicketElement } from "./element";
-import { TicketsHeader } from "./header";
-import { TicketLabel } from "./label";
-import { ServicesPerformed } from "@contexts/types";
+import React, { useState } from 'react';
+import styles from "../style/message.module.css";
+import { TicketsHeader } from './header';
+import { TicketLabel } from './label';
+import { TicketElement } from './element';
+import { useCall } from '@contexts/call/hooks';
 
-export const TicketsComponent = () => {
+const TicketsComponent: React.FC = () => {
   const { servicesPerformed } = useCall();
   
+  const [selected, setSelected] = useState<number | null>(null);
+
+  const handleSelect = (index: number) => {
+    setSelected(index);
+  };
+
   return (
-    <div className="w-[26.75rem] overflow-hidden shrink-0 flex flex-col items-start justify-start pt-[0rem] px-[0rem] pb-[7.5rem] box-border min-w-[26.75rem] max-w-full mq850:pb-[3.188rem] mq850:box-border mq850:min-w-full mq1225:flex-1 mq1225:pb-[4.875rem] mq1225:box-border">
+    <div className={styles.message}>
       <TicketsHeader />
-      <div className="self-stretch flex flex-col items-start justify-start pt-[2.5rem] px-[0rem] pb-[0rem] text-[0.875rem] text-gray-2 mq450:gap-[1.25rem]">
-        <div className="self-stretch flex flex-col items-start justify-start pt-[0rem] px-[2rem] pb-[19.75rem] gap-[1rem] mq850:pb-[8.313rem] mq850:box-border mq1225:pb-[12.813rem] mq1225:box-border">
+      <div className={styles.conversationList}>
+        <div className={styles.menu}>
           <TicketLabel />
-          <div className="self-stretch flex flex-col items-start justify-start gap-[1.25rem] text-white">
-            {servicesPerformed.map((servicePerformed: ServicesPerformed) => {
-              <TicketElement servicePerformed={servicePerformed} />
-            })}
+          <div className={styles.list}>
+            {conversations.map((conversation, index) => (
+              <TicketElement 
+                index={index}
+                selected={selected}
+                handleElementSelect={handleSelect}
+                //servicePerformed={servicePerformed} 
+                conversation={conversation}
+              />
+            ))}
           </div>
         </div>
       </div>
     </div>
   );
-}
+};
+
+const conversations = [
+  '554356 início: 15:45 status: on 5:27',
+  '554355 início: 15:43 status: espera 03:45',
+  '554354 início: 15:40 fim: 15:42 - ÑR',
+  '554353 início: 15:30 fim: 15:40 - R',
+  '554352 início: 15:20 fim: 15:30 - R',
+  '554351 início: 15:10 fim: 15:15 - R',
+  '554350 início: 15:06 fim: 15:13 - ÑR',
+  '554349 início: 15:01 fim: 15:05 - R',
+  '554349 início: 14:55 fim: 15:00 - R',
+];
+
+export default TicketsComponent;

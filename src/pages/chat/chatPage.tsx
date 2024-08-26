@@ -1,9 +1,9 @@
 import { FunctionComponent } from "react";
 import SideBar from "../../components/side-bar";
-import QueueItems from "../../components/queue-items";
+import QueueItems from "../../components/Queue/queue-items";
 import styles from "./chat.module.css";
-import MessageComponent from "../../components/messages/messages";
-import ChatComponent from "../../components/chat";
+import TicketsComponent from "../../components/Tickets";
+import ChatComponent from "../../components/Chat/chat";
 
 const Dashboard: FunctionComponent = () => {
   return (
@@ -14,7 +14,7 @@ const Dashboard: FunctionComponent = () => {
       <main className={styles.contentWrapper}>
         <section className={styles.content}>
           <div className={styles.container}>
-            <MessageComponent />
+            <TicketsComponent />
             <div className={styles.separador}>
               <ChatComponent />
             </div>

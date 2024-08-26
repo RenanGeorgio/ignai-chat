@@ -2,9 +2,18 @@ import { useState, useEffect } from "react";
 import { ServicesPerformed } from "@contexts/types";
 import { Obj } from "@types";
 
+import styles from "../style/message.module.css";
+
+interface Props {
+  index: number
+  selected: number
+  handleElementSelect: (value: number) => void
+  servicePerformed?: ServicesPerformed
+  conversation?: string // PARA TESTES
+}
 // TO-DO: exemplo de objeto para INFO: 554355 início: 15:43 status: espera 03:45
 // TO-DO: fazer switch para <img> para a seleção do icone apropriado
-export const TicketElement = (servicePerformed: ServicesPerformed) => {
+export const TicketElement = ({ index, selected, handleElementSelect, servicePerformed, conversation }: Props) => {
   const [serviceInfo, setServiceInfo] = useState<Obj | undefined>(undefined);
 
   useEffect(() => {
@@ -14,20 +23,18 @@ export const TicketElement = (servicePerformed: ServicesPerformed) => {
   },[]);
 
   return (
-    <div 
-      className={isSelected 
-        ? "self-stretch rounded-341xl border-darkslategray-100 border-[1px] border-solid flex flex-row items-start justify-start py-[0.875rem] px-[0.937rem] gap-[0.5rem] whitespace-nowrap"
-        : "self-stretch rounded-341xl flex flex-row items-start justify-start p-[1rem] gap-[0.5rem]"
-      }
+    <div
+      key={index}
+      className={`${styles.menuItem} ${selected === index ? styles.menuItemSelected : ''}`}
+      onClick={() => handleElementSelect(index)}
     >
-      <img
-        className="h-[1.5rem] w-[1.5rem] relative overflow-hidden shrink-0 min-h-[1.5rem]"
-        alt=""
-        src="/chat-1-1.svg"
-      />
-      <div className="flex-1 relative leading-[1.5rem] whitespace-pre-wrap shrink-0">
-        {serviceInfo.toString()} | {servicePerformed?.updatedAt}
-      </div>
+      <span role="img" aria-label="chat" className={styles.chatIcon}>
+        💬
+      </span>
+      <div>
+        {/*serviceInfo.toString() | servicePerformed?.updatedAt*/}
+        {conversation}
+        </div>
     </div>
   );
 }

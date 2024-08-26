@@ -1,7 +1,7 @@
+import styles from "../style/message.module.css";
+
 export const TicketLabel = () => {
   return (
-    <div className="self-stretch relative leading-[1.5rem]">
-      Hoje
-    </div>
+    <div className={styles.hoje}>Hoje</div>
   );
 }
