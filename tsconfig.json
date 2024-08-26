@@ -35,7 +35,7 @@
       "@assets/*": ["assets/*"],
       "@controllers": ["controllers/index"],
       "@helpers/*": ["helpers/*"],
-      "@pages/*": ["pages/*"],
+      "@pages/*": ["pages/*", "pages/*/index"],
       "@utils/*": ["utils/*"],
       "@config": ["config/index"],
       "@controllers/*": ["controllers/*", "controllers/*/index", "controllers/index"],
