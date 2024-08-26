@@ -1,19 +1,19 @@
 import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
-import { Device } from "@twilio/voice-sdk";
+import { Device, Call } from "@twilio/voice-sdk";
 
-const VoiceCall = () => {
+const VoiceCall: React.FC = () => {
   const [phoneNumber, setPhoneNumber] = useState<string>('');
-  const callingToken = useRef<any>(null);
-  const device = useRef<any>(null);
+  const callingToken = useRef<string | null>(null);
+  const device = useRef<Device | null>(null);
 
   useEffect(() => {
     // Fetch authentication token from the server
     const fetchToken = async () => {
       try {
         const response = await axios.get('/api/token');
-        callingToken.current = response.data.token);
-      } catch (error: any) {
+        callingToken.current = response.data.token;
+      } catch (error: unknown) {
         console.error('Error fetching token:', error);
       }
     };
@@ -21,49 +21,57 @@ const VoiceCall = () => {
     fetchToken();
   }, []);
 
-  const handleCall = () => {
+  const handleCall = async () => {
     try {
+      if (!callingToken.current) {
+        throw new Error('Calling token not available');
+      }
+      /*
       device.current = new Device(callingToken.current, {
-        // logLevel: 1,
-        // Set Opus as our preferred codec. Opus generally performs better, requiring less bandwidth and
-        // providing better audio quality in restrained network conditions.
-        codecPreferences: ['opus', 'pcmu']
+        codecPreferences: ['opus', 'pcmu'],
       });
+
       // Device must be registered in order to receive incoming calls
       device.current.register();
-
+      */
       const params = {
-        // get the phone number to call from the DOM
-        // Record: true,
-
-        To: receiverId,
-        callerId
+        To: phoneNumber, // Assumindo que você queira ligar para o número que o usuário digitou
+        // callerId: 'Seu caller ID aqui', // Se você tiver um callerId, adicione aqui
       };
+
       if (device.current) {
-        const call = await device.current.connect({ params });
-        
+        const callInstance: Call = await device.current.connect({ params });
+
         callInstance.on('accept', () => {
-          console.log({ callInstance });
+          console.log('Call accepted');
         });
         callInstance.on('ringing', () => {
-                 });
+          console.log('Call is ringing');
+        });
         callInstance.on('answered', () => {
-          
+          console.log('Call answered');
         });
         callInstance.on('connected', () => {
-          
+          console.log('Call connected');
         });
         callInstance.on('disconnect', () => {
-          
+          console.log('Call disconnected');
         });
         callInstance.on('cancel', () => {
-          
+          console.log('Call canceled');
         });
       } else {
         throw new Error('Unable to make call');
       }
-    } catch (error) {
-      throw new Error(error);
+    } catch (error: unknown) {
+      /*
+      if (error instanceof TwilioError) {
+        console.error('Twilio Error:', error);
+      } else {
+        console.error('Error:', error);
+      }
+      */
+      console.log(error);  
     }
   };
 
@@ -73,7 +81,7 @@ const VoiceCall = () => {
       <input
         type="text"
         value={phoneNumber}
-        onChange={e => setPhoneNumber(e.target.value)}
+        onChange={(e) => setPhoneNumber(e.target.value)}
         placeholder="Enter phone number"
       />
       <button onClick={handleCall}>Call</button>

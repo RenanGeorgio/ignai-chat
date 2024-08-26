@@ -1,0 +1,55 @@
+.img {
+  width: 10.625rem;
+  height: 11.063rem;
+  position: relative;
+  border-radius: var(--br-5xl);
+  background-color: var(--color-silver-100);
+  display: none;
+}
+.headphonesIcon {
+  width: 1.938rem;
+  height: 1.625rem;
+  position: relative;
+  z-index: 1;
+}
+.incio1545,
+.p {
+  margin: 0;
+  white-space: pre-wrap;
+}
+.espera0527,
+.statusOn {
+  margin: 0;
+}
+.incio1545StatusContainer {
+  flex: 1;
+  position: relative;
+  line-height: 1.5rem;
+  flex-shrink: 0;
+  z-index: 1;
+}
+.queueIcons,
+.queueStatuses {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.queueStatuses {
+  align-self: stretch;
+  flex-direction: row;
+  padding: 0 var(--padding-12xs) 0 var(--padding-8xs);
+}
+.queueIcons {
+  flex: 1;
+  border-radius: var(--br-5xl);
+  background-color: var(--color-silver-100);
+  flex-direction: column;
+  padding: var(--padding-3xs) var(--padding-4xs) var(--padding-8xl);
+  box-sizing: border-box;
+  gap: var(--gap-lg);
+  min-width: 9.875rem;
+  text-align: left;
+  font-size: var(--body-regular-size);
+  color: var(--color-ghostwhite);
+  font-family: var(--heading);
+}

@@ -1,0 +1,55 @@
+.activityIcon {
+  height: 1.75rem;
+  width: 1.75rem;
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.manageSubcription {
+  width: 11.625rem;
+  position: relative;
+  line-height: 2rem;
+  font-weight: 600;
+  display: none;
+}
+.commandSymbol1Icon {
+  height: 1rem;
+  width: 1rem;
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.f {
+  position: relative;
+  line-height: 1rem;
+}
+.element,
+.tooltips {
+  border-radius: var(--br-3xs);
+  flex-direction: row;
+  align-items: center;
+}
+.tooltips {
+  background-color: var(--background);
+  display: none;
+  justify-content: flex-start;
+  padding: var(--padding-7xs) var(--padding-xs);
+  gap: var(--gap-9xs);
+  font-size: var(--font-size-base);
+}
+.element {
+  display: flex;
+  justify-content: center;
+  padding: var(--padding-lg) var(--padding-17xl);
+  gap: var(--gap-9xl);
+  text-align: left;
+  font-size: var(--button-big-size);
+  color: var(--secondary);
+  font-family: var(--caption-1);
+}
+@media screen and (max-width: 450px) {
+  .manageSubcription {
+    font-size: var(--font-size-lg);
+    line-height: 1.625rem;
+  }
+}

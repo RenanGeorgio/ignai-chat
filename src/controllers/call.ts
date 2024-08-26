@@ -1,8 +1,9 @@
-import { getTwilioAppToken } from "@helpers/getClient";
+// import { getTwilioAppToken } from "@helpers/getClient";
 import { CallApi } from "@services";
 
 export async function getCall(basePath: string) {
-  const token = getTwilioAppToken;
+  // const token = getTwilioAppToken;
+  const token = "";
   try {
     const response = await CallApi(basePath, {
       method: 'GET',
@@ -24,7 +25,8 @@ export async function getCall(basePath: string) {
 }
 
 export async function postCall(basePath: string, body: any) {
-  const token = getTwilioAppToken;
+  // const token = getTwilioAppToken;
+  const token = "";
   try {
     const response = await CallApi(basePath, {
       method: 'POST',
