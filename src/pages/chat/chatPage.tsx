@@ -2,7 +2,7 @@ import { FunctionComponent } from "react";
 import SideBar from "../../components/side-bar";
 import QueueItems from "../../components/queue-items";
 import styles from "./chat.module.css";
-import MessageComponent from "../../components/messages";
+import MessageComponent from "../../components/messages/messages";
 import ChatComponent from "../../components/chat";
 
 const Dashboard: FunctionComponent = () => {

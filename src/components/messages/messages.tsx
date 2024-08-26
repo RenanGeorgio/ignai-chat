@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import styles from "../style/message.module.css";
+import { TicketsHeader } from './header';
+import { TicketLabel } from './label';
+import { TicketElement } from './element';
 
 const MessageComponent: React.FC = () => {
   const [selected, setSelected] = useState<number | null>(null);
@@ -10,34 +13,19 @@ const MessageComponent: React.FC = () => {
 
   return (
     <div className={styles.message}>
-      <div className={styles.title}>
-        <h1 className={styles.messagens}>Mensagens</h1>
-        <div className={styles.notification}>
-          <span role="img" aria-label="edit" className={styles.emoji}>
-            ✏️
-          </span>
-        </div>
-        <div className={styles.notification}>
-          <span role="img" aria-label="search" className={styles.emoji}>
-            🔍
-          </span>
-        </div>
-      </div>
+      <TicketsHeader />
       <div className={styles.conversationList}>
         <div className={styles.menu}>
-          <div className={styles.hoje}>Hoje</div>
+          <TicketLabel />
           <div className={styles.list}>
             {conversations.map((conversation, index) => (
-              <div
-                key={index}
-                className={`${styles.menuItem} ${selected === index ? styles.menuItemSelected : ''}`}
-                onClick={() => handleSelect(index)}
-              >
-                <span role="img" aria-label="chat" className={styles.chatIcon}>
-                  💬
-                </span>
-                <div>{conversation}</div>
-              </div>
+              <TicketElement 
+                index={index}
+                selected={selected}
+                handleElementSelect={handleSelect}
+                //servicePerformed={servicePerformed} 
+                conversation={conversation}
+              />
             ))}
           </div>
         </div>
