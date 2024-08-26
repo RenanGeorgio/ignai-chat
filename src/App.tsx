@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Routes, Route } from "react-router-dom";
-import Chat from "@pages/chat";
-import Faq from "@pages/faq";
-import User from "@pages/user";
+import Chat from "@pages/Chat";
+import Faq from "@pages/Faq";
+import User from "@pages/User";
 
 function App() {
   const [expanded, setExpanded] = useState(false);

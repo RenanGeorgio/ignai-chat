@@ -4,7 +4,7 @@ import QueueComponent from "@components/Queue";
 import TicketsComponent from "@components/Tickets";
 import ChatComponent from "@components/Chat";
 
-import styles from "./chat.module.css";
+import styles from "@styles/chat.css";
 
 const Chat: FunctionComponent = () => {
   return (

@@ -4,7 +4,7 @@ import SideBar from "@components/side-bar";
 import Title from "@components/Faq/title";
 import Conversation from "@components/Faq/conversation";
 
-import "faq.module.css";
+import "@styles/faq.css";
 
 const Faq: React.FC = () => {
   return (
