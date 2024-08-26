@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
-import styles from "../style/message.module.css";
-import { TicketsHeader } from './header';
-import { TicketLabel } from './label';
-import { TicketElement } from './element';
+import React, { useState } from "react";
 import { useCall } from '@contexts/call/hooks';
+import { TicketsHeader } from "./header";
+import { TicketLabel } from "./label";
+import { TicketElement } from "./element";
+
+import styles from "./tickets.module.css";
 
 const TicketsComponent: React.FC = () => {
   const { servicesPerformed } = useCall();

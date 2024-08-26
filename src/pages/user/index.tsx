@@ -1,8 +1,9 @@
 import React from "react";
-import "../../style/userPage.css";
-import SideBar from "../../components/side-bar";
+import SideBar from "@components/side-bar";
 
-const Page: React.FC = () => {
+import "./user.module.css";
+
+const User: React.FC = () => {
   return (
     <div className="container">
       <div className="sidebar">
@@ -33,6 +34,6 @@ const Page: React.FC = () => {
       </main>
     </div>
   );
-};
+}
 
-export default Page;
+export default User;

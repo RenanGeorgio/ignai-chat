@@ -1,6 +1,7 @@
 import React from "react";
-import "../style/conversation.css"; 
 import Input from "./input";
+
+import "./conversation.module.css"; 
 
 export type ConversationType = {
   className?: string;

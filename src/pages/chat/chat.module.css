@@ -7,6 +7,7 @@
   justify-content: flex-start;
   background-color: #000;
 }
+
 .messagens {
   margin: 0;
   flex: 1;
@@ -18,14 +19,17 @@
   display: inline-block;
   min-width: 9.063rem;
 }
-.separador{
+
+.separador {
   border-radius: 85px;
 }
+
 .icon16lineedit {
   height: 1.5rem;
   width: 1.5rem;
   position: relative;
 }
+
 .notification {
   height: 3rem;
   width: 3rem;
@@ -38,11 +42,13 @@
   justify-content: center;
   padding: var(--padding-xs) var(--padding-2xs);
 }
+
 .searchIcon {
   height: 1.5rem;
   width: 1.5rem;
   position: relative;
 }
+
 .notification1 {
   height: 3rem;
   width: 3rem;
@@ -59,6 +65,7 @@
 .title {
   align-self: stretch;
 }
+
 .title {
   border-bottom: 1px solid var(--color-darkslategray-200);
   display: flex;
@@ -68,10 +75,12 @@
   padding: var(--padding-17xl) var(--padding-13xl) var(--padding-15xl);
   gap: var(--gap-xs);
 }
+
 .hoje {
   position: relative;
   line-height: 1.5rem;
 }
+
 .chat1Icon {
   height: 1.5rem;
   width: 1.5rem;
@@ -80,12 +89,14 @@
   flex-shrink: 0;
   min-height: 1.5rem;
 }
+
 .incio1545Status {
   flex: 1;
   position: relative;
   line-height: 1.5rem;
   white-space: pre-wrap;
 }
+
 .menu1 {
   align-self: stretch;
   border-radius: var(--br-341xl);
@@ -103,12 +114,14 @@
   position: relative;
   flex-shrink: 0;
 }
+
 .chat1Icon1 {
   height: 1.5rem;
   width: 1.5rem;
   overflow: hidden;
   min-height: 1.5rem;
 }
+
 .incio1543Status {
   flex: 1;
   line-height: 1.5rem;

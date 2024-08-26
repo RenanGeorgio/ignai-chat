@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
-import styles from "../style/chatbox.module.css";
-import { TextField } from '@mui/material';
+import React, { useState } from "react";
+import { TextField } from "@mui/material";
+
+import styles from "./chatbox.module.css";
 
 const ChatComponent: React.FC = () => {
   const [messages, setMessages] = useState([
@@ -126,6 +127,6 @@ const ChatComponent: React.FC = () => {
       </div>
     </div>
   );
-};
+}
 
 export default ChatComponent;

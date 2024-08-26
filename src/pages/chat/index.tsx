@@ -1,11 +1,12 @@
 import { FunctionComponent } from "react";
-import SideBar from "../../components/side-bar";
-import QueueItems from "../../components/Queue/queue-items";
-import styles from "./chat.module.css";
-import TicketsComponent from "../../components/Tickets";
-import ChatComponent from "../../components/Chat/chat";
+import SideBar from "@components/side-bar";
+import QueueComponent from "@components/Queue";
+import TicketsComponent from "@components/Tickets";
+import ChatComponent from "@components/Chat";
 
-const Dashboard: FunctionComponent = () => {
+import styles from "./chat.module.css";
+
+const Chat: FunctionComponent = () => {
   return (
     <div className={styles.dashboard}>
       <div className={styles.sideBar}>
@@ -23,11 +24,11 @@ const Dashboard: FunctionComponent = () => {
       </main>
       <div className={styles.rightSideBar}>
         <div className={styles.queue}>
-          <QueueItems />
+          <QueueComponent />
         </div>
       </div> 
     </div>
   );
 }
 
-export default Dashboard;
+export default Chat;

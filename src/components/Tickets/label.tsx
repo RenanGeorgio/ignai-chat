@@ -1,4 +1,4 @@
-import styles from "../style/message.module.css";
+import styles from "./tickets.module.css";
 
 export const TicketLabel = () => {
   return (

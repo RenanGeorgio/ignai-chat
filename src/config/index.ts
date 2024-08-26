@@ -1,1 +1,1 @@
-export const baseUrl = process.env.NEXT_PUBLIC_AUTH_SERVER
+export const baseUrl = process.env.REACT_PUBLIC_AUTH_SERVER

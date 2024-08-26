@@ -1,11 +1,12 @@
 import React from "react";
-import "../../style/faqPage.css";
 
-import SideBar from "../../components/side-bar";
-import Title from "../../components/title";
-import Conversation from "../../components/conversation";
+import SideBar from "@components/side-bar";
+import Title from "@components/Faq/title";
+import Conversation from "@components/Faq/conversation";
 
-const Page: React.FC = () => {
+import "faq.module.css";
+
+const Faq: React.FC = () => {
   return (
     <div className="container">
       <div className="sidebar">
@@ -95,6 +96,6 @@ const Page: React.FC = () => {
       </div>
     </div>
   );
-};
+}
 
-export default Page;
+export default Faq;

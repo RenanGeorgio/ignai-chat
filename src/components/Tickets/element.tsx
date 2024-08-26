@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { ServicesPerformed } from "@contexts/types";
 import { Obj } from "@types";
 
-import styles from "../style/message.module.css";
+import styles from "./tickets.module.css";
 
 interface Props {
   index: number
