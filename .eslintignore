@@ -1,0 +1,15 @@
+node_modules/
+dist/
+prettier.config.cjs
+.eslintrc.cjs
+env.d.ts
+public/
+src/assets/
+.prettierignore
+yarn.lock
+package.json
+postcss.config.cjs
+prettier.config.cjs
+tailwind.config.cjs
+tsconfig.json
+tsconfig.node.json
