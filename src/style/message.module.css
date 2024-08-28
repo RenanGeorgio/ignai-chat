@@ -64,6 +64,10 @@
   align-self: stretch;
 }
 
+.hoje{
+  margin-left: 15px;
+}
+
 .list {
   display: flex;
   flex-direction: column;

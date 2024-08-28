@@ -75,10 +75,6 @@ const ChatComponent: React.FC = () => {
                 Tempo atendimento: 03:46
               </div>
             </div>
-            <input className={styles.icon} type="checkbox" />
-            <div className={styles.address2}>
-              <a className={styles.x}>x</a>
-            </div>
           </div>
         </div>
       </header>
