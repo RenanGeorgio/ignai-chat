@@ -8,13 +8,17 @@ import ChatComponent from "../../components/chat";
 const Dashboard: FunctionComponent = () => {
   return (
     <div className={styles.dashboard}>
-      <div className={styles.sideBar}>
-        <SideBar />
+      <div className={styles.messageAndSidebar}>
+        <div className={styles.sideBar}>
+          <SideBar />
+        </div>
+        <div className={styles.messageContainer}>
+          <MessageComponent />
+        </div>
       </div>
       <main className={styles.contentWrapper}>
         <section className={styles.content}>
           <div className={styles.container}>
-            <MessageComponent />
             <div className={styles.separador}>
               <ChatComponent />
             </div>
@@ -25,9 +29,9 @@ const Dashboard: FunctionComponent = () => {
         <div className={styles.queue}>
           <QueueItems />
         </div>
-      </div> 
+      </div>
     </div>
   );
-}
+};
 
 export default Dashboard;
