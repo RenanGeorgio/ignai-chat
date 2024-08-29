@@ -1,48 +1,73 @@
 import React, { useState } from 'react';
 import styles from "../style/chatbox.module.css";
 import { TextField } from '@mui/material';
+import { WhatsAppIcon } from '../assets/icons';
 
 const ChatComponent: React.FC = () => {
   const [messages, setMessages] = useState([
     {
-      sender: 'bot',
+      sender: 'cliente',
+      name: 'Gabriel',
       text: 'Olá! Sou o bot de atendimento da Unimarka. Favor digitar seu nome e CNPJ ou 0 caso não seja cliente.',
       time: '11:03 AM',
     },
     {
       sender: 'bot',
-      text: 'Achei seu cadastro :) Poderia me explicar em algumas palavras o motivo do contato?',
-      time: '11:04 AM',
-    },
-    {
-      sender: 'cliente',
+      name: 'Marcelo Almeida',
       text: 'Meu nome é Marcelo Almeida e o CNPJ é 05.026.424/0001-50',
       time: '11:03 AM',
     },
     {
       sender: 'cliente',
-      text: 'Bom dia, estou com um problema em que meu pedido está atrasado, eu chequei na plataforma e a data prevista era para o dia 23 hoje é dia 25, gostaria de saber o que aconteceu.',
+      name: 'Gabriel',
+      text: 'Achei seu cadastro :) Poderia me explicar em algumas palavras o motivo do contato?',
       time: '11:04 AM',
     },
     {
       sender: 'bot',
+      name: 'Marcelo Almeida',
+      text: 'Bom dia, estou com um problema em que meu pedido está atrasado, eu chequei na plataforma e a data prevista era para o dia 23 hoje é dia 25, gostaria de saber o que aconteceu.',
+      time: '11:04 AM',
+    },
+    {
+      sender: 'cliente',
+      name: 'Gabriel',
+      text: 'Uhmm, olhei no sistema aqui e vi que realmente o seu pedido deveria ter chegado, vou lhe passar para um de nossos atendentes para averiguarmos melhor.',
+      time: '11:07 AM',
+    },
+    {
+      sender: 'custom',
+      text: 'Fim de atendimento via bot',
+      time: '11:08 AM',
+    },
+    {
+      sender: 'cliente',
+      name: 'Gabriel',
+      text: 'Você está na posição 0 de atendimento',
+      time: '11:09 AM',
+    },
+    {
+      sender: 'custom',
+      text: 'Início de atendimento humano',
+      time: '11:10 AM',
+    },
+    {
+      sender: 'cliente',
+      name: 'Gabriel',
       text: 'Bom dia! Me chamo Gabriel e estou aqui para lhe ajudar!!',
       time: '11:05 AM',
     },
     {
-      sender: 'cliente',
+      sender: 'bot',
+      name: 'Marcelo Almeida',
       text: 'Bom dia, estou com um problema em que meu pedido está atrasado, eu chequei na plataforma e a data prevista era para o dia 23 hoje é dia 25, gostaria de saber o que aconteceu.',
       time: '11:05 AM',
     },
     {
-      sender: 'bot',
+      sender: 'cliente',
+      name: 'Gabriel',
       text: 'Claro! Vou entrar em contato com o time de logística para eles averiguarem o ocorrido, poderia esperar 5 minutinhos? Caso não possa esperar nós lhe enviaremos as informações por e-mail.',
       time: '11:06 AM',
-    },
-    {
-      sender: 'bot',
-      text: 'Uhmm, olhei no sistema aqui e vi que realmente o seu pedido deveria ter chegado, vou lhe passar para um de nossos atendentes para averiguarmos melhor.',
-      time: '11:07 AM',
     }
   ]);
 
@@ -52,6 +77,7 @@ const ChatComponent: React.FC = () => {
     if (newMessage.trim()) {
       setMessages([...messages, {
         sender: 'cliente',
+        name: 'Marcelo Almeida', 
         text: newMessage,
         time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true }),
       }]);
@@ -64,30 +90,46 @@ const ChatComponent: React.FC = () => {
       <header className={styles.groupChat}>
         <div className={styles.conversation1}>
           <div className={styles.conversation2}>
-            <div className={styles.nomePerimSupermercado}>
-              Nome: Perim Supermercado - CNPJ: 05.026.424/0001-50
-            </div>
-            <div className={styles.address}>
+            <WhatsAppIcon />
+            <div className={styles.nomeEstabelecimento}>
+              <div>Nome: Perim Supermercado - CNPJ: 05.026.424/0001-50</div>
               <div className={styles.escrevendo}>Escrevendo...</div>
             </div>
-            <div className={styles.address1}>
-              <div className={styles.tempoAtendimento0346}>
-                Tempo atendimento: 03:46
-              </div>
+            <div className={styles.tempoAtendimento}>
+              Tempo atendimento: 03:46
             </div>
           </div>
         </div>
       </header>
 
       <div className={styles.conversation3}>
-        {messages.map((message, index) => (
-          <div key={index} className={message.sender === 'bot' ? styles.bot : styles.cliente}>
-            <div className={message.sender === 'bot' ? styles.chat : styles.chatCliente}>
-              <div>{message.text}</div>
+        {messages.map((message, index) => {
+          if (message.sender === 'custom') {
+            return (
+              <div className={styles.containerCustom}>
+                <div key={index} className={styles.customMessage}>
+                  <div className={styles.customText}>{message.text}</div>
+                </div>
+                <div className={styles.timeCustom}>{message.time}</div>
+              </div>
+            );
+          }
+          return (
+            <div key={index} className={message.sender === 'bot' ? styles.bot : styles.cliente}>
+              <div className={styles.messageHeader}>
+                <span className={message.sender === 'bot' ? styles.senderNameBot : styles.senderNameCliente}>
+                  {message.sender === 'bot' ? message.name : ''}
+                </span>
+                {message.sender === 'bot' && (
+                  <span className={styles.timeCliente}>{message.time}</span>
+                )}
+              </div>
+              <div className={message.sender === 'bot' ? styles.chat : styles.chatCliente}>
+                <div>{message.text}</div>
+              </div>
             </div>
-            <div className={styles.time}>{message.time}</div>
-          </div>
-        ))}
+          );
+        })}
       </div>
 
       <div className={styles.input}>
