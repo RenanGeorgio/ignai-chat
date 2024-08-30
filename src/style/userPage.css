@@ -20,8 +20,8 @@
   flex-direction: row;
   align-items: start;
   justify-content: start;
-  margin-top: -32px;
-  margin-left: -45px;
+  margin-top: 0px;
+  margin-left: -15px;
 }
 
 .main {

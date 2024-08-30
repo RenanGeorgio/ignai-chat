@@ -262,3 +262,12 @@
   margin-right: auto;
   margin-left: 10px;
 }
+
+.timeFaq {
+  color: #c0c0c0;
+  display: flex;
+  position: relative;
+  margin-top: -6%;
+  margin-bottom: 20px;
+  justify-content: flex-end;
+}

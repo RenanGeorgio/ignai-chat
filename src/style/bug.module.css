@@ -1,0 +1,70 @@
+.bugContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  flex: 1;
+  align-items: flex-start;
+  width: 100%;
+  height: 700px;
+  text-align: left;
+  background-color: #fff;
+}
+
+.bugHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  align-self: stretch;
+  flex-direction: row;
+}
+
+.bugHeader{
+  width: 100%;
+  padding: 20px;
+  text-align: center;
+  font-weight: bold;
+  color: black;
+  margin: 0;
+}
+
+.bugBody {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex: 1;
+  flex-direction: column;
+  box-sizing: border-box;
+  min-width: 9.875rem;
+}
+
+.containerBug {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem; 
+  justify-content: center; 
+}
+
+.bugItem{
+  display: flex;
+  flex-direction: row;
+  background-color: #a09e9e; 
+  padding: 1rem;
+  border-radius: 0.5rem;
+  display: flex;
+  flex-direction: column; 
+  align-items: center; 
+  justify-content: center; 
+  flex: 1 1 45%; 
+  max-width: 45%;
+  box-sizing: border-box;
+}
+
+.statusBug {
+  display: flex;
+  flex-direction: column;
+}
+
+.bug {
+  font-size: 1rem;
+  margin: 0;
+}
