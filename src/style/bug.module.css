@@ -2,23 +2,14 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  flex: 1;
-  align-items: flex-start;
+  align-items: center;
   width: 100%;
   height: 700px;
-  text-align: left;
+  text-align: center;
   background-color: #fff;
 }
 
 .bugHeader {
-  display: flex;
-  align-items: flex-start;
-  justify-content: flex-start;
-  align-self: stretch;
-  flex-direction: row;
-}
-
-.bugHeader{
   width: 100%;
   padding: 20px;
   text-align: center;
@@ -27,44 +18,85 @@
   margin: 0;
 }
 
+.bugTitle {
+  margin: 0;
+}
+
+.bugInputContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+}
+
+.bugInput {
+  width: 80%;
+  height: 250px;
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 10px;
+  resize: none;
+  font-size: 1rem;
+  color: #333;
+}
+
+.uploadButton {
+  background-color: darkblue;
+  border: 1px solid #fff;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 5px;
+  margin: 10px;
+  margin-right: 25px;
+  color: #fff;
+  align-self: flex-end;
+}
+
+.uploadButton:hover {
+  background-color: rgb(78, 78, 241);
+}
+
 .bugBody {
   display: flex;
-  align-items: flex-start;
-  justify-content: flex-start;
-  flex: 1;
   flex-direction: column;
-  box-sizing: border-box;
-  min-width: 9.875rem;
+  width: 100%;
 }
 
 .containerBug {
   display: flex;
-  flex-wrap: wrap;
-  gap: 1rem; 
-  justify-content: center; 
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  width: 80%;
+  margin: 0 auto;
 }
 
-.bugItem{
+.bugItem {
   display: flex;
-  flex-direction: row;
-  background-color: #a09e9e; 
+  justify-content: space-between;
+  align-items: center;
+  background-color: #a09e9e;
   padding: 1rem;
   border-radius: 0.5rem;
-  display: flex;
-  flex-direction: column; 
-  align-items: center; 
-  justify-content: center; 
-  flex: 1 1 45%; 
-  max-width: 45%;
+  width: 100%;
   box-sizing: border-box;
 }
 
 .statusBug {
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
 }
 
 .bug {
   font-size: 1rem;
   margin: 0;
+}
+
+.emojiBug {
+  margin-left: auto;
 }
