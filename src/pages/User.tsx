@@ -24,14 +24,29 @@ const User: React.FC = () => {
                     Marcio Pereira de Abreu
                   </div>
                 </div>
+                <div className="infoCard">
+                  <div className="infoText">
+                    Atendente 10345
+                  </div>
+                </div>
+                <div className="infoCard">
+                  <div className="infoText">
+                    Ativo
+                  </div>
+                </div>
+                <div className="infoCard">
+                  <div className="infoText">
+                    e-mail: marcio.pereira@unimarka.com.br
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-          <div className="footer">
-            IGNAI, marca registrada
-          </div>
         </section>
       </main>
+      <div className="footer">
+        IGNAI, marca registrada
+      </div>
     </div>
   );
 }

@@ -75,6 +75,7 @@
   box-sizing: border-box;
   gap: var(--gap-2xs);
   min-width: 9.875rem;
+  overflow-y: auto; 
 }
 .queueHeadings {
   align-self: stretch;

@@ -9,8 +9,13 @@ import styles from "@styles/chat.css";
 const Chat: FunctionComponent = () => {
   return (
     <div className={styles.dashboard}>
-      <div className={styles.sideBar}>
-        <SideBar />
+      <div className={styles.messageAndSidebar}>
+        <div className={styles.sideBar}>
+          <SideBar />
+        </div>
+        <div className={styles.messageContainer}>
+          <MessageComponent />
+        </div>
       </div>
       <main className={styles.contentWrapper}>
         <section className={styles.content}>
