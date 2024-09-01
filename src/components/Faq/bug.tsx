@@ -1,5 +1,5 @@
-import { FunctionComponent, useState } from "react";
-import styles from "../style/bug.module.css";
+import React, { FunctionComponent, useState } from "react";
+import styles from "./bug.module.css";
 
 export type BugType = {
   className?: string;
@@ -50,6 +50,6 @@ const BugComponents: FunctionComponent<BugType> = ({ className = "" }) => {
       </div>
     </div>
   );
-};
+}
 
 export default BugComponents;

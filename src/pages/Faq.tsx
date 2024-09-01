@@ -1,11 +1,11 @@
 import React from "react";
-import "../../style/faqPage.css";
 
-import SideBar from "../../components/side-bar";
-import QuestionsComponents from "../../components/questions";
-import ConversationComponent from "../../components/conversation";
-import styles from "../../pages/chat/chat.module.css";
-import BugComponets from "../../components/bug";
+import SideBar from "@components/side-bar";
+import QuestionsComponents from "@components/Faq/questions";
+import ConversationComponent from "@components/Faq/conversation";
+import BugComponets from "@components/Faq/bug";
+
+import styles from "@styles/faq.css";
 
 const Page: React.FC = () => {
   return (
@@ -34,6 +34,6 @@ const Page: React.FC = () => {
       </div>
     </div>
   );
-};
+}
 
 export default Page;

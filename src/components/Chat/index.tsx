@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { TextField } from "@mui/material";
-import { WhatsAppIcon } from '../assets/icons';
+import { WhatsAppIcon } from '@assets/icons';
 import styles from "./chatbox.module.css";
 
 const ChatComponent: React.FC = () => {

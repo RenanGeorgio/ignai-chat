@@ -1,5 +1,13 @@
-import React, { useState } from 'react';
-import styles from "../style/message.module.css";
+import React, { useState } from "react";
+import styles from "./questions.module.css";
+
+const questions = [
+  'Como encontrar a 2° via do boleto?',
+  'Qual botão pula para o próximo da fila?',
+  'Como atender somente ligação?',
+  'Como atender somente whatsapp?',
+  'Qual o tempo máximo de espera do cliente?',
+];
 
 const QuestionsComponents: React.FC = () => {
   const [selected, setSelected] = useState<number | null>(null);
@@ -44,14 +52,6 @@ const QuestionsComponents: React.FC = () => {
       </div>
     </div>
   );
-};
-
-const questions = [
-  'Como encontrar a 2° via do boleto?',
-  'Qual botão pula para o próximo da fila?',
-  'Como atender somente ligação?',
-  'Como atender somente whatsapp?',
-  'Qual o tempo máximo de espera do cliente?',
-];
+}
 
 export default QuestionsComponents;

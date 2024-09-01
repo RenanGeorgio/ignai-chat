@@ -4,7 +4,7 @@ import Chat from "./pages/Chat";
 import Faq from "./pages/Faq";
 import User from "./pages/User";
 
-import "./global.css";
+import "./App.css";
 
 function App() {
   const [expanded, setExpanded] = useState(false);

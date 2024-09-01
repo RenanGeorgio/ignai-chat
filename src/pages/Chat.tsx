@@ -14,13 +14,12 @@ const Chat: FunctionComponent = () => {
           <SideBar />
         </div>
         <div className={styles.messageContainer}>
-          <MessageComponent />
+          <TicketsComponent />
         </div>
       </div>
       <main className={styles.contentWrapper}>
         <section className={styles.content}>
           <div className={styles.container}>
-            <TicketsComponent />
             <div className={styles.separador}>
               <ChatComponent />
             </div>

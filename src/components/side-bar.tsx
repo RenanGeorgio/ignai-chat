@@ -1,12 +1,10 @@
 import { FunctionComponent } from "react";
 import { Link } from "react-router-dom";
-import { IgnaiIcon } from "../assets/icons";
-import { FileTextIcon, MessageCircleIcon, SettingIcon,  } from "../assets/icons";
+import { FileTextIcon, MessageCircleIcon, SettingIcon,  IgnaiIcon } from "../assets/icons";
 
-import "@style/sidebar.css";
+import "@styles/sidebar.css";
 
 const SideBar: FunctionComponent = () => {
-
   return (
     <div className="container">
       <div className="section1">
