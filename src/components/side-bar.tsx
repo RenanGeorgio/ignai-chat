@@ -1,8 +1,9 @@
 import { FunctionComponent } from "react";
-import "../style/sidebar.css";
 import { Link } from "react-router-dom";
 import { IgnaiIcon } from "../assets/icons";
 import { FileTextIcon, MessageCircleIcon, SettingIcon,  } from "../assets/icons";
+
+import "@style/sidebar.css";
 
 const SideBar: FunctionComponent = () => {
 

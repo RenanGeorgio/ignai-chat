@@ -1,5 +1,6 @@
 import React from "react";
-import '../style/input.css';
+
+import "./input.module.css";
 
 export type InputType = {
   className?: string;
@@ -16,6 +17,6 @@ const Input: React.FC<InputType> = ({ className = "", rightIcon }) => {
       </div>
     </div>
   );
-};
+}
 
 export default Input;

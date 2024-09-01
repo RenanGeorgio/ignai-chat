@@ -1,5 +1,6 @@
 import React, { useMemo, CSSProperties } from "react";
-import '../style/title.css'; 
+
+import "./title.module.css"; 
 
 export type TitleType = {
   className?: string;
@@ -9,7 +10,7 @@ export type TitleType = {
 
   /** Style props */
   propMinWidth?: CSSProperties["minWidth"];
-};
+}
 
 const Title: React.FC<TitleType> = ({
   className = "",
@@ -41,6 +42,6 @@ const Title: React.FC<TitleType> = ({
       </div>
     </div>
   );
-};
+}
 
 export default Title;

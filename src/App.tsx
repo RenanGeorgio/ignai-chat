@@ -1,14 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import { Routes, Route } from "react-router-dom";
-// import Sidebar from "./components/side-bar";
-// import { SidebarProvider } from "./contexts/SidebarContext";
-import Chat from "./pages/chat/chatPage";
-import Faq from "./pages/faq/faqPage";
-import User from "./pages/user/userPage";
+import Chat from "./pages/Chat";
+import Faq from "./pages/Faq";
+import User from "./pages/User";
+
+import "./global.css";
 
 function App() {
+  const [expanded, setExpanded] = useState(false);
+
   return (
     <div className="app-container">
+      {/*<Sidebar expanded={expanded} setExpanded={setExpanded} />*/}
       <Routes>
         <Route path="/" element={<Chat />} />
         <Route path="/faq" element={<Faq />} />
