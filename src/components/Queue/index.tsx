@@ -5,7 +5,7 @@ import { MessageCircleIcon, SettingIcon } from "../../assets/icons";
 import styles from "./queue.module.css";
 
 export type QueueItemsType = {
-  className?: string;
+  children?: React.ReactNode;
 };
 
 type GrowProps = {
@@ -13,7 +13,7 @@ type GrowProps = {
   placement: string
 };
 
-const QueueComponent: FunctionComponent<QueueItemsType> = ({ className = "" }) => {
+const QueueComponent: FunctionComponent<QueueItemsType> = () => {
   const anchorRef = useRef<HTMLDivElement>(null);
 
   const [checked, setChecked] = useState<boolean>(true);
