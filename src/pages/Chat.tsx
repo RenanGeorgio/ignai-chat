@@ -1,10 +1,10 @@
 import { FunctionComponent } from "react";
-import SideBar from "@components/side-bar";
-import QueueComponent from "@components/Queue";
-import TicketsComponent from "@components/Tickets";
-import ChatComponent from "@components/Chat";
+import SideBar from "../components/side-bar";
+import QueueComponent from "../components/Queue/index";
+import TicketsComponent from "../components/Tickets/index";
+import ChatComponent from "../components/Chat/index";
 
-import styles from "@styles/chat.css";
+import styles from "../styles/chat.css";
 
 const Chat: FunctionComponent = () => {
   return (

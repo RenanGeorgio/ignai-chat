@@ -1,7 +1,7 @@
 import React from "react";
-import SideBar from "@components/side-bar";
+import SideBar from "../components/side-bar";
 
-import "@styles/user.css";
+import "../styles/user.css";
 
 const User: React.FC = () => {
   return (

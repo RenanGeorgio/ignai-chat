@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { TextField } from "@mui/material";
-import { BotIcon } from "@assets/icons";
+import { BotIcon } from "../../assets/icons";
 import styles from "./conversation.module.css"; 
 
 const ConversationComponent: React.FC = () => {

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useCall } from '@contexts/call/hooks';
+import { useCall } from '../../contexts/call/hooks';
 import { TicketsHeader } from "./header";
 import { TicketLabel } from "./label";
 import { TicketElement } from "./element";
@@ -24,6 +24,7 @@ const TicketsComponent: React.FC = () => {
           <div className={styles.list}>
             {conversations.map((conversation, index) => (
               <TicketElement 
+                key={index}
                 index={index}
                 selected={selected}
                 handleElementSelect={handleSelect}
