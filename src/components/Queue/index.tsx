@@ -14,6 +14,7 @@ const QueueComponent: FunctionComponent<QueueItemsType> = () => {
   const [checked, setChecked] = useState<boolean>(true);
   const [open, setOpen] = useState<boolean>(false);
   const [manual, setManual] = useState<boolean>(true);
+  const [controllDisabled, setControllDisabled] = useState<boolean>(false);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setChecked(event.target.checked);
@@ -21,6 +22,7 @@ const QueueComponent: FunctionComponent<QueueItemsType> = () => {
 
   const handleChangeManualMode = (event: React.ChangeEvent<HTMLInputElement>) => {
     setManual(event.target.checked);
+    setControllDisabled(event.target.checked);
   };
 
   const handleToggle = () => {
@@ -47,13 +49,13 @@ const QueueComponent: FunctionComponent<QueueItemsType> = () => {
             <Button 
               size="medium" 
               variant="contained" 
-              disabled={false}
+              disabled={controllDisabled}
               endIcon={<MessageCircleIcon />}
               onClick={() => {
                 alert('clicked');
               }}
             >
-              Send
+              Atender
             </Button>
             <Button
               size="small"
