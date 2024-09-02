@@ -1,5 +1,5 @@
 import { FunctionComponent } from "react";
-import styles from "../style/customElement.module.css";
+import styles from "../styles/customElement.module.css";
 
 export type Element2Type = {
   className?: string;
