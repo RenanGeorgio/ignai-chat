@@ -80,7 +80,8 @@ const QueueComponent: FunctionComponent<QueueItemsType> = () => {
             transition
             disablePortal
           >
-            {({ TransitionProps, placement }: typeof PopperChildrenProps) => (
+            {/* @ts-ignore */}
+            {({ TransitionProps, placement }) => (
               <Grow
                 {...TransitionProps}
                 style={{
