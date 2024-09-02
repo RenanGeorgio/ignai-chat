@@ -41,7 +41,7 @@ const QueueComponent: FunctionComponent<QueueItemsType> = () => {
   };
 
   return (
-    <div className={[styles.queueItems, className].join(" ")}>
+    <div className={styles.queueItems}>
       <div className={styles.queueHeadings}>
         <Stack direction="row" spacing={2}>
           <ButtonGroup
