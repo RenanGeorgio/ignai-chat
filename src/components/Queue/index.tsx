@@ -1,5 +1,6 @@
 import React, { FunctionComponent, useState } from "react";
-import { Switch, FormGroup, FormControlLabel } from "@mui/material";
+import { Switch, Stack, FormGroup, FormControlLabel, Button } from "@mui/material";
+import { MessageCircleIcon } from "../../assets/icons";
 
 import styles from "./queue.module.css";
 
@@ -17,17 +18,22 @@ const QueueComponent: FunctionComponent<QueueItemsType> = ({ className = "" }) =
   return (
     <div className={[styles.queueItems, className].join(" ")}>
       <div className={styles.queueHeadings}>
-      <FormGroup>
-        <FormControlLabel
-          control={
-            <Switch
-              checked={checked}
-              onChange={handleChange}
-              inputProps={{ 'aria-label': 'controlled' }}
-            />} 
-          label="Habilitado"
-        />
-      </FormGroup>
+        <Stack direction="row" spacing={2}>
+          <Button variant="contained" endIcon={<MessageCircleIcon />}>
+            Send
+          </Button>
+          <FormGroup>
+            <FormControlLabel
+              control={
+                <Switch
+                  checked={checked}
+                  onChange={handleChange}
+                  inputProps={{ 'aria-label': 'controlled' }}
+                />} 
+              label={checked ? "Habilitado" : "Em Pausa"}
+            />
+          </FormGroup>
+        </Stack>
         <h3 className={styles.filaDeAtendimento}>Fila de atendimento</h3>
       </div>
       <div className={styles.queueContacts}>
