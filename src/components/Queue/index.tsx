@@ -1,4 +1,5 @@
-import { FunctionComponent } from "react";
+import React, { FunctionComponent, useState } from "react";
+import { Switch } from "@mui/material";
 
 import styles from "./queue.module.css";
 
@@ -7,9 +8,21 @@ export type QueueItemsType = {
 };
 
 const QueueComponent: FunctionComponent<QueueItemsType> = ({ className = "" }) => {
+  const [checked, setChecked] = useState(true);
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setChecked(event.target.checked);
+  };
+
   return (
     <div className={[styles.queueItems, className].join(" ")}>
       <div className={styles.queueHeadings}>
+      <Switch
+        checked={checked}
+        onChange={handleChange}
+        inputProps={{ 'aria-label': 'controlled' }}
+        label="Habilitado"
+      />
         <h3 className={styles.filaDeAtendimento}>Fila de atendimento</h3>
       </div>
       <div className={styles.queueContacts}>
