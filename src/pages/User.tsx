@@ -1,14 +1,10 @@
 import React from "react";
-import SideBar from "../components/side-bar";
 
 import "../styles/user.css";
 
 const User: React.FC = () => {
   return (
     <div className="container">
-      <div className="sidebar">
-        <SideBar />
-      </div>
       <main className="main">
         <section className="section">
           <div className="title">

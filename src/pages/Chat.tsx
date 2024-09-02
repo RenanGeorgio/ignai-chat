@@ -1,5 +1,4 @@
 import { FunctionComponent } from "react";
-import SideBar from "../components/side-bar";
 import QueueComponent from "../components/Queue/index";
 import TicketsComponent from "../components/Tickets/index";
 import ChatComponent from "../components/Chat/index";
@@ -10,9 +9,6 @@ const Chat: FunctionComponent = () => {
   return (
     <div className={styles.dashboard}>
       <div className={styles.messageAndSidebar}>
-        <div className={styles.sideBar}>
-          <SideBar />
-        </div>
         <div className={styles.messageContainer}>
           <TicketsComponent />
         </div>

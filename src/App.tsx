@@ -3,6 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import Chat from "./pages/Chat";
 import Faq from "./pages/Faq";
 import User from "./pages/User";
+import SideBar from "@components/side-bar";
 
 import "./App.css";
 
@@ -11,7 +12,9 @@ function App() {
 
   return (
     <div className="app-container">
-      {/*<Sidebar expanded={expanded} setExpanded={setExpanded} />*/}
+      <div className="sidebar">
+        <SideBar />
+      </div>
       <Routes>
         <Route path="/" element={<Chat />} />
         <Route path="/faq" element={<Faq />} />

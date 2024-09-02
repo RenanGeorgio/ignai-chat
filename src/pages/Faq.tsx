@@ -1,6 +1,5 @@
 import React from "react";
 
-import SideBar from "../components/side-bar";
 import QuestionsComponents from "../components/Faq/questions";
 import ConversationComponent from "../components/Faq/conversation";
 import BugComponets from "../components/Faq/bug";
@@ -11,9 +10,6 @@ const Page: React.FC = () => {
   return (
     <div className={styles.dashboard}>
       <div className={styles.messageAndSidebar}>
-        <div className={styles.sideBar}>
-          <SideBar />
-        </div>
         <div className={styles.messageContainer}>
           <QuestionsComponents />
         </div>
