@@ -1,17 +1,11 @@
 import React, { FunctionComponent, useState, useRef } from "react";
 import { Switch, Stack, FormGroup, FormControlLabel, Button, ButtonGroup, Popper, Grow, Paper, ClickAwayListener } from "@mui/material";
-import PopperChildrenProps from "@mui/material/Popper";
 import { MessageCircleIcon, SettingIcon } from "../../assets/icons";
 
 import styles from "./queue.module.css";
 
 export type QueueItemsType = {
   children?: React.ReactNode;
-};
-
-type GrowProps = {
-  TransitionProps: any 
-  placement: string
 };
 
 const QueueComponent: FunctionComponent<QueueItemsType> = () => {
