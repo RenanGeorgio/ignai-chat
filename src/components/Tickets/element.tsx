@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { ServicesPerformed } from "@contexts/types";
+import { ServicesPerformed } from "../../contexts/types";
 import { Obj } from "@types";
 
 import styles from "./tickets.module.css";

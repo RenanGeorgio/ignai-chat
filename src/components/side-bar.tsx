@@ -2,7 +2,7 @@ import { FunctionComponent } from "react";
 import { Link } from "react-router-dom";
 import { FileTextIcon, MessageCircleIcon, SettingIcon,  IgnaiIcon } from "../assets/icons";
 
-import "@styles/sidebar.css";
+import "../styles/sidebar.css";
 
 const SideBar: FunctionComponent = () => {
   return (

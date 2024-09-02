@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { TextField } from "@mui/material";
-import { WhatsAppIcon } from '@assets/icons';
+import { WhatsAppIcon } from '../../assets/icons';
 import styles from "./chatbox.module.css";
 
 const ChatComponent: React.FC = () => {
@@ -106,8 +106,8 @@ const ChatComponent: React.FC = () => {
         {messages.map((message, index) => {
           if (message.sender === 'custom') {
             return (
-              <div className={styles.containerCustom}>
-                <div key={index} className={styles.customMessage}>
+              <div key={index} className={styles.containerCustom}>
+                <div className={styles.customMessage}>
                   <div className={styles.customText}>{message.text}</div>
                 </div>
                 <div className={styles.timeCustom}>{message.time}</div>

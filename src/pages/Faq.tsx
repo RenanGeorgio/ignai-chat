@@ -1,11 +1,11 @@
 import React from "react";
 
-import SideBar from "@components/side-bar";
-import QuestionsComponents from "@components/Faq/questions";
-import ConversationComponent from "@components/Faq/conversation";
-import BugComponets from "@components/Faq/bug";
+import SideBar from "../components/side-bar";
+import QuestionsComponents from "../components/Faq/questions";
+import ConversationComponent from "../components/Faq/conversation";
+import BugComponets from "../components/Faq/bug";
 
-import styles from "@styles/faq.css";
+import styles from "../styles/faq.css";
 
 const Page: React.FC = () => {
   return (
