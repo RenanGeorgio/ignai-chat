@@ -3,7 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import Chat from "./pages/Chat";
 import Faq from "./pages/Faq";
 import User from "./pages/User";
-import SideBar from "@components/side-bar";
+import SideBar from "./components/side-bar";
 
 import "./App.css";
 
