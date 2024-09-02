@@ -1,5 +1,5 @@
 import React, { FunctionComponent, useState } from "react";
-import { Switch } from "@mui/material";
+import { Switch, FormGroup, FormControlLabel } from "@mui/material";
 
 import styles from "./queue.module.css";
 
@@ -17,12 +17,17 @@ const QueueComponent: FunctionComponent<QueueItemsType> = ({ className = "" }) =
   return (
     <div className={[styles.queueItems, className].join(" ")}>
       <div className={styles.queueHeadings}>
-      <Switch
-        checked={checked}
-        onChange={handleChange}
-        inputProps={{ 'aria-label': 'controlled' }}
-        label="Habilitado"
-      />
+      <FormGroup>
+        <FormControlLabel
+          control={
+            <Switch
+              checked={checked}
+              onChange={handleChange}
+              inputProps={{ 'aria-label': 'controlled' }}
+            />} 
+          label="Habilitado"
+        />
+      </FormGroup>
         <h3 className={styles.filaDeAtendimento}>Fila de atendimento</h3>
       </div>
       <div className={styles.queueContacts}>
