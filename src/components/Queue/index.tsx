@@ -1,6 +1,6 @@
 import React, { FunctionComponent, useState, useRef } from "react";
 import { Switch, Stack, FormGroup, FormControlLabel, Button, ButtonGroup, Popper, Grow, Paper, ClickAwayListener } from "@mui/material";
-import type { PopperChildrenProps } from "@mui/material/Popper";
+import PopperChildrenProps from "@mui/material/Popper";
 import { MessageCircleIcon, SettingIcon } from "../../assets/icons";
 
 import styles from "./queue.module.css";
