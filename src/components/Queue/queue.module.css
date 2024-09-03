@@ -80,6 +80,7 @@
 .queueHeadings {
   align-self: stretch;
   flex-direction: row;
+  margin: 10px;
   gap: var(--gap-base);
 }
 .queueHeadings::after {
@@ -421,6 +422,7 @@
   font-weight: bold;
   color: black;
   margin: 0;
+  margin-bottom: 25px;
   border-bottom: 2px solid #e0e0e0;
 }
 .queueContactStatuses, .contactData, .secondContactInfo {

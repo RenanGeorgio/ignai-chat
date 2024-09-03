@@ -1,7 +1,8 @@
 .dashboard {
-  width: 100%;
+  width: 95%;
   height: 100vh;
-  position: relative;
+  position: absolute;
+  left: 5%;
   background-color: #fff;
   overflow: hidden;
   border-radius: 15px;
@@ -14,17 +15,6 @@
   row-gap: 20px;
   text-align: left;
   color: #fff;
-}
-
-.sideBar {
-  height: 81.25rem;
-  width: 6.25rem;
-  display: flex;
-  flex-direction: row;
-  align-items: start;
-  justify-content: start;
-  margin-top: 0px;
-  margin-left: -15px;
 }
 
 .container {
@@ -71,12 +61,6 @@
 }
 
 @media screen and (max-width: 850px) {
-  .sideBar {
-    display: flex; 
-    width: 90px; 
-    height: auto;
-  }
-
   .dashboard {
     flex-direction: column;
     padding: 0;

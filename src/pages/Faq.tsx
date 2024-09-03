@@ -4,27 +4,27 @@ import QuestionsComponents from "../components/Faq/questions";
 import ConversationComponent from "../components/Faq/conversation";
 import BugComponets from "../components/Faq/bug";
 
-import styles from "../styles/faq.css";
+import "../styles/faq.css";
 
 const Page: React.FC = () => {
   return (
-    <div className={styles.dashboard}>
-      <div className={styles.messageAndSidebar}>
-        <div className={styles.messageContainer}>
+    <div className="dashboard">
+      <div className="messageAndSidebar">
+        <div className="messageContainer">
           <QuestionsComponents />
         </div>
       </div>
-      <main className={styles.contentWrapper}>
-        <section className={styles.content}>
-          <div className={styles.container}>
+      <main className="contentWrapper">
+        <section className="content">
+          <div className="container">
             <div className="separador">
               <ConversationComponent />
             </div>
           </div>
         </section>
       </main>
-      <div className={styles.rightSideBar}>
-        <div className={styles.queue}>
+      <div className="rightSideBar">
+        <div className="queue">
           <BugComponets />
         </div>
       </div>
