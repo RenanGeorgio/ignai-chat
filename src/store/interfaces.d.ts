@@ -1,21 +1,20 @@
 import { 
-  AddQuery, 
-  SetConversation, 
-  UpdateStreamingQuery, 
-  UpdateConversationId, 
-  UpdateStreamingSource, 
-  UpdateQuery, 
+  AddConversation, 
+  SetCurrentConversation,
   SetStatus, 
-  RaiseError
+  RaiseError,
+  CurrentConversation
 } from "./types";
+import { USER_STATE } from "@types";
 
-export interface IConversationStore {
-  addQuery: AddQuery
-  setConversation: SetConversation
-  updateStreamingQuery: UpdateStreamingQuery
-  updateConversationId: UpdateConversationId
-  updateStreamingSource: UpdateStreamingSource
-  updateQuery: UpdateQuery
+export interface IConversationsStore {
+  addConversation: AddConversation
+  setCurrentConversation: SetCurrentConversation
   setStatus: SetStatus
   raiseError: RaiseError
+}
+
+export interface IConversationsState {
+  queueConversations: CurrentConversation[]
+  userStatus: USER_STATE
 }

@@ -3,7 +3,8 @@ import { Device, Call } from "@twilio/voice-sdk";
 
 import { CallContext } from "../CallContext";
 import { useUser } from "../../user/hooks";
-import { USER_STATE, CallState, ConsumersQueue, ServicesPerformed } from "../types";
+import { CallState, ServicesPerformed } from "../types";
+import { ConsumersQueue, USER_STATE } from "@types";
 
 type CallProviderProps = {
   children: ReactNode
@@ -19,7 +20,7 @@ export const CallProvider = ({ children }: CallProviderProps) => {
   const [userState, setUserState] = useState(USER_STATE.OFFLINE);
   const [phoneNumber, setPhoneNumber] = useState<string>("");
   const [connection, setConnection] = useState<any>(null);
-  
+
   const [currentState, setCurrentState] = useState<CallState>({
     identity: "",
     status: null,

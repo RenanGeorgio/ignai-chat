@@ -7,7 +7,8 @@ import { useUser } from "../../user/hooks";
 import { getChat, postChat } from "../../../controllers/chat";
 import compareArrays from "../../../helpers/compareArrays";
 import { baseUrl } from "../../../config/index";
-import { Chat, ChatClient, Message, OnlineUser, ChatStatus } from "../types";
+import { Chat, ChatClient, Message, ChatStatus } from "../types";
+import { OnlineUser } from "@types";
 
 type ChatProviderProps = {
   children: ReactNode

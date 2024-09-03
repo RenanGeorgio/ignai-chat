@@ -1,3 +1,5 @@
+import { OnlineUser } from "@types";
+
 export interface Message {
   _id: string
   senderId: string
@@ -36,11 +38,6 @@ export type Chat = {
   createdAt: string
   updatedAt: string
   __v?: number
-}
-
-export interface OnlineUser  {
-  userId: string
-  socketId: string
 }
 
 export type ChatContextType = {

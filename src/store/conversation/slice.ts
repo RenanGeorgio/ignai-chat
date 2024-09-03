@@ -1,36 +1,29 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { conversationReducer } from "./reducers";
+import { conversationsReducer } from "./reducers";
 import { fetchAnswer } from "@features/conversations";
 import type { RootState } from "../store";
-import { ConversationState } from "@types";
+import { IConversationsState } from "@store/interfaces";
+import { USER_STATE } from "@types";
+
 
 const {
-  addQuery,
-  setConversation,
-  updateStreamingQuery,
-  updateConversationId,
-  updateStreamingSource,
-  updateQuery,
+  addConversation,
+  setCurrentConversation,
   setStatus,
-  raiseError
-} = conversationReducer;
+  raiseError,
+} = conversationsReducer;
 
-const initialState: ConversationState = {
-  queries: [],
-  status: 'idle',
-  conversationId: null,
+const initialState: IConversationsState = {
+  queueConversations: [],
+  userStatus: USER_STATE.OFFLINE
 };
 
-export const conversationSlice = createSlice({
-  name: 'conversation',
+export const conversationsSlice = createSlice({
+  name: 'conversations',
   initialState,
   reducers: {
-    addQuery,
-    setConversation,
-    updateStreamingQuery,
-    updateConversationId,
-    updateStreamingSource,
-    updateQuery,
+    addConversation,
+    setCurrentConversation,
     setStatus,
     raiseError,
   },
@@ -50,11 +43,11 @@ export const conversationSlice = createSlice({
   },
 });
 
-export const selectQueries = (state: RootState) => state.conversation.queries;
+export const selectQueueConversation = (state: RootState) => state.conversations.queueConversations;
 
-export const selectStatus = (state: RootState) => state.conversation.status;
+export const selectStatus = (state: RootState) => state.conversations.userStatus;
 
-const { reducer, actions } = conversationSlice;
+const { reducer, actions } = conversationsSlice;
 
-export { actions as conversationActions };
-export { reducer as conversationReducer };
+export { actions as conversationsActions };
+export { reducer as conversationsReducer };

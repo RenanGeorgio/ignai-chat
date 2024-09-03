@@ -1,5 +1,4 @@
-import { CallerInfo } from "@twilio/voice-sdk";
-import { Obj } from "@types";
+import { ConsumersQueue, Obj } from "@types";
 
 export interface Message {
   _id: string
@@ -23,14 +22,6 @@ export interface ITicket extends ServicesPerformed {
   sugestion?: string
 }
 
-export interface ConsumersQueue {
-  queueId: string | number
-  callData: CallType
-  priority?: number
-  updatedAt: string
-  createdAt: string
-}
-
 export interface CallContextType {
   servicesPerformed: ServicesPerformed[]
   isUserChatsLoading: boolean
@@ -47,14 +38,6 @@ export interface CallContextType {
     currentChatId: string
   ) => void
   consumersQueue: ConsumersQueue[]
-}
-
-export type CallType = {
-  callerInfo?: CallerInfo | null
-  parameters: Obj
-  defaultMaxListeners: number
-  customParameters?: any
-  outboundConnectionId?: undefined | string
 }
 
 export type Chat = {
@@ -91,13 +74,4 @@ export enum ChatStatus {
   FINISHED = "finished",
   ARCHIVED = "archived",
   DELETED = "deleted",
-}
-
-export enum USER_STATE {
-  CONNECTING = "Connecting",
-  READY = "Ready",
-  INCOMING = "Incoming",
-  ON_CALL = "On call",
-  OFFLINE = "Offline",
-  ERROR = "Error",
 }
