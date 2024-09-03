@@ -1,5 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { conversationReducer } from "./conversation/slice";
+import { conversationsReducer } from "./conversations/slice";
 
 const key = localStorage.getItem('DocsGPTApiKey');
 const prompt = localStorage.getItem('DocsGPTPrompt');
@@ -13,7 +13,7 @@ export const store = configureStore({
   preloadedState: {
   },
   reducer: {
-    conversation: conversationReducer
+    conversation: conversationsReducer
   },
   middleware: (getDefaultMiddleware: any) => getDefaultMiddleware().concat(),
   devTools: isDev,

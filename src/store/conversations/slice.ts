@@ -29,16 +29,16 @@ export const conversationsSlice = createSlice({
   },
   extraReducers(builder) {
     builder
-      .addCase(fetchAnswer.pending, (state: ConversationState) => {
-        state.status = 'loading';
+      .addCase(fetchAnswer.pending, (state: IConversationsState) => {
+        state.userStatus = USER_STATE.READY;
       })
-      .addCase(fetchAnswer.rejected, (state: ConversationState, action: any) => {
+      .addCase(fetchAnswer.rejected, (state: IConversationsState, action: any) => {
         if (action.meta.aborted) {
-          state.status = 'idle';
+          state.userStatus = USER_STATE.ON_CALL;
           return state;
         }
-        state.status = 'failed';
-        state.queries[state.queries.length - 1].content.error = 'Something went wrong. Please check your internet connection.';
+        state.userStatus = USER_STATE.ERROR;
+        state.queueConversations[state.queueConversations.length - 1].error = 'Something went wrong. Please check your internet connection.';
       });
   },
 });
