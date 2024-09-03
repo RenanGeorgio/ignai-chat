@@ -5,11 +5,6 @@ export const TicketsHeader = () => {
     <div className={styles.title}>
       <h1 className={styles.messagens}>Mensagens</h1>
       <div className={styles.notification}>
-        <span role="img" aria-label="edit" className={styles.emoji}>
-          ✏️
-        </span>
-      </div>
-      <div className={styles.notification}>
         <span role="img" aria-label="search" className={styles.emoji}>
           🔍
         </span>
