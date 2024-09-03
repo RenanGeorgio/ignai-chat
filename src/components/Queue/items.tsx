@@ -6,7 +6,7 @@ import styles from "./items.module.css";
 export interface QueueItemsType {
   queueItemsLabel: QueueItemLabel[]
   children?: React.ReactNode
-};
+}
 
 export const QueueItems: FunctionComponent<QueueItemsType> = ({ queueItemsLabel }: QueueItemsType) => {
   const [queueItems, setQueueItems] = useState<QueueItemLabel[]>(queueItemsLabel);
