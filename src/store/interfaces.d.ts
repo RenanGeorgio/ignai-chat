@@ -6,24 +6,7 @@ import {
   UpdateStreamingSource, 
   UpdateQuery, 
   SetStatus, 
-  RaiseError,
-  SetApiKey,
-  SetSelectedDocs,
-  SetSourceDocs,
-  SetConversations,
-  SetModalStateDeleteConv,
-  SetPrompt,
-  SetChunks,
-  SetTokenLimit,
-  SetSharedStatus,
-  SetIdentifier,
-  SetFetchedData,
-  SetClientApiKey,
-  AddSharedQuery,
-  UpdateSharedStreamingQuery,
-  UpdateSharedQuery,
-  RaiseSharedError,
-  SaveToLocalStorage
+  RaiseError
 } from "./types";
 
 export interface IConversationStore {
@@ -35,27 +18,4 @@ export interface IConversationStore {
   updateQuery: UpdateQuery
   setStatus: SetStatus
   raiseError: RaiseError
-}
-
-export interface IPreferencesStore {
-  setApiKey: SetApiKey
-  setSelectedDocs: SetSelectedDocs 
-  setSourceDocs: SetSourceDocs
-  setConversations: SetConversations
-  setPrompt: SetPrompt
-  setChunks: SetChunks
-  setTokenLimit: SetTokenLimit
-  setModalStateDeleteConv: SetModalStateDeleteConv
-}
-
-export interface ISharedConversationStore {
-  setStatus: SetSharedStatus
-  setIdentifier: SetIdentifier
-  setFetchedData: SetFetchedData
-  setClientApiKey: SetClientApiKey
-  addQuery: AddSharedQuery
-  updateStreamingQuery: UpdateSharedStreamingQuery
-  updateQuery: UpdateSharedQuery
-  raiseError: RaiseSharedError
-  saveToLocalStorage: SaveToLocalStorage
 }

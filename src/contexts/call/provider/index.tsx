@@ -1,33 +1,32 @@
-import React, { useCallback, useEffect, useState, ReactNode, useRef } from "react";
-// import { Device, Call } from "@twilio/voice-sdk";
+import React, { useEffect, useState, ReactNode, useRef } from "react";
+import { Device, Call } from "@twilio/voice-sdk";
 
 import { CallContext } from "../CallContext";
-// import { getCall } from "../../../controllers/call";
 import { useUser } from "../../user/hooks";
-import { Chat, Message, USER_STATE, CallState, ConsumersQueue, ServicesPerformed } from "../types";
+import { USER_STATE, CallState, ConsumersQueue, ServicesPerformed } from "../types";
 
 type CallProviderProps = {
   children: ReactNode
 }
 
 export const CallProvider = ({ children }: CallProviderProps) => {
-  const [servicesPerformed, setServicesPerformed] = useState<ServicesPerformed[]>([]);
   const [isUserChatsLoading, setIsUserChatsLoading] = useState<boolean>(false);
   const [userChatsError, setUserChatsError] = useState<string | null>(null);
-  const [currentChat, setCurrentChat] = useState<Chat | null>(null);
-  const [messages, setMessages] = useState<Message[] | null>(null);
-  const [newMessage, setNewMessage] = useState<Message | null>(null);
+
+  const [servicesPerformed, setServicesPerformed] = useState<ServicesPerformed[]>([]);
   const [consumersQueue, setconsumersQueue] = useState<ConsumersQueue[]>([]);
+
   const [userState, setUserState] = useState(USER_STATE.OFFLINE);
   const [phoneNumber, setPhoneNumber] = useState<string>("");
   const [connection, setConnection] = useState<any>(null);
+  
   const [currentState, setCurrentState] = useState<CallState>({
     identity: "",
     status: null,
     ready: false,
   });
 
-  // const device = useRef<Device | null>(null);
+  const device = useRef<Device | null>(null);
 
   const { twilioToken, user } = useUser();
 
@@ -50,15 +49,11 @@ export const CallProvider = ({ children }: CallProviderProps) => {
     setCurrentState(incomingState);
   }
 
-  const updateCurrentChat = useCallback((chat: Chat) => {
-    setCurrentChat(chat);
-  }, []);
-
   useEffect(() => {
     if (twilioToken == null) {
       return
     }
-    /*
+    
     device.current = new Device(twilioToken, {
       logLevel: 1,
       codecPreferences: ['opus', 'pcmu'],
@@ -72,10 +67,8 @@ export const CallProvider = ({ children }: CallProviderProps) => {
       device.current.destroy();
       setUserState(USER_STATE.OFFLINE);
     }
-    */
   }, [twilioToken]);
 
-  /*
   useEffect(() => {
     if (!device?.current) {
       return;
@@ -161,26 +154,6 @@ export const CallProvider = ({ children }: CallProviderProps) => {
       //});
     });
   }, [device.current]);
-  */
-  useEffect(() => {
-    const getUserChats = async () => {
-      if (user?.companyId) {
-        setIsUserChatsLoading(true);
-
-        /*
-        const response = await getCall(`chat/${user.companyId}`);
-        if (!response.ok) {
-          return setUserChatsError('error');
-        }
-        const data: ServicesPerformed[] = await response.json();
-        
-        setServicesPerformed(data);
-        */
-      }
-    }
-
-    getUserChats();
-  },[]);
 
   return (
     <CallContext.Provider
@@ -188,9 +161,6 @@ export const CallProvider = ({ children }: CallProviderProps) => {
         servicesPerformed,
         isUserChatsLoading,
         userChatsError,
-        updateCurrentChat,
-        currentChat,
-        messages,
         consumersQueue
       }}
     >

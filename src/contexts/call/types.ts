@@ -1,4 +1,4 @@
-// import { CallerInfo } from "@twilio/voice-sdk";
+import { CallerInfo } from "@twilio/voice-sdk";
 import { Obj } from "@types";
 
 export interface Message {
@@ -35,9 +35,6 @@ export interface CallContextType {
   servicesPerformed: ServicesPerformed[]
   isUserChatsLoading: boolean
   userChatsError: string | null
-  updateCurrentChat: (chat: Chat) => void
-  currentChat: Chat | null
-  messages: Message[] | null
   sendTextMessage?: (
     textMessage: string,
     sender: { companyId: string },
@@ -53,7 +50,7 @@ export interface CallContextType {
 }
 
 export type CallType = {
-//  callerInfo?: CallerInfo | null
+  callerInfo?: CallerInfo | null
   parameters: Obj
   defaultMaxListeners: number
   customParameters?: any

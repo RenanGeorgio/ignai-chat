@@ -1,12 +1,12 @@
 import React, { useCallback, useEffect, useState, ReactNode } from "react";
-// import { io, Socket } from "socket.io-client";
-// import Cookies from "js-cookie";
+import { io, Socket } from "socket.io-client";
+import Cookies from "js-cookie";
 
 import { ChatContext } from "../ChatContext";
 import { useUser } from "../../user/hooks";
-// import { getChat, postChat } from "../../../controllers/chat";
-// import compareArrays from "../../../helpers/compareArrays";
-// import { baseUrl } from "../../../config/index";
+import { getChat, postChat } from "../../../controllers/chat";
+import compareArrays from "../../../helpers/compareArrays";
+import { baseUrl } from "../../../config/index";
 import { Chat, ChatClient, Message, OnlineUser, ChatStatus } from "../types";
 
 type ChatProviderProps = {
@@ -24,10 +24,10 @@ export const ChatProvider = ({ children }: ChatProviderProps) => {
   const [messages, setMessages] = useState<Message[] | null>(null);
   const [newMessage, setNewMessage] = useState<Message | null>(null);
   const [onlineUsers, setOnlineUsers] = useState<OnlineUser[]>([]);
-  // const [socket, setSocket] = useState<Socket | null>(null);
+  const [socket, setSocket] = useState<Socket | null>(null);
 
   const { user } = useUser();
-  /*
+  
   useEffect(() => {
     const newSocket = io(baseUrl as string, {
       auth: {
@@ -198,11 +198,11 @@ export const ChatProvider = ({ children }: ChatProviderProps) => {
 
     getMessages();
   }, [currentChat]);
-  */
+  
   const updateCurrentChat = useCallback((chat: Chat) => {
     setCurrentChat(chat);
   }, []);
-  /*
+  
   useEffect(() => {
     if (!socket) {
       return;
@@ -218,7 +218,7 @@ export const ChatProvider = ({ children }: ChatProviderProps) => {
       }
     });
   }, [socket, currentChat]);
-  */
+  
   const sendTextMessage = useCallback(
     async (
       textMessage: string,
@@ -235,7 +235,7 @@ export const ChatProvider = ({ children }: ChatProviderProps) => {
         senderId: sender.companyId,
         chatId: currentChatId,
       }
-      /*
+      
       const response = await postChat('chat/message', msgObj);
 
       const data: Message = await response.json();
@@ -246,7 +246,7 @@ export const ChatProvider = ({ children }: ChatProviderProps) => {
 
       setNewMessage(data);
       setMessages((prev: any) => (prev ? [...prev, data] : [data]));
-      */
+      
       setTextMessage('');
   }, []);
 
