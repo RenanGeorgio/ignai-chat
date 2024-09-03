@@ -5936,23 +5936,6 @@ identity-obj-proxy@^3.0.0:
   dependencies:
     harmony-reflect "^1.4.6"
 
-"ignai-chat@file:.":
-  version "0.1.0"
-  dependencies:
-    "@emotion/react" "^11.13.0"
-    "@emotion/styled" "^11.13.0"
-    "@mui/material" "^5.16.7"
-    "@twilio/voice-sdk" "^2.11.2"
-    axios "^1.7.4"
-    framer-motion "^11.3.19"
-    ignai-chat "file:../../../Users/matbo/AppData/Local/Yarn/Cache/v6/npm-ignai-chat-0.1.0-e80ca717-6da8-4900-9326-101107454654-1725285623338/node_modules/ignai-chat"
-    nookies "^2.5.2"
-    react "^18.3.1"
-    react-dom "^18.3.1"
-    react-router-dom "^6.25.1"
-    react-scripts "5.0.1"
-    web-vitals "^2.1.4"
-
 ignore@^4.0.6:
   version "4.0.6"
   resolved "https://registry.npmjs.org/ignore/-/ignore-4.0.6.tgz"

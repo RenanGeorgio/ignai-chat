@@ -58,6 +58,7 @@ const QueueComponent: FunctionComponent<QueueItemsType> = () => {
 
   return (
     <div className={styles.queueItems}>
+      <h3 className={styles.filaDeAtendimento}>Fila de atendimento</h3>
       <div className={styles.queueHeadings}>
         <Stack direction="row" spacing={2}>
           <ButtonGroup
@@ -137,7 +138,6 @@ const QueueComponent: FunctionComponent<QueueItemsType> = () => {
             />
           </FormGroup>
         </Stack>
-        <h3 className={styles.filaDeAtendimento}>Fila de atendimento</h3>
       </div>
       <div className={styles.queueContacts}>
         <QueueItems queueItemsLabel={queueItems} />

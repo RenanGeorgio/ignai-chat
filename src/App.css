@@ -1,6 +1,6 @@
-.container {
+.app-container {
   width: 100%;
-  min-height: 98vh;
+  max-height: 100vh;
   position: relative;
   border-radius: 13xl;
   background-color: black;
