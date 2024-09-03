@@ -20,11 +20,11 @@ export const QueueItems: FunctionComponent<QueueItemsType> = ({ queueItemsLabel 
       {queueItems.map((queueItem: QueueItemLabel, index: number) => (
         <div key={index} className={styles.contactItem}>          
           <div className={styles.statusContainer}>
-            <span className={styles.emoji}>queueItem.emoji</span>  
-            <p className={styles.p}>queueItem.id</p>
-            <p className={styles.incio}>queueItem.startTime</p>
-            <p className={styles.statusOn}>queueItem.status</p>
-            <p className={styles.espera}>queueItem.waitTime</p>
+            <span className={styles.emoji}>{queueItem.emoji}</span>  
+            <p className={styles.p}>{queueItem.id}</p>
+            <p className={styles.incio}>{queueItem.startTime}</p>
+            <p className={styles.statusOn}>{queueItem.status}</p>
+            <p className={styles.espera}>{queueItem.waitTime}</p>
           </div>
         </div>
       ))}
