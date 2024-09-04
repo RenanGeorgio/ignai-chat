@@ -84,6 +84,14 @@ const QueueComponent: FunctionComponent<QueueItemsType> = () => {
   },[selectedItem]);
 
   useEffect(() => {
+    if (!manual) {
+      if (currentItem !== undefined) {
+        handleStartWork();
+      }
+    }
+  },[currentItem]);
+
+  useEffect(() => {
     const queueItems: QueueItemLabel[] = queueConversations.map((item) => item.label);
 
     setLabels(queueItems);
