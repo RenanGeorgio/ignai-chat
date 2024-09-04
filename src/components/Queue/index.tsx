@@ -1,10 +1,11 @@
-import React, { FunctionComponent, useState, useRef } from "react";
+import React, { FunctionComponent, useState, useRef, useEffect } from "react";
 import { Switch, Stack, FormGroup, FormControlLabel, Button, ButtonGroup, Popper, Grow, Paper, ClickAwayListener } from "@mui/material";
 import { selectQueueConversation } from "@store/conversations/slice";
 import { useAppSelector } from "@store/hooks";
 import { QueueItems } from "./items";
 import { MessageCircleIcon, SettingIcon } from "../../assets/icons";
-import { ConsumersQueue, QueueItemLabel } from "../../types";
+import { QueueItemLabel } from "../../types";
+import { ConversationDTO } from "@store/types";
 
 import styles from "./queue.module.css";
 
@@ -30,7 +31,7 @@ const queueItems: QueueItemLabel[] = [
 ]
 
 const QueueComponent: FunctionComponent<QueueItemsType> = () => {
-  const queueConversations: ConsumersQueue[] = useAppSelector(selectQueueConversation);
+  const queueConversations: ConversationDTO[] = useAppSelector(selectQueueConversation);
   
   const anchorRef = useRef<HTMLDivElement>(null);
 
@@ -38,6 +39,7 @@ const QueueComponent: FunctionComponent<QueueItemsType> = () => {
   const [open, setOpen] = useState<boolean>(false);
   const [manual, setManual] = useState<boolean>(true);
   const [controllDisabled, setControllDisabled] = useState<boolean>(false);
+  const [labels, setLabels] = useState<QueueItemLabel[]>([]);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setChecked(event.target.checked);
@@ -59,6 +61,12 @@ const QueueComponent: FunctionComponent<QueueItemsType> = () => {
 
     setOpen(false);
   };
+
+  useEffect(() => {
+    const queueItems: QueueItemLabel[] = queueConversations.map((item) => item.label);
+
+    setLabels(queueItems);
+  },[queueConversations]);
 
   return (
     <div className={styles.queueItems}>
@@ -144,7 +152,7 @@ const QueueComponent: FunctionComponent<QueueItemsType> = () => {
         </Stack>
       </div>
       <div className={styles.queueContacts}>
-        <QueueItems queueItemsLabel={queueItems} />
+        <QueueItems queueItemsLabel={labels} />
       </div>
     </div>
   );

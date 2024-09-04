@@ -7,7 +7,7 @@ import { useAppDispatch, useAppSelector } from "@store/hooks";
 import { addConversationReference } from "@store/conversations/actions";
 import { selectQueueConversation } from "@store/conversations/slice";
 import { CallState, ServicesPerformed } from "../types";
-import { ConsumersQueue, QueueItemLabel, USER_STATE } from "@types";
+import { ConsumersQueue, USER_STATE } from "@types";
 import { ConversationDTO } from "@store/types";
 
 type CallProviderProps = {
@@ -142,25 +142,23 @@ export const CallProvider = ({ children }: CallProviderProps) => {
 
       const currentDate = (Date.now()).toString();
 
-      const queueState: ConsumersQueue = {
-        queueId: queueConversations.length,
-        callData: connection,
-        updatedAt: currentDate,
-        createdAt: currentDate,
-      }
-
-      const currentRef: QueueItemLabel = {
-        emoji: 'phone',
-        id: queueState.queueId,
-        startTime: currentDate,
-        status: 'on',
-        waitTime: undefined,
-      }
+      const id = queueConversations.length;
 
       const com: ConversationDTO = {
-        id: queueState.queueId,
-        conversation: queueState,
-        label: currentRef,
+        id: id,
+        conversation: {
+          queueId: id,
+          callData: connection,
+          updatedAt: currentDate,
+          createdAt: currentDate,
+        },
+        label: {
+          emoji: 'phone',
+          id: id,
+          startTime: currentDate,
+          status: 'on',
+          waitTime: undefined,
+        },
       };
 
       dispatch(addConversationReference(com));
