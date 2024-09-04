@@ -4,10 +4,11 @@ import { Device, Call } from "@twilio/voice-sdk";
 import { CallContext } from "../CallContext";
 import { useUser } from "../../user/hooks";
 import { useAppDispatch, useAppSelector } from "@store/hooks";
-import { addConversation, addLabelConversation } from "@store/conversations/actions";
+import { addConversationReference } from "@store/conversations/actions";
 import { selectQueueConversation } from "@store/conversations/slice";
 import { CallState, ServicesPerformed } from "../types";
 import { ConsumersQueue, QueueItemLabel, USER_STATE } from "@types";
+import { ConversationDTO } from "@store/types";
 
 type CallProviderProps = {
   children: ReactNode
@@ -156,8 +157,13 @@ export const CallProvider = ({ children }: CallProviderProps) => {
         waitTime: undefined,
       }
 
-      dispatch(addConversation(queueState));
-      dispatch(addLabelConversation(currentRef));
+      const com: ConversationDTO = {
+        id: queueState.queueId,
+        conversation: queueState,
+        label: currentRef,
+      };
+
+      dispatch(addConversationReference(com));
 
       connection.on('reject', () => {
         updateUserState(USER_STATE.READY, null);

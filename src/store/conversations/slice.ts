@@ -8,16 +8,14 @@ import { USER_STATE } from "@types";
 
 const {
   addConversation,
+  addConversationReference,
   addLabelConversation,
   setCurrentConversation,
-  setStatus,
   raiseError,
 } = conversationsReducer;
 
 const initialState: IConversationsState = {
-  queueConversations: [],
-  queueItemLabel: [],
-  userStatus: USER_STATE.OFFLINE
+  queueConversations: []
 };
 
 export const conversationsSlice = createSlice({
@@ -25,9 +23,9 @@ export const conversationsSlice = createSlice({
   initialState,
   reducers: {
     addConversation,
+    addConversationReference,
     addLabelConversation,
     setCurrentConversation,
-    setStatus,
     raiseError,
   },
   extraReducers(builder) {
@@ -47,8 +45,6 @@ export const conversationsSlice = createSlice({
 });
 
 export const selectQueueConversation = (state: RootState) => state.conversations.queueConversations;
-
-export const selectStatus = (state: RootState) => state.conversations.userStatus;
 
 const { reducer, actions } = conversationsSlice;
 
