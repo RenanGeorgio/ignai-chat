@@ -14,23 +14,6 @@ export type QueueItemsType = {
   children?: React.ReactNode;
 };
 
-const queueItems: QueueItemLabel[] = [
-  {
-    emoji: 'lsmksmck',
-    id: '554356',
-    startTime: 'início: 15:45',
-    status: 'on',
-    waitTime: 'Espera: 01:30'
-  },
-  {
-    emoji: 'lsmksmck',
-    id: '554126',
-    startTime: 'início: 16:45',
-    status: 'on',
-    waitTime: 'Espera: 02:30'
-  },
-]
-
 const QueueComponent: FunctionComponent<QueueItemsType> = () => {
   const queueConversations: ConversationDTO[] = useAppSelector(selectQueueConversation);
 

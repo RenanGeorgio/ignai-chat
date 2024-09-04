@@ -19,7 +19,7 @@ const conversations = [
 ];
 
 const TicketsComponent: React.FC = () => {
-  const { servicesPerformed } = useCall();
+  const { servicesPerformed } = useCall(); // TO-DO: mudar para useQuery
   
   const [selected, setSelected] = useState<number>(0);
 
@@ -35,8 +35,7 @@ const TicketsComponent: React.FC = () => {
           <TicketLabel />
           <div className={styles.list}>
             {conversations.map((conversation, index) => (
-              <TicketElement 
-                key={index}
+              <TicketElement
                 index={index}
                 selected={selected}
                 handleElementSelect={handleSelect}
