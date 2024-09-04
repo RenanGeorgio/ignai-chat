@@ -24,6 +24,7 @@ export interface ITicket extends ServicesPerformed {
 
 export interface CallContextType {
   servicesPerformed: ServicesPerformed[]
+  handleIndexChange: (currentIndex: string | number) => void
   sendTextMessage?: (
     textMessage: string,
     sender: { companyId: string },

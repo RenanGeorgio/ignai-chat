@@ -1,5 +1,6 @@
 import React, { FunctionComponent, useState, useRef, useEffect } from "react";
 import { Switch, Stack, FormGroup, FormControlLabel, Button, ButtonGroup, Popper, Grow, Paper, ClickAwayListener } from "@mui/material";
+import { useCall } from "@contexts/call/hooks";
 import { selectQueueConversation } from "@store/conversations/slice";
 import { useAppSelector } from "@store/hooks";
 import { QueueItems } from "./items";
@@ -32,6 +33,8 @@ const queueItems: QueueItemLabel[] = [
 
 const QueueComponent: FunctionComponent<QueueItemsType> = () => {
   const queueConversations: ConversationDTO[] = useAppSelector(selectQueueConversation);
+
+  const { handleIndexChange } = useCall();
   
   const anchorRef = useRef<HTMLDivElement>(null);
 
@@ -45,7 +48,8 @@ const QueueComponent: FunctionComponent<QueueItemsType> = () => {
   const [currentItem, setCurrentItem] = useState<QueueItemLabel | undefined>(undefined);
 
   const handleStartWork = () => {
-    const aux = currentItem // enviar para o context
+    // TO-DO: olhar para o emoji -> identificar meio de comunicação do consumidor
+    handleIndexChange(currentItem?.id); // TO-DO: confirmar atendimento - Bloquear alterações do item
   };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {

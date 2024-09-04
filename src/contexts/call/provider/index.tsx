@@ -4,7 +4,7 @@ import { Device, Call } from "@twilio/voice-sdk";
 import { CallContext } from "../CallContext";
 import { useUser } from "../../user/hooks";
 import { useAppDispatch, useAppSelector } from "@store/hooks";
-import { addConversationReference } from "@store/conversations/actions";
+import { addConversationReference, updateConversation } from "@store/conversations/actions";
 import { selectQueueConversation } from "@store/conversations/slice";
 import { CallState, ServicesPerformed } from "../types";
 import { ConsumersQueue, USER_STATE } from "@types";
@@ -15,12 +15,13 @@ type CallProviderProps = {
 }
 
 export const CallProvider = ({ children }: CallProviderProps) => {
-  const queueConversations: ConsumersQueue[] = useAppSelector(selectQueueConversation);
+  const queueConversations: ConversationDTO[] = useAppSelector(selectQueueConversation);
   const dispatch = useAppDispatch();
 
   const [servicesPerformed, setServicesPerformed] = useState<ServicesPerformed[]>([]);
   const [currentConversation, setCurrentConversation] = useState<ConsumersQueue | null>(null);
 
+  const [currentIndex, setCurrentIndex] = useState<string| number>('');
   const [userState, setUserState] = useState(USER_STATE.OFFLINE);
   const [phoneNumber, setPhoneNumber] = useState<string>("");
   const [connection, setConnection] = useState<any>(null);
@@ -34,6 +35,15 @@ export const CallProvider = ({ children }: CallProviderProps) => {
   const device = useRef<Device | null>(null);
 
   const { twilioToken, user } = useUser();
+
+  const handleIndexChange = (index: string | number) => {
+    setCurrentIndex(index);
+
+    const found = queueConversations.find((item: ConversationDTO) => item.id == index);
+    dispatch(updateConversation(index));
+    
+    setCurrentConversation(found?.conversation);
+  };
 
   const updateUserState = (stateType: any, conn: any) => {
     setUserState(stateType);
@@ -175,7 +185,8 @@ export const CallProvider = ({ children }: CallProviderProps) => {
   return (
     <CallContext.Provider
       value={{
-        servicesPerformed
+        servicesPerformed,
+        handleIndexChange
       }}
     >
       {children}

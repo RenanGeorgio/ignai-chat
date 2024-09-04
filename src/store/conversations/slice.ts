@@ -9,6 +9,7 @@ import { USER_STATE } from "@types";
 const {
   addConversationReference,
   setCurrentConversation,
+  updateConversation,
   raiseError,
 } = conversationsReducer;
 
@@ -22,6 +23,7 @@ export const conversationsSlice = createSlice({
   reducers: {
     addConversationReference,
     setCurrentConversation,
+    updateConversation,
     raiseError,
   },
   extraReducers(builder) {

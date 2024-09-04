@@ -12,6 +12,11 @@ const setCurrentConversation: CaseReducer<State, PayloadAction<CurrentConversati
   state.queueConversations = action.payload;
 }
 
+const updateConversation: CaseReducer<State, PayloadAction<Partial<ConversationDTO>>> = (state, action) => {
+  const updated = state.queueConversations.filter((item: ConversationDTO) => item.id !== action.payload);
+  state.queueConversations = updated;
+}
+
 const raiseError: CaseReducer<State, PayloadAction<{ index: number; message: string }>> = (state, action) => {
   const { index, message } = action.payload;
   state.queueConversations[index].error = message;
@@ -20,5 +25,6 @@ const raiseError: CaseReducer<State, PayloadAction<{ index: number; message: str
 export const conversationsReducer: IConversationsStore = {
   addConversationReference: addConversationReference,
   setCurrentConversation: setCurrentConversation,
+  updateConversation: updateConversation,
   raiseError: raiseError,
 }

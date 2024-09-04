@@ -2,5 +2,6 @@ import { conversationsActions } from "./slice";
 
 export const {
   addConversationReference,
-  setCurrentConversation
+  setCurrentConversation,
+  updateConversation
 } = conversationsActions;
