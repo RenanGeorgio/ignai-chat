@@ -44,6 +44,10 @@ const QueueComponent: FunctionComponent<QueueItemsType> = () => {
   const [selectedItem, setSelectedItem] = useState<QueueItemLabel | undefined>(undefined);
   const [currentItem, setCurrentItem] = useState<QueueItemLabel | undefined>(undefined);
 
+  const handleStartWork = () => {
+    const aux = currentItem // enviar para o context
+  };
+
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setChecked(event.target.checked);
   };
@@ -96,9 +100,7 @@ const QueueComponent: FunctionComponent<QueueItemsType> = () => {
               variant="contained" 
               disabled={controllDisabled}
               endIcon={<MessageCircleIcon />}
-              onClick={() => {
-                alert('clicked');
-              }}
+              onClick={handleStartWork}
             >
               Atender
             </Button>
