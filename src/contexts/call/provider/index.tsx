@@ -3,6 +3,9 @@ import { Device, Call } from "@twilio/voice-sdk";
 
 import { CallContext } from "../CallContext";
 import { useUser } from "../../user/hooks";
+import { useAppDispatch, useAppSelector } from "@store/hooks";
+import { addConversation } from "@store/conversations/actions";
+import { selectQueueConversation } from "@store/conversations/slice";
 import { CallState, ServicesPerformed } from "../types";
 import { ConsumersQueue, USER_STATE } from "@types";
 
@@ -11,12 +14,13 @@ type CallProviderProps = {
 }
 
 export const CallProvider = ({ children }: CallProviderProps) => {
+  const queueConversations: ConsumersQueue[] = useAppSelector(selectQueueConversation);
+  const dispatch = useAppDispatch();
+  
   const [isUserChatsLoading, setIsUserChatsLoading] = useState<boolean>(false);
   const [userChatsError, setUserChatsError] = useState<string | null>(null);
 
   const [servicesPerformed, setServicesPerformed] = useState<ServicesPerformed[]>([]);
-  const [consumersQueue, setconsumersQueue] = useState<ConsumersQueue[]>([]);
-
   const [userState, setUserState] = useState(USER_STATE.OFFLINE);
   const [phoneNumber, setPhoneNumber] = useState<string>("");
   const [connection, setConnection] = useState<any>(null);
@@ -134,18 +138,16 @@ export const CallProvider = ({ children }: CallProviderProps) => {
     device.current.on('incoming', (connection: Call) => {
       updateUserState(USER_STATE.INCOMING, connection);
 
-      const queue = consumersQueue;
       const currentDate = (Date.now()).toString();
 
-      const queueState = {
-        queueId: queue.lenght(),
+      const queueState: ConsumersQueue = {
+        queueId: queueConversations.length,
         callData: connection,
         updatedAt: currentDate,
         createdAt: currentDate,
       }
 
-      queue.push(queueState);
-      setconsumersQueue(queue);
+      dispatch(addConversation(queueState));
 
       connection.on('reject', () => {
         updateUserState(USER_STATE.READY, null);
@@ -161,8 +163,7 @@ export const CallProvider = ({ children }: CallProviderProps) => {
       value={{
         servicesPerformed,
         isUserChatsLoading,
-        userChatsError,
-        consumersQueue
+        userChatsError
       }}
     >
       {children}

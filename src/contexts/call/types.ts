@@ -1,4 +1,4 @@
-import { ConsumersQueue, Obj } from "@types";
+import { Obj } from "@types";
 
 export interface Message {
   _id: string
@@ -37,7 +37,6 @@ export interface CallContextType {
     sender: { companyId: string },
     currentChatId: string
   ) => void
-  consumersQueue: ConsumersQueue[]
 }
 
 export type Chat = {
