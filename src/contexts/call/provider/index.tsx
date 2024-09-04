@@ -16,9 +16,6 @@ type CallProviderProps = {
 export const CallProvider = ({ children }: CallProviderProps) => {
   const queueConversations: ConsumersQueue[] = useAppSelector(selectQueueConversation);
   const dispatch = useAppDispatch();
-  
-  const [isUserChatsLoading, setIsUserChatsLoading] = useState<boolean>(false);
-  const [userChatsError, setUserChatsError] = useState<string | null>(null);
 
   const [servicesPerformed, setServicesPerformed] = useState<ServicesPerformed[]>([]);
   const [userState, setUserState] = useState(USER_STATE.OFFLINE);
@@ -59,20 +56,22 @@ export const CallProvider = ({ children }: CallProviderProps) => {
       return
     }
     
-    device.current = new Device(twilioToken, {
-      logLevel: 1,
-      codecPreferences: ['opus', 'pcmu'],
-      fakeLocalDTMF: true,
-      enableRingingState: true,
-      debug: true,
-      //edge: "ashburn",
-    });
+    if (user) {
+      device.current = new Device(twilioToken, {
+        logLevel: 1,
+        codecPreferences: ['opus', 'pcmu'],
+        fakeLocalDTMF: true,
+        enableRingingState: true,
+        debug: true,
+        //edge: "ashburn",
+      });
+    }
 
     return () => {
       device.current.destroy();
       setUserState(USER_STATE.OFFLINE);
     }
-  }, [twilioToken]);
+  }, []);
 
   useEffect(() => {
     if (!device?.current) {
@@ -161,9 +160,7 @@ export const CallProvider = ({ children }: CallProviderProps) => {
   return (
     <CallContext.Provider
       value={{
-        servicesPerformed,
-        isUserChatsLoading,
-        userChatsError
+        servicesPerformed
       }}
     >
       {children}

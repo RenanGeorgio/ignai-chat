@@ -24,8 +24,6 @@ export interface ITicket extends ServicesPerformed {
 
 export interface CallContextType {
   servicesPerformed: ServicesPerformed[]
-  isUserChatsLoading: boolean
-  userChatsError: string | null
   sendTextMessage?: (
     textMessage: string,
     sender: { companyId: string },
