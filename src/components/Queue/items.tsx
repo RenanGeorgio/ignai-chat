@@ -5,7 +5,7 @@ import styles from "./items.module.css";
 
 export interface QueueItemsType {
   queueItemsLabel: QueueItemLabel[]
-  selectItem: (selectedItem: QueueItemLabel) => void
+  selectItem: (item: QueueItemLabel) => void
   manual: boolean
   children?: React.ReactNode
 }

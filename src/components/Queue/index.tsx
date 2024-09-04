@@ -43,13 +43,18 @@ const QueueComponent: FunctionComponent<QueueItemsType> = () => {
   const [manual, setManual] = useState<boolean>(true);
   const [controllDisabled, setControllDisabled] = useState<boolean>(false);
 
+  const [blockSend, setBlockSend] = useState<boolean>(true);
+
   const [labels, setLabels] = useState<QueueItemLabel[]>([]);
   const [selectedItem, setSelectedItem] = useState<QueueItemLabel | undefined>(undefined);
   const [currentItem, setCurrentItem] = useState<QueueItemLabel | undefined>(undefined);
 
   const handleStartWork = () => {
-    // TO-DO: olhar para o emoji -> identificar meio de comunicação do consumidor
-    handleIndexChange(currentItem?.id); // TO-DO: confirmar atendimento - Bloquear alterações do item
+    if (blockSend) {
+      // TO-DO: olhar para o emoji -> identificar meio de comunicação do consumidor
+      handleIndexChange(currentItem?.id); // TO-DO: confirmar atendimento - Bloquear alterações do item
+      setBlockSend(false); // TO-DO: mudar quando o atendimento finalizar
+    }
   };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -65,9 +70,9 @@ const QueueComponent: FunctionComponent<QueueItemsType> = () => {
     setOpen((prevOpen: boolean) => !prevOpen);
   };
 
-  const handleItemSelect = (selectedItem: QueueItemLabel) => {
+  const handleItemSelect = (item: QueueItemLabel) => {
     if (checked) {
-      setSelectedItem(selectedItem);
+      setSelectedItem(item);
     }
   };
 
@@ -80,7 +85,9 @@ const QueueComponent: FunctionComponent<QueueItemsType> = () => {
   };
 
   useEffect(() => {
-    setCurrentItem(selectedItem);
+    if (checked) {
+      setCurrentItem(selectedItem);
+    }
   },[selectedItem]);
 
   useEffect(() => {
