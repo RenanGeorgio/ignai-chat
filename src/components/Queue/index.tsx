@@ -39,7 +39,10 @@ const QueueComponent: FunctionComponent<QueueItemsType> = () => {
   const [open, setOpen] = useState<boolean>(false);
   const [manual, setManual] = useState<boolean>(true);
   const [controllDisabled, setControllDisabled] = useState<boolean>(false);
+
   const [labels, setLabels] = useState<QueueItemLabel[]>([]);
+  const [selectedItem, setSelectedItem] = useState<QueueItemLabel | undefined>(undefined);
+  const [currentItem, setCurrentItem] = useState<QueueItemLabel | undefined>(undefined);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setChecked(event.target.checked);
@@ -54,6 +57,12 @@ const QueueComponent: FunctionComponent<QueueItemsType> = () => {
     setOpen((prevOpen: boolean) => !prevOpen);
   };
 
+  const handleItemSelect = (selectedItem: QueueItemLabel) => {
+    if (checked) {
+      setSelectedItem(selectedItem);
+    }
+  };
+
   const handleClose = (event: Event) => {
     if ((anchorRef.current) && (anchorRef.current.contains(event.target as HTMLElement))) {
       return;
@@ -61,6 +70,10 @@ const QueueComponent: FunctionComponent<QueueItemsType> = () => {
 
     setOpen(false);
   };
+
+  useEffect(() => {
+    setCurrentItem(selectedItem);
+  },[selectedItem]);
 
   useEffect(() => {
     const queueItems: QueueItemLabel[] = queueConversations.map((item) => item.label);
@@ -152,7 +165,7 @@ const QueueComponent: FunctionComponent<QueueItemsType> = () => {
         </Stack>
       </div>
       <div className={styles.queueContacts}>
-        <QueueItems queueItemsLabel={labels} />
+        <QueueItems queueItemsLabel={labels} selectItem={handleItemSelect} manual={manual} />
       </div>
     </div>
   );
