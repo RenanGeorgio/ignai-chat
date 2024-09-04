@@ -4,10 +4,10 @@ import { Device, Call } from "@twilio/voice-sdk";
 import { CallContext } from "../CallContext";
 import { useUser } from "../../user/hooks";
 import { useAppDispatch, useAppSelector } from "@store/hooks";
-import { addConversation } from "@store/conversations/actions";
+import { addConversation, addLabelConversation } from "@store/conversations/actions";
 import { selectQueueConversation } from "@store/conversations/slice";
 import { CallState, ServicesPerformed } from "../types";
-import { ConsumersQueue, USER_STATE } from "@types";
+import { ConsumersQueue, QueueItemLabel, USER_STATE } from "@types";
 
 type CallProviderProps = {
   children: ReactNode
@@ -18,6 +18,8 @@ export const CallProvider = ({ children }: CallProviderProps) => {
   const dispatch = useAppDispatch();
 
   const [servicesPerformed, setServicesPerformed] = useState<ServicesPerformed[]>([]);
+  const [currentConversation, setCurrentConversation] = useState<ConsumersQueue | null>(null);
+
   const [userState, setUserState] = useState(USER_STATE.OFFLINE);
   const [phoneNumber, setPhoneNumber] = useState<string>("");
   const [connection, setConnection] = useState<any>(null);
@@ -146,7 +148,16 @@ export const CallProvider = ({ children }: CallProviderProps) => {
         createdAt: currentDate,
       }
 
+      const currentRef: QueueItemLabel = {
+        emoji: 'phone',
+        id: queueState.queueId,
+        startTime: currentDate,
+        status: 'on',
+        waitTime: undefined,
+      }
+
       dispatch(addConversation(queueState));
+      dispatch(addLabelConversation(currentRef));
 
       connection.on('reject', () => {
         updateUserState(USER_STATE.READY, null);

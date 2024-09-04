@@ -9,7 +9,7 @@ export type QueueItemLabel = {
   id: string | number
   startTime: string
   status: string
-  waitTime: string
+  waitTime: string | undefined
 }
 
 export type CallType = {

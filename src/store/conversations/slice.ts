@@ -8,6 +8,7 @@ import { USER_STATE } from "@types";
 
 const {
   addConversation,
+  addLabelConversation,
   setCurrentConversation,
   setStatus,
   raiseError,
@@ -15,6 +16,7 @@ const {
 
 const initialState: IConversationsState = {
   queueConversations: [],
+  queueItemLabel: [],
   userStatus: USER_STATE.OFFLINE
 };
 
@@ -23,6 +25,7 @@ export const conversationsSlice = createSlice({
   initialState,
   reducers: {
     addConversation,
+    addLabelConversation,
     setCurrentConversation,
     setStatus,
     raiseError,

@@ -1,8 +1,10 @@
 import React, { FunctionComponent, useState, useRef } from "react";
 import { Switch, Stack, FormGroup, FormControlLabel, Button, ButtonGroup, Popper, Grow, Paper, ClickAwayListener } from "@mui/material";
+import { selectQueueConversation } from "@store/conversations/slice";
+import { useAppSelector } from "@store/hooks";
 import { QueueItems } from "./items";
 import { MessageCircleIcon, SettingIcon } from "../../assets/icons";
-import { QueueItemLabel } from "../../types";
+import { ConsumersQueue, QueueItemLabel } from "../../types";
 
 import styles from "./queue.module.css";
 
@@ -28,6 +30,8 @@ const queueItems: QueueItemLabel[] = [
 ]
 
 const QueueComponent: FunctionComponent<QueueItemsType> = () => {
+  const queueConversations: ConsumersQueue[] = useAppSelector(selectQueueConversation);
+  
   const anchorRef = useRef<HTMLDivElement>(null);
 
   const [checked, setChecked] = useState<boolean>(true);
