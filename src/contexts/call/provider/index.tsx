@@ -37,9 +37,9 @@ export const CallProvider = ({ children }: CallProviderProps) => {
   const { twilioToken, user } = useUser();
 
   const setAcceptedCall = () => {
-
+    currentConversation.callData.accept()
   };
-  
+
   const handleIndexChange = (index: string | number) => {
     setCurrentIndex(index);
 
