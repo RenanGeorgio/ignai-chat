@@ -1,4 +1,4 @@
-import { Obj } from "@types";
+import { Obj, USER_STATE } from "@types";
 
 export interface Message {
   _id: string
@@ -24,6 +24,7 @@ export interface ITicket extends ServicesPerformed {
 
 export interface CallContextType {
   servicesPerformed: ServicesPerformed[]
+  userState: USER_STATE
   handleIndexChange: (currentIndex: string | number) => void
   sendTextMessage?: (
     textMessage: string,

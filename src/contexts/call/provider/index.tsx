@@ -36,6 +36,10 @@ export const CallProvider = ({ children }: CallProviderProps) => {
 
   const { twilioToken, user } = useUser();
 
+  const setAcceptedCall = () => {
+
+  };
+  
   const handleIndexChange = (index: string | number) => {
     setCurrentIndex(index);
 
@@ -43,6 +47,8 @@ export const CallProvider = ({ children }: CallProviderProps) => {
     dispatch(updateConversation(index));
     
     setCurrentConversation(found?.conversation);
+
+    setAcceptedCall();
   };
 
   const updateUserState = (stateType: any, conn: any) => {
@@ -186,6 +192,7 @@ export const CallProvider = ({ children }: CallProviderProps) => {
     <CallContext.Provider
       value={{
         servicesPerformed,
+        userState,
         handleIndexChange
       }}
     >
