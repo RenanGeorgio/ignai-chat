@@ -1,3 +1,4 @@
+import { Device } from "@twilio/voice-sdk";
 import { USER_STATE, ConsumersQueue, OnlineUser, QueueItemLabel } from "@types";
 
 type State = any
@@ -8,6 +9,8 @@ export type CurrentConversation =
 
 export type ConversationDTO = {
   id: string | number
+  device?: typeof Device
+  connectToken?: string
   conversation: CurrentConversation
   label: QueueItemLabel
 };

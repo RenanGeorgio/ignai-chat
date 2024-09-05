@@ -1,4 +1,5 @@
-import { Obj, USER_STATE } from "@types";
+import { Device } from "@twilio/voice-sdk";
+import { ConsumersQueue, Obj, USER_STATE } from "@types";
 
 export interface Message {
   _id: string
@@ -37,6 +38,12 @@ export interface CallContextType {
     sender: { companyId: string },
     currentChatId: string
   ) => void
+}
+
+export type CurrentDeviceToCall = {
+  currentConversation: ConsumersQueue
+  device?: typeof Device
+  connectToken?: string
 }
 
 export type Chat = {
