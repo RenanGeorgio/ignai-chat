@@ -36,6 +36,13 @@ export const CallProvider = ({ children }: CallProviderProps) => {
 
   const { twilioToken, user } = useUser();
 
+  const forwardCall = async (connectToken) => {
+    const device = new Device(token, options);
+    const call = await device.connect({ connectToken });
+  
+    call.on('disconnect', () => device.destroy());
+  }
+
   const setAcceptedCall = () => {
     currentConversation.callData.accept()
   };
@@ -99,10 +106,10 @@ export const CallProvider = ({ children }: CallProviderProps) => {
 
     device.current.register();
 
-    device.current.addListener('connect', (device: any) => {
+    /*device.current.addListener('connect', (device: any) => {
       console.log("Connect event listener added .....");
       return device;
-    });
+    });*/
 
     device.current.on('ready', () => {
       setUserState(USER_STATE.READY);
@@ -154,6 +161,7 @@ export const CallProvider = ({ children }: CallProviderProps) => {
     });
 
     device.current.on('incoming', (connection: Call) => {
+      // Fazer foward do que entrar aqui
       updateUserState(USER_STATE.INCOMING, connection);
 
       const currentDate = (Date.now()).toString();
