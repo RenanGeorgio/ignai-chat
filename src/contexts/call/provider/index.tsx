@@ -9,6 +9,7 @@ import { selectQueueConversation } from "@store/conversations/slice";
 import { CallState, CurrentDeviceToCall, ServicesPerformed } from "../types";
 import { USER_STATE } from "@types";
 import { ConversationDTO } from "@store/types";
+import BackgroundAudioProcessor from "@libs/audio";
 
 type CallProviderProps = {
   children: ReactNode
@@ -39,9 +40,15 @@ export const CallProvider = ({ children }: CallProviderProps) => {
     enableRingingState: true,
     debug: true,
     //edge: "ashburn",
+    //allowIncomingWhileBusy: true,
   }
 
   const device = useRef<Device | null>(null);
+  const processor = new BackgroundAudioProcessor();
+  // Add the processor
+  //await device.audio.addProcessor(processor);
+  // Or remove it later
+  // await device.audio.removeProcessor(processor);
 
   const { twilioToken, user } = useUser();
 
@@ -85,9 +92,17 @@ export const CallProvider = ({ children }: CallProviderProps) => {
       updateUserState(USER_STATE.READY, null);
     });
 
+    call.on('cancel', () => { })
+
     call.on('accept', () => {
       updateUserState(USER_STATE.ON_CALL, call);
     });
+
+    call.on('reconnected', () => { })
+
+    call.on('reconnecting', (error: any) => { })
+
+    call.on('mute', (isMuted: boolean, call: Call) => { })
   
     call.on('disconnect', () => {
       updateUserState(USER_STATE.READY, call);
@@ -200,6 +215,8 @@ export const CallProvider = ({ children }: CallProviderProps) => {
         updateUserState(USER_STATE.INCOMING, connection);
 
         forwardCall(connection);
+
+        connection.on('error', (error: any) => { });
 
         /*connection.on('reject', () => {
           updateUserState(USER_STATE.READY, null);
