@@ -15,41 +15,33 @@ type CallProviderProps = {
   children: ReactNode
 }
 
+const options = {
+  logLevel: 1,
+  codecPreferences: ['opus', 'pcmu'],
+  fakeLocalDTMF: true,
+  enableRingingState: true,
+  debug: true, // TO-DO: se for dev
+  allowIncomingWhileBusy: true,
+}
+
 export const CallProvider = ({ children }: CallProviderProps) => {
   const queueConversations: ConversationDTO[] = useAppSelector(selectQueueConversation);
   const dispatch = useAppDispatch();
 
-  const [servicesPerformed, setServicesPerformed] = useState<ServicesPerformed[]>([]);
+  const [servicesPerformed, setServicesPerformed] = useState<ServicesPerformed[]>([]); // TO-DO: mudar para useQuery direto no componente
   const [currentConversation, setCurrentConversation] = useState<CurrentDeviceToCall | null>(null);
 
-  const [currentIndex, setCurrentIndex] = useState<string| number>('');
-
   const [userState, setUserState] = useState(USER_STATE.OFFLINE);
-  const [phoneNumber, setPhoneNumber] = useState<string>("");
   const [connection, setConnection] = useState<Call | string | null>(null);
-  const device = useRef<Device | null>(null);
-
   const [currentState, setCurrentState] = useState<CallState>({
     identity: "",
     status: null,
     ready: false,
   });
 
-  const options = {
-    logLevel: 1,
-    codecPreferences: ['opus', 'pcmu'],
-    fakeLocalDTMF: true,
-    enableRingingState: true,
-    debug: true, // TO-DO: se for dev
-    allowIncomingWhileBusy: true,
-  }
+  const device = useRef<Device | null>(null);
 
   const processor = new BackgroundAudioProcessor();
-  // Add the processor
-  //await device.audio.addProcessor(processor);
-  // Or remove it later
-  // await device.audio.removeProcessor(processor);
-
   const { twilioToken, user } = useUser();
 
   const forwardCall = async (conn: Call) => {
@@ -122,8 +114,6 @@ export const CallProvider = ({ children }: CallProviderProps) => {
   };
 
   const handleIndexChange = (index: string | number) => {
-    setCurrentIndex(index);
-
     const found = queueConversations.find((item: ConversationDTO) => item.id == index);
     dispatch(updateConversation(index));
     
