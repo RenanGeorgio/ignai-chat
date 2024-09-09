@@ -23,9 +23,11 @@ export const CallProvider = ({ children }: CallProviderProps) => {
   const [currentConversation, setCurrentConversation] = useState<CurrentDeviceToCall | null>(null);
 
   const [currentIndex, setCurrentIndex] = useState<string| number>('');
+
   const [userState, setUserState] = useState(USER_STATE.OFFLINE);
   const [phoneNumber, setPhoneNumber] = useState<string>("");
-  const [connection, setConnection] = useState<any>(null);
+  const [connection, setConnection] = useState<Call | string | null>(null);
+  const device = useRef<Device | null>(null);
 
   const [currentState, setCurrentState] = useState<CallState>({
     identity: "",
@@ -38,12 +40,10 @@ export const CallProvider = ({ children }: CallProviderProps) => {
     codecPreferences: ['opus', 'pcmu'],
     fakeLocalDTMF: true,
     enableRingingState: true,
-    debug: true,
-    //edge: "ashburn",
-    //allowIncomingWhileBusy: true,
+    debug: true, // TO-DO: se for dev
+    allowIncomingWhileBusy: true,
   }
 
-  const device = useRef<Device | null>(null);
   const processor = new BackgroundAudioProcessor();
   // Add the processor
   //await device.audio.addProcessor(processor);
@@ -52,13 +52,14 @@ export const CallProvider = ({ children }: CallProviderProps) => {
 
   const { twilioToken, user } = useUser();
 
-  const forwardCall = async (connection: Call) => {
+  const forwardCall = async (conn: Call) => {
     const currentDate = (Date.now()).toString();
 
     const id = queueConversations.length;
 
-    const connectToken = connection.connectToken;
+    const connectToken = conn.connectToken;
     const device = new Device(twilioToken, options);
+    await device.audio.addProcessor(processor);
 
     const com: ConversationDTO = {
       id: id,
@@ -66,7 +67,7 @@ export const CallProvider = ({ children }: CallProviderProps) => {
       connectToken: connectToken,
       conversation: {
         queueId: id,
-        callData: connection,
+        callData: conn,
         updatedAt: currentDate,
         createdAt: currentDate,
       },
@@ -89,10 +90,12 @@ export const CallProvider = ({ children }: CallProviderProps) => {
     const call = await currentDevice.connect({ connectToken });
 
     call.on('reject', () => {
-      updateUserState(USER_STATE.READY, null);
+      updateUserState(USER_STATE.READY, call);
     });
 
-    call.on('cancel', () => { })
+    call.on('cancel', () => { 
+      updateUserState(USER_STATE.READY, call);
+    });
 
     call.on('accept', () => {
       updateUserState(USER_STATE.ON_CALL, call);
@@ -105,9 +108,14 @@ export const CallProvider = ({ children }: CallProviderProps) => {
     call.on('mute', (isMuted: boolean, call: Call) => { })
   
     call.on('disconnect', () => {
-      updateUserState(USER_STATE.READY, call);
-      currentDevice.destroy();
-      setCurrentConversation(null); // TO-DO: Verificar se esta é a abordagem correta
+      const cleanResourcers = async () => {
+        await currentDevice.audio.removeProcessor(processor);
+        currentDevice.destroy();
+        setCurrentConversation(null); // TO-DO: Verificar se esta é a abordagem correta
+      }
+      updateUserState(USER_STATE.READY, null);
+      
+      cleanResourcers();
     });
 
     call.on('error', (error: any) => { });
@@ -176,66 +184,45 @@ export const CallProvider = ({ children }: CallProviderProps) => {
         setCurrentState(readyState);
       });
 
-      device.current.on('error', (error: any) => {
-        console.log(error);
-        setUserState(USER_STATE.ERROR);
-      });
-
       device.current.on('registered', () => {
         console.log("Agent registered");
-        setUserState(USER_STATE.READY);
+        updateUserState(USER_STATE.READY, connection);
       });
 
-      device.current.on('reconnected', () => { })
-
-      device.current.on('reconnecting', (error: any) => { })
-
-      device.current.on('connect', (connection: any) => {
+      device.current.on('connect', (conn: Call) => {
         console.log("Connect event");
-        setConnection(connection);
-        setUserState(USER_STATE.ON_CALL);
-
-        const connectState = {
-          identity: currentState.identity,
-          status: connection.status(),
-          ready: true
-        }
-
-        setCurrentState(connectState);
+        updateUserState(USER_STATE.ON_CALL, conn);
       });
 
-      device.current.on('disconnect', (connection: any) => {
-        setUserState(USER_STATE.READY);
-        setConnection(null);
-
-        const disconnectState = {
-          identity: currentState.identity,
-          status: connection.status(),
-          ready: true
-        }
-
-        setCurrentState(disconnectState);
+      device.current.on('disconnect', () => {
+        console.log("Disconnect event");
+        updateUserState(USER_STATE.READY, null);
       });
 
-      device.current.on('incoming', (connection: Call) => {
-        updateUserState(USER_STATE.INCOMING, connection);
+      device.current.on('incoming', (conn: Call) => {
+        updateUserState(USER_STATE.INCOMING, conn);
 
-        forwardCall(connection);
+        forwardCall(conn);
 
-        connection.on('error', (error: any) => { });
-        /*connection.on('reject', () => {
+        conn.on('error', (error: any) => { });
+        /*conn.on('reject', () => {
           updateUserState(USER_STATE.READY, null);
         });
 
-        connection.on('accept', () => {
-          updateUserState(USER_STATE.ON_CALL, connection);
+        conn.on('accept', () => {
+          updateUserState(USER_STATE.ON_CALL, conn);
         });*/
+      });
+
+      device.current.on('error', (error: any) => {
+        console.log("Error event detected: ", error);
+        updateUserState(USER_STATE.ERROR, null);
       });
     }
 
     return () => {
       device.current.destroy();
-      setUserState(USER_STATE.OFFLINE);
+      updateUserState(USER_STATE.OFFLINE, null);
     }
   }, [user]);
 
