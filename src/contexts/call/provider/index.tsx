@@ -109,6 +109,8 @@ export const CallProvider = ({ children }: CallProviderProps) => {
       currentDevice.destroy();
       setCurrentConversation(null); // TO-DO: Verificar se esta é a abordagem correta
     });
+
+    call.on('error', (error: any) => { });
   };
 
   const handleIndexChange = (index: string | number) => {
@@ -184,6 +186,10 @@ export const CallProvider = ({ children }: CallProviderProps) => {
         setUserState(USER_STATE.READY);
       });
 
+      device.current.on('reconnected', () => { })
+
+      device.current.on('reconnecting', (error: any) => { })
+
       device.current.on('connect', (connection: any) => {
         console.log("Connect event");
         setConnection(connection);
@@ -217,7 +223,6 @@ export const CallProvider = ({ children }: CallProviderProps) => {
         forwardCall(connection);
 
         connection.on('error', (error: any) => { });
-
         /*connection.on('reject', () => {
           updateUserState(USER_STATE.READY, null);
         });
