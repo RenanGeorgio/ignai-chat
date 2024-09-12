@@ -39,6 +39,7 @@ const TicketsComponent: React.FC = () => {
                 index={index}
                 selected={selected}
                 handleElementSelect={handleSelect}
+                key={index}
                 //servicePerformed={servicePerformed} 
                 conversation={conversation}
               />

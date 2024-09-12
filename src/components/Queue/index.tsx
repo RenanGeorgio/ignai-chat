@@ -1,24 +1,38 @@
-import React, { FunctionComponent, useState, useRef, useEffect } from "react";
-import { Switch, Stack, FormGroup, FormControlLabel, Button, ButtonGroup, Popper, Grow, Paper, ClickAwayListener } from "@mui/material";
-import { useCall } from "@contexts/call/hooks";
-import { selectQueueConversation } from "@store/conversations/slice";
-import { useAppSelector } from "@store/hooks";
-import { QueueItems } from "./items";
-import { MessageCircleIcon, SettingIcon } from "../../assets/icons";
-import { QueueItemLabel } from "../../types";
-import { ConversationDTO } from "@store/types";
+import React, { FunctionComponent, useState, useRef, useEffect } from 'react';
+import {
+  Switch,
+  Stack,
+  FormGroup,
+  FormControlLabel,
+  Button,
+  ButtonGroup,
+  Popper,
+  Grow,
+  Paper,
+  ClickAwayListener,
+} from '@mui/material';
+// import { selectQueueConversation } from "@store/conversations/slice"; // problema no path alias
+import { selectQueueConversation } from '../../store/conversations/slice';
+import { useAppSelector } from '../../store/hooks';
+import { QueueItems } from './items';
+import { MessageCircleIcon, SettingIcon } from '../../assets/icons';
+import { QueueItemLabel } from '../../types';
+import { ConversationDTO } from '@store/types';
 
-import styles from "./queue.module.css";
+import styles from './queue.module.css';
+import { useCall } from '../../contexts/call/hooks';
 
 export type QueueItemsType = {
   children?: React.ReactNode;
 };
 
 const QueueComponent: FunctionComponent<QueueItemsType> = () => {
-  const queueConversations: ConversationDTO[] = useAppSelector(selectQueueConversation);
+  const queueConversations: ConversationDTO[] = useAppSelector(
+    selectQueueConversation,
+  );
 
   const { handleIndexChange } = useCall();
-  
+
   const anchorRef = useRef<HTMLDivElement>(null);
 
   const [checked, setChecked] = useState<boolean>(true);
@@ -29,13 +43,19 @@ const QueueComponent: FunctionComponent<QueueItemsType> = () => {
   const [blockSend, setBlockSend] = useState<boolean>(true);
 
   const [labels, setLabels] = useState<QueueItemLabel[]>([]);
-  const [selectedItem, setSelectedItem] = useState<QueueItemLabel | undefined>(undefined);
-  const [currentItem, setCurrentItem] = useState<QueueItemLabel | undefined>(undefined);
+  const [selectedItem, setSelectedItem] = useState<QueueItemLabel | undefined>(
+    undefined,
+  );
+  const [currentItem, setCurrentItem] = useState<QueueItemLabel | undefined>(
+    undefined,
+  );
 
   const handleStartWork = () => {
     if (blockSend) {
       // TO-DO: olhar para o emoji -> identificar meio de comunicação do consumidor
-      handleIndexChange(currentItem?.id); // TO-DO: confirmar atendimento - Bloquear alterações do item
+      if (currentItem) {
+        handleIndexChange(currentItem.id); // TO-DO: confirmar atendimento - Bloquear alterações do item
+      }
       setBlockSend(false); // TO-DO: mudar quando o atendimento finalizar
     }
   };
@@ -44,7 +64,9 @@ const QueueComponent: FunctionComponent<QueueItemsType> = () => {
     setChecked(event.target.checked);
   };
 
-  const handleChangeManualMode = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChangeManualMode = (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
     setManual(event.target.checked);
     setControllDisabled(event.target.checked);
   };
@@ -60,7 +82,10 @@ const QueueComponent: FunctionComponent<QueueItemsType> = () => {
   };
 
   const handleClose = (event: Event) => {
-    if ((anchorRef.current) && (anchorRef.current.contains(event.target as HTMLElement))) {
+    if (
+      anchorRef.current &&
+      anchorRef.current.contains(event.target as HTMLElement)
+    ) {
       return;
     }
 
@@ -71,7 +96,7 @@ const QueueComponent: FunctionComponent<QueueItemsType> = () => {
     if (checked) {
       setCurrentItem(selectedItem);
     }
-  },[selectedItem]);
+  }, [selectedItem]);
 
   useEffect(() => {
     if (!manual) {
@@ -79,13 +104,15 @@ const QueueComponent: FunctionComponent<QueueItemsType> = () => {
         handleStartWork();
       }
     }
-  },[currentItem]);
+  }, [currentItem]);
 
   useEffect(() => {
-    const queueItems: QueueItemLabel[] = queueConversations.map((item) => item.label);
+    const queueItems: QueueItemLabel[] = queueConversations.map(
+      (item) => item.label,
+    );
 
     setLabels(queueItems);
-  },[queueConversations]);
+  }, [queueConversations]);
 
   return (
     <div className={styles.queueItems}>
@@ -97,9 +124,9 @@ const QueueComponent: FunctionComponent<QueueItemsType> = () => {
             ref={anchorRef}
             aria-label="Button group with a nested menu"
           >
-            <Button 
-              size="medium" 
-              variant="contained" 
+            <Button
+              size="medium"
+              variant="contained"
               disabled={controllDisabled}
               endIcon={<MessageCircleIcon />}
               onClick={handleStartWork}
@@ -134,25 +161,25 @@ const QueueComponent: FunctionComponent<QueueItemsType> = () => {
                     placement === 'bottom' ? 'center top' : 'center bottom',
                 }}
               >
-              <Paper>
-                <ClickAwayListener onClickAway={handleClose}>
-                  <FormGroup>
-                    <FormControlLabel 
-                      control={
-                        <Switch
-                          checked={manual}
-                          onChange={handleChangeManualMode}
-                          inputProps={{ 'aria-label': 'controlled' }}
-                          defaultChecked 
-                          size="small"
-                        />
-                      } 
-                      label={manual ? "manual" : "auto"}
-                    />
-                  </FormGroup>
-                </ClickAwayListener>
-              </Paper>
-            </Grow>
+                <Paper>
+                  <ClickAwayListener onClickAway={handleClose}>
+                    <FormGroup>
+                      <FormControlLabel
+                        control={
+                          <Switch
+                            checked={manual}
+                            onChange={handleChangeManualMode}
+                            inputProps={{ 'aria-label': 'controlled' }}
+                            defaultChecked
+                            size="small"
+                          />
+                        }
+                        label={manual ? 'manual' : 'auto'}
+                      />
+                    </FormGroup>
+                  </ClickAwayListener>
+                </Paper>
+              </Grow>
             )}
           </Popper>
           <FormGroup>
@@ -162,17 +189,22 @@ const QueueComponent: FunctionComponent<QueueItemsType> = () => {
                   checked={checked}
                   onChange={handleChange}
                   inputProps={{ 'aria-label': 'controlled' }}
-                />} 
-              label={checked ? "Habilitado" : "Em Pausa"}
+                />
+              }
+              label={checked ? 'Habilitado' : 'Em Pausa'}
             />
           </FormGroup>
         </Stack>
       </div>
       <div className={styles.queueContacts}>
-        <QueueItems queueItemsLabel={labels} selectItem={handleItemSelect} manual={manual} />
+        <QueueItems
+          queueItemsLabel={labels}
+          selectItem={handleItemSelect}
+          manual={manual}
+        />
       </div>
     </div>
   );
-}
+};
 
 export default QueueComponent;

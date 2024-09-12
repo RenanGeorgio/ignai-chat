@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { UserContext } from "../UserContext";
-import { getVoiceToken } from "@controllers/token";
+import { getVoiceToken } from "../../../controllers/token";
 import { User } from "../types";
 
 /**
@@ -10,7 +10,7 @@ import { User } from "../types";
  */
 function getQueryParameters(location: Location) {
   return (location.search.split('?')[1] || '').split('&').reduce((queryParameters, keyValuePair) => {
-    var [key, value] = keyValuePair.split('=');
+    let [key, value] = keyValuePair.split('=');
     key = decodeURIComponent(key);
     value = decodeURIComponent(value);
     queryParameters.set(key, (queryParameters.get(key) || []).concat([value]));
