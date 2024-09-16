@@ -1,17 +1,33 @@
 import React, { useCallback, useEffect, useState, ReactNode } from 'react';
-import { io, Socket } from 'socket.io-client';
-import Cookies from 'js-cookie';
+import { Socket } from 'socket.io-client';
+// import Cookies from 'js-cookie';
 
 import { ChatContext } from '../ChatContext';
-import { useUser } from '../../user/hooks';
+// import { useUser } from '../../user/hooks';
 import { getChat, postChat } from '../../../controllers/chat';
 import compareArrays from '../../../helpers/compareArrays';
-import { baseUrl } from '../../../config/index';
+// import { baseUrl } from '../../../config/index';
 import { Chat, ChatClient, Message, ChatStatus } from '../types';
 import { OnlineUser } from '@types';
 
 type ChatProviderProps = {
   children: ReactNode;
+};
+
+const user = {
+  _id: '65bbe0359f84da3af601f373',
+  name: 'Samuel',
+  email: 'samuelmarques96@live.com',
+  cpf: '255.975.630-76',
+  company: 'Sam`s Company',
+  createdAt: {
+    $date: '2024-02-01T18:17:25.739Z',
+  },
+  updatedAt: {
+    $date: '2024-02-01T18:17:25.739Z',
+  },
+  __v: 0,
+  companyId: '1',
 };
 
 export const ChatProvider = ({ children }: ChatProviderProps) => {
@@ -21,7 +37,7 @@ export const ChatProvider = ({ children }: ChatProviderProps) => {
   const [potentialChats, setPotentialChats] = useState<ChatClient[] | null>(
     null,
   ); // verificar esse tipo dps
-  const [currentChat, setCurrentChat] = useState<Chat>({} as Chat);
+  const [currentChat, setCurrentChat] = useState<Chat | null>(null);
   const [isMessagesLoading, setIsMessagesLoading] = useState<boolean>(false);
   const [messageError, setMessageError] = useState<string | null>(null);
   const [messages, setMessages] = useState<Message[] | null>(null);
@@ -29,21 +45,21 @@ export const ChatProvider = ({ children }: ChatProviderProps) => {
   const [onlineUsers, setOnlineUsers] = useState<OnlineUser[]>([]);
   const [socket, setSocket] = useState<Socket | null>(null);
 
-  const { user } = useUser();
+  // const { user } = useUser();
 
-  useEffect(() => {
-    const newSocket = io(baseUrl as string, {
-      auth: {
-        token: 'Bearer ' + Cookies.get('token'),
-      },
-    });
+  // useEffect(() => {
+  //   const newSocket = io(baseUrl as string, {
+  //     auth: {
+  //       token: 'Bearer ' + Cookies.get('token'),
+  //     },
+  //   });
 
-    setSocket(newSocket);
+  //   setSocket(newSocket);
 
-    return () => {
-      newSocket.disconnect();
-    };
-  }, [user]);
+  //   return () => {
+  //     newSocket.disconnect();
+  //   };
+  // }, [user]);
 
   useEffect(() => {
     if (socket === null) {
@@ -132,7 +148,7 @@ export const ChatProvider = ({ children }: ChatProviderProps) => {
       const response = await getChat('chat/clients');
 
       if (response?.status !== 200) {
-        const value = JSON.stringify(response?.data);
+        const value = response?.data?.message as string;
 
         return setUserChatsError(value);
       }
@@ -178,7 +194,6 @@ export const ChatProvider = ({ children }: ChatProviderProps) => {
         }
 
         const data: Chat[] = await response?.data;
-
         setUserChats(data);
       }
     };
@@ -198,7 +213,7 @@ export const ChatProvider = ({ children }: ChatProviderProps) => {
         const data: Message[] = await response?.data;
 
         if (!response && 'message' in data) {
-          setMessageError(data.message as string);
+          setMessageError(data?.message as string);
         }
 
         setMessages(data);
@@ -208,7 +223,7 @@ export const ChatProvider = ({ children }: ChatProviderProps) => {
     getMessages();
   }, [currentChat]);
 
-  const updateCurrentChat = useCallback((chat: Chat) => {
+  const updateCurrentChat = useCallback((chat: Chat | null) => {
     setCurrentChat(chat);
   }, []);
 
@@ -220,10 +235,10 @@ export const ChatProvider = ({ children }: ChatProviderProps) => {
     socket?.on('disconnectClient', () => {
       console.log('evento de desconexão');
       if (currentChat) {
-        setCurrentChat((prev: Chat) => ({
-          ...prev,
-          status: ChatStatus.FINISHED,
-        }));
+        // setCurrentChat((prev: Chat) => ({
+        //   ...prev,
+        //   status: ChatStatus.FINISHED,
+        // }));
       }
     });
   }, [socket, currentChat]);
@@ -238,26 +253,26 @@ export const ChatProvider = ({ children }: ChatProviderProps) => {
       if (textMessage === '') {
         return;
       }
-  
+
       const msgObj = {
         text: textMessage,
         senderId: sender.companyId,
         chatId: currentChatId,
       };
-  
+
       const response = await postChat('chat/message', msgObj);
-  
+
       if (response) {
         const data: Message = await response.data;
         setNewMessage(data);
         setMessages((prev: any) => (prev ? [...prev, data] : [data]));
       }
-  
+
       if (!response) {
         console.log(response);
         return;
       }
-  
+
       setTextMessage('');
     },
     [],

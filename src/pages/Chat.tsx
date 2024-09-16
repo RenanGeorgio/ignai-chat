@@ -4,6 +4,7 @@ import TicketsComponent from "../components/Tickets/index";
 import ChatComponent from "../components/Chat/index";
 
 import "../styles/chat.css";
+// import { useChat } from "../contexts/chat/hooks";
 
 const Chat: FunctionComponent = () => {
   return (
