@@ -57,7 +57,7 @@ export const CallProvider = ({ children }: CallProviderProps) => {
     }
 
     const device: Device = new Device(twilioToken as string, options as any);
-    
+
     await device?.audio?.addProcessor(processor);
 
     const com: ConversationDTO = {
@@ -79,6 +79,7 @@ export const CallProvider = ({ children }: CallProviderProps) => {
       },
     };
 
+    // @ts-ignore
     dispatch(addConversationReference(com));
   }
 
