@@ -1,4 +1,6 @@
-import { Call, CallerInfo } from "@twilio/voice-sdk";
+import { Call } from "@twilio/voice-sdk";
+import type { CallerInfo } from "@twilio/voice-sdk";
+
 
 export type Obj = {
   [key: string]: any
