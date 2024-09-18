@@ -3,11 +3,10 @@ import { OnlineUser } from "@types";
 export interface Message {
   _id: string
   senderId: string
-  chatId?: string
+  chatId: string
   text: string
-  timestamp?: number
-  createdAt?: string
-  updatedAt?: string
+  createdAt: string
+  updatedAt: string
 }
 
 export interface User {

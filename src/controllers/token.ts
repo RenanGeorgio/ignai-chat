@@ -1,5 +1,5 @@
 // import { getToken } from "@helpers/getClient";
-import { CallApi } from "@services";
+import { CallApi } from "../services";
 
 export async function getVoiceToken(userName: string) {
   // const auth = getToken;

@@ -11,7 +11,7 @@ export default class BackgroundAudioProcessor implements AudioProcessor {
     }
   }
 
-  async createProcessedStream(stream: MediaStream): Promise<MediaStream | undefined> {
+  async createProcessedStream(stream: MediaStream): Promise<MediaStream> {
     const audioEl = new Audio('/background.mp3');
     audioEl.addEventListener('canplaythrough', () => audioEl.play());
     this.background = this.audioContext?.createMediaElementSource(audioEl);
@@ -22,7 +22,7 @@ export default class BackgroundAudioProcessor implements AudioProcessor {
       this.background?.connect(this.destination);
     }
 
-    return this.destination?.stream;
+    return this.destination?.stream ?? new MediaStream();
   }
 
   async destroyProcessedStream(stream: MediaStream): Promise<void> {

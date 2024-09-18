@@ -1,4 +1,3 @@
-import { getClientToken } from "@libs/token";
-import { Obj } from "@types";
+import { getClientToken } from "../libs/token";
 
-export const getToken: Obj = getClientToken();
+export const getToken: string = getClientToken();

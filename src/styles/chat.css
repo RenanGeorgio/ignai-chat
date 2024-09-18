@@ -1,11 +1,8 @@
 .dashboard {
   width: 95%;
   height: 100vh;
-  position: absolute;
-  left: 5%;
   background-color: #fff;
   overflow: hidden;
-  border-radius: 15px;
   display: flex;
   flex-direction: row;
   align-items: flex-start;
@@ -15,6 +12,7 @@
   row-gap: 20px;
   text-align: left;
   color: #fff;
+  border: 1px solid #33373D;
 }
 
 .container {
