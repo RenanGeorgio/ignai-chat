@@ -3,13 +3,14 @@ import { Device, Call } from "@twilio/voice-sdk";
 
 import { CallContext } from "../CallContext";
 import { useUser } from "../../user/hooks";
-import { useAppDispatch, useAppSelector } from "@store/hooks";
-import { addConversationReference, updateConversation } from "@store/conversations/actions";
-import { selectQueueConversation } from "@store/conversations/slice";
+import { useAppDispatch, useAppSelector } from "../../../store/hooks";
+import { addConversationReference, updateConversation } from "../../../store/conversations/actions";
+import { selectQueueConversation } from "../../../store/conversations/slice";
+import BackgroundAudioProcessor from "../../../libs/audio";
+
 import { CallState, CurrentDeviceToCall, ServicesPerformed } from "../types";
-import { USER_STATE } from "@types";
-import { ConversationDTO } from "@store/types";
-import BackgroundAudioProcessor from "@libs/audio";
+import { USER_STATE } from "../../../types";
+import { ConversationDTO } from "../../../store/types";
 
 type CallProviderProps = {
   children: ReactNode
