@@ -1,4 +1,4 @@
-import { Call } from "@twilio/voice-sdk";
+import { Call, CallerInfo } from "@twilio/voice-sdk";
 
 export type Obj = {
   [key: string]: any
@@ -13,7 +13,7 @@ export type QueueItemLabel = {
 }
 
 export type CallType = {
-  callerInfo?: Call | null
+  callerInfo: CallerInfo | null
   parameters: Obj
   defaultMaxListeners: number
   customParameters?: any
@@ -22,7 +22,7 @@ export type CallType = {
 
 export interface ConsumersQueue {
   queueId: string | number
-  callData: CallType
+  callData: Call
   priority?: number
   error?: any
   updatedAt: string
