@@ -1,6 +1,6 @@
 import { CaseReducer, PayloadAction } from "@reduxjs/toolkit";
-import { IConversationsStore } from "@store/interfaces";
-import { CurrentConversation, ConversationDTO } from "@store/types";
+import { IConversationsStore } from "../interfaces";
+import { CurrentConversation, ConversationDTO } from "../types";
 
 type State = any
 
@@ -13,7 +13,7 @@ const setCurrentConversation: CaseReducer<State, PayloadAction<CurrentConversati
 }
 
 const updateConversation: CaseReducer<State, PayloadAction<Partial<ConversationDTO>>> = (state: any, action: any) => {
-  const updated = state.queueConversations.filter((item: ConversationDTO) => item.id !== action.payload);
+  const updated: ConversationDTO = state.queueConversations.filter((item: ConversationDTO) => item?.id !== action.payload);
   state.queueConversations = updated;
 }
 

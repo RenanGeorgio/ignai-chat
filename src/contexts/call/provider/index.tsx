@@ -9,7 +9,7 @@ import { selectQueueConversation } from "../../../store/conversations/slice";
 import BackgroundAudioProcessor from "../../../libs/audio";
 
 import { CallState, CurrentDeviceToCall, ServicesPerformed } from "../types";
-import { Obj, USER_STATE } from "../../../types";
+import { ConsumersQueue, Obj, USER_STATE } from "../../../types";
 import { ConversationDTO } from "../../../store/types";
 
 type CallProviderProps = {
@@ -30,7 +30,7 @@ export const CallProvider = ({ children }: CallProviderProps) => {
   const dispatch = useAppDispatch();
 
   const [servicesPerformed, setServicesPerformed] = useState<ServicesPerformed[]>([]); // TO-DO: mudar para useQuery direto no componente
-  const [currentConversation, setCurrentConversation] = useState<CurrentDeviceToCall | null>(null);
+  const [currentConversationCall, setCurrentConversationCall] = useState<CurrentDeviceToCall | null>(null);
 
   const [userState, setUserState] = useState(USER_STATE.OFFLINE);
   const [connection, setConnection] = useState<Call | string | null>(null);
@@ -84,12 +84,12 @@ export const CallProvider = ({ children }: CallProviderProps) => {
   }
 
   const setAcceptedCall = async () => {
-    if (currentConversation == undefined) {
+    if (currentConversationCall == undefined) {
       return
     }
     
-    const currentDevice = currentConversation?.device as Device;
-    const connectToken = currentConversation?.connectToken as string;
+    const currentDevice = currentConversationCall?.device as Device;
+    const connectToken = currentConversationCall?.connectToken as string;
 
     const call: Call = await currentDevice?.connect({ connectToken });
 
@@ -115,7 +115,7 @@ export const CallProvider = ({ children }: CallProviderProps) => {
       const cleanResourcers = async () => {
         await currentDevice?.audio?.removeProcessor(processor);
         currentDevice?.destroy();
-        setCurrentConversation(null); // TO-DO: Verificar se esta é a abordagem correta
+        setCurrentConversationCall(null); // TO-DO: Verificar se esta é a abordagem correta
       }
       
       updateUserState(USER_STATE.READY, null);
@@ -127,18 +127,21 @@ export const CallProvider = ({ children }: CallProviderProps) => {
   };
 
   const handleIndexChange = (index: string | number) => {
-    const found = queueConversations.find((item: ConversationDTO) => item.id == index);
-    dispatch(updateConversation(index));
-    
-    const comm = {
-      currentConversation: found?.conversation,
-      device: found?.device,
-      connectToken: found?.connectToken,
-    };
+    const found: ConversationDTO | undefined = queueConversations.find((item: ConversationDTO) => item?.id == index);
 
-    setCurrentConversation(comm);
+    if (found != undefined) {
+      dispatch(updateConversation(index)); 
+      
+      const comm: CurrentDeviceToCall = {
+        currentConversation: found?.conversation as ConsumersQueue,
+        device: found?.device,
+        connectToken: found?.connectToken,
+      };
 
-    setAcceptedCall();
+      setCurrentConversationCall(comm);
+
+      setAcceptedCall();
+    }
   };
 
   const updateUserState = (stateType: any, conn: any) => {
