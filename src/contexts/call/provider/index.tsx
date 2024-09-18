@@ -130,6 +130,7 @@ export const CallProvider = ({ children }: CallProviderProps) => {
     const found: ConversationDTO | undefined = queueConversations.find((item: ConversationDTO) => item?.id == index);
 
     if (found != undefined) {
+      // @ts-ignore
       dispatch(updateConversation(index)); 
       
       const comm: CurrentDeviceToCall = {
