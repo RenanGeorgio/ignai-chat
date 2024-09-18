@@ -3,13 +3,14 @@ import { Device, Call } from "@twilio/voice-sdk";
 
 import { CallContext } from "../CallContext";
 import { useUser } from "../../user/hooks";
-import { useAppDispatch, useAppSelector } from "@store/hooks";
-import { addConversationReference, updateConversation } from "@store/conversations/actions";
+import { useAppDispatch, useAppSelector } from "../../../store/hooks";
+import { addConversationReference, updateConversation } from "../../../store/conversations/actions";
 import { selectQueueConversation } from "../../../store/conversations/slice";
+import BackgroundAudioProcessor from "../../../libs/audio";
+
 import { CallState, CurrentDeviceToCall, ServicesPerformed } from "../types";
-import { USER_STATE } from "@types";
-import { ConversationDTO } from "@store/types";
-import BackgroundAudioProcessor from "@libs/audio";
+import { USER_STATE } from "../../../types";
+import { ConversationDTO } from "../../../store/types";
 
 type CallProviderProps = {
   children: ReactNode
@@ -39,83 +40,83 @@ export const CallProvider = ({ children }: CallProviderProps) => {
     ready: false,
   });
 
-  // const device = useRef<Device | null>(null);
+  const device = useRef<Device | null>(null);
 
-  // const processor = new BackgroundAudioProcessor();
-  // const { twilioToken, user } = useUser();
+  const processor = new BackgroundAudioProcessor();
+  const { twilioToken, user } = useUser();
 
-  // const forwardCall = async (conn: Call) => {
-  //   const currentDate = (Date.now()).toString();
+  const forwardCall = async (conn: Call) => {
+    const currentDate = (Date.now()).toString();
 
-  //   const id = queueConversations.length;
+    const id = queueConversations.length;
 
-  //   const connectToken = conn.connectToken;
-  //   const device = new Device(twilioToken, options);
-  //   await device.audio.addProcessor(processor);
+    const connectToken = conn.connectToken;
+    const device = new Device(twilioToken, options);
+    await device.audio.addProcessor(processor);
 
-  //   const com: ConversationDTO = {
-  //     id: id,
-  //     device: device,
-  //     connectToken: connectToken,
-  //     conversation: {
-  //       queueId: id,
-  //       callData: conn,
-  //       updatedAt: currentDate,
-  //       createdAt: currentDate,
-  //     },
-  //     label: {
-  //       emoji: 'phone',
-  //       id: id,
-  //       startTime: currentDate,
-  //       status: 'on',
-  //       waitTime: undefined,
-  //     },
-  //   };
+    const com: ConversationDTO = {
+      id: id,
+      device: device,
+      connectToken: connectToken,
+      conversation: {
+        queueId: id,
+        callData: conn,
+        updatedAt: currentDate,
+        createdAt: currentDate,
+      },
+      label: {
+        emoji: 'phone',
+        id: id,
+        startTime: currentDate,
+        status: 'on',
+        waitTime: undefined,
+      },
+    };
 
-  //   dispatch(addConversationReference(com));
-  // }
+    dispatch(addConversationReference(com));
+  }
 
-  // const setAcceptedCall = async () => {
-  //   const currentDevice = currentConversation?.device;
-  //   const connectToken = currentConversation?.connectToken;
+  const setAcceptedCall = async () => {
+    const currentDevice = currentConversation?.device;
+    const connectToken = currentConversation?.connectToken;
 
-  //   const call = await currentDevice.connect({ connectToken });
+    const call = await currentDevice.connect({ connectToken });
 
-  //   call.on('reject', () => {
-  //     updateUserState(USER_STATE.READY, call);
-  //   });
+    call.on('reject', () => {
+      updateUserState(USER_STATE.READY, call);
+    });
 
-  //   call.on('cancel', () => { 
-  //     updateUserState(USER_STATE.READY, call);
-  //   });
+    call.on('cancel', () => { 
+      updateUserState(USER_STATE.READY, call);
+    });
 
-  //   call.on('accept', () => {
-  //     updateUserState(USER_STATE.ON_CALL, call);
-  //   });
+    call.on('accept', () => {
+      updateUserState(USER_STATE.ON_CALL, call);
+    });
 
-  //   call.on('reconnected', () => { })
+    call.on('reconnected', () => { })
 
-  //   call.on('reconnecting', (error: any) => { })
+    call.on('reconnecting', (error: any) => { })
 
-  //   call.on('mute', (isMuted: boolean, call: Call) => { })
+    call.on('mute', (isMuted: boolean, call: Call) => { })
   
-  //   call.on('disconnect', () => {
-  //     const cleanResourcers = async () => {
-  //       await currentDevice.audio.removeProcessor(processor);
-  //       currentDevice.destroy();
-  //       setCurrentConversation(null); // TO-DO: Verificar se esta é a abordagem correta
-  //     }
-  //     updateUserState(USER_STATE.READY, null);
+    call.on('disconnect', () => {
+      const cleanResourcers = async () => {
+        await currentDevice.audio.removeProcessor(processor);
+        currentDevice.destroy();
+        setCurrentConversation(null); // TO-DO: Verificar se esta é a abordagem correta
+      }
+      updateUserState(USER_STATE.READY, null);
       
-  //     cleanResourcers();
-  //   });
+      cleanResourcers();
+    });
 
-  //   call.on('error', (error: any) => { });
-  // };
+    call.on('error', (error: any) => { });
+  };
 
   const handleIndexChange = (index: string | number) => {
     const found = queueConversations.find((item: ConversationDTO) => item.id == index);
-    // dispatch(updateConversation(index));
+    dispatch(updateConversation(index));
     
     const comm = {
       currentConversation: found?.conversation,
@@ -123,98 +124,98 @@ export const CallProvider = ({ children }: CallProviderProps) => {
       connectToken: found?.connectToken,
     };
 
-    // setCurrentConversation(comm);
+    setCurrentConversation(comm);
 
-    // setAcceptedCall();
+    setAcceptedCall();
   };
 
-  // const updateUserState = (stateType: any, conn: any) => {
-  //   setUserState(stateType);
-  //   setConnection(conn);
+  const updateUserState = (stateType: any, conn: any) => {
+    setUserState(stateType);
+    setConnection(conn);
 
-  //   let st = null;
+    let st = null;
 
-  //   if (conn != null) {
-  //     st = conn.status();
-  //   }
+    if (conn != null) {
+      st = conn.status();
+    }
   
-  //   const incomingState = {
-  //     identity: currentState.identity,
-  //     status: st,
-  //     ready: true
-  //   }
+    const incomingState = {
+      identity: currentState.identity,
+      status: st,
+      ready: true
+    }
 
-  //   setCurrentState(incomingState);
-  // }
+    setCurrentState(incomingState);
+  }
 
-  // useEffect(() => {
-  //   if (twilioToken == null) {
-  //     return
-  //   }
+  useEffect(() => {
+    if (twilioToken == null) {
+      return
+    }
 
-  //   if (user) {
-  //     device.current = new Device(twilioToken, options);
+    if (user) {
+      device.current = new Device(twilioToken, options);
     
-  //     device.current.register();
+      device.current.register();
 
-  //     /*device.current.addListener('connect', (device: any) => {
-  //       console.log("Connect event listener added .....");
-  //       return device;
-  //     });*/
+      /*device.current.addListener('connect', (device: any) => {
+        console.log("Connect event listener added .....");
+        return device;
+      });*/
 
-  //     device.current.on('ready', () => {
-  //       setUserState(USER_STATE.READY);
+      device.current.on('ready', () => {
+        setUserState(USER_STATE.READY);
 
-  //       const readyState = {
-  //         identity: currentState.identity,
-  //         status: "device ready",
-  //         ready: true
-  //       }
+        const readyState = {
+          identity: currentState.identity,
+          status: "device ready",
+          ready: true
+        }
 
-  //       setCurrentState(readyState);
-  //     });
+        setCurrentState(readyState);
+      });
 
-  //     device.current.on('registered', () => {
-  //       console.log("Agent registered");
-  //       updateUserState(USER_STATE.READY, connection);
-  //     });
+      device.current.on('registered', () => {
+        console.log("Agent registered");
+        updateUserState(USER_STATE.READY, connection);
+      });
 
-  //     device.current.on('connect', (conn: Call) => {
-  //       console.log("Connect event");
-  //       updateUserState(USER_STATE.ON_CALL, conn);
-  //     });
+      device.current.on('connect', (conn: Call) => {
+        console.log("Connect event");
+        updateUserState(USER_STATE.ON_CALL, conn);
+      });
 
-  //     device.current.on('disconnect', () => {
-  //       console.log("Disconnect event");
-  //       updateUserState(USER_STATE.READY, null);
-  //     });
+      device.current.on('disconnect', () => {
+        console.log("Disconnect event");
+        updateUserState(USER_STATE.READY, null);
+      });
 
-  //     device.current.on('incoming', (conn: Call) => {
-  //       updateUserState(USER_STATE.INCOMING, conn);
+      device.current.on('incoming', (conn: Call) => {
+        updateUserState(USER_STATE.INCOMING, conn);
 
-  //       forwardCall(conn);
+        forwardCall(conn);
 
-  //       conn.on('error', (error: any) => { });
-  //       /*conn.on('reject', () => {
-  //         updateUserState(USER_STATE.READY, null);
-  //       });
+        conn.on('error', (error: any) => { });
+        /*conn.on('reject', () => {
+          updateUserState(USER_STATE.READY, null);
+        });
 
-  //       conn.on('accept', () => {
-  //         updateUserState(USER_STATE.ON_CALL, conn);
-  //       });*/
-  //     });
+        conn.on('accept', () => {
+          updateUserState(USER_STATE.ON_CALL, conn);
+        });*/
+      });
 
-  //     device.current.on('error', (error: any) => {
-  //       console.log("Error event detected: ", error);
-  //       updateUserState(USER_STATE.ERROR, null);
-  //     });
-  //   }
+      device.current.on('error', (error: any) => {
+        console.log("Error event detected: ", error);
+        updateUserState(USER_STATE.ERROR, null);
+      });
+    }
 
-  //   return () => {
-  //     device.current.destroy();
-  //     updateUserState(USER_STATE.OFFLINE, null);
-  //   }
-  // }, [user]);
+    return () => {
+      device.current.destroy();
+      updateUserState(USER_STATE.OFFLINE, null);
+    }
+  }, [user]);
 
   return (
     <CallContext.Provider
