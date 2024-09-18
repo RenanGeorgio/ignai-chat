@@ -12,8 +12,8 @@ const setCurrentConversation: CaseReducer<State, PayloadAction<CurrentConversati
   state.queueConversations = action.payload;
 }
 
-const updateConversation: CaseReducer<State, PayloadAction<Partial<ConversationDTO>>> = (state: any, action: any) => {
-  const updated: ConversationDTO = state.queueConversations.filter((item: ConversationDTO) => item?.id !== action.payload);
+const updateConversation: CaseReducer<State, PayloadAction<string | number>> = (state: any, action: any) => {
+  const updated: ConversationDTO[] = state.queueConversations.filter((item: ConversationDTO) => item?.id !== action.payload);
   state.queueConversations = updated;
 }
 

@@ -126,7 +126,7 @@ export const CallProvider = ({ children }: CallProviderProps) => {
     call.on('error', (error: any) => { });
   };
 
-  const handleIndexChange = (index: string | number) => {
+  const handleIndexChange = (index: string | number) => { 
     const found: ConversationDTO | undefined = queueConversations.find((item: ConversationDTO) => item?.id == index);
 
     if (found != undefined) {
