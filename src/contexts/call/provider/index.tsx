@@ -1,5 +1,5 @@
 import React, { useEffect, useState, ReactNode, useRef } from "react";
-import { Device, Call, Options } from "@twilio/voice-sdk";
+import { Device, Call } from "@twilio/voice-sdk";
 
 import { CallContext } from "../CallContext";
 import { useUser } from "../../user/hooks";
@@ -9,14 +9,14 @@ import { selectQueueConversation } from "../../../store/conversations/slice";
 import BackgroundAudioProcessor from "../../../libs/audio";
 
 import { CallState, CurrentDeviceToCall, ServicesPerformed } from "../types";
-import { USER_STATE } from "../../../types";
+import { Obj, USER_STATE } from "../../../types";
 import { ConversationDTO } from "../../../store/types";
 
 type CallProviderProps = {
   children: ReactNode
 }
 
-const options: Options = {
+const options: Obj = {
   logLevel: 1,
   codecPreferences: ['opus', 'pcmu'],
   fakeLocalDTMF: true,
@@ -56,7 +56,7 @@ export const CallProvider = ({ children }: CallProviderProps) => {
       return
     }
 
-    const device = new Device(twilioToken as string, options);
+    const device = new Device(twilioToken as string, options as any);
     await device.audio.addProcessor(processor);
 
     const com: ConversationDTO = {
