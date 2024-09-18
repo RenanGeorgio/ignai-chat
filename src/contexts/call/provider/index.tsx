@@ -84,13 +84,12 @@ export const CallProvider = ({ children }: CallProviderProps) => {
   }
 
   const setAcceptedCall = async () => {
-    let currentDevice: Device | undefined = undefined;
-    let connectToken: string | undefined = undefined;
-
-    if (currentConversation != undefined) {
-      currentDevice = currentConversation?.device as Device;
-      connectToken = currentConversation?.connectToken as string;
+    if (currentConversation == undefined) {
+      return
     }
+    
+    const currentDevice = currentConversation?.device as Device;
+    const connectToken = currentConversation?.connectToken as string;
 
     const call: Call = await currentDevice?.connect({ connectToken });
 
