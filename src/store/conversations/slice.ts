@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { conversationsReducer } from "./reducers";
 // import { fetchAnswer } from "@features/conversations";
 import type { RootState } from "../store";
-import { IConversationsState } from "@store/interfaces";
+import { IConversationsState } from "../interfaces";
 // import { USER_STATE } from "@types";
 
 
