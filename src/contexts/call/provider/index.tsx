@@ -170,9 +170,9 @@ export const CallProvider = ({ children }: CallProviderProps) => {
     }
 
     if (user) {
-      device.current = new Device(twilioToken, options);
+      device.current = new Device(twilioToken, options) as Device;
     
-      device.current.register();
+      device.current?.register();
 
       /*device.current.addListener('connect', (device: any) => {
         console.log("Connect event listener added .....");
@@ -228,7 +228,7 @@ export const CallProvider = ({ children }: CallProviderProps) => {
     }
 
     return () => {
-      device.current.destroy();
+      device.current?.destroy();
       updateUserState(USER_STATE.OFFLINE, null);
     }
   }, [user]);
