@@ -84,6 +84,10 @@ export const CallProvider = ({ children }: CallProviderProps) => {
   }
 
   const setAcceptedCall = async () => {
+    if (currentConversation == undefined) {
+      return null
+    }
+    
     const currentDevice: Device = currentConversation?.device;
     const connectToken: string = currentConversation?.connectToken;
 
