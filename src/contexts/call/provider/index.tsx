@@ -84,10 +84,10 @@ export const CallProvider = ({ children }: CallProviderProps) => {
   }
 
   const setAcceptedCall = async () => {
-    const currentDevice = currentConversation?.device;
-    const connectToken = currentConversation?.connectToken;
+    const currentDevice: Device = currentConversation?.device;
+    const connectToken: string = currentConversation?.connectToken;
 
-    const call = await currentDevice.connect({ connectToken });
+    const call: Call = await currentDevice?.connect({ connectToken });
 
     call.on('reject', () => {
       updateUserState(USER_STATE.READY, call);
@@ -109,10 +109,11 @@ export const CallProvider = ({ children }: CallProviderProps) => {
   
     call.on('disconnect', () => {
       const cleanResourcers = async () => {
-        await currentDevice.audio.removeProcessor(processor);
-        currentDevice.destroy();
+        await currentDevice?.audio?.removeProcessor(processor);
+        currentDevice?.destroy();
         setCurrentConversation(null); // TO-DO: Verificar se esta é a abordagem correta
       }
+      
       updateUserState(USER_STATE.READY, null);
       
       cleanResourcers();
