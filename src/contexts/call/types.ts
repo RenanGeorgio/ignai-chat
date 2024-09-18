@@ -43,7 +43,7 @@ export interface CallContextType {
 export type CurrentDeviceToCall = {
   currentConversation: ConsumersQueue
   device?: typeof Device
-  connectToken?: string
+  connectToken: string | undefined
 }
 
 export type Chat = {

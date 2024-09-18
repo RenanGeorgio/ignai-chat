@@ -50,7 +50,7 @@ export const CallProvider = ({ children }: CallProviderProps) => {
 
     const id = queueConversations.length;
 
-    const connectToken = conn.connectToken;
+    const connectToken: string = conn.connectToken;
     const device = new Device(twilioToken, options);
     await device.audio.addProcessor(processor);
 

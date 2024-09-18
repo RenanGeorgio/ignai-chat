@@ -10,7 +10,7 @@ export type CurrentConversation =
 export type ConversationDTO = {
   id: string | number
   device?: typeof Device
-  connectToken?: string
+  connectToken: string | undefined
   conversation: CurrentConversation
   label: QueueItemLabel
 };
