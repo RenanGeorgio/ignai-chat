@@ -1,5 +1,5 @@
 import React, { useEffect, useState, ReactNode, useRef } from "react";
-import { Device, Call } from "@twilio/voice-sdk";
+import { Device, Call, Options } from "@twilio/voice-sdk";
 
 import { CallContext } from "../CallContext";
 import { useUser } from "../../user/hooks";
@@ -16,7 +16,7 @@ type CallProviderProps = {
   children: ReactNode
 }
 
-const options = {
+const options: Options = {
   logLevel: 1,
   codecPreferences: ['opus', 'pcmu'],
   fakeLocalDTMF: true,
