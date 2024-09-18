@@ -1,16 +1,15 @@
-import React, { useState } from 'react';
-import { Routes, Route } from 'react-router-dom';
-import Chat from './pages/Chat';
-import Faq from './pages/Faq';
-import User from './pages/User';
-import SideBar from './components/side-bar';
+import React, { useState } from "react";
+import { Routes, Route } from "react-router-dom";
+import { Provider } from "react-redux";
 
-import './App.css';
+import { store } from "./store/store";
+import { ChatProvider } from "./contexts";
+import Chat from "./pages/Chat";
+import Faq from "./pages/Faq";
+import User from "./pages/User";
+import SideBar from "./components/side-bar";
 
-// import { ChatProvider } from './contexts';
-import { Provider } from 'react-redux';
-import { store } from 'store/store';
-import { ChatProvider } from './contexts';
+import "./App.css";
 
 function App() {
   const [expanded, setExpanded] = useState(false);
