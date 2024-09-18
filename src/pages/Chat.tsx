@@ -1,14 +1,15 @@
-import { FunctionComponent } from 'react';
-import QueueComponent from '../components/Queue/index';
-import TicketsComponent from '../components/Tickets/index';
-import ChatComponent from '../components/Chat/index';
+import { FunctionComponent } from "react";
 
-import '../styles/chat.css';
-import { useChat } from '../contexts/chat/hooks';
-// import { useChat } from "../contexts/chat/hooks";
+import { useChat } from "../contexts/chat/hooks";
+import QueueComponent from "../components/Queue/index";
+import TicketsComponent from "../components/Tickets/index";
+import ChatComponent from "../components/Chat/index";
+
+import "../styles/chat.css";
 
 const Chat: FunctionComponent = () => {
   const { currentChat } = useChat();
+  
   return (
     <div className="dashboard">
       <div className="messageAndSidebar">
@@ -30,6 +31,6 @@ const Chat: FunctionComponent = () => {
       </div>
     </div>
   );
-};
+}
 
 export default Chat;
