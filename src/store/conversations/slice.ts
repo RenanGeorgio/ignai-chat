@@ -26,8 +26,8 @@ export const conversationsSlice = createSlice({
     updateConversation,
     raiseError,
   },
-  extraReducers(builder) {
-    builder
+  //extraReducers(builder) {
+  //  builder
       // .addCase(fetchAnswer.pending, (state: IConversationsState) => {
       //   state.userStatus = USER_STATE.READY;
       // })
@@ -39,7 +39,7 @@ export const conversationsSlice = createSlice({
       //   state.userStatus = USER_STATE.ERROR;
       //   state.queueConversations[state.queueConversations.length - 1].error = 'Something went wrong. Please check your internet connection.';
       // });
-  },
+  //},
 });
 
 // export const selectQueueConversation = (state: RootState) => state.conversations.queueConversations;
