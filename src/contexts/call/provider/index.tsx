@@ -57,7 +57,8 @@ export const CallProvider = ({ children }: CallProviderProps) => {
     }
 
     const device: Device = new Device(twilioToken as string, options as any);
-    await device?.audio.addProcessor(processor);
+    
+    await device?.audio?.addProcessor(processor);
 
     const com: ConversationDTO = {
       id: id,
