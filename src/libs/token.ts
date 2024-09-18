@@ -1,5 +1,5 @@
 // import { parseCookies } from "nookies";
-// import { ChatApi } from '../services';
+// import { ChatApi, AuthApi } from "../services";
 
 export function getClientToken(ctx?: any) {
   // const { 'auth.token': token } = parseCookies(ctx);
