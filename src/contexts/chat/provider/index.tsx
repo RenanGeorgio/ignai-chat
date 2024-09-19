@@ -147,35 +147,39 @@ export const ChatProvider = ({ children }: ChatProviderProps) => {
     const getClients = async () => {
       const response = await getChat('chat/clients');
 
+      let data: any[] = [];
       if (response?.status == 200) {
-        const data: ChatClient[] = await response.data;
+        const { potentialChats } = await response.data;
 
-        console.log(data);
-        const chatclientData = Object.values(data);
-        console.log(chatclientData);
+        data = potentialChats;
         
-        const pChats = data?.filter((client) => {
-          let isChatCreated = false;
+        if ((data != undefined) && (data.length > 0)) {
+          const pChats = data?.filter((client) => {
+            let isChatCreated = false;
 
-          if (!(user?._id === client?._id)) {
-            return false;
-          }
+            if (!(user?._id === client?._id)) {
+              return false;
+            }
 
-          if (userChats) {
-            isChatCreated = userChats?.some((chat: any) => {
-              const members_: string[] = chat.members;
+            if (userChats) {
+              isChatCreated = userChats?.some((chat: any) => {
+                const members_: string[] = chat.members;
 
-              return (
-                members_?.includes(client._id) &&
-                chat.status === ChatStatus.ACTIVE
-              );
-            });
-          }
+                return (
+                  members_?.includes(client._id) &&
+                  chat.status === ChatStatus.ACTIVE
+                );
+              });
+            }
 
-          return !isChatCreated;
-        });
-        // @ts-ignore - ignorado por enquanto
-        setPotentialChats(pChats);
+            return !isChatCreated;
+          });
+          // @ts-ignore - ignorado por enquanto
+          setPotentialChats(pChats);
+        } else {
+          // @ts-ignore
+          setPotentialChats([]);
+        }
       } else {
         const value = response?.data?.message as string;
 
