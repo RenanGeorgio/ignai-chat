@@ -1,3 +1,15 @@
+.footerFila {
+  background-color: #ffffff; 
+  border-top: 1px solid #cccccc; 
+  position: relative; 
+  width: 100%; 
+  height: 0px; 
+  display: flex; 
+  align-items: center;
+  justify-content: center; 
+  bottom: 0; 
+}
+
 .chat2Icon,
 .img {
   position: relative;
@@ -415,15 +427,34 @@
 .filaDeAtendimentoWrapper {
   margin-bottom: 0.5rem;
 }
-.filaDeAtendimento {
+
+.containerHeader {
+  display: flex;
+  justify-content: space-between; 
+  align-items: center; 
   width: 100%;
+  padding: 0 20px; 
+  margin-bottom: 10px;
+  border-bottom: 2px solid #e0e0e0; 
+}
+
+.filaDeAtendimento {
+  flex: 1; 
   padding: 20px;
   text-align: center;
   font-weight: bold;
   color: black;
-  margin: 0;
   margin-bottom: 25px;
-  border-bottom: 2px solid #e0e0e0;
+  margin: 0;
+  margin-right: 40px;
+}
+
+.formGroupContainer {
+  display: flex; 
+}
+
+.slider {
+  width: 20px;
 }
 .queueContactStatuses, .contactData, .secondContactInfo {
   background-color: #a09e9e; 

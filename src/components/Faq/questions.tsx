@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styles from "./questions.module.css";
+import { EditIcon, PesquisaIcon } from "../../assets/icons";
 
 const questions = [
   'Como encontrar a 2° via do boleto?',
@@ -21,14 +22,10 @@ const QuestionsComponents: React.FC = () => {
       <div className={styles.title}>
         <h1 className={styles.messagens}>FAQ</h1>
         <div className={styles.notification}>
-          <span role="img" aria-label="edit" className={styles.emoji}>
-            ✏️
-          </span>
+          <EditIcon />
         </div>
         <div className={styles.notification}>
-          <span role="img" aria-label="search" className={styles.emoji}>
-            🔍
-          </span>
+          <PesquisaIcon />
         </div>
       </div>
       <div className={styles.conversationList}>

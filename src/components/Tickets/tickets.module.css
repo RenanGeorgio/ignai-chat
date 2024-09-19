@@ -15,7 +15,7 @@
   align-items: center;
   justify-content: flex-start;
   padding: 10px 10px 10px;
-  gap: 5px;
+  gap: 20px; 
 }
 
 .messagens {
@@ -30,18 +30,23 @@
   min-width: 9.063rem;
 }
 
-.notification {
-  height: 3rem;
-  width: 3rem;
-  border-radius: 50%;
-  margin: 10px;
-  border: 1px solid gray;
-  box-sizing: border-box;
+.emojisContainer {
   display: flex;
   flex-direction: row;
   align-items: center;
+  gap: 15px;
+}
+
+.notification {
+  height: 2.5rem; 
+  width: 2.5rem;
+  border-radius: 50%;
+  cursor: pointer;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
   justify-content: center;
-  padding: 5px 3px;
+  padding: 5px;
 }
 
 .conversationList,
@@ -62,6 +67,12 @@
 .hoje,
 .title {
   align-self: stretch;
+}
+
+.hoje {
+  margin: 15px;
+  color:#A2A5B1;
+  font-size: 14px
 }
 
 .list {

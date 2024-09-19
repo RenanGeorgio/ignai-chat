@@ -79,7 +79,7 @@ export const SettingIcon = () => {
 export const IgnaiIcon = () => {
   return (
     <div>
-      <svg xmlns="http://www.w3.org/2000/svg"  width="24px" height="24px">
+      <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 150 100" preserveAspectRatio="xMidYMid meet">
         <g><path opacity="0.899" fill="#fd645b" d="M 1.5,-0.5 C 3.83333,-0.5 6.16667,-0.5 8.5,-0.5C 13.2507,3.32691 17.9173,3.32691 22.5,-0.5C 25.1667,-0.5 27.8333,-0.5 30.5,-0.5C 34.5316,7.27261 32.1983,10.7726 23.5,10C 21.1342,8.76696 18.6342,7.93363 16,7.5C 12.1807,8.20328 8.51407,9.20328 5,10.5C 2.8218,10.6052 0.988468,9.93854 -0.5,8.5C -0.5,6.16667 -0.5,3.83333 -0.5,1.5C 0.5,1.16667 1.16667,0.5 1.5,-0.5 Z"/></g>
         <g><path opacity="0.657" fill="#ffede5" d="M 51.5,8.5 C 53.1667,8.5 54.8333,8.5 56.5,8.5C 56.5,16.8333 56.5,25.1667 56.5,33.5C 54.8333,33.5 53.1667,33.5 51.5,33.5C 51.5,25.1667 51.5,16.8333 51.5,8.5 Z"/></g>
         <g><path opacity="0.834" fill="#ffeee6" d="M 64.5,8.5 C 72.0245,7.04144 76.0245,10.0414 76.5,17.5C 75.0222,17.762 73.6888,17.4287 72.5,16.5C 70.4024,11.8417 67.9024,11.5084 65,15.5C 64.3333,19.1667 64.3333,22.8333 65,26.5C 67.673,30.0326 70.173,29.6993 72.5,25.5C 71.3112,24.5713 69.9778,24.238 68.5,24.5C 68.5,23.1667 68.5,21.8333 68.5,20.5C 71.1667,20.5 73.8333,20.5 76.5,20.5C 77.8394,31.0013 73.5061,34.8346 63.5,32C 62.6667,31.1667 61.8333,30.3333 61,29.5C 60.3333,23.8333 60.3333,18.1667 61,12.5C 62.1022,11.051 63.2689,9.7177 64.5,8.5 Z"/></g>
@@ -116,6 +116,43 @@ export const BotIcon = () => {
         <rect width="40" height="40" fill="white"/>
         </clipPath>
         </defs>
+      </svg>
+    </div>
+  )
+}
+
+export const LogoutIcon = () => {
+  return (
+    <div>
+      <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M11.6667 23.3334C5.25002 23.3334 4.66669 22.1667 4.66669 14.0001C4.66669 5.83341 5.25002 4.66675 11.6667 4.66675" stroke="#9DB2CE" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M10.5 14L23.3333 14" stroke="#9DB2CE" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M18.6667 18.6667L23.3334 14.0001L18.6667 9.33342" stroke="#9DB2CE" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+  )
+}
+
+export const EditIcon = () => {
+  return (
+    <div>
+      <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="0.5" y="0.5" width="47" height="47" rx="23.5" stroke="#33373D"/>
+        <path d="M25.7474 32.4428H33" stroke="#93989A" stroke-linecap="round" stroke-linejoin="round"/>
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M24.78 15.7948C25.5557 14.8678 26.95 14.7319 27.8962 15.4917C27.9485 15.533 29.6295 16.8388 29.6295 16.8388C30.669 17.4672 30.992 18.8031 30.3494 19.8226C30.3153 19.8772 20.8119 31.7645 20.8119 31.7645C20.4958 32.1589 20.0158 32.3918 19.5029 32.3973L15.8635 32.443L15.0435 28.9723C14.9287 28.4843 15.0435 27.9718 15.3597 27.5773L24.78 15.7948Z" stroke="#93989A" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M23.0209 18.001L28.4731 22.1881" stroke="#93989A" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+  )
+}
+
+export const PesquisaIcon = () => {
+  return (
+    <div>
+      <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="0.5" y="0.5" width="47" height="47" rx="23.5" stroke="#33373D"/>
+        <path d="M23 31C27.4183 31 31 27.4183 31 23C31 18.5817 27.4183 15 23 15C18.5817 15 15 18.5817 15 23C15 27.4183 18.5817 31 23 31Z" stroke="#93989A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M29 29L33 33" stroke="#93989A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
     </div>
   )
