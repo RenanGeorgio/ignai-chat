@@ -9,13 +9,13 @@ const {
   addConversationReference,
   setCurrentConversation,
   updateConversation,
-  updateUserChats,
+  updateUserChats, // SAMUEL
   raiseError,
 } = conversationsReducer;
 
 const initialState: IConversationsState = {
   queueConversations: [],
-  userChats: []
+  userChats: [] // SAMUEL
 };
 
 export const conversationsSlice = createSlice({
@@ -26,7 +26,7 @@ export const conversationsSlice = createSlice({
     setCurrentConversation,
     updateConversation,
     //@ts-ignore
-    updateUserChats,
+    updateUserChats, // SAMUEL
     raiseError,
   },
   //extraReducers(builder) {
