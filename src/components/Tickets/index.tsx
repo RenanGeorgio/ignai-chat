@@ -38,20 +38,24 @@ const TicketsComponent: React.FC = () => {
         <div className={styles.menu}>
           <TicketLabel />
           <div className={styles.list}>
-            {userChats?.length > 0 && 
-              <>
-                {userChats?.map((conversation: Chat, index: number) => ( // verificar dps
-                  <TicketElement
-                    index={index}
-                    selected={selected}
-                    // handleElementSelect={handleSelect}
-                    key={index}
-                    //servicePerformed={servicePerformed} 
-                    conversation={conversation}
-                    updateCurrentChat={updateCurrentChat}
-                  />
-                ))}
-              </>
+            {userChats != undefined && userChats?.length > 0 ?
+              (
+                <>
+                  {userChats?.map((conversation: Chat, index: number) => ( // verificar dps
+                    <TicketElement
+                      index={index}
+                      selected={selected}
+                      // handleElementSelect={handleSelect}
+                      key={index}
+                      //servicePerformed={servicePerformed} 
+                      conversation={conversation}
+                      updateCurrentChat={updateCurrentChat}
+                    />
+                  ))}
+                </>
+              ) : (
+                <></>
+              )
             }
           </div>
         </div>
