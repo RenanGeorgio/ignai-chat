@@ -147,39 +147,40 @@ export const ChatProvider = ({ children }: ChatProviderProps) => {
     const getClients = async () => {
       const response = await getChat('chat/clients');
 
-      if (response?.status !== 200) {
+      if (response?.status == 200) {
+        const data: ChatClient[] = await response.data;
+
+        console.log(data);
+        const chatclientData = Object.values(data);
+        console.log(chatclientData);
+        
+        const pChats = data?.filter((client) => {
+          let isChatCreated = false;
+
+          if (!(user?._id === client?._id)) {
+            return false;
+          }
+
+          if (userChats) {
+            isChatCreated = userChats?.some((chat: any) => {
+              const members_: string[] = chat.members;
+
+              return (
+                members_?.includes(client._id) &&
+                chat.status === ChatStatus.ACTIVE
+              );
+            });
+          }
+
+          return !isChatCreated;
+        });
+        // @ts-ignore - ignorado por enquanto
+        setPotentialChats(pChats);
+      } else {
         const value = response?.data?.message as string;
 
         return setUserChatsError(value);
       }
-
-      const data: ChatClient[] = await response.data;
-
-      const chatclientData = Object.values(data);
-      console.log(chatclientData);
-      
-      const pChats = chatclientData?.filter((client) => {
-        let isChatCreated = false;
-
-        if (!(user?._id === client?._id)) {
-          return false;
-        }
-
-        if (userChats) {
-          isChatCreated = userChats?.some((chat: any) => {
-            const members_: string[] = chat.members;
-
-            return (
-              members_?.includes(client._id) &&
-              chat.status === ChatStatus.ACTIVE
-            );
-          });
-        }
-
-        return !isChatCreated;
-      });
-      // @ts-ignore - ignorado por enquanto
-      setPotentialChats(pChats);
     };
 
     getClients();
