@@ -38,7 +38,7 @@ const BugComponents: FunctionComponent<BugType> = ({ className = "" }) => {
           <h3 className={styles.bugTitle}>Lista de Tickets</h3>
         </div>
         <div className={styles.containerBug}>
-          {tickets.map((ticket, index) => (
+          {tickets?.map((ticket, index) => (
             <div className={styles.bugItem} key={index}>
               <div className={styles.statusBug}>
                 <p className={styles.bug}>{`${index + 1}. ${ticket}`}</p>
