@@ -103,6 +103,6 @@ const ChatComponent: React.FC = () => {
       </div>
     </div>
   );
-};
+}
 
 export default ChatComponent;

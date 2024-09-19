@@ -1,25 +1,10 @@
-import React, { useState, useEffect, useRef } from "react";
-import axios from "axios";
+import React, { useState, useRef } from "react";
 import { Device, Call } from "@twilio/voice-sdk";
 
 const VoiceCall: React.FC = () => {
   const [phoneNumber, setPhoneNumber] = useState<string>('');
   const callingToken = useRef<string | null>(null);
   const device = useRef<Device | null>(null);
-
-  useEffect(() => {
-    // Fetch authentication token from the server
-    const fetchToken = async () => {
-      try {
-        const response = await axios.get('/api/token');
-        callingToken.current = response.data.token;
-      } catch (error: unknown) {
-        console.error('Error fetching token:', error);
-      }
-    };
-
-    fetchToken();
-  }, []);
 
   const handleCall = async () => {
     try {

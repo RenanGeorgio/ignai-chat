@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useState, ReactNode } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { io, Socket } from 'socket.io-client';
 // import Cookies from 'js-cookie';
 
@@ -9,8 +10,9 @@ import compareArrays from '../../../helpers/compareArrays';
 // import { baseUrl } from '../../../config/index';
 import { Chat, ChatClient, Message, ChatStatus } from '../types';
 import { OnlineUser } from '@types';
-import { useDispatch, useSelector } from 'react-redux';
 import { conversationsActions } from '../../../store/conversations/slice';
+import { useAppDispatch, useAppSelector } from '../../../store/hooks';
+import { ConversationDTO } from '../../../store/types';
 
 type ChatProviderProps = {
   children: ReactNode;
@@ -35,8 +37,18 @@ const user = {
 const baseUrl = process.env.REACT_APP_CHAT_API
 
 export const ChatProvider = ({ children }: ChatProviderProps) => {
+  // SAMUEL
   // const [userChats, setUserChats] = useState<Chat[]>([]); // store
   const userChats = useSelector((state: any) => state.conversation.userChats);
+
+  // RENAN
+  const queueChats: ConversationDTO[] = useAppSelector(selectQueueConversation);
+  const dispatch = useAppDispatch();
+  
+  const [currentConversationChat, setCurrentConversationChat] = useState<any>();
+
+  const [userChats, setUserChats] = useState<Chat[]>([]);
+  // FIM DAS ALTERAÇÕES
   const [isUserChatsLoading, setIsUserChatsLoading] = useState<boolean>(false);
   const [userChatsError, setUserChatsError] = useState<string | null>(null);
   const [potentialChats, setPotentialChats] = useState<ChatClient[] | null>(
@@ -68,6 +80,36 @@ export const ChatProvider = ({ children }: ChatProviderProps) => {
       newSocket.disconnect();
     };
   }, [user]);
+
+
+  const setAcceptedChat = async () => {
+    if (currentConversationChat == undefined) {
+      return
+    }
+    
+    const currentDevice = currentConversationCall?.device as Device;
+    const connectToken = currentConversationCall?.connectToken as string;
+
+    const call: Call = await currentDevice?.connect({ connectToken });
+  };
+
+  const handleSocketIndexChange = (index: string | number) => { 
+    const found: ConversationDTO | undefined = queueChats.find((item: ConversationDTO) => item?.id == index);
+
+    if (found != undefined) {
+      // @ts-ignore
+      dispatch(updateConversation(index)); 
+
+      const socketConnection = {
+        currentChat: '',
+        socket: '',
+      }
+
+      setCurrentConversationChat(socketConnection);
+
+      setAcceptedChat();
+    }
+  };
 
   useEffect(() => {
     if (socket === null) {
@@ -321,6 +363,7 @@ export const ChatProvider = ({ children }: ChatProviderProps) => {
         messageError,
         sendTextMessage,
         onlineUsers,
+        handleSocketIndexChange,
       }}
     >
       {children}
