@@ -10,7 +10,7 @@ import compareArrays from '../../../helpers/compareArrays';
 // import { baseUrl } from '../../../config/index';
 import { Chat, ChatClient, Message, ChatStatus } from '../types';
 import { OnlineUser } from '@types';
-import { conversationsActions } from '../../../store/conversations/slice';
+import { conversationsActions, selectQueueConversation } from '../../../store/conversations/slice';
 import { useAppSelector } from '../../../store/hooks';
 import { ConversationDTO } from '../../../store/types';
 
@@ -87,10 +87,10 @@ export const ChatProvider = ({ children }: ChatProviderProps) => {
       return
     }
     
-    const currentDevice = currentConversationCall?.device as Device;
-    const connectToken = currentConversationCall?.connectToken as string;
+    const currentDevice = currentConversationChat?.device as any;
+    const connectToken = currentConversationChat?.connectToken as any;
 
-    const call: Call = await currentDevice?.connect({ connectToken });
+    await currentDevice?.connect({ connectToken });
   };
 
   const handleSocketIndexChange = (index: string | number) => { 
