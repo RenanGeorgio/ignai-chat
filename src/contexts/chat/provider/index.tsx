@@ -43,7 +43,7 @@ export const ChatProvider = ({ children }: ChatProviderProps) => {
 
   // RENAN
   const queueChats: ConversationDTO[] = useAppSelector(selectQueueConversation);
-  const dispatch = useAppDispatch();
+  //const dispatch = useAppDispatch();
   
   const [currentConversationChat, setCurrentConversationChat] = useState<any>();
 
