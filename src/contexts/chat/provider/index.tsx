@@ -47,7 +47,7 @@ export const ChatProvider = ({ children }: ChatProviderProps) => {
   
   const [currentConversationChat, setCurrentConversationChat] = useState<any>();
 
-  const [userChats, setUserChats] = useState<Chat[]>([]);
+  //const [userChats, setUserChats] = useState<Chat[]>([]);
   // FIM DAS ALTERAÇÕES
   const [isUserChatsLoading, setIsUserChatsLoading] = useState<boolean>(false);
   const [userChatsError, setUserChatsError] = useState<string | null>(null);
