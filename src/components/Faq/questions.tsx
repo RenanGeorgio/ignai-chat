@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import styles from "./questions.module.css";
 import { EditIcon, PesquisaIcon } from "../../assets/icons";
+
+import styles from "./questions.module.css";
 
 const questions = [
   'Como encontrar a 2° via do boleto?',
