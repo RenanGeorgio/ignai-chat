@@ -131,7 +131,9 @@ export const ChatProvider = ({ children }: ChatProviderProps) => {
         }
       }
 
-      setUserChats((prev: any) => [...(prev || []), client]);
+      if (client != undefined) {
+        setUserChats((prev: any) => [...(prev || []), client]);
+      }
     });
 
     return () => {
@@ -197,12 +199,18 @@ export const ChatProvider = ({ children }: ChatProviderProps) => {
 
         const response = await getChat(`chat/${user.companyId}`);
 
-        if (!response) {
+        if (response) {
+          const data: Chat[] = await response?.data;
+
+          if ((data != undefined) && (data.length > 0)) {
+            setUserChats(data);
+          } else {
+            // @ts-ignore
+            setUserChats([]);
+          }
+        } else {
           return setUserChatsError('error');
         }
-
-        const data: Chat[] = await response?.data;
-        setUserChats(data);
       }
     };
 
