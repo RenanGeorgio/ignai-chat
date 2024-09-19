@@ -1,6 +1,5 @@
-.container{
+.container {
   display: flex;
-  justify-content: center;
   width: 100%;
   height: 100vh;
   background-color: #202226;
@@ -19,10 +18,36 @@
 }
 
 .sectionContainer {
+  display: flex;
+  flex-direction: column;
   margin-top: 20px;
   margin-left: 10px;
 }
 
-.sectionContainer .link {
-  margin: 10px;
+.link {
+  display: block;
+  width: 100%;
+  text-decoration: none;
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.menu-item-logo {
+  position: relative;
+  left: 10%;
+  padding: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.menu-item-active {
+  background-color: #6a638132; 
+  color: white; 
 }

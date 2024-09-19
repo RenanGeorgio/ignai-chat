@@ -116,18 +116,51 @@ const QueueComponent: FunctionComponent<QueueItemsType> = () => {
 
   return (
     <div className={styles.queueItems}>
-      <h3 className={styles.filaDeAtendimento}>Fila de atendimento</h3>
+      <div className={styles.containerHeader}>
+        <div className={styles.formGroupContainer}>
+          <FormGroup>
+            <FormControlLabel
+              control={
+                <Switch
+                  checked={checked}
+                  onChange={handleChange}
+                  inputProps={{ 'aria-label': 'controlled' }}
+                />
+              }
+              label={checked ? 'Habilitado' : 'Em Pausa'}
+              className={styles.slider}
+            />
+          </FormGroup>
+        </div>
+        <h3 className={styles.filaDeAtendimento}>Fila de atendimento</h3>
+      </div>
       <div className={styles.queueHeadings}>
         <Stack direction="row" spacing={2}>
           <ButtonGroup
             variant="contained"
             ref={anchorRef}
             aria-label="Button group with a nested menu"
+            sx={{
+              '& .MuiButtonGroup-grouped': {
+                border: 'none',
+              },
+              '& .MuiButtonGroup-grouped:not(:first-of-type)': {
+                borderLeft: '1px solid white',
+              },
+            }}
           >
             <Button
               size="medium"
               variant="contained"
-              disabled={controllDisabled}
+              sx={{
+                backgroundColor: '#ec3d3d',
+                '&:hover': {
+                  backgroundColor: '#ee6b6b',
+                },
+                '& .MuiSvgIcon-root': {
+                  color: 'white',
+                },
+              }}
               endIcon={<MessageCircleIcon />}
               onClick={handleStartWork}
             >
@@ -140,6 +173,15 @@ const QueueComponent: FunctionComponent<QueueItemsType> = () => {
               aria-label="select merge strategy"
               aria-haspopup="menu"
               onClick={handleToggle}
+              sx={{
+                backgroundColor: '#ec3d3d',
+                '&:hover': {
+                  backgroundColor: '#ee6b6b',
+                },
+                '& .MuiSvgIcon-root': {
+                  color: 'white',
+                },
+              }}
             >
               <SettingIcon />
             </Button>
@@ -182,18 +224,6 @@ const QueueComponent: FunctionComponent<QueueItemsType> = () => {
               </Grow>
             )}
           </Popper>
-          <FormGroup>
-            <FormControlLabel
-              control={
-                <Switch
-                  checked={checked}
-                  onChange={handleChange}
-                  inputProps={{ 'aria-label': 'controlled' }}
-                />
-              }
-              label={checked ? 'Habilitado' : 'Em Pausa'}
-            />
-          </FormGroup>
         </Stack>
       </div>
       <div className={styles.queueContacts}>
@@ -203,6 +233,7 @@ const QueueComponent: FunctionComponent<QueueItemsType> = () => {
           manual={manual}
         />
       </div>
+      <footer className={styles.footerFila} />
     </div>
   );
 };
