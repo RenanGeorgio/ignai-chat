@@ -54,7 +54,7 @@ const TicketsComponent: React.FC = () => {
             {ticketElements != undefined && ticketElements?.length > 0 ?
               (
                 <>
-                  {ticketElements?.map((conversation: Chat, index: number) => ( // verificar dps
+                  {ticketElements!.map((conversation: Chat, index: number) => ( // verificar dps
                     <TicketElement
                       index={index}
                       selected={selected}
