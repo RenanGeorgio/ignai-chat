@@ -9,7 +9,7 @@ import { selectQueueConversation } from "../../../store/conversations/slice";
 import BackgroundAudioProcessor from "../../../libs/audio";
 
 import { CallState, CurrentDeviceToCall, ServicesPerformed } from "../types";
-import { ConsumersQueue, Obj, USER_STATE } from "../../../types";
+import { ConsumersQueue, CONVERSATION_CHANNEL, Obj, USER_STATE } from "../../../types";
 import { ConversationDTO } from "../../../store/types";
 
 type CallProviderProps = {
@@ -71,7 +71,7 @@ export const CallProvider = ({ children }: CallProviderProps) => {
         createdAt: currentDate,
       },
       label: {
-        emoji: 'phone',
+        emoji: CONVERSATION_CHANNEL.CALL,
         id: id,
         startTime: currentDate,
         status: 'on',
