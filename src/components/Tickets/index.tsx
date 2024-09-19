@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { useState, useEffect } from "react";
 
 import { useCall } from "../../contexts/call/hooks";
@@ -38,6 +37,7 @@ const TicketsComponent: React.FC = () => {
     if ((userChats != undefined) && (userChats.length)) {
       setTicketElements(userChats);
     } else {
+      // @ts-ignore
       setTicketElements([]);
     }
   },[userChats]);
