@@ -20,7 +20,7 @@ import { useChat } from "../../contexts/chat/hooks";
 import { QueueItems } from "./items";
 
 import { MessageCircleIcon, SettingIcon } from "../../assets/icons";
-import { QueueItemLabel } from "../../types";
+import { CONVERSATION_CHANNEL, QueueItemLabel } from "../../types";
 import { ConversationDTO } from "../../store/types";
 
 import styles from "./queue.module.css";
@@ -48,18 +48,14 @@ const QueueComponent: FunctionComponent<QueueItemsType> = () => {
   const [blockSend, setBlockSend] = useState<boolean>(true);
 
   const [labels, setLabels] = useState<QueueItemLabel[]>([]);
-  const [selectedItem, setSelectedItem] = useState<QueueItemLabel | undefined>(
-    undefined,
-  );
-  const [currentItem, setCurrentItem] = useState<QueueItemLabel | undefined>(
-    undefined,
-  );
+  const [selectedItem, setSelectedItem] = useState<QueueItemLabel | undefined>(undefined);
+  const [currentItem, setCurrentItem] = useState<QueueItemLabel | undefined>(undefined);
 
   const handleStartWork = () => {
     if (blockSend) {
       // TO-DO: olhar para o emoji -> identificar meio de comunicação do consumidor
       if (currentItem) {
-        if (currentItem?.emoji == 'call') {
+        if (currentItem?.emoji == CONVERSATION_CHANNEL.CALL) {
           handleIndexChange(currentItem.id); // TO-DO: confirmar atendimento - Bloquear alterações do item
         } else {
           handleSocketIndexChange(currentItem.id);
