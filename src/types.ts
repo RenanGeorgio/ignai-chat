@@ -35,10 +35,19 @@ export interface OnlineUser  {
 }
 
 export enum USER_STATE {
-  CONNECTING = "Connecting",
-  READY = "Ready",
-  INCOMING = "Incoming",
-  ON_CALL = "On call",
-  OFFLINE = "Offline",
-  ERROR = "Error",
+  CONNECTING = 'Connecting',
+  READY = 'Ready',
+  INCOMING = 'Incoming',
+  ON_CALL = 'On call',
+  OFFLINE = 'Offline',
+  ERROR = 'Error',
+}
+
+export enum CONVERSATION_CHANNEL {
+  CONNECTING = 'Connecting',
+  READY = 'Ready',
+  INCOMING = 'Incoming',
+  ON_CALL = 'On call',
+  OFFLINE = 'Offline',
+  ERROR = 'Error',
 }
