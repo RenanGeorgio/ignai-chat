@@ -1,11 +1,14 @@
 import React, { useState } from "react";
-import { useCall } from '../../contexts/call/hooks';
+
+import { useCall } from "../../contexts/call/hooks";
+import { useChat } from "../../contexts/chat/hooks";
+
 import { TicketsHeader } from "./header";
 import { TicketLabel } from "./label";
 import { TicketElement } from "./element";
+import { Chat } from "../../contexts/chat/types";
 
 import styles from "./tickets.module.css";
-import { useChat } from "../../contexts/chat/hooks";
 
 // const conversations = [
 //   '554356 início: 15:45 status: on 5:27',
@@ -35,17 +38,21 @@ const TicketsComponent: React.FC = () => {
         <div className={styles.menu}>
           <TicketLabel />
           <div className={styles.list}>
-            {userChats?.map((conversation, index) => ( // verificar dps
-              <TicketElement
-                index={index}
-                selected={selected}
-                // handleElementSelect={handleSelect}
-                key={index}
-                //servicePerformed={servicePerformed} 
-                conversation={conversation}
-                updateCurrentChat={updateCurrentChat}
-              />
-            ))}
+            {userChats?.length > 0 && 
+              <>
+                {userChats?.map((conversation: Chat, index: number) => ( // verificar dps
+                  <TicketElement
+                    index={index}
+                    selected={selected}
+                    // handleElementSelect={handleSelect}
+                    key={index}
+                    //servicePerformed={servicePerformed} 
+                    conversation={conversation}
+                    updateCurrentChat={updateCurrentChat}
+                  />
+                ))}
+              </>
+            }
           </div>
         </div>
       </div>
