@@ -5,16 +5,17 @@ import type { RootState } from "../store";
 import { IConversationsState } from "../interfaces";
 // import { USER_STATE } from "@types";
 
-
 const {
   addConversationReference,
   setCurrentConversation,
   updateConversation,
+  updateUserChats,
   raiseError,
 } = conversationsReducer;
 
 const initialState: IConversationsState = {
-  queueConversations: []
+  queueConversations: [],
+  userChats: []
 };
 
 export const conversationsSlice = createSlice({
@@ -24,6 +25,8 @@ export const conversationsSlice = createSlice({
     addConversationReference,
     setCurrentConversation,
     updateConversation,
+    //@ts-ignore
+    updateUserChats,
     raiseError,
   },
   //extraReducers(builder) {
