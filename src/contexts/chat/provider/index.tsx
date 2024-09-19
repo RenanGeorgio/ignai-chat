@@ -155,7 +155,10 @@ export const ChatProvider = ({ children }: ChatProviderProps) => {
 
       const data: ChatClient[] = await response.data;
 
-      const pChats = data?.filter((client) => {
+      const chatclientData = Object.values(data);
+      console.log(chatclientData);
+      
+      const pChats = chatclientData?.filter((client) => {
         let isChatCreated = false;
 
         if (!(user?._id === client?._id)) {
