@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import { useCall } from "../../contexts/call/hooks";
 import { useChat } from "../../contexts/chat/hooks";
@@ -25,12 +25,25 @@ import styles from "./tickets.module.css";
 const TicketsComponent: React.FC = () => {
   const { servicesPerformed } = useCall(); // TO-DO: mudar para useQuery
   const { userChats, updateCurrentChat } = useChat();
+
   const [selected, setSelected] = useState<number>(0);
+  const [ticketElements, setTicketElements] = useState<Chat[]>([]);
 
   const handleSelect = (index: number) => {
     setSelected(index);
   };
-  console.log(userChats)
+
+  useEffect(() => {
+    if ((userChats != undefined) && (userChats.length)) {
+      setTicketElements(userChats);
+    } else {
+      // @ts-ignore
+      setTicketElements([]);
+    }
+  },[userChats]);
+
+  console.log(userChats);
+  console.log(ticketElements);
   return (
     <div className={styles.message}>
       <TicketsHeader />
@@ -38,10 +51,10 @@ const TicketsComponent: React.FC = () => {
         <div className={styles.menu}>
           <TicketLabel />
           <div className={styles.list}>
-            {userChats != undefined && userChats?.length > 0 ?
+            {ticketElements != undefined && ticketElements?.length > 0 ?
               (
                 <>
-                  {userChats?.map((conversation: Chat, index: number) => ( // verificar dps
+                  {ticketElements?.map((conversation: Chat, index: number) => ( // verificar dps
                     <TicketElement
                       index={index}
                       selected={selected}
