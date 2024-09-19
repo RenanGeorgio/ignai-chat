@@ -123,7 +123,7 @@ export const ChatProvider = ({ children }: ChatProviderProps) => {
         const isChatCreated = userChats?.some(
           (chat: Chat) =>
             compareArrays(chat?.members, client?.members) &&
-            client.status === chat.status,
+            client?.status === chat?.status,
         );
 
         if (isChatCreated) {
@@ -198,15 +198,18 @@ export const ChatProvider = ({ children }: ChatProviderProps) => {
         setIsUserChatsLoading(true);
 
         const response = await getChat(`chat/${user.companyId}`);
-
+        let data: Chat[] = [];
         if (response) {
-          const data: Chat[] = await response?.data;
+          const value: any = await response?.data;
 
-          if ((data != undefined) && (data.length > 0)) {
-            setUserChats(data);
-          } else {
-            // @ts-ignore
-            setUserChats([]);
+          if (value) {
+            data = value;
+            if ((data != undefined) && (data.length > 0)) {
+              setUserChats(data);
+            } else {
+              // @ts-ignore
+              setUserChats([]);
+            }
           }
         } else {
           return setUserChatsError('error');
