@@ -16,8 +16,8 @@ function App() {
 
   return (
     <div className="app-container">
-      <ChatProvider>
-        <Provider store={store}>
+      <Provider store={store}>
+        <ChatProvider>
           <div className="sidebar">
             <SideBar />
           </div>
@@ -26,8 +26,8 @@ function App() {
             <Route path="/faq" element={<Faq />} />
             <Route path="/user" element={<User />} />
           </Routes>
-        </Provider>
-      </ChatProvider>
+        </ChatProvider>
+      </Provider>
     </div>
   );
 }

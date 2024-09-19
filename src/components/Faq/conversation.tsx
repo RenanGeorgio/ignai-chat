@@ -48,7 +48,7 @@ const ConversationComponent: React.FC = () => {
       </header>
 
       <div className={styles.conversation3}>
-        {messages.map((message, index) => (
+        {messages?.map((message, index) => (
           <div key={index} className={message.sender === 'bot' ? styles.bot : styles.cliente}>
             <div className={styles.messageHeader}>
               <span className={message.sender === 'bot' ? styles.senderNameBot : styles.senderNameCliente}>

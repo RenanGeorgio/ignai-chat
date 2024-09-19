@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useState, ReactNode } from 'react';
-import { Socket } from 'socket.io-client';
+import { useDispatch, useSelector } from 'react-redux';
+import { io, Socket } from 'socket.io-client';
 // import Cookies from 'js-cookie';
 
 import { ChatContext } from '../ChatContext';
@@ -9,7 +10,8 @@ import compareArrays from '../../../helpers/compareArrays';
 // import { baseUrl } from '../../../config/index';
 import { Chat, ChatClient, Message, ChatStatus } from '../types';
 import { OnlineUser } from '@types';
-import { useAppDispatch, useAppSelector } from '../../../store/hooks';
+import { conversationsActions } from '../../../store/conversations/slice';
+import { useAppSelector } from '../../../store/hooks';
 import { ConversationDTO } from '../../../store/types';
 
 type ChatProviderProps = {
@@ -32,13 +34,21 @@ const user = {
   companyId: '1',
 };
 
+const baseUrl = process.env.REACT_APP_CHAT_API
+
 export const ChatProvider = ({ children }: ChatProviderProps) => {
+  // SAMUEL
+  // const [userChats, setUserChats] = useState<Chat[]>([]); // store
+  const userChats = useSelector((state: any) => state.conversation.userChats);
+
+  // RENAN
   const queueChats: ConversationDTO[] = useAppSelector(selectQueueConversation);
-  const dispatch = useAppDispatch();
+  //const dispatch = useAppDispatch();
   
   const [currentConversationChat, setCurrentConversationChat] = useState<any>();
 
-  const [userChats, setUserChats] = useState<Chat[]>([]);
+  //const [userChats, setUserChats] = useState<Chat[]>([]);
+  // FIM DAS ALTERAÇÕES
   const [isUserChatsLoading, setIsUserChatsLoading] = useState<boolean>(false);
   const [userChatsError, setUserChatsError] = useState<string | null>(null);
   const [potentialChats, setPotentialChats] = useState<ChatClient[] | null>(
@@ -51,22 +61,25 @@ export const ChatProvider = ({ children }: ChatProviderProps) => {
   const [newMessage, setNewMessage] = useState<Message | null>(null);
   const [onlineUsers, setOnlineUsers] = useState<OnlineUser[]>([]);
   const [socket, setSocket] = useState<Socket | null>(null);
-
+  const dispatch = useDispatch();
   // const { user } = useUser();
 
-  // useEffect(() => {
-  //   const newSocket = io(baseUrl as string, {
-  //     auth: {
-  //       token: 'Bearer ' + Cookies.get('token'),
-  //     },
-  //   });
+  useEffect(() => {
+    const newSocket = io(baseUrl as string, {
+      auth: {
+        // token: 'Bearer ' + Cookies.get('token'),
+        token:
+          'Bearer ' +
+          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NWJiZTAzNTlmODRkYTNhZjYwMWYzNzMifQ.kDH1o74vbiZgnYvNhBfQuFYIf8F4JlLVBLb3TIW1uKc',
+      },
+    });
 
-  //   setSocket(newSocket);
+    setSocket(newSocket);
 
-  //   return () => {
-  //     newSocket.disconnect();
-  //   };
-  // }, [user]);
+    return () => {
+      newSocket.disconnect();
+    };
+  }, [user]);
 
 
   const setAcceptedChat = async () => {
@@ -169,7 +182,8 @@ export const ChatProvider = ({ children }: ChatProviderProps) => {
       }
 
       if (client != undefined) {
-        setUserChats((prev: any) => [...(prev || []), client]);
+        // setUserChats((prev: any) => [...(prev || []), client]); // dispatch
+        dispatch(conversationsActions.updateUserChats(client));
       }
     });
 
@@ -185,14 +199,14 @@ export const ChatProvider = ({ children }: ChatProviderProps) => {
 
     const getClients = async () => {
       const response = await getChat('chat/clients');
-
+      console.log(response)
       let data: any[] = [];
       if (response?.status == 200) {
         const { potentialChats } = await response.data;
 
         data = potentialChats;
-        
-        if ((data != undefined) && (data.length > 0)) {
+       
+        if (data != undefined && data.length > 0) {
           const pChats = data?.filter((client) => {
             let isChatCreated = false;
 
@@ -241,8 +255,9 @@ export const ChatProvider = ({ children }: ChatProviderProps) => {
 
           if (value) {
             data = value;
-            if ((data != undefined) && (data.length > 0)) {
-              setUserChats(data);
+            if (data != undefined && data.length > 0) {
+              // setUserChats(data);
+              dispatch(conversationsActions.updateUserChats(data));
             } else {
               // @ts-ignore
               setUserChats([]);

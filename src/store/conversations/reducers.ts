@@ -22,9 +22,15 @@ const raiseError: CaseReducer<State, PayloadAction<{ index: number; message: str
   state.queueConversations[index].error = message;
 }
 
+// SAMUEL
+const updateUserChats: CaseReducer<State, PayloadAction<string | number>> = (state: any, action: any) => {
+  state.userChats = action.payload;
+}
+
 export const conversationsReducer: IConversationsStore = {
   addConversationReference: addConversationReference,
   setCurrentConversation: setCurrentConversation,
   updateConversation: updateConversation,
+  updateUserChats: updateUserChats, // SAMUEL
   raiseError: raiseError,
 }
