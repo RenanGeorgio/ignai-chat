@@ -11,7 +11,7 @@ import compareArrays from '../../../helpers/compareArrays';
 import { Chat, ChatClient, Message, ChatStatus } from '../types';
 import { OnlineUser } from '@types';
 import { conversationsActions } from '../../../store/conversations/slice';
-import { useAppDispatch, useAppSelector } from '../../../store/hooks';
+import { useAppSelector } from '../../../store/hooks';
 import { ConversationDTO } from '../../../store/types';
 
 type ChatProviderProps = {
