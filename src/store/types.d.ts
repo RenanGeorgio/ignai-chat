@@ -20,4 +20,4 @@ export type AddConversationReference = (state: State, action: PayloadAction<Conv
 export type SetCurrentConversation = (state: State, action: PayloadAction<CurrentConversation[]>) => any
 export type UpdateConversation = (state: State, action: PayloadAction<string | number>) => any
 export type RaiseError = (state: State, action: PayloadAction<{ index: number; message: string }>) => any
-export type updateUserChats = (state: State, action: PayloadAction<string | number>) => Chat
+export type updateUserChats = (state: State, action: PayloadAction<string | number>) => Chat // SAMUEL
