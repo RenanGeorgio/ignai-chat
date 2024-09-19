@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { TextField } from "@mui/material";
 import { BotIcon } from "../../assets/icons";
-import styles from "./conversation.module.css"; 
+import styles from "./conversation.module.css";
 
 const ConversationComponent: React.FC = () => {
   const [messages, setMessages] = useState([
@@ -48,26 +48,24 @@ const ConversationComponent: React.FC = () => {
       </header>
 
       <div className={styles.conversation3}>
-        {messages.map((message, index) => {
-          return (
-            <div key={index} className={message.sender === 'bot' ? styles.bot : styles.cliente}>
-              <div className={styles.messageHeader}>
-                <span className={message.sender === 'bot' ? styles.senderNameBot : styles.senderNameCliente}>
-                  {message.sender === 'bot' ? message.name : ''}
-                </span>
-                {message.sender === 'bot' && (
-                  <span className={styles.timeCliente}>{message.time}</span>
-                )}
-              </div>
-              <div className={message.sender === 'bot' ? styles.chat : styles.chatCliente}>
-                {message.sender === 'cliente' && (
-                  <span className={styles.timeFaq}>{message.time}</span>
-                )}
-                <div>{message.text}</div>
-              </div>
+        {messages.map((message, index) => (
+          <div key={index} className={message.sender === 'bot' ? styles.bot : styles.cliente}>
+            <div className={styles.messageHeader}>
+              <span className={message.sender === 'bot' ? styles.senderNameBot : styles.senderNameCliente}>
+                {message.sender === 'bot' ? message.name : ''}
+              </span>
+              {message.sender === 'bot' && (
+                <span className={styles.timeCliente}>{message.time}</span>
+              )}
             </div>
-          );
-        })}
+            <div className={message.sender === 'bot' ? styles.chat : styles.chatCliente}>
+              {message.sender === 'cliente' && (
+                <span className={styles.timeFaq}>{message.time}</span>
+              )}
+              <div>{message.text}</div>
+            </div>
+          </div>
+        ))}
       </div>
 
       <div className={styles.input}>

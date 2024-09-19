@@ -19,6 +19,7 @@ module.exports = {
   rules: {
     'unused-imports/no-unused-imports': 'error',
     'react/react-in-jsx-scope': 'off',
+    '@typescript-eslint/ban-ts-comment': 'off',
   },
   settings: {
     'import/parsers': {

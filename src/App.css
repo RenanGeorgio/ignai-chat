@@ -1,6 +1,8 @@
-.container {
+.app-container {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 400;
   width: 100%;
-  min-height: 98vh;
+  max-height: 100vh;
   position: relative;
   border-radius: 13xl;
   background-color: black;

@@ -1,35 +1,149 @@
-import React, { useCallback, useEffect, useState, ReactNode, useRef } from "react";
-// import { Device, Call } from "@twilio/voice-sdk";
+import React, { useEffect, useState, ReactNode, useRef } from "react";
+import { Device, Call } from "@twilio/voice-sdk";
 
 import { CallContext } from "../CallContext";
-// import { getCall } from "../../../controllers/call";
 import { useUser } from "../../user/hooks";
-import { Chat, Message, USER_STATE, CallState, ConsumersQueue, ServicesPerformed } from "../types";
+import { useAppDispatch, useAppSelector } from "../../../store/hooks";
+import { addConversationReference, updateConversation } from "../../../store/conversations/actions";
+import { selectQueueConversation } from "../../../store/conversations/slice";
+import BackgroundAudioProcessor from "../../../libs/audio";
+
+import { CallState, CurrentDeviceToCall, ServicesPerformed } from "../types";
+import { ConsumersQueue, Obj, USER_STATE } from "../../../types";
+import { ConversationDTO } from "../../../store/types";
 
 type CallProviderProps = {
   children: ReactNode
 }
 
+const options: Obj = {
+  logLevel: 1,
+  codecPreferences: ['opus', 'pcmu'],
+  fakeLocalDTMF: true,
+  enableRingingState: true,
+  debug: true, // TO-DO: se for dev
+  allowIncomingWhileBusy: true,
+}
+
 export const CallProvider = ({ children }: CallProviderProps) => {
-  const [servicesPerformed, setServicesPerformed] = useState<ServicesPerformed[]>([]);
-  const [isUserChatsLoading, setIsUserChatsLoading] = useState<boolean>(false);
-  const [userChatsError, setUserChatsError] = useState<string | null>(null);
-  const [currentChat, setCurrentChat] = useState<Chat | null>(null);
-  const [messages, setMessages] = useState<Message[] | null>(null);
-  const [newMessage, setNewMessage] = useState<Message | null>(null);
-  const [consumersQueue, setconsumersQueue] = useState<ConsumersQueue[]>([]);
+  const queueConversations: ConversationDTO[] = useAppSelector(selectQueueConversation);
+  const dispatch = useAppDispatch();
+
+  const [servicesPerformed, setServicesPerformed] = useState<ServicesPerformed[]>([]); // TO-DO: mudar para useQuery direto no componente
+  const [currentConversationCall, setCurrentConversationCall] = useState<CurrentDeviceToCall | null>(null);
+
   const [userState, setUserState] = useState(USER_STATE.OFFLINE);
-  const [phoneNumber, setPhoneNumber] = useState<string>("");
-  const [connection, setConnection] = useState<any>(null);
+  const [connection, setConnection] = useState<Call | string | null>(null);
   const [currentState, setCurrentState] = useState<CallState>({
     identity: "",
     status: null,
     ready: false,
   });
 
-  // const device = useRef<Device | null>(null);
+  const device = useRef<Device | null>(null);
 
+  const processor = new BackgroundAudioProcessor();
   const { twilioToken, user } = useUser();
+
+  const forwardCall = async (conn: Call) => {
+    const currentDate = (Date.now()).toString();
+
+    const id = queueConversations.length;
+
+    const connectToken = conn?.connectToken;
+
+    if (connectToken == undefined) {
+      return
+    }
+
+    const device: Device = new Device(twilioToken as string, options as any);
+
+    await device?.audio?.addProcessor(processor);
+
+    const com: ConversationDTO = {
+      id: id,
+      device: device,
+      connectToken: connectToken,
+      conversation: {
+        queueId: id,
+        callData: conn,
+        updatedAt: currentDate,
+        createdAt: currentDate,
+      },
+      label: {
+        emoji: 'phone',
+        id: id,
+        startTime: currentDate,
+        status: 'on',
+        waitTime: undefined,
+      },
+    };
+
+    // @ts-ignore
+    dispatch(addConversationReference(com));
+  }
+
+  const setAcceptedCall = async () => {
+    if (currentConversationCall == undefined) {
+      return
+    }
+    
+    const currentDevice = currentConversationCall?.device as Device;
+    const connectToken = currentConversationCall?.connectToken as string;
+
+    const call: Call = await currentDevice?.connect({ connectToken });
+
+    call.on('reject', () => {
+      updateUserState(USER_STATE.READY, call);
+    });
+
+    call.on('cancel', () => { 
+      updateUserState(USER_STATE.READY, call);
+    });
+
+    call.on('accept', () => {
+      updateUserState(USER_STATE.ON_CALL, call);
+    });
+
+    call.on('reconnected', () => { })
+
+    call.on('reconnecting', (error: any) => { })
+
+    call.on('mute', (isMuted: boolean, call: Call) => { })
+  
+    call.on('disconnect', () => {
+      const cleanResourcers = async () => {
+        await currentDevice?.audio?.removeProcessor(processor);
+        currentDevice?.destroy();
+        setCurrentConversationCall(null); // TO-DO: Verificar se esta é a abordagem correta
+      }
+      
+      updateUserState(USER_STATE.READY, null);
+      
+      cleanResourcers();
+    });
+
+    call.on('error', (error: any) => { });
+  };
+
+  const handleIndexChange = (index: string | number) => { 
+    const found: ConversationDTO | undefined = queueConversations.find((item: ConversationDTO) => item?.id == index);
+
+    if (found != undefined) {
+      // @ts-ignore
+      dispatch(updateConversation(index)); 
+      
+      const comm: CurrentDeviceToCall = {
+        currentConversation: found?.conversation as ConsumersQueue,
+        device: found?.device,
+        connectToken: found?.connectToken,
+      };
+
+      setCurrentConversationCall(comm);
+
+      setAcceptedCall();
+    }
+  };
 
   const updateUserState = (stateType: any, conn: any) => {
     setUserState(stateType);
@@ -50,148 +164,81 @@ export const CallProvider = ({ children }: CallProviderProps) => {
     setCurrentState(incomingState);
   }
 
-  const updateCurrentChat = useCallback((chat: Chat) => {
-    setCurrentChat(chat);
-  }, []);
-
   useEffect(() => {
     if (twilioToken == null) {
       return
     }
-    /*
-    device.current = new Device(twilioToken, {
-      logLevel: 1,
-      codecPreferences: ['opus', 'pcmu'],
-      fakeLocalDTMF: true,
-      enableRingingState: true,
-      debug: true,
-      //edge: "ashburn",
-    });
 
-    return () => {
-      device.current.destroy();
-      setUserState(USER_STATE.OFFLINE);
-    }
-    */
-  }, [twilioToken]);
+    if (user) {
+      device.current = new Device(twilioToken, options) as Device;
+    
+      device.current?.register();
 
-  /*
-  useEffect(() => {
-    if (!device?.current) {
-      return;
-    }
+      /*device.current.addListener('connect', (device: any) => {
+        console.log("Connect event listener added .....");
+        return device;
+      });*/
 
-    device.current.register();
+      device.current.on('ready', () => {
+        setUserState(USER_STATE.READY);
 
-    device.current.addListener('connect', (device: any) => {
-      console.log("Connect event listener added .....");
-      return device;
-    });
+        const readyState = {
+          identity: currentState.identity,
+          status: "device ready",
+          ready: true
+        }
 
-    device.current.on('ready', () => {
-      setUserState(USER_STATE.READY);
+        setCurrentState(readyState);
+      });
 
-      const readyState = {
-        identity: currentState.identity,
-        status: "device ready",
-        ready: true
-      }
+      device.current.on('registered', () => {
+        console.log("Agent registered");
+        updateUserState(USER_STATE.READY, connection);
+      });
 
-      setCurrentState(readyState);
-    });
+      device.current.on('connect', (conn: Call) => {
+        console.log("Connect event");
+        updateUserState(USER_STATE.ON_CALL, conn);
+      });
 
-    device.current.on('error', (error: any) => {
-      console.log(error);
-      setUserState(USER_STATE.ERROR);
-    });
-
-    device.current.on('registered', () => {
-      console.log("Agent registered");
-      setUserState(USER_STATE.READY);
-    });
-
-    device.current.on('connect', (connection: any) => {
-      console.log("Connect event");
-      setConnection(connection);
-      setUserState(USER_STATE.ON_CALL);
-
-      const connectState = {
-        identity: currentState.identity,
-        status: connection.status(),
-        ready: true
-      }
-
-      setCurrentState(connectState);
-    });
-
-    device.current.on('disconnect', (connection: any) => {
-      setUserState(USER_STATE.READY);
-      setConnection(null);
-
-      const disconnectState = {
-        identity: currentState.identity,
-        status: connection.status(),
-        ready: true
-      }
-
-      setCurrentState(disconnectState);
-    });
-
-    device.current.on('incoming', (connection: Call) => {
-      updateUserState(USER_STATE.INCOMING, connection);
-
-      const queue = consumersQueue;
-      const currentDate = (Date.now()).toString();
-
-      const queueState = {
-        queueId: queue.lenght(),
-        callData: connection,
-        updatedAt: currentDate,
-        createdAt: currentDate,
-      }
-
-      queue.push(queueState);
-      setconsumersQueue(queue);
-
-      connection.on('reject', () => {
+      device.current.on('disconnect', () => {
+        console.log("Disconnect event");
         updateUserState(USER_STATE.READY, null);
       });
 
-      //connection.on('accept', () => {
-      //});
-    });
-  }, [device.current]);
-  */
-  useEffect(() => {
-    const getUserChats = async () => {
-      if (user?.companyId) {
-        setIsUserChatsLoading(true);
+      device.current.on('incoming', (conn: Call) => {
+        updateUserState(USER_STATE.INCOMING, conn);
 
-        /*
-        const response = await getCall(`chat/${user.companyId}`);
-        if (!response.ok) {
-          return setUserChatsError('error');
-        }
-        const data: ServicesPerformed[] = await response.json();
-        
-        setServicesPerformed(data);
-        */
-      }
+        forwardCall(conn);
+
+        conn.on('error', (error: any) => { });
+        /*conn.on('reject', () => {
+          updateUserState(USER_STATE.READY, null);
+        });
+
+        conn.on('accept', () => {
+          updateUserState(USER_STATE.ON_CALL, conn);
+        });*/
+      });
+
+      device.current.on('error', (error: any) => {
+        console.log("Error event detected: ", error);
+        updateUserState(USER_STATE.ERROR, null);
+      });
     }
 
-    getUserChats();
-  },[]);
+    return () => {
+      device.current?.destroy();
+      updateUserState(USER_STATE.OFFLINE, null);
+    }
+  }, [user]);
 
   return (
     <CallContext.Provider
       value={{
         servicesPerformed,
-        isUserChatsLoading,
-        userChatsError,
-        updateCurrentChat,
-        currentChat,
-        messages,
-        consumersQueue
+        userState,
+        handleIndexChange
       }}
     >
       {children}
