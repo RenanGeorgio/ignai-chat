@@ -61,6 +61,7 @@ export type ChatContextType = {
     currentChatId: string
   ) => void
   onlineUsers: OnlineUser[]
+  handleSocketIndexChange: (currentIndex: string | number) => void
 }
 
 export enum Platforms {

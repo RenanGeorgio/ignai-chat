@@ -5,7 +5,7 @@ export type Obj = {
 }
 
 export type QueueItemLabel = {
-  emoji: any
+  emoji: CONVERSATION_CHANNEL
   id: string | number
   startTime: string
   status: string
@@ -35,10 +35,22 @@ export interface OnlineUser  {
 }
 
 export enum USER_STATE {
-  CONNECTING = "Connecting",
-  READY = "Ready",
-  INCOMING = "Incoming",
-  ON_CALL = "On call",
-  OFFLINE = "Offline",
-  ERROR = "Error",
+  CONNECTING = 'Connecting',
+  READY = 'Ready',
+  INCOMING = 'Incoming',
+  ON_CALL = 'On call',
+  OFFLINE = 'Offline',
+  ERROR = 'Error',
+}
+
+export enum CONVERSATION_CHANNEL {
+  CALL = 'call',
+  VIDEO = 'video-call',
+  EMAIL = 'email',
+  WHATSAPP = 'whatsapp',
+  INSTAGRAM = 'instagram',
+  MESSENGER = 'facebook-messenger',
+  EMBED = 'embed-on-site',
+  SMS = 'sms',
+  TELEGRAM = 'telegram',
 }

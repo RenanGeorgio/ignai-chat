@@ -44,7 +44,7 @@ export const QueueItems: FunctionComponent<QueueItemsType> = ({ queueItemsLabel,
 
   return (
     <div className={styles.contactContainer}>
-      {queueItems.map((queueItem: QueueItemLabel, index: number) => (
+      {queueItems?.map((queueItem: QueueItemLabel, index: number) => (
         <div 
           key={index} 
           className={styles.contactItem}

@@ -33,7 +33,7 @@ const QuestionsComponents: React.FC = () => {
         <div className={styles.menu}>
           <div className={styles.hoje}>Perguntas em destaque</div>
           <div className={styles.list}>
-            {questions.map((questions, index) => (
+            {questions?.map((questions, index) => (
               <div
                 key={index}
                 className={styles.menuItemQuestion}
