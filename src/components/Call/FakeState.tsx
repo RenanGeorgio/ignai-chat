@@ -1,8 +1,8 @@
 import React from "react";
 import { Call } from "@twilio/voice-sdk";
+import { Box, FormControl, FormLabel, RadioGroup, FormControlLabel, Radio } from "@mui/material";
 import { useCall } from "../../contexts/call/hooks";
 import { USER_STATE } from "../../types";
-import { Box, FormControl, FormLabel, RadioGroup, FormControlLabel, Radio } from "@mui/material";
 
 interface Props {
   currentState: USER_STATE;
@@ -60,4 +60,4 @@ export const FakeState: React.FC<Props> = ({ currentState, setConn }: Props) => 
       </FormControl>
     </Box>
   );
-};
+}
