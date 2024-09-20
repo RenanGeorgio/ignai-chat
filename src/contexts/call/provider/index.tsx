@@ -111,11 +111,17 @@ export const CallProvider = ({ children }: CallProviderProps) => {
       updateUserState(USER_STATE.ON_CALL, call);
     });
 
-    call.on('reconnected', () => { })
+    call.on('reconnected', () => { 
+      console.log('reconnected');
+    });
 
-    call.on('reconnecting', (error: any) => { })
+    call.on('reconnecting', (error: any) => { 
+      console.log('reconnecting');
+    });
 
-    call.on('mute', (isMuted: boolean, call: Call) => { })
+    call.on('mute', (isMuted: boolean, call: Call) => { 
+      console.log('mute');
+    });
   
     call.on('disconnect', () => {
       const cleanResourcers = async () => {
@@ -129,7 +135,9 @@ export const CallProvider = ({ children }: CallProviderProps) => {
       cleanResourcers();
     });
 
-    call.on('error', (error: any) => { });
+    call.on('error', (error: any) => { 
+      console.log(error);
+    });
   };
 
   const handleIndexChange = (index: string | number) => { 
