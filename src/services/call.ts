@@ -2,7 +2,7 @@ import axios from "axios";
 // import https from 'https';
 
 const CallApi = axios.create({
-  baseURL: process.env.REACT_PUBLIC_CALL_API,
+  baseURL: 'https://5b29-45-228-205-14.ngrok-free.app',
   withCredentials: true,
   // httpsAgent: new https.Agent({
   //   rejectUnauthorized: false
