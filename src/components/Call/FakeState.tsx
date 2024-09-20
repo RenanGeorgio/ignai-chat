@@ -29,16 +29,16 @@ export const FakeState: React.FC<Props> = ({ currentState, setConn }: Props) => 
     <Box
       sx={{
         color: "white",
-        marginTop: 4,
+        marginTop: 2,
         marginLeft: "auto",    
         marginRight: "auto",
         width: "90%",          
-        padding: "16px",      
+        padding: "5px",      
         borderRadius: "8px"   
       }}
     >
       <FormControl component="fieldset" fullWidth>
-        <FormLabel component="legend" sx={{ color: "white", marginBottom: "20px" }}>
+        <FormLabel component="legend" sx={{ color: "white" }}>
           Modo Ligação
         </FormLabel>
         <RadioGroup
