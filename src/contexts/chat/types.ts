@@ -6,7 +6,7 @@ export interface ChatContextType {
   //isUserChatsLoading: boolean
   //userChatsError: string | null
   potentialChats: ChatClient[] | null
-  updateCurrentChat: (chat: Chat | ConversationDTO) => void
+  updateCurrentChat: (chat: Chat) => void
   currentChat: Chat | null
   messages: Message[] | null
   isMessagesLoading: boolean
