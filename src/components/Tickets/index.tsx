@@ -6,7 +6,7 @@ import { useChat } from "../../contexts/chat/hooks";
 import { TicketsHeader } from "./header";
 import { TicketLabel } from "./label";
 import { TicketElement } from "./element";
-import { Chat } from "../../contexts/chat/types";
+import { Chat } from "../../types";
 
 import styles from "./tickets.module.css";
 

@@ -1,20 +1,29 @@
 import { Device } from "@twilio/voice-sdk";
-import { USER_STATE, ConsumersQueue, OnlineUser, QueueItemLabel } from "../types";
-import type { Chat } from "@contexts/chat/types";
+import { Socket } from "socket.io-client";
+import { USER_STATE, ConsumersQueue, Chat, QueueItemLabel } from "../types";
 
 type State = any
 
 export type CurrentConversation = 
   | ConsumersQueue
-  | OnlineUser
+  | Chat
 
-export type ConversationDTO = {
+export type CallDTO = {
   id: string | number
   device: Device
   connectToken: string
-  conversation: CurrentConversation
+  conversation: ConsumersQueue
   label: QueueItemLabel
 };
+
+export type ChatDTO = {
+  id: string | number
+  socket: Socket
+  conversation: Chat
+  label: QueueItemLabel
+};
+
+export type ConversationDTO = (CallDTO | ChatDTO);
 
 export type AddConversationReference = (state: State, action: PayloadAction<ConversationDTO>) => any
 export type SetCurrentConversation = (state: State, action: PayloadAction<CurrentConversation[]>) => any

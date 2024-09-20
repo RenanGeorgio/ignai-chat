@@ -9,8 +9,8 @@ import { selectQueueConversation } from "../../../store/conversations/slice";
 import BackgroundAudioProcessor from "../../../libs/audio";
 
 import { CallState, CurrentDeviceToCall, ServicesPerformed } from "../types";
-import { ConsumersQueue, CONVERSATION_CHANNEL, Obj, USER_STATE } from "../../../types";
-import { ConversationDTO } from "../../../store/types";
+import { CONVERSATION_CHANNEL, Obj, USER_STATE } from "../../../types";
+import { CallDTO, ConversationDTO } from "../../../store/types";
 
 type CallProviderProps = {
   children: ReactNode
@@ -60,7 +60,7 @@ export const CallProvider = ({ children }: CallProviderProps) => {
 
     await device?.audio?.addProcessor(processor);
 
-    const com: ConversationDTO = {
+    const com: CallDTO = {
       id: id,
       device: device,
       connectToken: connectToken,
@@ -127,14 +127,14 @@ export const CallProvider = ({ children }: CallProviderProps) => {
   };
 
   const handleIndexChange = (index: string | number) => { 
-    const found: ConversationDTO | undefined = queueConversations.find((item: ConversationDTO) => item?.id == index);
+    // @ts-ignore
+    const found: CallDTO | undefined = queueConversations.find((item: ConversationDTO) => item?.id == index);
 
     if (found != undefined) {
-      // @ts-ignore
       dispatch(updateConversation(index)); 
       
       const comm: CurrentDeviceToCall = {
-        currentConversation: found?.conversation as ConsumersQueue,
+        currentConversation: found?.conversation,
         device: found?.device,
         connectToken: found?.connectToken,
       };
