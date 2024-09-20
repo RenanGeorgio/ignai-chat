@@ -65,4 +65,4 @@ export const FakeState: React.FC<Props> = ({ currentState, setConn }: Props) => 
       </FormControl>
     </Box>
   );
-};
+}
