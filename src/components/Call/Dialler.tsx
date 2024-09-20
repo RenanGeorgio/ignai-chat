@@ -1,6 +1,6 @@
 import React from "react";
-import { KeypadButton } from "./KeypadButton";
 import { Grid, Button, Box, TextField } from "@mui/material";
+import { KeypadButton } from "./KeypadButton";
 
 interface Props {
   number: string;
@@ -9,7 +9,7 @@ interface Props {
 
 export const Dialler: React.FC<Props> = ({ number, setNumber }: Props) => {
   const handleNumberChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setNumber(event.target.value);
+    setNumber(event.target?.value);
   };
 
   const handleBackSpace = () => {
@@ -69,4 +69,4 @@ export const Dialler: React.FC<Props> = ({ number, setNumber }: Props) => {
       </Box>
     </Box>
   );
-};
+}
