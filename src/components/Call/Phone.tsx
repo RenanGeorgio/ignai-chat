@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Device, Call } from "@twilio/voice-sdk";
 import { useCall } from "../../contexts/call/hooks";
 import { Dialler } from "./Dialler";
@@ -17,10 +17,10 @@ export const Phone: React.FC = () => {
   const [conn, setConn] = useState<Call | undefined>(undefined);
   const [device, setDevice] = useState<Device | undefined>(undefined);
 
-  const handleCall = () => {
+  /*const handleCall = () => {
     const phone = getDevice();
     setDevice(phone); // STATE TBM É IMPORTANTE
-  };
+  };*/
 
   const handleHangup = () => {
     device?.disconnectAll();
@@ -28,7 +28,51 @@ export const Phone: React.FC = () => {
     setDevice(undefined);
   };
 
-  useEffect(() => {
+  const handleCall = async () => {
+    try {
+      const device = getDevice();
+      setDevice(device);
+      device.register();
+    
+      const params = {
+        To: number, // Assumindo que você queira ligar para o número que o usuário digitou
+        // callerId: 'Seu caller ID aqui', // Se você tiver um callerId, adicione aqui
+      };
+
+      if (device) {
+        const callInstance: Call = await device.connect({ params });
+
+        if (callInstance) {
+          setConn(callInstance);
+        }
+
+        callInstance.on('accept', () => {
+          console.log('Call accepted');
+        });
+        callInstance.on('ringing', () => {
+          console.log('Call is ringing');
+        });
+        callInstance.on('answered', () => {
+          console.log('Call answered');
+        });
+        callInstance.on('connected', () => {
+          console.log('Call connected');
+        });
+        callInstance.on('disconnect', () => {
+          console.log('Call disconnected');
+        });
+        callInstance.on('cancel', () => {
+          console.log('Call canceled');
+        });
+      } else {
+        throw new Error('Unable to make call');
+      }
+    } catch (error: unknown) {
+      console.log(error);  
+    }
+  };
+
+  /*useEffect(() => {
     const startCall = async () => {
       if (device == undefined) {
         return
@@ -41,7 +85,7 @@ export const Phone: React.FC = () => {
       }
     }
     startCall();
-  },[device]);
+  },[device]);*/
 
   let render;
   if (conn) {
