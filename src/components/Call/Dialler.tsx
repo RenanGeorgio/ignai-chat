@@ -1,17 +1,15 @@
 import React from "react";
 import { KeypadButton } from "./KeypadButton";
-
-import "./Dialler.module.css";
+import { Grid, Button, Box, TextField } from "@mui/material";
 
 interface Props {
-  number: string
-  setNumber: (number: string) => void
-  children?: React.ReactNode
+  number: string;
+  setNumber: (number: string) => void;
 }
 
 export const Dialler: React.FC<Props> = ({ number, setNumber }: Props) => {
   const handleNumberChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setNumber(event?.target?.value);
+    setNumber(event.target.value);
   };
 
   const handleBackSpace = () => {
@@ -25,53 +23,50 @@ export const Dialler: React.FC<Props> = ({ number, setNumber }: Props) => {
   };
 
   return (
-    <>
-      <input
+    <Box mt={4}>
+      <TextField
         type="tel"
         value={number}
         onChange={handleNumberChange}
-        className="input"
+        variant="outlined"
+        margin="none"
+        sx={{
+          backgroundColor: "#fff", 
+          width: "50%",            
+          marginBottom: "8px",     
+          input: {
+            textAlign: "center",    
+            padding: "10px"         
+          }
+        }}
       />
-      <ol className="keypad">
-        <li>
-          <KeypadButton handleClick={handleNumberPressed("1")}>1</KeypadButton>
-        </li>
-        <li>
-          <KeypadButton handleClick={handleNumberPressed("2")}>2</KeypadButton>
-        </li>
-        <li>
-          <KeypadButton handleClick={handleNumberPressed("3")}>3</KeypadButton>
-        </li>
-        <li>
-          <KeypadButton handleClick={handleNumberPressed("4")}>4</KeypadButton>
-        </li>
-        <li>
-          <KeypadButton handleClick={handleNumberPressed("5")}>5</KeypadButton>
-        </li>
-        <li>
-          <KeypadButton handleClick={handleNumberPressed("6")}>6</KeypadButton>
-        </li>
-        <li>
-          <KeypadButton handleClick={handleNumberPressed("7")}>7</KeypadButton>
-        </li>
-        <li>
-          <KeypadButton handleClick={handleNumberPressed("8")}>8</KeypadButton>
-        </li>
-        <li>
-          <KeypadButton handleClick={handleNumberPressed("9")}>9</KeypadButton>
-        </li>
-        <li>
-          <KeypadButton handleClick={handleNumberPressed("+")}>+</KeypadButton>
-        </li>
-        <li>
-          <KeypadButton handleClick={handleNumberPressed("0")}>0</KeypadButton>
-        </li>
-        {number?.length > 0 && (
-          <li>
-            <KeypadButton handleClick={handleBackSpace}>&lt;&lt;</KeypadButton>
-          </li>
+      <Box textAlign="center" mt={0} ml={10} mr={10}>  
+        <Grid container spacing={1} justifyContent="center">  
+          {["1", "2", "3", "4", "5", "6", "7", "8", "9", "*", "0", "#"].map((num) => (
+            <Grid item xs={4} key={num}>
+              <Button
+                variant="contained"
+                fullWidth
+                onClick={handleNumberPressed(num)}
+                sx={{
+                  margin: "4px", 
+                  padding: "12px",
+                  fontSize: "18px" 
+                }}
+              >
+                {num}
+              </Button>
+            </Grid>
+          ))}
+        </Grid>
+        {number.length > 0 && (
+          <Box mt={2}>
+            <KeypadButton handleClick={handleBackSpace}>
+              <span style={{ fontSize: "24px" }}>⌫</span>
+            </KeypadButton>
+          </Box>
         )}
-      </ol>
-    </>
+      </Box>
+    </Box>
   );
-}
+};
