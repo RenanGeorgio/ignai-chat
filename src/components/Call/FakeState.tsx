@@ -38,7 +38,7 @@ export const FakeState: React.FC<Props> = ({ currentState, setConn }: Props) => 
       }}
     >
       <FormControl component="fieldset" fullWidth>
-        <FormLabel component="legend" sx={{ color: "white" }}>
+        <FormLabel component="legend" sx={{ color: "white", fontSize: "20px" }}>
           Modo Ligação
         </FormLabel>
         <RadioGroup

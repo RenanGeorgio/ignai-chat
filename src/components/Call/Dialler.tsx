@@ -32,7 +32,8 @@ export const Dialler: React.FC<Props> = ({ number, setNumber }: Props) => {
         margin="none"
         sx={{
           backgroundColor: "#fff", 
-          width: "50%",            
+          width: "30%",           
+          borderRadius: "20px", 
           marginBottom: "8px",     
           input: {
             textAlign: "center",    
