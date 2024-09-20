@@ -14,7 +14,8 @@ interface Props {
 }
 
 export const OnCall: React.FC<Props> = ({ handleHangup }: Props) => {
-  const [muted, setMuted] = useState(false);
+  const [muted, setMuted] = useState<boolean>(false);
+
   const [running, setRunning, loudness] = useLoudness();
   const [showMuteWarning] = useMuteWarning(loudness, running);
 

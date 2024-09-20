@@ -27,16 +27,16 @@ export const FakeState: React.FC<Props> = ({ currentState, setConn }: Props) => 
     }
   };
 
-  const checkboxes = Object.keys(USER_STATE).map(stateKey => {
+  const checkboxes = Object.keys(USER_STATE).map((stateKey: string) => {
     return (
       <>
-        <label htmlFor={stateKey}>{USER_STATE[stateKey]}</label>
+        <label htmlFor={stateKey}>{stateKey}</label>
         <input
           type="radio"
           name="fake-state"
           value={stateKey}
           id={stateKey}
-          checked={currentState === USER_STATE[stateKey]}
+          checked={currentState === stateKey}
           onChange={handleChange}
         ></input>
       </>
