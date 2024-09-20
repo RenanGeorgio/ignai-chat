@@ -1,12 +1,12 @@
 import axios from "axios";
-import https from "https";
+// import https from 'https';
 
 const CallApi = axios.create({
   baseURL: process.env.REACT_PUBLIC_CALL_API,
   withCredentials: true,
-  httpsAgent: new https.Agent({
-    rejectUnauthorized: false
-  })
+  // httpsAgent: new https.Agent({
+  //   rejectUnauthorized: false
+  // })
   // está causando erro no build
   //   webpack < 5 used to include polyfills for node.js core modules by default.
   // This is no longer the case. Verify if you need this module and configure a polyfill for it.
