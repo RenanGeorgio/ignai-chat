@@ -129,7 +129,7 @@ export const ChatProvider = ({ children }: ChatProviderProps) => {
 
         const com: ChatDTO = {
           id: id.toString(),
-          socket: socket.current,
+          socket: socket.current as Socket,
           conversation: client,
           label: {
             emoji: client.origin.platform,
