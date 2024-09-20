@@ -101,7 +101,7 @@ export const ChatProvider = ({ children }: ChatProviderProps) => {
     }
 
     console.log('send message event');
-    socket.current.emit('sendMessage', { ...newMessage, recipientId });
+    socket.current?.emit('sendMessage', { ...newMessage, recipientId });
     setNewMessage(null);
   }, [newMessage, socket.current]);
 
@@ -110,7 +110,7 @@ export const ChatProvider = ({ children }: ChatProviderProps) => {
       return;
     }
 
-    socket.current.on('newUserChat', (client: Chat) => {
+    socket.current?.on('newUserChat', (client: Chat) => {
       if (userChats != undefined) {
         const isChatCreated = userChats?.some(
           (chat: Chat) =>
@@ -145,7 +145,7 @@ export const ChatProvider = ({ children }: ChatProviderProps) => {
     });
 
     return () => {
-      socket.current.off('newUserChat');
+      socket.current?.off('newUserChat');
     };
   }, [socket.current, userChats]);
 
