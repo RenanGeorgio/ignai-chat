@@ -1,6 +1,7 @@
 import React from "react";
 import { Call } from "@twilio/voice-sdk";
 import { Box, FormControl, FormLabel, RadioGroup, FormControlLabel, Radio } from "@mui/material";
+
 import { useCall } from "../../contexts/call/hooks";
 import { USER_STATE } from "../../types";
 
@@ -38,7 +39,7 @@ export const FakeState: React.FC<Props> = ({ currentState, setConn }: Props) => 
       }}
     >
       <FormControl component="fieldset" fullWidth>
-        <FormLabel component="legend" sx={{ color: "white" }}>
+        <FormLabel component="legend" sx={{ color: "white", fontSize: "20px" }}>
           Modo Ligação
         </FormLabel>
         <RadioGroup
