@@ -1,7 +1,7 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Meyda from "meyda";
 
-export const useLoudness = () => {
+export const useLoudness = (): [boolean, React.Dispatch<React.SetStateAction<boolean>>, number] => {
   const [analyser, setAnalyser] = useState<any>(null);
   const [running, setRunning] = useState<boolean>(false);
   const [loudness, setLoudness] = useState<number>(0);
@@ -82,7 +82,7 @@ export const useLoudness = () => {
   return [running, setRunning, loudness];
 }
 
-export const useMeyda = () => {
+export const useMeyda = (): [boolean, React.Dispatch<React.SetStateAction<boolean>>, any] => {
   const [analyser, setAnalyser] = useState<any>(null);
   const [running, setRunning] = useState<boolean>(false);
   const [features, setFeatures] = useState<any>(null);
@@ -152,7 +152,7 @@ export const useMeyda = () => {
   return [running, setRunning, features];
 }
 
-export const useMuteWarning = (loudness: number, running: boolean) => {
+export const useMuteWarning = (loudness: number, running: boolean): [boolean] => {
   const [showMuteWarning, setShowMuteWarning] = useState<boolean>(false);
 
   useEffect(() => {
