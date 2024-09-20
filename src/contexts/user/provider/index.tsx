@@ -46,7 +46,7 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
         const response = await getVoiceToken(user?.name);
         if (response) {
           console.log(response);
-          setTwilioToken(response);
+          setTwilioToken(response?.token);
         }
       } catch (error: any) {
         const token = (getQueryParameters(window.location).get('token') || [])[0] || '';
