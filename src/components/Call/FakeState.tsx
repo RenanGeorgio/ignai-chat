@@ -15,7 +15,7 @@ interface Props {
 export const FakeState: React.FC<Props> = ({ currentState, setConn }: Props) => {
   const { setUserState } = useCall();
   
-  const handleChange = (event: Event) => {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     // @ts-ignore
     const newState = USER_STATE[event?.target?.value];
     setUserState(newState);
