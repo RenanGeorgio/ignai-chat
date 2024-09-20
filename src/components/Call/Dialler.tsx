@@ -30,7 +30,7 @@ export const Dialler: React.FC<Props> = ({ number, setNumber }: Props) => {
       <input
         type="tel"
         value={number}
-        onChange={handleNumberChange}
+        onChange={(newNumber: string) => handleNumberChange(newNumber)}
         className="input"
       />
       <ol className="keypad">
