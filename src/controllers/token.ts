@@ -1,10 +1,11 @@
 // import { getToken } from "@helpers/getClient";
 //import { CallApi } from "../services";
 
-const baseURL = process.env.REACT_PUBLIC_CALL_API
+const baseURL = process.env.REACT_APP_CALL_API
 
 export async function getVoiceToken(userName: string) {
   // const auth = getToken;
+  console.log(baseURL)
   try {
     const response = await fetch(`${baseURL}/token`, {
       method: 'POST',
