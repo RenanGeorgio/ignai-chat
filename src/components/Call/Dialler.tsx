@@ -10,9 +10,8 @@ interface Props {
 }
 
 export const Dialler: React.FC<Props> = ({ number, setNumber }: Props) => {
-  const handleNumberChange = (event: Event) => {
-    const currentEvent = event?.target as HTMLInputElement;
-    setNumber(currentEvent?.value);
+  const handleNumberChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setNumber(event?.targe?.value);
   };
 
   const handleBackSpace = () => {
@@ -30,7 +29,7 @@ export const Dialler: React.FC<Props> = ({ number, setNumber }: Props) => {
       <input
         type="tel"
         value={number}
-        onChange={(newNumber: string) => handleNumberChange(newNumber)}
+        onChange={handleNumberChange}
         className="input"
       />
       <ol className="keypad">
