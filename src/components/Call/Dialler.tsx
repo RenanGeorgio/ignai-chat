@@ -11,7 +11,7 @@ interface Props {
 
 export const Dialler: React.FC<Props> = ({ number, setNumber }: Props) => {
   const handleNumberChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setNumber(event?.targe?.value);
+    setNumber(event?.target?.value);
   };
 
   const handleBackSpace = () => {
