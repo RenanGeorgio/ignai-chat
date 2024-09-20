@@ -1,4 +1,4 @@
-import { EditIcon, PesquisaIcon } from "../../assets/icons";
+import { PesquisaIcon } from "../../assets/icons";
 import styles from "./tickets.module.css";
 
 export const TicketsHeader = () => {
@@ -7,12 +7,9 @@ export const TicketsHeader = () => {
       <h1 className={styles.messagens}>Mensagens</h1>
       <div className={styles.emojisContainer}>
         <div className={styles.notification}>
-          <EditIcon />
-        </div>
-        <div className={styles.notification}>
           <PesquisaIcon />
         </div>
       </div>
     </div>
   );
-};
+}
