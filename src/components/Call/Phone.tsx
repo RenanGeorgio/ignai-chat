@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Device, Call } from "@twilio/voice-sdk";
 import { useCall } from "../../contexts/call/hooks";
-import { Dialler } from "./Dialler";
+//import { Dialler } from "./Dialler";
 import { KeypadButton } from "./KeypadButton";
 import { Incoming } from "./Incoming";
 import { OnCall } from "./OnCall";
@@ -9,6 +9,7 @@ import { FakeState } from "./FakeState";
 import { USER_STATE } from "../../types";
 
 import "./Phone.module.css";
+import { CustomDialler } from "./CustomDialler";
 
 export const Phone: React.FC = () => {
   const { getDevice, userState } = useCall();
@@ -97,7 +98,7 @@ export const Phone: React.FC = () => {
   } else {
     render = (
       <>
-        <Dialler number={number} setNumber={setNumber}></Dialler>
+        <CustomDialler />
         <div className="call">
           <KeypadButton handleClick={handleCall} color="green">
             Call
