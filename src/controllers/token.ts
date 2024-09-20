@@ -16,6 +16,7 @@ export async function getVoiceToken(userName: string) {
     });
     
     if (response) {
+      console.log(response);
       const token = response.data.token
       return token;
     }
