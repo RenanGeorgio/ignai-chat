@@ -27,7 +27,7 @@ export const TicketElement = ({
 }: Props) => {
   const [serviceInfo, setServiceInfo] = useState<Obj | undefined>(undefined);
   const { user } = useUser();
-  const { recipientUser } = useFetchRecipient(conversation, user);
+  const { recipientUser } = useFetchRecipient(conversation?.conversation, user);
   console.log(recipientUser)
   useEffect(() => {
     if (servicePerformed != undefined) {
@@ -41,7 +41,7 @@ export const TicketElement = ({
       className={`${styles.menuItem} ${
         selected === index ? styles.menuItemSelected : ''
       }`}
-      onClick={() => updateCurrentChat(conversation)}
+      onClick={() => updateCurrentChat(conversation?.conversation)}
     >
       <span role="img" aria-label="chat" className={styles.chatIcon}>
         💬
