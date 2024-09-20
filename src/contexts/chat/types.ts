@@ -1,4 +1,3 @@
-import { ConversationDTO } from "../../store/types";
 import { Chat, Message } from "../../types";
 
 export interface ChatContextType {

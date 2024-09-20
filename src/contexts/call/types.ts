@@ -26,18 +26,10 @@ export interface ITicket extends ServicesPerformed {
 export interface CallContextType {
   servicesPerformed: ServicesPerformed[]
   userState: USER_STATE
+  setUserState: (state: USER_STATE) => void
+  currentState: CallState
   handleIndexChange: (currentIndex: string | number) => void
-  sendTextMessage?: (
-    textMessage: string,
-    sender: { companyId: string },
-    currentChatId: string,
-    setTextMessage: (text: string) => void
-  ) => Promise<void>
-  sendMessageHttp?: (
-    textMessage: string,
-    sender: { companyId: string },
-    currentChatId: string
-  ) => void
+  getDevice: () => Device
 }
 
 export type CurrentDeviceToCall = {
