@@ -2,11 +2,13 @@ import React, { useState, useEffect } from "react";
 
 import { useCall } from "../../contexts/call/hooks";
 import { useChat } from "../../contexts/chat/hooks";
+import { selectQueueConversation } from "../../store/conversations/slice";
+import { useAppSelector } from "../../store/hooks";
 
 import { TicketsHeader } from "./header";
 import { TicketLabel } from "./label";
 import { TicketElement } from "./element";
-import { Chat } from "../../types";
+import { ConversationDTO } from "../../store/types";
 
 import styles from "./tickets.module.css";
 
@@ -23,26 +25,28 @@ import styles from "./tickets.module.css";
 // ];
 
 const TicketsComponent: React.FC = () => {
+  const queueConversations: ConversationDTO[] = useAppSelector(selectQueueConversation);
+  
   const { servicesPerformed } = useCall(); // TO-DO: mudar para useQuery
-  const { userChats, updateCurrentChat } = useChat();
+  const { updateCurrentChat } = useChat(); 
 
   const [selected, setSelected] = useState<number>(0);
-  const [ticketElements, setTicketElements] = useState<Chat[]>([]);
+  const [ticketElements, setTicketElements] = useState<ConversationDTO[]>([]);
 
   const handleSelect = (index: number) => {
     setSelected(index);
   };
 
   useEffect(() => {
-    if ((userChats != undefined) && (userChats.length)) {
-      setTicketElements(userChats);
+    if ((queueConversations != undefined) && (queueConversations.length)) {
+      setTicketElements(queueConversations);
     } else {
       // @ts-ignore
       setTicketElements([]);
     }
-  },[userChats]);
+  },[queueConversations]);
 
-  console.log(userChats);
+  console.log(queueConversations);
   console.log(ticketElements);
   return (
     <div className={styles.message}>
@@ -54,7 +58,7 @@ const TicketsComponent: React.FC = () => {
             {ticketElements != undefined && ticketElements?.length > 0 ?
               (
                 <>
-                  {ticketElements?.map((conversation: Chat, index: number) => ( // verificar dps
+                  {ticketElements?.map((conversation: ConversationDTO, index: number) => ( // verificar dps
                     <TicketElement
                       index={index}
                       selected={selected}
