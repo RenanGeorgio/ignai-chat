@@ -9,8 +9,8 @@ import { selectQueueConversation } from "../../../store/conversations/slice";
 import BackgroundAudioProcessor from "../../../libs/audio";
 
 import { CallState, CurrentDeviceToCall, ServicesPerformed } from "../types";
-import { ConsumersQueue, CONVERSATION_CHANNEL, Obj, USER_STATE } from "../../../types";
-import { ConversationDTO } from "../../../store/types";
+import { CONVERSATION_CHANNEL, Obj, USER_STATE } from "../../../types";
+import { CallDTO, ConversationDTO } from "../../../store/types";
 
 type CallProviderProps = {
   children: ReactNode
@@ -45,6 +45,12 @@ export const CallProvider = ({ children }: CallProviderProps) => {
   const processor = new BackgroundAudioProcessor();
   const { twilioToken, user } = useUser();
 
+  const getDevice = () => {
+    const instanceDevice: Device = new Device(twilioToken as string, options as any);
+
+    return instanceDevice;
+  }
+
   const forwardCall = async (conn: Call) => {
     const currentDate = (Date.now()).toString();
 
@@ -56,13 +62,13 @@ export const CallProvider = ({ children }: CallProviderProps) => {
       return
     }
 
-    const device: Device = new Device(twilioToken as string, options as any);
+    const forwardDevice: Device = new Device(twilioToken as string, options as any);
 
-    await device?.audio?.addProcessor(processor);
+    await forwardDevice?.audio?.addProcessor(processor);
 
-    const com: ConversationDTO = {
+    const com: CallDTO = {
       id: id,
-      device: device,
+      device: forwardDevice,
       connectToken: connectToken,
       conversation: {
         queueId: id,
@@ -127,14 +133,14 @@ export const CallProvider = ({ children }: CallProviderProps) => {
   };
 
   const handleIndexChange = (index: string | number) => { 
-    const found: ConversationDTO | undefined = queueConversations.find((item: ConversationDTO) => item?.id == index);
+    // @ts-ignore
+    const found: CallDTO | undefined = queueConversations.find((item: ConversationDTO) => item?.id == index);
 
     if (found != undefined) {
-      // @ts-ignore
       dispatch(updateConversation(index)); 
       
       const comm: CurrentDeviceToCall = {
-        currentConversation: found?.conversation as ConsumersQueue,
+        currentConversation: found?.conversation,
         device: found?.device,
         connectToken: found?.connectToken,
       };
@@ -238,7 +244,10 @@ export const CallProvider = ({ children }: CallProviderProps) => {
       value={{
         servicesPerformed,
         userState,
-        handleIndexChange
+        setUserState,
+        currentState,
+        handleIndexChange,
+        getDevice
       }}
     >
       {children}

@@ -31,9 +31,7 @@ export type QueueItemsType = {
 };
 
 const QueueComponent: FunctionComponent<QueueItemsType> = () => {
-  const queueConversations: ConversationDTO[] = useAppSelector(
-    selectQueueConversation,
-  );
+  const queueConversations: ConversationDTO[] = useAppSelector(selectQueueConversation);
 
   const { handleIndexChange } = useCall();
   const { handleSocketIndexChange } = useChat();

@@ -1,11 +1,12 @@
-import { useState, useEffect } from 'react';
-import { ServicesPerformed } from '../../contexts/types';
-import { Obj } from '../../types';
+import { useState, useEffect } from "react";
 
-import styles from './tickets.module.css';
-import type { Chat } from '../../contexts/chat/types';
-import { useFetchRecipient } from '../../contexts/chat/hooks';
-import { useUser } from '../../contexts/user/hooks';
+import { useFetchRecipient } from "../../contexts/chat/hooks";
+import { useUser } from "../../contexts/user/hooks";
+import { ServicesPerformed } from "../../contexts/types";
+import { ConversationDTO } from "../../store/types";
+import { Chat, Obj } from "../../types";
+
+import styles from "./tickets.module.css";
 
 interface Props {
   index: number;
@@ -13,7 +14,7 @@ interface Props {
   // handleElementSelect: (value: number) => void
   servicePerformed?: ServicesPerformed;
   updateCurrentChat: (value: Chat) => void;
-  conversation: Chat;
+  conversation: ConversationDTO;
 }
 // TO-DO: exemplo de objeto para INFO: 554355 início: 15:43 status: espera 03:45
 // TO-DO: fazer switch para <img> para a seleção do icone apropriado
@@ -26,7 +27,7 @@ export const TicketElement = ({
 }: Props) => {
   const [serviceInfo, setServiceInfo] = useState<Obj | undefined>(undefined);
   const { user } = useUser();
-  const { recipientUser } = useFetchRecipient(conversation, user);
+  const { recipientUser } = useFetchRecipient(conversation?.conversation, user);
   console.log(recipientUser)
   useEffect(() => {
     if (servicePerformed != undefined) {
@@ -40,7 +41,10 @@ export const TicketElement = ({
       className={`${styles.menuItem} ${
         selected === index ? styles.menuItemSelected : ''
       }`}
-      onClick={() => updateCurrentChat(conversation)}
+      onClick={() => {
+        // @ts-ignore
+        updateCurrentChat(conversation?.conversation)
+      }}
     >
       <span role="img" aria-label="chat" className={styles.chatIcon}>
         💬
@@ -51,4 +55,4 @@ export const TicketElement = ({
       </div>
     </div>
   );
-};
+}

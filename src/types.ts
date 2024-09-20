@@ -1,11 +1,12 @@
 import { Call } from "@twilio/voice-sdk";
+import { ChatStatus, Platforms } from "./contexts/chat/types";
 
 export type Obj = {
   [key: string]: any
 }
 
 export type QueueItemLabel = {
-  emoji: CONVERSATION_CHANNEL
+  emoji: CONVERSATION_CHANNEL | Platforms
   id: string | number
   startTime: string
   status: string
@@ -20,6 +21,20 @@ export type CallType = {
   outboundConnectionId?: undefined | string
 }
 
+export type Chat = {
+  _id: string
+  members: string[]
+  messages?: Message[]
+  origin: {
+    platform: Platforms
+    chatId?: string
+  }
+  status: ChatStatus
+  createdAt: string
+  updatedAt: string
+  __v?: number
+}
+
 export interface ConsumersQueue {
   queueId: string | number
   callData: Call
@@ -32,6 +47,15 @@ export interface ConsumersQueue {
 export interface OnlineUser  {
   userId: string
   socketId: string
+}
+
+export interface Message {
+  _id: string
+  senderId: string
+  chatId: string
+  text: string
+  createdAt: string
+  updatedAt: string
 }
 
 export enum USER_STATE {

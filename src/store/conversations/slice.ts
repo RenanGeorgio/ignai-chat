@@ -14,8 +14,7 @@ const {
 } = conversationsReducer;
 
 const initialState: IConversationsState = {
-  queueConversations: [],
-  userChats: [] // SAMUEL
+  queueConversations: []
 };
 
 export const conversationsSlice = createSlice({
@@ -44,8 +43,6 @@ export const conversationsSlice = createSlice({
       // });
   //},
 });
-
-// export const selectQueueConversation = (state: RootState) => state.conversations.queueConversations;
 
 export const selectQueueConversation = (state: RootState) => state.conversation.queueConversations;
 
