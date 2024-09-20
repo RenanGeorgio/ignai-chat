@@ -1,11 +1,11 @@
-import { useState, useEffect } from 'react';
-import { ServicesPerformed } from '../../contexts/types';
-import { Obj } from '../../types';
+import { useState, useEffect } from "react";
 
-import styles from './tickets.module.css';
-import type { Chat } from '../../contexts/chat/types';
-import { useFetchRecipient } from '../../contexts/chat/hooks';
-import { useUser } from '../../contexts/user/hooks';
+import { useFetchRecipient } from "../../contexts/chat/hooks";
+import { useUser } from "../../contexts/user/hooks";
+import { ServicesPerformed } from "../../contexts/types";
+import { Chat, Obj } from "../../types";
+
+import styles from "./tickets.module.css";
 
 interface Props {
   index: number;
@@ -51,4 +51,4 @@ export const TicketElement = ({
       </div>
     </div>
   );
-};
+}
