@@ -1,6 +1,6 @@
 import React from "react";
 
-import "./Dialler.module.css";
+//import "./Dialler.module.css";
 
 interface Props {
   number?: string
