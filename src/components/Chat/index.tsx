@@ -1,12 +1,13 @@
-import React, { useState } from 'react';
-import { TextField } from '@mui/material';
-import { WhatsAppIcon } from '../../assets/icons';
+import React, { useState } from "react";
+import { TextField } from "@mui/material";
 
-import styles from './chatbox.module.css';
-import { useChat, useFetchRecipient } from '../../contexts/chat/hooks';
-import type { Message } from '@contexts/chat/types';
-import ChatMessage from './ChatMessage';
-// import { useUser } from '../../contexts/user/hooks';
+// import { useUser } from "../../contexts/user/hooks";
+import { useChat, useFetchRecipient } from "../../contexts/chat/hooks";
+import ChatMessage from "./ChatMessage";
+import { WhatsAppIcon } from "../../assets/icons";
+import { Message } from "../../types";
+
+import styles from "./chatbox.module.css";
 
 const userMock = {
   _id: '65bbe0359f84da3af601f373',
@@ -59,7 +60,7 @@ const ChatComponent: React.FC = () => {
         </div>
       </header>
       <div className={styles.conversation3}>
-        {messages?.map((message: Message, index) => {
+        {messages?.map((message: Message, index: number) => {
           return (
             <ChatMessage
               key={index}
