@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { useFetchRecipient } from "../../contexts/chat/hooks";
 import { useUser } from "../../contexts/user/hooks";
 import { ServicesPerformed } from "../../contexts/types";
+import { ConversationDTO } from "../../store/types";
 import { Chat, Obj } from "../../types";
 
 import styles from "./tickets.module.css";
@@ -13,7 +14,7 @@ interface Props {
   // handleElementSelect: (value: number) => void
   servicePerformed?: ServicesPerformed;
   updateCurrentChat: (value: Chat) => void;
-  conversation: Chat;
+  conversation?: ConversationDTO;
 }
 // TO-DO: exemplo de objeto para INFO: 554355 início: 15:43 status: espera 03:45
 // TO-DO: fazer switch para <img> para a seleção do icone apropriado

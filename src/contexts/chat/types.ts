@@ -1,11 +1,12 @@
-import { Chat, Message, OnlineUser } from "../../types";
+import { ConversationDTO } from "../../store/types";
+import { Chat, Message } from "../../types";
 
 export interface ChatContextType {
   //userChats: Chat[]
   //isUserChatsLoading: boolean
   //userChatsError: string | null
   potentialChats: ChatClient[] | null
-  updateCurrentChat: (chat: Chat) => void
+  updateCurrentChat: (chat: Chat | ConversationDTO) => void
   currentChat: Chat | null
   messages: Message[] | null
   isMessagesLoading: boolean

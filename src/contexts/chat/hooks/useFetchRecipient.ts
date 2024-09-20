@@ -1,5 +1,5 @@
-import { getChat } from "../../../controllers/chat";
 import { useState, useEffect } from "react";
+import { getChat } from "../../../controllers/chat";
 // import { baseUrl, getRequest } from "services/api/apiService";
 
 export default (chat: any, user: any) => {

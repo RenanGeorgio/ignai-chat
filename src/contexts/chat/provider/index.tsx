@@ -171,7 +171,7 @@ export const ChatProvider = ({ children }: ChatProviderProps) => {
     getMessages();
   }, [currentChat]);
 
-  const updateCurrentChat = useCallback((chat: Chat | null) => {
+  const updateCurrentChat = useCallback((chat: Chat | ConversationDTO | null) => {
     setCurrentChat(chat);
   }, []);
 
