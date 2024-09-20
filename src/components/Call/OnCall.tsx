@@ -17,7 +17,7 @@ export const OnCall: React.FC<Props> = ({ handleHangup }: Props) => {
   const [muted, setMuted] = useState<boolean>(false);
 
   const [running, setRunning, loudness] = useLoudness();
-  const [showMuteWarning] = useMuteWarning(loudness, running);
+  const [showMuteWarning] = useMuteWarning(loudness as number, running as boolean);
 
   const handleMute = () => {
     // connection.mute(!muted);

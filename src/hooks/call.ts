@@ -169,7 +169,7 @@ export const useMuteWarning = (loudness: number, running: boolean) => {
         setShowMuteWarning(false);
       }, 5000);
     }
-    
+
     return () => {
       clearTimeout(timeout);
     };
