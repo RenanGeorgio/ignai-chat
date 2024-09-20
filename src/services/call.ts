@@ -3,7 +3,7 @@ import axios from "axios";
 
 const CallApi = axios.create({
   baseURL: 'https://5b29-45-228-205-14.ngrok-free.app',
-  withCredentials: true,
+  //withCredentials: true,
   // httpsAgent: new https.Agent({
   //   rejectUnauthorized: false
   // })
