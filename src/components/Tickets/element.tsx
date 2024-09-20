@@ -14,7 +14,7 @@ interface Props {
   // handleElementSelect: (value: number) => void
   servicePerformed?: ServicesPerformed;
   updateCurrentChat: (value: Chat) => void;
-  conversation?: ConversationDTO;
+  conversation: ConversationDTO;
 }
 // TO-DO: exemplo de objeto para INFO: 554355 início: 15:43 status: espera 03:45
 // TO-DO: fazer switch para <img> para a seleção do icone apropriado
