@@ -4,7 +4,7 @@ import "./KeypadButton.module.css";
 
 interface Props {
   handleClick: (newNumber: string) => any
-  color: string
+  color?: string
   children?: React.ReactNode
 }
 
