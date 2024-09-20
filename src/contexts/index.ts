@@ -1,7 +1,7 @@
 import { UserProvider } from "./user/provider";
-import { ChatProvider } from "./chat/provider";
+import { CommunicationProviders } from "./communication/provider";
 
 export {
   UserProvider,
-  ChatProvider
+  CommunicationProviders
 }

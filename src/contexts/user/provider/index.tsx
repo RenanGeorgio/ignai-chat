@@ -3,6 +3,24 @@ import { UserContext } from "../UserContext";
 import { getVoiceToken } from "../../../controllers/token";
 import { User } from "../types";
 
+
+const user_ = {
+  _id: '65bbe0359f84da3af601f373',
+  name: 'Samuel',
+  email: 'samuelmarques96@live.com',
+  cpf: '255.975.630-76',
+  company: 'Sam`s Company',
+  createdAt: {
+    $date: '2024-02-01T18:17:25.739Z',
+  },
+  updatedAt: {
+    $date: '2024-02-01T18:17:25.739Z',
+  },
+  __v: 0,
+  companyId: '1',
+};
+
+
 /**
  * Get a {@link Location}'s query parameters.
  * @param {Location} location
@@ -18,14 +36,18 @@ function getQueryParameters(location: Location) {
   }, new Map());
 }
 
-export function UserProvider({ children, user }: { children: React.ReactNode, user: User }) {
+export function UserProvider({ children }: { children: React.ReactNode }) {
   const [twilioToken, setTwilioToken] = useState<string | undefined>(undefined);
+  const user: User = user_;
 
   useEffect(() => {
     const fetchToken = async () => {
       try {
         const response = await getVoiceToken(user?.name);
-        setTwilioToken(response);
+        if (response) {
+          console.log(response);
+          setTwilioToken(response);
+        }
       } catch (error: any) {
         const token = (getQueryParameters(window.location).get('token') || [])[0] || '';
         setTwilioToken(token);

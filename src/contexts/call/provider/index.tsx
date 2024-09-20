@@ -111,11 +111,17 @@ export const CallProvider = ({ children }: CallProviderProps) => {
       updateUserState(USER_STATE.ON_CALL, call);
     });
 
-    call.on('reconnected', () => { })
+    call.on('reconnected', () => { 
+      console.log('reconnected');
+    });
 
-    call.on('reconnecting', (error: any) => { })
+    call.on('reconnecting', (error: any) => { 
+      console.log('reconnecting');
+    });
 
-    call.on('mute', (isMuted: boolean, call: Call) => { })
+    call.on('mute', (isMuted: boolean, call: Call) => { 
+      console.log('mute');
+    });
   
     call.on('disconnect', () => {
       const cleanResourcers = async () => {
@@ -129,7 +135,9 @@ export const CallProvider = ({ children }: CallProviderProps) => {
       cleanResourcers();
     });
 
-    call.on('error', (error: any) => { });
+    call.on('error', (error: any) => { 
+      console.log(error);
+    });
   };
 
   const handleIndexChange = (index: string | number) => { 
@@ -185,7 +193,7 @@ export const CallProvider = ({ children }: CallProviderProps) => {
         return device;
       });*/
 
-      device.current.on('ready', () => {
+      device.current?.on('ready', () => {
         setUserState(USER_STATE.READY);
 
         const readyState = {
@@ -197,27 +205,29 @@ export const CallProvider = ({ children }: CallProviderProps) => {
         setCurrentState(readyState);
       });
 
-      device.current.on('registered', () => {
+      device.current?.on('registered', () => {
         console.log("Agent registered");
         updateUserState(USER_STATE.READY, connection);
       });
 
-      device.current.on('connect', (conn: Call) => {
+      device.current?.on('connect', (conn: Call) => {
         console.log("Connect event");
         updateUserState(USER_STATE.ON_CALL, conn);
       });
 
-      device.current.on('disconnect', () => {
+      device.current?.on('disconnect', () => {
         console.log("Disconnect event");
         updateUserState(USER_STATE.READY, null);
       });
 
-      device.current.on('incoming', (conn: Call) => {
+      device.current?.on('incoming', (conn: Call) => {
         updateUserState(USER_STATE.INCOMING, conn);
 
         forwardCall(conn);
 
-        conn.on('error', (error: any) => { });
+        conn?.on('error', (error: any) => { 
+          console.log(error);
+        });
         /*conn.on('reject', () => {
           updateUserState(USER_STATE.READY, null);
         });
@@ -227,7 +237,7 @@ export const CallProvider = ({ children }: CallProviderProps) => {
         });*/
       });
 
-      device.current.on('error', (error: any) => {
+      device.current?.on('error', (error: any) => {
         console.log("Error event detected: ", error);
         updateUserState(USER_STATE.ERROR, null);
       });
