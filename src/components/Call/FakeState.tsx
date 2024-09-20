@@ -28,16 +28,21 @@ export const FakeState: React.FC<Props> = ({ currentState, setConn }: Props) => 
   return (
     <Box
       sx={{
-        color: "white", 
-        marginTop: 4,   
+        color: "white",
+        marginTop: 4,
+        marginLeft: "auto",    
+        marginRight: "auto",
+        width: "90%",          
+        padding: "16px",      
+        borderRadius: "8px"   
       }}
     >
-      <FormControl component="fieldset">
-        <FormLabel component="legend" sx={{ color: "white" }}>
+      <FormControl component="fieldset" fullWidth>
+        <FormLabel component="legend" sx={{ color: "white", marginBottom: "20px" }}>
           Modo Ligação
         </FormLabel>
         <RadioGroup
-          row 
+          row
           name="fake-state"
           value={currentState}
           onChange={handleChange}
@@ -49,9 +54,9 @@ export const FakeState: React.FC<Props> = ({ currentState, setConn }: Props) => 
               control={<Radio sx={{ color: "white" }} />}
               label={stateKey}
               sx={{
-                color: "white", 
+                color: "white",
                 "& .MuiRadio-root": {
-                  color: "white", 
+                  color: "white",
                 },
               }}
             />
@@ -60,4 +65,4 @@ export const FakeState: React.FC<Props> = ({ currentState, setConn }: Props) => 
       </FormControl>
     </Box>
   );
-}
+};
