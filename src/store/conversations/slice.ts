@@ -44,7 +44,7 @@ export const conversationsSlice = createSlice({
   //},
 });
 
-export const selectQueueConversation = (state: RootState) => state.conversation.queueConversations;
+export const selectQueueConversation = (state: RootState) => state.conversations.queueConversations;
 
 const { reducer, actions } = conversationsSlice;
 

@@ -3,7 +3,7 @@ import axios from "axios";
 
 const ChatApi = axios.create({
   baseURL: process.env.REACT_APP_CHAT_API + '/v1',
-  withCredentials: true,
+  // withCredentials: true,
   // httpsAgent: new https.Agent({  
   //   rejectUnauthorized: false
   // })

@@ -13,7 +13,7 @@ export const store = configureStore({
   preloadedState: {
   },
   reducer: {
-    conversation: conversationsReducer
+    conversations: conversationsReducer
   },
   middleware: (getDefaultMiddleware: any) => getDefaultMiddleware().concat(),
   devTools: isDev,

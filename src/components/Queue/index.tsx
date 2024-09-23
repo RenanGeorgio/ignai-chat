@@ -51,6 +51,7 @@ const QueueComponent: FunctionComponent<QueueItemsType> = () => {
 
   const handleStartWork = () => {
     if (blockSend) {
+  
       // TO-DO: olhar para o emoji -> identificar meio de comunicação do consumidor
       if (currentItem) {
         if (currentItem?.emoji == CONVERSATION_CHANNEL.CALL) {
