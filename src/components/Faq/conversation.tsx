@@ -55,12 +55,12 @@ const ConversationComponent: React.FC = () => {
                 {message.sender === 'bot' ? message.name : ''}
               </span>
               {message.sender === 'bot' && (
-                <span className={styles.timeCliente}>{message.time}</span>
+                <span className={styles.timeAtendente}>{message.time}</span>
               )}
             </div>
             <div className={message.sender === 'bot' ? styles.chat : styles.chatCliente}>
               {message.sender === 'cliente' && (
-                <span className={styles.timeFaq}>{message.time}</span>
+                <span className={styles.timeCliente}>{message.time}</span> 
               )}
               <div>{message.text}</div>
             </div>
@@ -100,6 +100,6 @@ const ConversationComponent: React.FC = () => {
       </div>
     </div>
   );
-}
+}  
 
 export default ConversationComponent;

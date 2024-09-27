@@ -33,13 +33,17 @@
 .bugInput {
   width: 80%;
   height: 250px;
-  background-color: #f0f0f0;
+  background-color: #C0BFC8;
   border: 1px solid #ccc;
   border-radius: 8px;
   padding: 10px;
   resize: none;
   font-size: 1rem;
   color: #333;
+}
+
+.bugInput::placeholder {
+  color: #fff; 
 }
 
 .uploadButton {
@@ -78,7 +82,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #a09e9e;
+  background-color: #C0BFC8;
   padding: 1rem;
   border-radius: 0.5rem;
   width: 100%;
