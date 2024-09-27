@@ -1,17 +1,23 @@
-import React, { FunctionComponent, useState, useEffect, useRef } from "react";
-import { QueueItemLabel } from "../../types";
+import React, { FunctionComponent, useState, useEffect, useRef } from 'react';
+import { QueueItemLabel } from '../../types';
 
-import styles from "./items.module.css";
+import styles from './items.module.css';
+import { ChatStatus } from '../../contexts/chat/types';
 
 export interface QueueItemsType {
-  queueItemsLabel: QueueItemLabel[]
-  selectItem: (item: QueueItemLabel) => void
-  manual: boolean
-  children?: React.ReactNode
+  queueItemsLabel: QueueItemLabel[];
+  selectItem: (item: QueueItemLabel) => void;
+  manual: boolean;
+  children?: React.ReactNode;
 }
 
-export const QueueItems: FunctionComponent<QueueItemsType> = ({ queueItemsLabel, selectItem, manual }: QueueItemsType) => {
-  const [queueItems, setQueueItems] = useState<QueueItemLabel[]>(queueItemsLabel);
+export const QueueItems: FunctionComponent<QueueItemsType> = ({
+  queueItemsLabel,
+  selectItem,
+  manual,
+}: QueueItemsType) => {
+  const [queueItems, setQueueItems] =
+    useState<QueueItemLabel[]>(queueItemsLabel);
 
   const currentItemRef = useRef<QueueItemLabel | undefined>(undefined);
 
@@ -36,29 +42,31 @@ export const QueueItems: FunctionComponent<QueueItemsType> = ({ queueItemsLabel,
         setSelectedQueueItem(queueItem);
       }
     }
-  },[currentItemRef?.current, manual]);
+  }, [currentItemRef?.current, manual]);
 
   useEffect(() => {
     setQueueItems(queueItemsLabel);
-  },[queueItemsLabel]);
+  }, [queueItemsLabel]);
 
   return (
     <div className={styles.contactContainer}>
-      {queueItems?.map((queueItem: QueueItemLabel, index: number) => (
-        <div 
-          key={index} 
-          className={styles.contactItem}
-          onClick={() => handleClick(index, queueItem)}
-        >          
-          <div className={styles.statusContainer}>
-            <span className={styles.emoji}>{queueItem.emoji}</span>  
-            <p className={styles.p}>{queueItem.id}</p>
-            <p className={styles.incio}>{queueItem.startTime}</p>
-            <p className={styles.statusOn}>{queueItem.status}</p>
-            <p className={styles.espera}>{queueItem.waitTime}</p>
+      {queueItems?.map((queueItem: QueueItemLabel, index: number) =>
+        queueItem.status === 'on' || queueItem.status === ChatStatus.ACTIVE ? (
+          <div
+            key={index}
+            className={styles.contactItem}
+            onClick={() => handleClick(index, queueItem)}
+          >
+            <div className={styles.statusContainer}>
+              <span className={styles.emoji}>{queueItem.emoji}</span>
+              <p className={styles.p}>{queueItem.id}</p>
+              <p className={styles.incio}>{queueItem.startTime}</p>
+              <p className={styles.statusOn}>{queueItem.status}</p>
+              <p className={styles.espera}>{queueItem.waitTime}</p>
+            </div>
           </div>
-        </div>
-      ))}
+        ) : null,
+      )}
     </div>
   );
-}
+};

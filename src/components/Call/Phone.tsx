@@ -1,24 +1,26 @@
-import React, { useState } from "react";
-import { Device, Call } from "@twilio/voice-sdk";
-import { Button } from "@mui/material";
+import React, { useState } from 'react';
+import { Device, Call } from '@twilio/voice-sdk';
+import { Button } from '@mui/material';
 
-import { useCall } from "../../contexts/call/hooks";
-import { Dialler } from "./Dialler";
+import { useCall } from '../../contexts/call/hooks';
+import { Dialler } from './Dialler';
 // import { KeypadButton } from "./KeypadButton";
-import { Incoming } from "./Incoming";
-import { OnCall } from "./OnCall";
-import { FakeState } from "./FakeState";
-import { USER_STATE } from "../../types";
+import { Incoming } from './Incoming';
+import { OnCall } from './OnCall';
+import { FakeState } from './FakeState';
+import { USER_STATE } from '../../types';
 
-import "./Phone.module.css";
+import './Phone.module.css';
+import { useAppSelector } from '../../store/hooks';
+import { selectQueueConversation } from '../../store/conversations/slice';
 
 export const Phone: React.FC = () => {
   const { getDevice, userState } = useCall();
 
-  const [number, setNumber] = useState<string>("");
+  const [number, setNumber] = useState<string>('');
   const [conn, setConn] = useState<Call | undefined>(undefined);
   const [device, setDevice] = useState<Device | undefined>(undefined);
-
+  const queue = useAppSelector(selectQueueConversation);
   /*const handleCall = () => {
     const phone = getDevice();
     setDevice(phone); // STATE TBM É IMPORTANTE
@@ -35,7 +37,7 @@ export const Phone: React.FC = () => {
       const device = getDevice();
       setDevice(device);
       device.register();
-    
+
       const params = {
         To: number, // Assumindo que você queira ligar para o número que o usuário digitou
         // callerId: 'Seu caller ID aqui', // Se você tiver um callerId, adicione aqui
@@ -70,7 +72,7 @@ export const Phone: React.FC = () => {
         throw new Error('Unable to make call');
       }
     } catch (error: unknown) {
-      console.log(error);  
+      console.log(error);
     }
   };
 
@@ -100,20 +102,23 @@ export const Phone: React.FC = () => {
     render = (
       <>
         <Dialler number={number} setNumber={setNumber} />
-        <div className="call" style={{ textAlign: "center", marginTop: "20px" }}>
+        <div
+          className="call"
+          style={{ textAlign: 'center', marginTop: '20px' }}
+        >
           <Button
             variant="contained"
             onClick={handleCall}
             sx={{
-              backgroundColor: "green",  
-              color: "white",            
-              fontSize: "20px",          
-              padding: "12px 24px",      
-              borderRadius: "8px",       
-              width: "10%",             
-              "&:hover": {
-                backgroundColor: "darkgreen",  
-              }
+              backgroundColor: 'green',
+              color: 'white',
+              fontSize: '20px',
+              padding: '12px 24px',
+              borderRadius: '8px',
+              width: '10%',
+              '&:hover': {
+                backgroundColor: 'darkgreen',
+              },
             }}
           >
             Ligar
@@ -124,13 +129,15 @@ export const Phone: React.FC = () => {
   }
 
   return (
-    <>
-      <FakeState
-        currentState={userState}
-        setConn={setConn}
-      ></FakeState>
-      {render}
+    <div className="phone">
+      {queue.length > 0 ? (
+        <>
+          <FakeState currentState={userState} setConn={setConn}></FakeState>
+          {render}
+        </>
+      ) : null}
+
       <p className="status">{userState}</p>
-    </>
+    </div>
   );
-}
+};

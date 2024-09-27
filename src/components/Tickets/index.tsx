@@ -1,16 +1,17 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from 'react';
 
-import { useCall } from "../../contexts/call/hooks";
-import { useChat } from "../../contexts/chat/hooks";
-import { selectQueueConversation } from "../../store/conversations/slice";
-import { useAppSelector } from "../../store/hooks";
+import { useCall } from '../../contexts/call/hooks';
+import { useChat } from '../../contexts/chat/hooks';
+import { InactiveChatsContext } from '../../contexts/chat/ChatContext';
+// import { selectQueueConversation } from '../../store/conversations/slice';
+// import { useAppSelector } from '../../store/hooks';
 
-import { TicketsHeader } from "./header";
-import { TicketLabel } from "./label";
-import { TicketElement } from "./element";
-import { ConversationDTO } from "../../store/types";
+import { TicketsHeader } from './header';
+import { TicketLabel } from './label';
+import { TicketElement } from './element';
+import { ConversationDTO } from '../../store/types';
 
-import styles from "./tickets.module.css";
+import styles from './tickets.module.css';
 
 // const conversations = [
 //   '554356 início: 15:45 status: on 5:27',
@@ -25,11 +26,14 @@ import styles from "./tickets.module.css";
 // ];
 
 const TicketsComponent: React.FC = () => {
-  const queueConversations: ConversationDTO[] = useAppSelector(selectQueueConversation);
-  
-  const { servicesPerformed } = useCall(); // TO-DO: mudar para useQuery
-  const { updateCurrentChat } = useChat(); 
+  // const queueConversations: ConversationDTO[] = useAppSelector(
+  //   selectQueueConversation,
+  // );
 
+  const { inactiveConversations } = useContext(InactiveChatsContext);
+  const { servicesPerformed } = useCall(); // TO-DO: mudar para useQuery
+  const { updateCurrentChat } = useChat();
+  // popular os tickets nao ativos com usequery
   const [selected, setSelected] = useState<number>(0);
   const [ticketElements, setTicketElements] = useState<ConversationDTO[]>([]);
 
@@ -38,16 +42,13 @@ const TicketsComponent: React.FC = () => {
   };
 
   useEffect(() => {
-    if ((queueConversations != undefined) && (queueConversations.length)) {
-      setTicketElements(queueConversations);
+    if (inactiveConversations != undefined && inactiveConversations.length) {
+      setTicketElements(inactiveConversations);
     } else {
-      // @ts-ignore
       setTicketElements([]);
     }
-  },[queueConversations]);
+  }, [inactiveConversations]);
 
-  console.log(queueConversations);
-  console.log(ticketElements);
   return (
     <div className={styles.message}>
       <TicketsHeader />
@@ -55,30 +56,33 @@ const TicketsComponent: React.FC = () => {
         <div className={styles.menu}>
           <TicketLabel />
           <div className={styles.list}>
-            {ticketElements != undefined && ticketElements?.length > 0 ?
-              (
-                <>
-                  {ticketElements?.map((conversation: ConversationDTO, index: number) => ( // verificar dps
+            {ticketElements != undefined && ticketElements?.length > 0 ? (
+              <>
+                {ticketElements?.map(
+                  (
+                    conversation: ConversationDTO,
+                    index: number, // verificar dps
+                  ) => (
                     <TicketElement
                       index={index}
                       selected={selected}
                       // handleElementSelect={handleSelect}
                       key={index}
-                      //servicePerformed={servicePerformed} 
+                      //servicePerformed={servicePerformed}
                       conversation={conversation}
                       updateCurrentChat={updateCurrentChat}
                     />
-                  ))}
-                </>
-              ) : (
-                <></>
-              )
-            }
+                  ),
+                )}
+              </>
+            ) : (
+              <></>
+            )}
           </div>
         </div>
       </div>
     </div>
   );
-}
+};
 
 export default TicketsComponent;

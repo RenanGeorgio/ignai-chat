@@ -8,19 +8,24 @@ import React, {
 import { io, Socket } from 'socket.io-client';
 // import Cookies from "js-cookie";
 
-import { ChatContext } from '../ChatContext';
+import { ChatContext, InactiveChatsContext } from '../ChatContext';
 import {
   // conversationsActions,
   selectQueueConversation,
 } from '../../../store/conversations/slice';
 import { useAppDispatch, useAppSelector } from '../../../store/hooks';
-import { addConversationReference } from '../../../store/conversations/actions';
+import {
+  addConversationReference,
+  updateConversation,
+} from '../../../store/conversations/actions';
 import { getChat, postChat } from '../../../controllers/chat';
 import compareArrays from '../../../helpers/compareArrays';
 
 import { Chat, ConsumersQueue, Message } from '../../../types';
 import { ChatDTO, ConversationDTO } from '../../../store/types';
-import { useSelector } from 'react-redux';
+import { checkChatStatus } from '../../../helpers/checkStatus';
+
+// import { useSelector } from 'react-redux';
 
 type ChatProviderProps = {
   children: ReactNode;
@@ -48,11 +53,13 @@ export const ChatProvider = ({ children }: ChatProviderProps) => {
   const queueChats: ConversationDTO[] = useAppSelector(selectQueueConversation);
   // const userChats: Chat[] = useAppSelector((state) => state.conversations);
   const dispatch = useAppDispatch();
-  console.log(queueChats);
-
   const [userChats, setUserChats] = useState<Chat[]>([]);
+  const [inactiveConversations, setInactiveConversations] = useState<
+    ConversationDTO[]
+  >([]);
+  const [userChatsError, setUserChatsError] = useState<string | null>(null);
+  const [isUserChatsLoading, setIsUserChatsLoading] = useState<boolean>(false);
   const [currentChat, setCurrentChat] = useState<Chat | null>(null);
-
   const [isMessagesLoading, setIsMessagesLoading] = useState<boolean>(false);
   const [messageError, setMessageError] = useState<string | null>(null);
   const [messages, setMessages] = useState<Message[] | null>(null);
@@ -103,28 +110,55 @@ export const ChatProvider = ({ children }: ChatProviderProps) => {
 
   useEffect(() => {
     const getUserChats = async () => {
-      console.log('get user chats');
       if (user?.companyId) {
-        // setIsUserChatsLoading(true);
+        setIsUserChatsLoading(true);
         const response = await getChat(`/chat/${user.companyId}`);
-        if (response && response.data.length > 0) {
-          const chats: Chat[] = response.data;
-          chats.forEach((el) => {
-            dispatch(addConversationReference(el));
-          });
-          setUserChats(response.data);
+        if (response?.status !== 200) {
+          return setUserChatsError(response?.data?.message);
+        } else {
+          setUserChats(response?.data);
         }
-        
-        // if (response.error) {
-        //   return setUserChatsError(response);
-        // } else {
-        //   setUserChats(response);
-        // }
       }
     };
 
     getUserChats();
   }, [user]);
+
+  useEffect(() => {
+    userChats.forEach((chat) => {
+      const label = {
+        emoji: chat.origin.platform,
+        id: chat._id,
+        startTime: chat.createdAt,
+        status: chat.status,
+        waitTime: undefined,
+      };
+
+      if (checkChatStatus(chat.status)) {
+        if (!queueChats.some((item) => item.id === chat._id)) {
+          dispatch(
+            addConversationReference({
+              id: chat._id,
+              conversation: chat,
+              label,
+            }),
+          );
+        }
+      } else {
+        if (!inactiveConversations.some((item) => item.id === chat._id)) {
+          setInactiveConversations((prev) => [
+            ...prev,
+            {
+              id: chat._id,
+              conversation: chat,
+              socket: socket.current as Socket,
+              label,
+            },
+          ]);
+        }
+      }
+    });
+  }, [userChats, queueChats]);
 
   useEffect(() => {
     if (!socket.current) {
@@ -275,7 +309,6 @@ export const ChatProvider = ({ children }: ChatProviderProps) => {
       }
 
       if (!response) {
-        console.log(response);
         return;
       }
 
@@ -311,7 +344,11 @@ export const ChatProvider = ({ children }: ChatProviderProps) => {
         handleSocketIndexChange,
       }}
     >
-      {children}
+      <InactiveChatsContext.Provider
+        value={{ inactiveConversations: inactiveConversations }}
+      >
+        {children}
+      </InactiveChatsContext.Provider>
     </ChatContext.Provider>
   );
 };

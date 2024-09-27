@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useState, useRef, useEffect } from "react";
+import React, { FunctionComponent, useState, useRef, useEffect } from 'react';
 import {
   Switch,
   Stack,
@@ -10,28 +10,30 @@ import {
   Grow,
   Paper,
   ClickAwayListener,
-} from "@mui/material";
+} from '@mui/material';
 
 // import { selectQueueConversation } from "@store/conversations/slice"; // problema no path alias
-import { selectQueueConversation } from "../../store/conversations/slice";
-import { useAppSelector } from "../../store/hooks";
-import { useCall } from "../../contexts/call/hooks";
-import { useChat } from "../../contexts/chat/hooks";
-import { QueueItems } from "./items";
+import { selectQueueConversation } from '../../store/conversations/slice';
+import { useAppSelector } from '../../store/hooks';
+import { useCall } from '../../contexts/call/hooks';
+import { useChat } from '../../contexts/chat/hooks';
+import { QueueItems } from './items';
 
-import { MessageCircleIcon, SettingIcon } from "../../assets/icons";
-import { CONVERSATION_CHANNEL, QueueItemLabel } from "../../types";
-import { ConversationDTO } from "../../store/types";
+import { MessageCircleIcon, SettingIcon } from '../../assets/icons';
+import { CONVERSATION_CHANNEL, QueueItemLabel } from '../../types';
+import { ConversationDTO } from '../../store/types';
 
-import styles from "./queue.module.css";
-
+import styles from './queue.module.css';
+import { checkChatStatus } from '../../helpers/checkStatus';
 
 export type QueueItemsType = {
   children?: React.ReactNode;
 };
 
 const QueueComponent: FunctionComponent<QueueItemsType> = () => {
-  const queueConversations: ConversationDTO[] = useAppSelector(selectQueueConversation);
+  const queueConversations: ConversationDTO[] = useAppSelector(
+    selectQueueConversation,
+  );
 
   const { handleIndexChange } = useCall();
   const { handleSocketIndexChange } = useChat();
@@ -46,18 +48,21 @@ const QueueComponent: FunctionComponent<QueueItemsType> = () => {
   const [blockSend, setBlockSend] = useState<boolean>(true);
 
   const [labels, setLabels] = useState<QueueItemLabel[]>([]);
-  const [selectedItem, setSelectedItem] = useState<QueueItemLabel | undefined>(undefined);
-  const [currentItem, setCurrentItem] = useState<QueueItemLabel | undefined>(undefined);
+  const [selectedItem, setSelectedItem] = useState<QueueItemLabel | undefined>(
+    undefined,
+  );
+  const [currentItem, setCurrentItem] = useState<QueueItemLabel | undefined>(
+    undefined,
+  );
 
   const handleStartWork = () => {
     if (blockSend) {
-  
       // TO-DO: olhar para o emoji -> identificar meio de comunicação do consumidor
       if (currentItem) {
         if (currentItem?.emoji == CONVERSATION_CHANNEL.CALL) {
           handleIndexChange(currentItem.id); // TO-DO: confirmar atendimento - Bloquear alterações do item
         } else {
-          handleSocketIndexChange(currentItem.id);
+          handleSocketIndexChange(currentItem.id); // Ele é a seleçao do chat atual
         }
       }
 
@@ -101,15 +106,16 @@ const QueueComponent: FunctionComponent<QueueItemsType> = () => {
     if (checked) {
       setCurrentItem(selectedItem);
     }
-  }, [selectedItem]);
+  }, [selectedItem, checked]);
 
   useEffect(() => {
     if (!manual) {
-      if (currentItem !== undefined) {
+      if (currentItem !== undefined && checkChatStatus(currentItem.status)) {
+        // verificar se passa o queue status ou o chat status
         handleStartWork();
       }
     }
-  }, [currentItem]);
+  }, [currentItem, manual]);
 
   useEffect(() => {
     const queueItems: QueueItemLabel[] = queueConversations.map(
