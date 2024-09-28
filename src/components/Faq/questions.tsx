@@ -1,6 +1,11 @@
 import React from "react";
+
 import { EditIcon, PesquisaIcon } from "../../assets/icons";
 import styles from "./questions.module.css";
+
+interface QuestionsComponentsProps {
+  onSelectQuestion: (index: number) => void;
+}
 
 const questions = [
   'Como encontrar a 2° via do boleto?',
@@ -10,12 +15,7 @@ const questions = [
   'Qual o tempo máximo de espera do cliente?',
 ];
 
-interface QuestionsComponentsProps {
-  onSelectQuestion: (index: number) => void;
-}
-
 const QuestionsComponents: React.FC<QuestionsComponentsProps> = ({ onSelectQuestion }) => {
-
   return (
     <div className={styles.message}>
       <div className={styles.title}>
