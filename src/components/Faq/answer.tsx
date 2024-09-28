@@ -1,6 +1,10 @@
 import React from "react";
 import styles from "./answer.module.css";
 
+interface AnswerComponentProps {
+  selectedQuestionIndex: number | null;
+}
+
 const answers = [
   'Você pode encontrar a 2ª via do boleto acessando a área de pagamentos em seu painel.',
   'Use o botão "Próximo" para pular para o próximo da fila.',
@@ -8,10 +12,6 @@ const answers = [
   'Para atender somente WhatsApp, configure a opção no painel de atendimento.',
   'O tempo máximo de espera do cliente é de 10 minutos.',
 ];
-
-interface AnswerComponentProps {
-  selectedQuestionIndex: number | null;
-}
 
 const AnswerComponent: React.FC<AnswerComponentProps> = ({ selectedQuestionIndex }) => {
   return (
