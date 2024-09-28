@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { TextField } from "@mui/material";
+
 import { BotIcon } from "../../assets/icons";
+
 import styles from "./conversation.module.css";
 
 const ConversationComponent: React.FC = () => {
@@ -46,7 +48,6 @@ const ConversationComponent: React.FC = () => {
           </div>
         </div>
       </header>
-
       <div className={styles.conversation3}>
         {messages?.map((message, index) => (
           <div key={index} className={message.sender === 'bot' ? styles.bot : styles.cliente}>
@@ -67,7 +68,6 @@ const ConversationComponent: React.FC = () => {
           </div>
         ))}
       </div>
-
       <div className={styles.input}>
         <div className={styles.searchBar}>
           <span className={styles.emojiIcon}>😊</span>
