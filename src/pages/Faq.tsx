@@ -1,9 +1,10 @@
 import React, { useState } from "react";
+
 import QuestionsComponents from "../components/Faq/questions";
 import BugComponents from "../components/Faq/bug";
+import AnswerComponent from "../components/Faq/answer";
 
 import "../styles/faq.css";
-import AnswerComponent from "../components/Faq/answer";
 
 const Page: React.FC = () => {
   const [selectedQuestionIndex, setSelectedQuestionIndex] = useState<number | null>(null);
