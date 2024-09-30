@@ -1,6 +1,7 @@
 import React from "react";
-import "../styles/user.css";
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from "@mui/material";
+
+import "../styles/user.css";
 
 const createData = (name: string, status: string, deadline: string) => {
   return { name, status, deadline };
@@ -116,6 +117,6 @@ const User: React.FC = () => {
       <div className="footer">IGNAI, marca registrada</div>
     </div>
   );
-};
+}
 
 export default User;
