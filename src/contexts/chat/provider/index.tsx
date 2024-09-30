@@ -1,31 +1,17 @@
-import React, {
-  useCallback,
-  useEffect,
-  useState,
-  ReactNode,
-  useRef,
-} from 'react';
-import { io, Socket } from 'socket.io-client';
+import React, { useCallback, useEffect, useState, ReactNode, useRef } from "react";
+import { io, Socket } from "socket.io-client";
 // import Cookies from "js-cookie";
 
-import { ChatContext, InactiveChatsContext } from '../ChatContext';
-import {
-  // conversationsActions,
-  selectQueueConversation,
-} from '../../../store/conversations/slice';
-import { useAppDispatch, useAppSelector } from '../../../store/hooks';
-import {
-  addConversationReference,
-  updateConversation,
-} from '../../../store/conversations/actions';
-import { getChat, postChat } from '../../../controllers/chat';
-import compareArrays from '../../../helpers/compareArrays';
+import { ChatContext, InactiveChatsContext } from "../ChatContext";
+import { selectQueueConversation } from "../../../store/conversations/slice";
+import { useAppDispatch, useAppSelector } from "../../../store/hooks";
+import { addConversationReference, updateConversation } from "../../../store/conversations/actions";
+import { getChat, postChat } from "../../../controllers/chat";
+import compareArrays from "../../../helpers/compareArrays";
+import { checkChatStatus } from "../../../helpers/checkStatus";
 
-import { Chat, ConsumersQueue, Message } from '../../../types';
-import { ChatDTO, ConversationDTO } from '../../../store/types';
-import { checkChatStatus } from '../../../helpers/checkStatus';
-
-// import { useSelector } from 'react-redux';
+import { Chat, ConsumersQueue, Message } from "../../../types";
+import { ChatDTO, ConversationDTO } from "../../../store/types";
 
 type ChatProviderProps = {
   children: ReactNode;
@@ -51,12 +37,10 @@ const baseUrl = process.env.REACT_APP_CHAT_API;
 
 export const ChatProvider = ({ children }: ChatProviderProps) => {
   const queueChats: ConversationDTO[] = useAppSelector(selectQueueConversation);
-  // const userChats: Chat[] = useAppSelector((state) => state.conversations);
   const dispatch = useAppDispatch();
+  
   const [userChats, setUserChats] = useState<Chat[]>([]);
-  const [inactiveConversations, setInactiveConversations] = useState<
-    ConversationDTO[]
-  >([]);
+  const [inactiveConversations, setInactiveConversations] = useState<ConversationDTO[]>([]);
   const [userChatsError, setUserChatsError] = useState<string | null>(null);
   const [isUserChatsLoading, setIsUserChatsLoading] = useState<boolean>(false);
   const [currentChat, setCurrentChat] = useState<Chat | null>(null);
@@ -82,9 +66,7 @@ export const ChatProvider = ({ children }: ChatProviderProps) => {
     if (found != undefined) {
       // @ts-ignore
       dispatch(updateConversation(index));
-
       const conversation: Chat = found?.conversation;
-
       setCurrentChat(conversation);
     }
   };
@@ -112,6 +94,7 @@ export const ChatProvider = ({ children }: ChatProviderProps) => {
     const getUserChats = async () => {
       if (user?.companyId) {
         setIsUserChatsLoading(true);
+        
         const response = await getChat(`/chat/${user.companyId}`);
         if (response?.status !== 200) {
           return setUserChatsError(response?.data?.message);
@@ -135,7 +118,7 @@ export const ChatProvider = ({ children }: ChatProviderProps) => {
       };
 
       if (checkChatStatus(chat.status)) {
-        if (!queueChats.some((item) => item.id === chat._id)) {
+        if (!queueChats.some((item) => item?.id === chat?._id)) {
           dispatch(
             addConversationReference({
               id: chat._id,
@@ -145,7 +128,7 @@ export const ChatProvider = ({ children }: ChatProviderProps) => {
           );
         }
       } else {
-        if (!inactiveConversations.some((item) => item.id === chat._id)) {
+        if (!inactiveConversations.some((item) => item?.id === chat?._id)) {
           setInactiveConversations((prev) => [
             ...prev,
             {
@@ -249,7 +232,6 @@ export const ChatProvider = ({ children }: ChatProviderProps) => {
         const response = await getChat(`chat/message/${currentChat._id}`);
 
         setIsMessagesLoading(false);
-
         const data: Message[] = await response?.data;
 
         if (!response && 'message' in data) {
