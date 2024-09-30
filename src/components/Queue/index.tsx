@@ -12,19 +12,17 @@ import {
   ClickAwayListener,
 } from "@mui/material";
 
-// import { selectQueueConversation } from "@store/conversations/slice"; // problema no path alias
 import { selectQueueConversation } from "../../store/conversations/slice";
 import { useAppSelector } from "../../store/hooks";
 import { useCall } from "../../contexts/call/hooks";
 import { useChat } from "../../contexts/chat/hooks";
 import { QueueItems } from "./items";
-
+import { checkChatStatus } from "../../helpers/checkStatus";
 import { MessageCircleIcon, SettingIcon } from "../../assets/icons";
 import { CONVERSATION_CHANNEL, QueueItemLabel } from "../../types";
 import { ConversationDTO } from "../../store/types";
 
 import styles from "./queue.module.css";
-
 
 export type QueueItemsType = {
   children?: React.ReactNode;
@@ -42,9 +40,7 @@ const QueueComponent: FunctionComponent<QueueItemsType> = () => {
   const [open, setOpen] = useState<boolean>(false);
   const [manual, setManual] = useState<boolean>(true);
   const [controllDisabled, setControllDisabled] = useState<boolean>(false);
-
   const [blockSend, setBlockSend] = useState<boolean>(true);
-
   const [labels, setLabels] = useState<QueueItemLabel[]>([]);
   const [selectedItem, setSelectedItem] = useState<QueueItemLabel | undefined>(undefined);
   const [currentItem, setCurrentItem] = useState<QueueItemLabel | undefined>(undefined);
@@ -56,7 +52,7 @@ const QueueComponent: FunctionComponent<QueueItemsType> = () => {
         if (currentItem?.emoji == CONVERSATION_CHANNEL.CALL) {
           handleIndexChange(currentItem.id); // TO-DO: confirmar atendimento - Bloquear alterações do item
         } else {
-          handleSocketIndexChange(currentItem.id);
+          handleSocketIndexChange(currentItem.id); // Ele é a seleçao do chat atual
         }
       }
 
@@ -86,10 +82,7 @@ const QueueComponent: FunctionComponent<QueueItemsType> = () => {
   };
 
   const handleClose = (event: Event) => {
-    if (
-      anchorRef.current &&
-      anchorRef.current.contains(event.target as HTMLElement)
-    ) {
+    if (anchorRef.current && anchorRef.current?.contains(event.target as HTMLElement)) {
       return;
     }
 
@@ -100,21 +93,19 @@ const QueueComponent: FunctionComponent<QueueItemsType> = () => {
     if (checked) {
       setCurrentItem(selectedItem);
     }
-  }, [selectedItem]);
+  }, [selectedItem, checked]);
 
   useEffect(() => {
     if (!manual) {
-      if (currentItem !== undefined) {
+      if ((currentItem !== undefined) && checkChatStatus(currentItem.status)) {
+        // verificar se passa o queue status ou o chat status
         handleStartWork();
       }
     }
-  }, [currentItem]);
+  }, [currentItem, manual]);
 
   useEffect(() => {
-    const queueItems: QueueItemLabel[] = queueConversations.map(
-      (item) => item.label,
-    );
-
+    const queueItems: QueueItemLabel[] = queueConversations.map((item) => item.label);
     setLabels(queueItems);
   }, [queueConversations]);
 
@@ -139,11 +130,11 @@ const QueueComponent: FunctionComponent<QueueItemsType> = () => {
         <h3 className={styles.filaDeAtendimento}>Fila de atendimento</h3>
       </div>
       <div className={styles.queueHeadings}>
-        <Stack direction="row" spacing={2}>
+        <Stack direction='row' spacing={2}>
           <ButtonGroup
-            variant="contained"
+            variant='contained'
             ref={anchorRef}
-            aria-label="Button group with a nested menu"
+            aria-label='Button group with a nested menu'
             sx={{
               '& .MuiButtonGroup-grouped': {
                 border: 'none',
@@ -154,8 +145,8 @@ const QueueComponent: FunctionComponent<QueueItemsType> = () => {
             }}
           >
             <Button
-              size="medium"
-              variant="contained"
+              size='medium'
+              variant='contained'
               sx={{
                 backgroundColor: '#ec3d3d',
                 '&:hover': {
@@ -171,11 +162,11 @@ const QueueComponent: FunctionComponent<QueueItemsType> = () => {
               Atender
             </Button>
             <Button
-              size="small"
+              size='small'
               aria-controls={open ? 'split-button-menu' : undefined}
               aria-expanded={open ? 'true' : undefined}
-              aria-label="select merge strategy"
-              aria-haspopup="menu"
+              aria-label='select merge strategy'
+              aria-haspopup='menu'
               onClick={handleToggle}
               sx={{
                 backgroundColor: '#ec3d3d',
@@ -240,6 +231,6 @@ const QueueComponent: FunctionComponent<QueueItemsType> = () => {
       <footer className={styles.footerFila} />
     </div>
   );
-};
+}
 
 export default QueueComponent;

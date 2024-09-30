@@ -18,7 +18,7 @@ export type CallDTO = {
 
 export type ChatDTO = {
   id: string | number
-  socket: Socket
+  socket?: Socket
   conversation: Chat
   label: QueueItemLabel
 };

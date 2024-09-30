@@ -1,3 +1,4 @@
+import type { ConversationDTO } from "@store/types";
 import { Chat, Message } from "../../types";
 
 export interface ChatContextType {
@@ -23,6 +24,11 @@ export interface ChatContextType {
   ) => void
   //onlineUsers: OnlineUser[]
   handleSocketIndexChange: (currentIndex: string | number) => void
+}
+
+export type InactiveChatsContextType = {
+  inactiveConversations: ConversationDTO[]
+  // setInactiveChats: (chats: Chat[]) => void
 }
 
 export type User = {

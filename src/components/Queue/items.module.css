@@ -3,6 +3,7 @@
   flex-wrap: wrap;
   gap: 1rem; 
   justify-content: center; 
+  cursor: pointer;
 }
 .contactItem {
   background-color: #a09e9e; 
