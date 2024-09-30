@@ -1,26 +1,27 @@
-import React, { useState } from 'react';
-import { Device, Call } from '@twilio/voice-sdk';
-import { Button } from '@mui/material';
+import React, { useState } from "react";
+import { Device, Call } from "@twilio/voice-sdk";
+import { Button } from "@mui/material";
 
-import { useCall } from '../../contexts/call/hooks';
-import { Dialler } from './Dialler';
+import { useCall } from "../../contexts/call/hooks";
+import { useAppSelector } from "../../store/hooks";
+import { selectQueueConversation } from "../../store/conversations/slice";
+import { Dialler } from "./Dialler";
 // import { KeypadButton } from "./KeypadButton";
-import { Incoming } from './Incoming';
-import { OnCall } from './OnCall';
-import { FakeState } from './FakeState';
-import { USER_STATE } from '../../types';
+import { Incoming } from "./Incoming";
+import { OnCall } from "./OnCall";
+import { FakeState } from "./FakeState";
+import { USER_STATE } from "../../types";
 
-import './Phone.module.css';
-import { useAppSelector } from '../../store/hooks';
-import { selectQueueConversation } from '../../store/conversations/slice';
+import "./Phone.module.css";
 
 export const Phone: React.FC = () => {
   const { getDevice, userState } = useCall();
+  const queue = useAppSelector(selectQueueConversation);
 
-  const [number, setNumber] = useState<string>('');
+  const [number, setNumber] = useState<string>("");
   const [conn, setConn] = useState<Call | undefined>(undefined);
   const [device, setDevice] = useState<Device | undefined>(undefined);
-  const queue = useAppSelector(selectQueueConversation);
+  
   /*const handleCall = () => {
     const phone = getDevice();
     setDevice(phone); // STATE TBM É IMPORTANTE
@@ -53,18 +54,23 @@ export const Phone: React.FC = () => {
         callInstance.on('accept', () => {
           console.log('Call accepted');
         });
+        
         callInstance.on('ringing', () => {
           console.log('Call is ringing');
         });
+        
         callInstance.on('answered', () => {
           console.log('Call answered');
         });
+        
         callInstance.on('connected', () => {
           console.log('Call connected');
         });
+        
         callInstance.on('disconnect', () => {
           console.log('Call disconnected');
         });
+        
         callInstance.on('cancel', () => {
           console.log('Call canceled');
         });
@@ -107,7 +113,7 @@ export const Phone: React.FC = () => {
           style={{ textAlign: 'center', marginTop: '20px' }}
         >
           <Button
-            variant="contained"
+            variant='contained'
             onClick={handleCall}
             sx={{
               backgroundColor: 'green',
@@ -129,15 +135,14 @@ export const Phone: React.FC = () => {
   }
 
   return (
-    <div className="phone">
+    <div className='phone'>
       {queue.length > 0 ? (
         <>
           <FakeState currentState={userState} setConn={setConn}></FakeState>
           {render}
         </>
       ) : null}
-
-      <p className="status">{userState}</p>
+      <p className='status'>{userState}</p>
     </div>
   );
-};
+}
