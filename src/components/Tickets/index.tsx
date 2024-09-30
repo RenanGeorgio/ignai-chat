@@ -1,17 +1,14 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext } from "react";
 
-import { useCall } from '../../contexts/call/hooks';
-import { useChat } from '../../contexts/chat/hooks';
-import { InactiveChatsContext } from '../../contexts/chat/ChatContext';
-// import { selectQueueConversation } from '../../store/conversations/slice';
-// import { useAppSelector } from '../../store/hooks';
+import { useCall } from "../../contexts/call/hooks";
+import { useChat } from "../../contexts/chat/hooks";
+import { InactiveChatsContext } from "../../contexts/chat/ChatContext";
+import { TicketsHeader } from "./header";
+import { TicketLabel } from "./label";
+import { TicketElement } from "./element";
+import { ConversationDTO } from "../../store/types";
 
-import { TicketsHeader } from './header';
-import { TicketLabel } from './label';
-import { TicketElement } from './element';
-import { ConversationDTO } from '../../store/types';
-
-import styles from './tickets.module.css';
+import styles from "./tickets.module.css";
 
 // const conversations = [
 //   '554356 início: 15:45 status: on 5:27',
@@ -26,13 +23,10 @@ import styles from './tickets.module.css';
 // ];
 
 const TicketsComponent: React.FC = () => {
-  // const queueConversations: ConversationDTO[] = useAppSelector(
-  //   selectQueueConversation,
-  // );
-
   const { inactiveConversations } = useContext(InactiveChatsContext);
   const { servicesPerformed } = useCall(); // TO-DO: mudar para useQuery
   const { updateCurrentChat } = useChat();
+  
   // popular os tickets nao ativos com usequery
   const [selected, setSelected] = useState<number>(0);
   const [ticketElements, setTicketElements] = useState<ConversationDTO[]>([]);
@@ -42,7 +36,7 @@ const TicketsComponent: React.FC = () => {
   };
 
   useEffect(() => {
-    if (inactiveConversations != undefined && inactiveConversations.length) {
+    if ((inactiveConversations != undefined) && inactiveConversations?.length) {
       setTicketElements(inactiveConversations);
     } else {
       setTicketElements([]);
@@ -83,6 +77,6 @@ const TicketsComponent: React.FC = () => {
       </div>
     </div>
   );
-};
+}
 
 export default TicketsComponent;
