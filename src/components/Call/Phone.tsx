@@ -141,7 +141,9 @@ export const Phone: React.FC = () => {
   };
 
   useEffect(() => {
-    init();
+    if (twilioToken !== undefined) {
+      init();
+    }
   }, [twilioToken]);
 
   let render;

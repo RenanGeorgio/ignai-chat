@@ -178,7 +178,7 @@ export const CallProvider = ({ children }: CallProviderProps) => {
   }
 
   useEffect(() => {
-    if (twilioToken == null) {
+    if (twilioToken == undefined) {
       return
     }
 
