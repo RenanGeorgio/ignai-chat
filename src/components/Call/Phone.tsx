@@ -20,7 +20,7 @@ export const Phone: React.FC = () => {
 
   //const queue = useAppSelector(selectQueueConversation);
 
-  const [number, setNumber] = useState<string>("");
+  const [phoneNumber, setPhoneNumber] = useState<string>("");
   const [conn, setConn] = useState<Call | undefined | null>(undefined);
 
   const currentDevice = useRef<Device | undefined>(undefined);
@@ -86,8 +86,8 @@ export const Phone: React.FC = () => {
   const handleCall = async () => {
     try {
       console.log('handlecall');
-      const params = {
-        To: number, // Assumindo que você queira ligar para o número que o usuário digitou
+      const params: Record<string, string> = { 
+        To: phoneNumber,
         // callerId: 'Seu caller ID aqui', // Se você tiver um callerId, adicione aqui
       };
 
@@ -156,7 +156,7 @@ export const Phone: React.FC = () => {
   } else {
     render = (
       <>
-        <Dialler number={number} setNumber={setNumber} />
+        <Dialler number={phoneNumber} setNumber={setPhoneNumber} />
         <div
           className="call"
           style={{ textAlign: 'center', marginTop: '20px' }}
