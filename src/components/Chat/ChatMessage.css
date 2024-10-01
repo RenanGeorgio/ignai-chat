@@ -36,13 +36,13 @@
 .user .message-bubble {
   background-color: #eaeaea;
   color: #333;
-  align-self: flex-start;
+  align-self: flex-end;
 }
 
 .platform .message-bubble {
   background-color: #333;
   color: #fff;
-  align-self: flex-end;
+  align-self: flex-start;
 }
 
 .user .message-header strong {
@@ -50,13 +50,13 @@
 }
 
 .platform .message-header strong {
-  color: #fff;
+  color: #000;
 }
 
 .platform {
-  align-items: flex-end;
+  align-items: flex-start;
 }
 
 .user {
-  align-items: flex-start;
+  align-items: flex-end;
 }

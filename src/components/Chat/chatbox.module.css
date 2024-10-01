@@ -32,6 +32,14 @@
   width: 100%;
 }
 
+.messageContainer {
+  /* display: flex;
+  flex-direction: column;
+  padding: 10px; */
+  overflow-y: auto;
+  height: 100%;
+}
+
 .nomeEstabelecimento {
   display: flex;
   flex-direction: column;
@@ -39,8 +47,6 @@
   font-weight: bold;
   flex-grow: 1;
 }
-
-
 
 .messageSent {
   display: flex;

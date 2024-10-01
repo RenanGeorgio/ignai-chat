@@ -1,13 +1,14 @@
-import React, { useState } from "react";
-import { TextField } from "@mui/material";
+import React, { useState } from 'react';
+import { TextField } from '@mui/material';
 
 // import { useUser } from "../../contexts/user/hooks";
-import { useChat, useFetchRecipient } from "../../contexts/chat/hooks";
-import ChatMessage from "./ChatMessage";
-import { WhatsAppIcon } from "../../assets/icons";
-import { Message } from "../../types";
+import { useChat, useFetchRecipient } from '../../contexts/chat/hooks';
+import ChatMessage from './ChatMessage';
+import { WhatsAppIcon } from '../../assets/icons';
+import { Message } from '../../types';
 
-import styles from "./chatbox.module.css";
+import styles from './chatbox.module.css';
+import { useChatScroll } from 'hooks/useChatScroll';
 
 const userMock = {
   _id: '65bbe0359f84da3af601f373',
@@ -31,15 +32,21 @@ const ChatComponent: React.FC = () => {
     useChat();
   // const user = useUser();
   const user = userMock;
+  const ref = useChatScroll(messages);
 
   const { recipientUser } = useFetchRecipient(currentChat, user);
 
   const [newMessage, setNewMessage] = useState('');
-  console.log(messages);
+
   const handleSendMessage = () => {
     if (newMessage.trim()) {
       // setMessages([]);
-      setNewMessage('');
+      sendTextMessage(
+        newMessage,
+        user,
+        currentChat?._id as string,
+        setNewMessage,
+      );
     }
   };
 
@@ -59,12 +66,13 @@ const ChatComponent: React.FC = () => {
           </div>
         </div>
       </header>
-      <div className={styles.conversation3}>
+      <div className={styles.messageContainer} ref={ref}>
         {messages?.map((message: Message, index: number) => {
           return (
             <ChatMessage
               key={index}
-              user={recipientUser?.name} // verificar se precisa mudar depois
+              userName={user.name} // verificar se precisa mudar depois
+              clientName={recipientUser?.name}
               message={message.text}
               timestamp={message.createdAt}
               isUser={message.senderId === user.companyId}
@@ -104,6 +112,6 @@ const ChatComponent: React.FC = () => {
       </div>
     </div>
   );
-}
+};
 
 export default ChatComponent;

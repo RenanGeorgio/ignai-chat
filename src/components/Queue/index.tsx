@@ -25,6 +25,7 @@ import { ConversationDTO } from '../../store/types';
 
 import styles from './queue.module.css';
 import { checkChatStatus } from '../../helpers/checkStatus';
+// import { ChatStatus } from '../../contexts/chat/types';
 
 export type QueueItemsType = {
   children?: React.ReactNode;
@@ -36,7 +37,7 @@ const QueueComponent: FunctionComponent<QueueItemsType> = () => {
   );
 
   const { handleIndexChange } = useCall();
-  const { handleSocketIndexChange } = useChat();
+  const { handleSocketIndexChange, updateCurrentChat } = useChat();
 
   const anchorRef = useRef<HTMLDivElement>(null);
 
@@ -63,6 +64,16 @@ const QueueComponent: FunctionComponent<QueueItemsType> = () => {
           handleIndexChange(currentItem.id); // TO-DO: confirmar atendimento - Bloquear alterações do item
         } else {
           handleSocketIndexChange(currentItem.id); // Ele é a seleçao do chat atual
+          // updateCurrentChat({
+          //   _id: currentItem.id,
+          //   members: [],
+          //   origin: {
+          //     platform: currentItem.emoji,
+          //   },
+          //   status: ChatStatus.ACTIVE,
+          //   createdAt: '',
+          //   updatedAt: '',
+          // } as Chat);
         }
       }
 
@@ -124,7 +135,7 @@ const QueueComponent: FunctionComponent<QueueItemsType> = () => {
 
     setLabels(queueItems);
   }, [queueConversations]);
-
+  console.log(labels);
   return (
     <div className={styles.queueItems}>
       <div className={styles.containerHeader}>

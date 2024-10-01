@@ -4,6 +4,7 @@ import { CallProvider } from "../call/provider";
 import { ChatProvider } from "../chat/provider";
 
 export function CommunicationProviders({ children }: { children: React.ReactNode }) {
+  // timer
   return (
     <ChatProvider>
       <CallProvider>
