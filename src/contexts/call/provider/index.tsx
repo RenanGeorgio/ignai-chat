@@ -8,7 +8,7 @@ import { addConversationReference, updateConversation } from "../../../store/con
 import { selectQueueConversation } from "../../../store/conversations/slice";
 import BackgroundAudioProcessor from "../../../libs/audio";
 
-import { CallState, CurrentDeviceToCall, ServicesPerformed } from "../types";
+import { CallState, CurrentDeviceToCall } from "../types";
 import { CONVERSATION_CHANNEL, Obj, USER_STATE } from "../../../types";
 import { CallDTO, ConversationDTO } from "../../../store/types";
 
@@ -29,9 +29,7 @@ export const CallProvider = ({ children }: CallProviderProps) => {
   const queueConversations: ConversationDTO[] = useAppSelector(selectQueueConversation);
   const dispatch = useAppDispatch();
 
-  const [servicesPerformed, setServicesPerformed] = useState<ServicesPerformed[]>([]); // TO-DO: mudar para useQuery direto no componente
   const [currentConversationCall, setCurrentConversationCall] = useState<CurrentDeviceToCall | null>(null);
-
   const [userState, setUserState] = useState(USER_STATE.OFFLINE);
   const [connection, setConnection] = useState<Call | string | null>(null);
   const [currentState, setCurrentState] = useState<CallState>({
@@ -258,7 +256,6 @@ export const CallProvider = ({ children }: CallProviderProps) => {
   return (
     <CallContext.Provider
       value={{
-        servicesPerformed,
         userState,
         setUserState,
         currentState,

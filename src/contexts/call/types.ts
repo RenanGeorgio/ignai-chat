@@ -24,7 +24,6 @@ export interface ITicket extends ServicesPerformed {
 }
 
 export interface CallContextType {
-  servicesPerformed: ServicesPerformed[]
   userState: USER_STATE
   setUserState: (state: USER_STATE) => void
   currentState: CallState

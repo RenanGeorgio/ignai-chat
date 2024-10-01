@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
 
-import { useCall } from "../../contexts/call/hooks";
 import { useChat } from "../../contexts/chat/hooks";
 import { InactiveChatsContext } from "../../contexts/chat/ChatContext";
 import { TicketsHeader } from "./header";
@@ -10,21 +9,9 @@ import { ConversationDTO } from "../../store/types";
 
 import styles from "./tickets.module.css";
 
-// const conversations = [
-//   '554356 início: 15:45 status: on 5:27',
-//   '554355 início: 15:43 status: espera 03:45',
-//   '554354 início: 15:40 fim: 15:42 - ÑR',
-//   '554353 início: 15:30 fim: 15:40 - R',
-//   '554352 início: 15:20 fim: 15:30 - R',
-//   '554351 início: 15:10 fim: 15:15 - R',
-//   '554350 início: 15:06 fim: 15:13 - ÑR',
-//   '554349 início: 15:01 fim: 15:05 - R',
-//   '554349 início: 14:55 fim: 15:00 - R',
-// ];
 
 const TicketsComponent: React.FC = () => {
   const { inactiveConversations } = useContext(InactiveChatsContext);
-  const { servicesPerformed } = useCall(); // TO-DO: mudar para useQuery
   const { updateCurrentChat } = useChat();
   
   // popular os tickets nao ativos com usequery
