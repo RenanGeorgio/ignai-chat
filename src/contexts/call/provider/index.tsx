@@ -100,14 +100,17 @@ export const CallProvider = ({ children }: CallProviderProps) => {
     const call: Call = await currentDevice?.connect({ connectToken });
 
     call.on('reject', () => {
+      console.log('reject');
       updateUserState(USER_STATE.READY, call);
     });
 
     call.on('cancel', () => { 
+      console.log('cancel');
       updateUserState(USER_STATE.READY, call);
     });
 
     call.on('accept', () => {
+      console.log('accept');
       updateUserState(USER_STATE.ON_CALL, call);
     });
 
@@ -124,6 +127,7 @@ export const CallProvider = ({ children }: CallProviderProps) => {
     });
   
     call.on('disconnect', () => {
+      console.log('disconnect');
       const cleanResourcers = async () => {
         await currentDevice?.audio?.removeProcessor(processor);
         currentDevice?.destroy();
@@ -194,6 +198,7 @@ export const CallProvider = ({ children }: CallProviderProps) => {
       });*/
 
       device.current?.on('ready', () => {
+        console.log('ready');
         setUserState(USER_STATE.READY);
 
         const readyState = {
@@ -221,6 +226,7 @@ export const CallProvider = ({ children }: CallProviderProps) => {
       });
 
       device.current?.on('incoming', (conn: Call) => {
+        console.log('incoming');
         updateUserState(USER_STATE.INCOMING, conn);
 
         forwardCall(conn);

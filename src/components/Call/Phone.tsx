@@ -3,6 +3,7 @@ import { Device, Call } from "@twilio/voice-sdk";
 import { Button } from "@mui/material";
 
 import { useCall } from "../../contexts/call/hooks";
+//import { useUser } from "../../contexts/user/hooks";
 //import { useAppSelector } from "../../store/hooks";
 //import { selectQueueConversation } from "../../store/conversations/slice";
 import { Dialler } from "./Dialler";
@@ -16,6 +17,8 @@ import "./Phone.module.css";
 
 export const Phone: React.FC = () => {
   const { getDevice, userState } = useCall();
+  //const { user } = useUser();
+
   //const queue = useAppSelector(selectQueueConversation);
 
   const [number, setNumber] = useState<string>("");
@@ -28,6 +31,7 @@ export const Phone: React.FC = () => {
   };*/
 
   const handleHangup = () => {
+    console.log('handlehungup');
     device?.disconnectAll();
     device?.destroy();
     setDevice(undefined);
@@ -35,6 +39,7 @@ export const Phone: React.FC = () => {
 
   const handleCall = async () => {
     try {
+      console.log('handlecall');
       const device = getDevice();
       setDevice(device);
       device.register();
@@ -48,6 +53,7 @@ export const Phone: React.FC = () => {
         const callInstance: Call = await device.connect({ params });
 
         if (callInstance) {
+          console.log(callInstance);
           setConn(callInstance);
         }
 

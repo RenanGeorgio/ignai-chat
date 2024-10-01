@@ -28,7 +28,7 @@ export const OnCall: React.FC<Props> = ({ handleHangup }: Props) => {
   const muteWarning = (
     <p className="warning">Are you speaking? You are on mute!</p>
   );
-
+  console.log("on call")
   return (
     <>
       {showMuteWarning && muteWarning}
