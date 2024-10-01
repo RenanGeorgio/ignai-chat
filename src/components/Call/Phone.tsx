@@ -21,7 +21,7 @@ export const Phone: React.FC = () => {
   //const queue = useAppSelector(selectQueueConversation);
 
   const [number, setNumber] = useState<string>("");
-  const [conn, setConn] = useState<Call | undefined>(undefined);
+  const [conn, setConn] = useState<Call | undefined | null>(undefined);
 
   const currentDevice = useRef<Device | undefined>(undefined);
   
