@@ -3,8 +3,8 @@ import { Device, Call } from "@twilio/voice-sdk";
 import { Button } from "@mui/material";
 
 import { useCall } from "../../contexts/call/hooks";
-import { useAppSelector } from "../../store/hooks";
-import { selectQueueConversation } from "../../store/conversations/slice";
+//import { useAppSelector } from "../../store/hooks";
+//import { selectQueueConversation } from "../../store/conversations/slice";
 import { Dialler } from "./Dialler";
 // import { KeypadButton } from "./KeypadButton";
 import { Incoming } from "./Incoming";
@@ -16,7 +16,7 @@ import "./Phone.module.css";
 
 export const Phone: React.FC = () => {
   const { getDevice, userState } = useCall();
-  const queue = useAppSelector(selectQueueConversation);
+  //const queue = useAppSelector(selectQueueConversation);
 
   const [number, setNumber] = useState<string>("");
   const [conn, setConn] = useState<Call | undefined>(undefined);
@@ -136,13 +136,12 @@ export const Phone: React.FC = () => {
 
   return (
     <div className='phone'>
-      {queue.length > 0 ? (
-        <>
-          <FakeState currentState={userState} setConn={setConn}></FakeState>
-          {render}
-        </>
-      ) : null}
-      <p className='status'>{userState}</p>
+      <FakeState
+        currentState={userState}
+        setConn={setConn}
+      ></FakeState>
+      {render}
+      <p className="status">{userState}</p>
     </div>
   );
 }
