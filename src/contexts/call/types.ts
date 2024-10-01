@@ -28,7 +28,7 @@ export interface CallContextType {
   setUserState: (state: USER_STATE) => void
   currentState: CallState
   handleIndexChange: (currentIndex: string | number) => void
-  getDevice: () => Device
+  options: Obj
 }
 
 export type CurrentDeviceToCall = {

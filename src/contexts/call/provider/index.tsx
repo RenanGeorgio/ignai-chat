@@ -16,18 +16,12 @@ type CallProviderProps = {
   children: ReactNode
 }
 
-const options: Obj = {
-  logLevel: 1,
-  codecPreferences: ['opus', 'pcmu'],
-  fakeLocalDTMF: true,
-  enableRingingState: true,
-  debug: true, // TO-DO: se for dev
-  allowIncomingWhileBusy: true,
-}
 
 export const CallProvider = ({ children }: CallProviderProps) => {
   const queueConversations: ConversationDTO[] = useAppSelector(selectQueueConversation);
   const dispatch = useAppDispatch();
+
+  const { twilioToken, user } = useUser();
 
   const [currentConversationCall, setCurrentConversationCall] = useState<CurrentDeviceToCall | null>(null);
   const [userState, setUserState] = useState(USER_STATE.OFFLINE);
@@ -41,13 +35,16 @@ export const CallProvider = ({ children }: CallProviderProps) => {
   const device = useRef<Device | null>(null);
 
   const processor = new BackgroundAudioProcessor();
-  const { twilioToken, user } = useUser();
 
-  const getDevice = () => {
-    const instanceDevice: Device = new Device(twilioToken as string, options as any);
-
-    return instanceDevice;
+  const options: Obj = {
+    logLevel: 1,
+    codecPreferences: ['opus', 'pcmu'],
+    fakeLocalDTMF: true,
+    enableRingingState: true,
+    debug: true, // TO-DO: se for dev
+    allowIncomingWhileBusy: true,
   }
+
 
   const forwardCall = async (conn: Call) => {
     const currentDate = (Date.now()).toString();
@@ -260,7 +257,7 @@ export const CallProvider = ({ children }: CallProviderProps) => {
         setUserState,
         currentState,
         handleIndexChange,
-        getDevice
+        options
       }}
     >
       {children}
