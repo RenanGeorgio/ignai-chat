@@ -18,9 +18,13 @@ export const Dialler: React.FC<Props> = ({ number, setNumber }: Props) => {
   };
 
   const handleNumberPressed = (newNumber: string) => {
-    return () => {
-      setNumber(`${number}${newNumber}`);
-    };
+    if (newNumber === "<<") {
+      handleBackSpace();
+    } else {
+      return () => {
+        setNumber(`${number}${newNumber}`);
+      };
+    }
   };
 
   return (
@@ -54,8 +58,8 @@ export const Dialler: React.FC<Props> = ({ number, setNumber }: Props) => {
             borderRadius: "8px" 
           }}
         >
-          {["1", "2", "3", "4", "5", "6", "7", "8", "9", "*", "0", "#"].map((num) => (
-            <Grid item xs={4} key={num}>
+          {["1", "2", "3", "4", "5", "6", "7", "8", "9", "*", "0", "#", "", "+", "<<"].map((num) => (
+            <Grid item xs={5} key={num}>
               <Button
                 variant="contained"
                 fullWidth
