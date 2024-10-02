@@ -10,6 +10,7 @@ import { Dialler } from "./Dialler";
 import { Incoming } from "./Incoming";
 import { OnCall } from "./OnCall";
 import { FakeState } from "./FakeState";
+import { isAValidPhoneNumber } from "../../helpers/valid-number";
 import { USER_STATE } from "../../types";
 
 import "./Phone.module.css";
@@ -169,6 +170,7 @@ export const Phone: React.FC = () => {
           <Button
             variant='contained'
             onClick={handleCall}
+            disabled={isAValidPhoneNumber(phoneNumber)}
             sx={{
               backgroundColor: 'green',
               color: 'white',
@@ -194,7 +196,37 @@ export const Phone: React.FC = () => {
         currentState={userState}
         setConn={setConn}
       ></FakeState>
-      {render}
+      {userState === USER_STATE.ON_CALL
+       ? <OnCall handleHangup={handleHangup} connection={conn}></OnCall>
+       : (
+        <>
+          <Dialler number={phoneNumber} setNumber={setPhoneNumber} />
+          <div
+            className="call"
+            style={{ textAlign: 'center', marginTop: '20px' }}
+          >
+            <Button
+              variant='contained'
+              onClick={handleCall}
+              disabled={isAValidPhoneNumber(phoneNumber)}
+              sx={{
+                backgroundColor: 'green',
+                color: 'white',
+                fontSize: '20px',
+                padding: '12px 24px',
+                borderRadius: '8px',
+                width: '10%',
+                '&:hover': {
+                  backgroundColor: 'darkgreen',
+                },
+              }}
+            >
+              Ligar
+            </Button>
+          </div>
+        </>
+       )
+      }
       <p className="status">{userState}</p>
     </div>
   );
