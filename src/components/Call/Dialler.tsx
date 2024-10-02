@@ -54,7 +54,7 @@ export const Dialler: React.FC<Props> = ({ number, setNumber }: Props) => {
             borderRadius: "8px" 
           }}
         >
-          {["1", "2", "3", "4", "5", "6", "7", "8", "9", "+", "0", "#"].map((num) => (
+          {["1", "2", "3", "4", "5", "6", "7", "8", "9", "*", "0", "#"].map((num) => (
             <Grid item xs={4} key={num}>
               <Button
                 variant="contained"
@@ -75,14 +75,14 @@ export const Dialler: React.FC<Props> = ({ number, setNumber }: Props) => {
               </Button>
             </Grid>
           ))}
-          {number.length > 0 && (
+        </Grid>
+        {number.length > 0 && (
           <Box mt={2}>
             <KeypadButton handleClick={handleBackSpace}>
               <span style={{ fontSize: "24px" }}>⌫</span>
             </KeypadButton>
           </Box>
         )}
-        </Grid>
       </Box>
     </Box>
   );
