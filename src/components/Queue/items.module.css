@@ -5,38 +5,62 @@
   justify-content: center; 
   cursor: pointer;
 }
+
 .contactItem {
   background-color: #a09e9e; 
   padding: 1rem;
   border-radius: 0.5rem;
   display: flex;
   flex-direction: column; 
-  align-items: center; 
+  align-items: left; 
   justify-content: center; 
   flex: 1 1 45%; 
   max-width: 45%;
   box-sizing: border-box;
+  transition: background-color 0.3s ease, transform 0.2s ease;
 }
+
+.contactItem:hover {
+  transform: scale(1.02); 
+}
+
+.selected {
+  background-color: #d3d3d3; 
+  border: 2px solid #1890ff; 
+}
+
 .emoji {
-  font-size: 2rem; 
+  font-size: 20px; 
 }
+
 .statusContainer {
   display: flex;
   flex-direction: column;
 }
+
+.p, .inicio, .statusOn, .espera {
+  font-size: 12px;
+  margin: 0;
+}
+
 .p {
-  font-size: 1rem;
-  margin: 0;
+  width: 100%; 
+  word-wrap: break-word;
 }
-.incio {
-  font-size: 0.875rem;
-  margin: 0;
-}
+
 .statusOn {
-  font-size: 0.875rem;
-  margin: 0;
+  font-weight: bold;
+  color: #36880d; 
+  background-color: #ccdcc8;
+  padding: 5px;
+  border-radius: 5px;
+  width: 23%;
 }
+
 .espera {
-  font-size: 0.875rem;
-  margin: 0;
+  color: #c00b14; 
+  background-color: #dcc8c8;
+  padding: 5px;
+  border-radius: 5px;
+  width: 23%;
 }
