@@ -9,7 +9,7 @@ import "./OnCall.module.css";
 
 interface Props {
   handleHangup: () => void
-  connection?: Call
+  connection?: Call | null
   children?: React.ReactNode
 }
 
