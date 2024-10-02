@@ -94,7 +94,12 @@ export const Phone: React.FC = () => {
       if (currentDevice.current) {
         currentDevice.current?.emit('connect');
 
-        currentDevice.current?.connect({ params }).then((callInstance: Call) => {
+        currentDevice.current?.connect({ 
+          params,
+          rtcConstraints: {
+            audio: true
+          }
+         }).then((callInstance: Call) => {
           callInstance.on('accept', () => {
             console.log('Call accepted');
             setConn(conn);
