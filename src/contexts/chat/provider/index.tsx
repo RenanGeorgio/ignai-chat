@@ -10,7 +10,7 @@ import { getChat, postChat } from "../../../controllers/chat";
 import compareArrays from "../../../helpers/compareArrays";
 import { checkChatStatus } from "../../../helpers/checkStatus";
 
-import { Chat, ConsumersQueue, Message } from "../../../types";
+import { Chat, ConsumersQueue, Message, OnlineUser } from "../../../types";
 import { ChatDTO, ConversationDTO } from "../../../store/types";
 
 type ChatProviderProps = {

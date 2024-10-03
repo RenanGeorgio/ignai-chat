@@ -1,12 +1,12 @@
-import { useState, useEffect, ReactNode } from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { TimeContext } from "./TimeContext";
 
 interface TimeProviderProps {
-  children: ReactNode;
+  children: React.ReactNode;
 }
 
-export const TimeProvider: React.FC<TimeProviderProps> = ({ children }) => {
+export const TimeProvider: React.FC<TimeProviderProps> = ({ children }: TimeProviderProps) => {
   const [generalTime, setGeneralTime] = useState(0);
   const [serviceTime, setServiceTime] = useState(0);
   const [pauseTime, setPauseTime] = useState(0);
