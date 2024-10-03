@@ -113,12 +113,14 @@ export const Phone: React.FC = () => {
           
           callInstance.on('disconnect', () => {
             console.log('Call disconnected');
+            setPhoneNumber("");
             setUserState(USER_STATE.READY);
             setConn(null);
           });
 
           callInstance.on('reject', () => {
             console.log('Call reject');
+            setPhoneNumber("");
             setUserState(USER_STATE.READY);
             setConn(undefined);
           });
@@ -145,6 +147,7 @@ export const Phone: React.FC = () => {
     currentDevice.current?.disconnectAll();
     setUserState(USER_STATE.READY);
     setConn(undefined);
+    setPhoneNumber("");
   };
 
   useEffect(() => {
