@@ -10,7 +10,6 @@ import "./OnCall.module.css";
 interface Props {
   handleHangup: () => void
   connection?: Call | null
-  children?: React.ReactNode
 }
 
 export const OnCall: React.FC<Props> = ({ handleHangup }: Props) => {

@@ -201,7 +201,7 @@ export const Phone: React.FC = () => {
         : <></>
       }
       {userState === USER_STATE.ON_CALL
-       ? <OnCall handleHangup={handleHangup} connection={conn}></OnCall>
+       ? <OnCall handleHangup={handleHangup} connection={conn} />
        : (
         <>
           <Dialler number={phoneNumber} setNumber={setPhoneNumber} />
