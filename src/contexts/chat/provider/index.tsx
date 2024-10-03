@@ -59,9 +59,7 @@ export const ChatProvider = ({ children }: ChatProviderProps) => {
 
   const handleSocketIndexChange = (index: string | number) => {
     // @ts-ignore
-    const found: ChatDTO = queueChats?.find(
-      (item: ConversationDTO) => item?.id == index,
-    );
+    const found: ChatDTO = queueChats?.find((item: ConversationDTO) => item?.id == index);
 
     if (found != undefined) {
       // @ts-ignore
@@ -127,7 +125,7 @@ export const ChatProvider = ({ children }: ChatProviderProps) => {
   }, [socket, user?.companyId]);
 
   useEffect(() => {
-    userChats.forEach((chat) => {
+    userChats.forEach((chat: Chat) => {
       const label = {
         emoji: chat.origin.platform,
         id: chat._id,
@@ -137,7 +135,7 @@ export const ChatProvider = ({ children }: ChatProviderProps) => {
       };
 
       if (checkChatStatus(chat.status)) {
-        if (!queueChats.some((item) => item?.id === chat?._id)) {
+        if (!queueChats.some((item: ConversationDTO) => item?.id === chat?._id)) {
           dispatch(
             addConversationReference({
               id: chat._id,
@@ -147,8 +145,8 @@ export const ChatProvider = ({ children }: ChatProviderProps) => {
           );
         }
       } else {
-        if (!inactiveConversations.some((item) => item?.id === chat?._id)) {
-          setInactiveConversations((prev) => [
+        if (!inactiveConversations.some((item: ConversationDTO) => item?.id === chat?._id)) {
+          setInactiveConversations((prev: any) => [
             ...prev,
             {
               id: chat._id,
@@ -187,6 +185,7 @@ export const ChatProvider = ({ children }: ChatProviderProps) => {
   useEffect(() => {
     console.log('socket.current:', socket.current);
   }, [socket]);
+
   useEffect(() => {
     if (!socket.current || !currentChat) {
       return;
@@ -300,6 +299,7 @@ export const ChatProvider = ({ children }: ChatProviderProps) => {
       if (textMessage === '') {
         return;
       }
+
       console.log('send message', sender, currentChatId);
       const msgObj = {
         text: textMessage,
