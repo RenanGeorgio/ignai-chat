@@ -143,7 +143,8 @@ export const Phone: React.FC = () => {
   const handleHangup = () => {
     console.log('handlehungup');
     currentDevice.current?.disconnectAll();
-    currentDevice.current?.destroy();
+    setUserState(USER_STATE.READY);
+    setConn(undefined);
   };
 
   useEffect(() => {
@@ -151,44 +152,6 @@ export const Phone: React.FC = () => {
       init();
     }
   }, [twilioToken]);
-
-  let render;
-  if (conn) {
-    if (userState === USER_STATE.INCOMING) {
-      render = <Incoming device={currentDevice.current} connection={conn}></Incoming>;
-    } else if (userState === USER_STATE.ON_CALL) {
-      render = <OnCall handleHangup={handleHangup} connection={conn}></OnCall>;
-    }
-  } else {
-    render = (
-      <>
-        <Dialler number={phoneNumber} setNumber={setPhoneNumber} />
-        <div
-          className="call"
-          style={{ textAlign: 'center', marginTop: '20px' }}
-        >
-          <Button
-            variant='contained'
-            onClick={handleCall}
-            disabled={isAValidPhoneNumber(phoneNumber)}
-            sx={{
-              backgroundColor: 'green',
-              color: 'white',
-              fontSize: '20px',
-              padding: '12px 24px',
-              borderRadius: '8px',
-              width: '10%',
-              '&:hover': {
-                backgroundColor: 'darkgreen',
-              },
-            }}
-          >
-            Ligar
-          </Button>
-        </div>
-      </>
-    );
-  }
 
   return (
     <div className='phone'>
@@ -201,38 +164,39 @@ export const Phone: React.FC = () => {
           : <></>
         }
         {userState === USER_STATE.ON_CALL
-        ? <OnCall handleHangup={handleHangup} connection={conn} />
-        : (
-          <>
-            <Dialler number={phoneNumber} setNumber={setPhoneNumber} />
-            <div
-              className="call"
-              style={{ textAlign: 'center', marginTop: '20px' }}
-            >
-              <Button
-                variant='contained'
-                onClick={handleCall}
-                disabled={!isAValidPhoneNumber(phoneNumber)}
-                sx={{
-                  backgroundColor: 'green',
-                  color: 'white',
-                  fontSize: '20px',
-                  padding: '12px 24px',
-                  borderRadius: '8px',
-                  width: '10%',
-                  '&:hover': {
-                    backgroundColor: 'darkgreen',
-                  },
-                }}
-              >
-                Ligar
-              </Button>
-            </div>
-          </>
-        )
+          ? <OnCall connection={conn} />
+          : <></>
         }
+        <>
+          <Dialler number={phoneNumber} setNumber={setPhoneNumber} />
+          <div
+            className="call"
+            style={{ textAlign: 'center', marginTop: '20px' }}
+          >
+            <Button
+              variant='contained'
+              onClick={userState === USER_STATE.ON_CALL
+                ? handleHangup
+                : handleCall
+              }
+              disabled={!isAValidPhoneNumber(phoneNumber)}
+              sx={{
+                backgroundColor: userState === USER_STATE.ON_CALL ? 'red' : 'green',
+                color: 'white',
+                fontSize: '20px',
+                padding: '12px 24px',
+                borderRadius: '8px',
+                width: '10%',
+                '&:hover': {
+                  backgroundColor: 'darkgreen',
+                },
+              }}
+            >
+              Ligar
+            </Button>
+          </div>
+        </>
       </CurrentState>
-      <p className="status">{userState}</p>
     </div>
   );
 }
