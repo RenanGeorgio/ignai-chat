@@ -9,12 +9,12 @@ interface Props {
 export const Incoming: React.FC<Props> = ({ connection }: Props) => {
   const acceptConnection = () => {
     console.log('accept connection');
-    connection.accept();
+    connection?.accept();
   };
 
   const rejectConnection = () => {
     console.log('reject connection');
-    connection.reject();
+    connection?.reject();
   };
 
   return (
