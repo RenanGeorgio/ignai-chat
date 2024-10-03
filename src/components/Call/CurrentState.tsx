@@ -11,7 +11,7 @@ interface Props {
   children?: React.ReactNode;
 }
 
-export const CurrentState: React.FC<Props> = ({ currentState }: Props) => {
+export const CurrentState: React.FC<Props> = ({ currentState, children }: Props) => {
   return (
     <Box
       sx={{
@@ -47,6 +47,7 @@ export const CurrentState: React.FC<Props> = ({ currentState }: Props) => {
           />
         </RadioGroup>
       </FormControl>
+      {children}
     </Box>
   );
 }
