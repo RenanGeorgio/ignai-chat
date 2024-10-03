@@ -196,6 +196,10 @@ export const Phone: React.FC = () => {
         currentState={userState}
         setConn={setConn}
       ></FakeState>
+      {userState === USER_STATE.INCOMING 
+        ? <Incoming device={currentDevice.current} connection={conn} />
+        : <></>
+      }
       {userState === USER_STATE.ON_CALL
        ? <OnCall handleHangup={handleHangup} connection={conn}></OnCall>
        : (

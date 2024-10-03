@@ -4,7 +4,6 @@ import { Device, Call } from "@twilio/voice-sdk";
 interface Props {
   connection: Call
   device?: Device
-  children?: React.ReactNode
 }
 
 export const Incoming: React.FC<Props> = ({ connection }: Props) => {
