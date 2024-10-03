@@ -2,7 +2,7 @@ import React from "react";
 import { Device, Call } from "@twilio/voice-sdk";
 
 interface Props {
-  connection: Call
+  connection: Call | null | undefined
   device?: Device
 }
 
