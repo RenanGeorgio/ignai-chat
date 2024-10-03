@@ -35,6 +35,7 @@ export const Dialler: React.FC<Props> = ({ number, setNumber }: Props) => {
         type="tel"
         value={number}
         onChange={handleNumberChange}
+        placeholder="Enter phone number"
         variant="outlined"
         margin="none"
         sx={{
