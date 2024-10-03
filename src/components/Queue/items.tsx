@@ -1,8 +1,9 @@
-import React, { FunctionComponent, useState, useEffect, useRef } from 'react';
-import { QueueItemLabel } from '../../types';
+import React, { FunctionComponent, useState, useEffect, useRef } from "react";
 
-import styles from './items.module.css';
-import { ChatStatus } from '../../contexts/chat/types';
+import { ChatStatus } from "../../contexts/chat/types";
+import { QueueItemLabel } from "../../types";
+
+import styles from "./items.module.css";
 
 export interface QueueItemsType {
   queueItemsLabel: QueueItemLabel[];
@@ -16,8 +17,7 @@ export const QueueItems: FunctionComponent<QueueItemsType> = ({
   selectItem,
   manual,
 }: QueueItemsType) => {
-  const [queueItems, setQueueItems] =
-    useState<QueueItemLabel[]>(queueItemsLabel);
+  const [queueItems, setQueueItems] = useState<QueueItemLabel[]>(queueItemsLabel);
 
   const currentItemRef = useRef<QueueItemLabel | undefined>(undefined);
 
@@ -38,7 +38,7 @@ export const QueueItems: FunctionComponent<QueueItemsType> = ({
     if (!manual) {
       const queueItem = queueItems[0];
 
-      if (currentItemRef.current === undefined) {
+      if (currentItemRef.current == undefined) {
         setSelectedQueueItem(queueItem);
       }
     }

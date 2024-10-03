@@ -1,5 +1,6 @@
 import React from "react";
 import { Grid, Button, Box, TextField } from "@mui/material";
+
 import { KeypadButton } from "./KeypadButton";
 
 interface Props {
@@ -17,9 +18,15 @@ export const Dialler: React.FC<Props> = ({ number, setNumber }: Props) => {
   };
 
   const handleNumberPressed = (newNumber: string) => {
-    return () => {
-      setNumber(`${number}${newNumber}`);
-    };
+    if (newNumber === "<<") {
+      return () => {
+        setNumber(number.substring(0, number.length - 1));
+      };
+    } else {
+      return () => {
+        setNumber(`${number}${newNumber}`);
+      };
+    }
   };
 
   return (
@@ -32,7 +39,8 @@ export const Dialler: React.FC<Props> = ({ number, setNumber }: Props) => {
         margin="none"
         sx={{
           backgroundColor: "#fff", 
-          width: "50%",            
+          width: "30%",           
+          borderRadius: "20px", 
           marginBottom: "8px",     
           input: {
             textAlign: "center",    
@@ -52,8 +60,8 @@ export const Dialler: React.FC<Props> = ({ number, setNumber }: Props) => {
             borderRadius: "8px" 
           }}
         >
-          {["1", "2", "3", "4", "5", "6", "7", "8", "9", "*", "0", "#"].map((num) => (
-            <Grid item xs={4} key={num}>
+          {["1", "2", "3", "4", "5", "6", "7", "8", "9", "*", "0", "#", "-", "+", "<<"].map((num) => (
+            <Grid item xs={5} key={num}>
               <Button
                 variant="contained"
                 fullWidth
@@ -61,8 +69,8 @@ export const Dialler: React.FC<Props> = ({ number, setNumber }: Props) => {
                 sx={{
                   backgroundColor: "#F28B82", 
                   color: "white", 
-                  margin: "4px", 
-                  padding: "12px",
+                  margin: "5px", 
+                  padding: "15px",
                   fontSize: "18px",
                   "&:hover": {
                     backgroundColor: "#ee6161", 

@@ -8,12 +8,10 @@ import "./OnCall.module.css";
 
 
 interface Props {
-  handleHangup: () => void
-  connection?: Call
-  children?: React.ReactNode
+  connection?: Call | null
 }
 
-export const OnCall: React.FC<Props> = ({ handleHangup }: Props) => {
+export const OnCall: React.FC<Props> = () => {
   const [muted, setMuted] = useState<boolean>(false);
 
   const [running, setRunning, loudness] = useLoudness();
@@ -28,7 +26,7 @@ export const OnCall: React.FC<Props> = ({ handleHangup }: Props) => {
   const muteWarning = (
     <p className="warning">Are you speaking? You are on mute!</p>
   );
-
+  
   return (
     <>
       {showMuteWarning && muteWarning}
@@ -36,11 +34,6 @@ export const OnCall: React.FC<Props> = ({ handleHangup }: Props) => {
         <div className="call-options">
           <KeypadButton handleClick={handleMute} color={muted ? "red" : ""}>
             {muted ? "Unmute" : "Mute"}
-          </KeypadButton>
-        </div>
-        <div className="hang-up">
-          <KeypadButton handleClick={handleHangup} color="red">
-            Hang up
           </KeypadButton>
         </div>
       </div>

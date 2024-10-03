@@ -2,18 +2,19 @@ import React from "react";
 import { Device, Call } from "@twilio/voice-sdk";
 
 interface Props {
-  connection: Call
+  connection: Call | null | undefined
   device?: Device
-  children?: React.ReactNode
 }
 
 export const Incoming: React.FC<Props> = ({ connection }: Props) => {
   const acceptConnection = () => {
-    connection.accept();
+    console.log('accept connection');
+    connection?.accept();
   };
 
   const rejectConnection = () => {
-    connection.reject();
+    console.log('reject connection');
+    connection?.reject();
   };
 
   return (

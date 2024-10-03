@@ -8,7 +8,7 @@ import { addConversationReference, updateConversation } from "../../../store/con
 import { selectQueueConversation } from "../../../store/conversations/slice";
 import BackgroundAudioProcessor from "../../../libs/audio";
 
-import { CallState, CurrentDeviceToCall, ServicesPerformed } from "../types";
+import { CallState, CurrentDeviceToCall } from "../types";
 import { CONVERSATION_CHANNEL, Obj, USER_STATE } from "../../../types";
 import { CallDTO, ConversationDTO } from "../../../store/types";
 
@@ -16,22 +16,14 @@ type CallProviderProps = {
   children: ReactNode
 }
 
-const options: Obj = {
-  logLevel: 1,
-  codecPreferences: ['opus', 'pcmu'],
-  fakeLocalDTMF: true,
-  enableRingingState: true,
-  debug: true, // TO-DO: se for dev
-  allowIncomingWhileBusy: true,
-}
 
 export const CallProvider = ({ children }: CallProviderProps) => {
   const queueConversations: ConversationDTO[] = useAppSelector(selectQueueConversation);
   const dispatch = useAppDispatch();
 
-  const [servicesPerformed, setServicesPerformed] = useState<ServicesPerformed[]>([]); // TO-DO: mudar para useQuery direto no componente
-  const [currentConversationCall, setCurrentConversationCall] = useState<CurrentDeviceToCall | null>(null);
+  const { twilioToken, user } = useUser();
 
+  const [currentConversationCall, setCurrentConversationCall] = useState<CurrentDeviceToCall | null>(null);
   const [userState, setUserState] = useState(USER_STATE.OFFLINE);
   const [connection, setConnection] = useState<Call | string | null>(null);
   const [currentState, setCurrentState] = useState<CallState>({
@@ -43,13 +35,16 @@ export const CallProvider = ({ children }: CallProviderProps) => {
   const device = useRef<Device | null>(null);
 
   const processor = new BackgroundAudioProcessor();
-  const { twilioToken, user } = useUser();
 
-  const getDevice = () => {
-    const instanceDevice: Device = new Device(twilioToken as string, options as any);
-
-    return instanceDevice;
+  const options: Obj = {
+    logLevel: 1,
+    codecPreferences: ['opus', 'pcmu'],
+    fakeLocalDTMF: true,
+    enableRingingState: true,
+    debug: true, // TO-DO: se for dev
+    allowIncomingWhileBusy: true,
   }
+
 
   const forwardCall = async (conn: Call) => {
     const currentDate = (Date.now()).toString();
@@ -100,14 +95,17 @@ export const CallProvider = ({ children }: CallProviderProps) => {
     const call: Call = await currentDevice?.connect({ connectToken });
 
     call.on('reject', () => {
+      console.log('reject');
       updateUserState(USER_STATE.READY, call);
     });
 
     call.on('cancel', () => { 
+      console.log('cancel');
       updateUserState(USER_STATE.READY, call);
     });
 
     call.on('accept', () => {
+      console.log('accept');
       updateUserState(USER_STATE.ON_CALL, call);
     });
 
@@ -124,6 +122,7 @@ export const CallProvider = ({ children }: CallProviderProps) => {
     });
   
     call.on('disconnect', () => {
+      console.log('disconnect');
       const cleanResourcers = async () => {
         await currentDevice?.audio?.removeProcessor(processor);
         currentDevice?.destroy();
@@ -179,7 +178,7 @@ export const CallProvider = ({ children }: CallProviderProps) => {
   }
 
   useEffect(() => {
-    if (twilioToken == null) {
+    if (twilioToken == undefined) {
       return
     }
 
@@ -194,6 +193,7 @@ export const CallProvider = ({ children }: CallProviderProps) => {
       });*/
 
       device.current?.on('ready', () => {
+        console.log('ready');
         setUserState(USER_STATE.READY);
 
         const readyState = {
@@ -221,6 +221,7 @@ export const CallProvider = ({ children }: CallProviderProps) => {
       });
 
       device.current?.on('incoming', (conn: Call) => {
+        console.log('incoming');
         updateUserState(USER_STATE.INCOMING, conn);
 
         forwardCall(conn);
@@ -252,12 +253,11 @@ export const CallProvider = ({ children }: CallProviderProps) => {
   return (
     <CallContext.Provider
       value={{
-        servicesPerformed,
         userState,
         setUserState,
         currentState,
         handleIndexChange,
-        getDevice
+        options
       }}
     >
       {children}
