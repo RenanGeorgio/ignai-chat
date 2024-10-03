@@ -9,7 +9,7 @@ import { useUser } from "../../contexts/user/hooks";
 import { Dialler } from "./Dialler";
 import { Incoming } from "./Incoming";
 import { OnCall } from "./OnCall";
-import { FakeState } from "./FakeState";
+import { CurrentState } from "./CurrentState";
 import { isAValidPhoneNumber } from "../../helpers/valid-number";
 import { USER_STATE } from "../../types";
 
@@ -192,45 +192,46 @@ export const Phone: React.FC = () => {
 
   return (
     <div className='phone'>
-      <FakeState
+      <CurrentState
         currentState={userState}
         setConn={setConn}
-      ></FakeState>
-      {userState === USER_STATE.INCOMING 
-        ? <Incoming device={currentDevice.current} connection={conn} />
-        : <></>
-      }
-      {userState === USER_STATE.ON_CALL
-       ? <OnCall handleHangup={handleHangup} connection={conn} />
-       : (
-        <>
-          <Dialler number={phoneNumber} setNumber={setPhoneNumber} />
-          <div
-            className="call"
-            style={{ textAlign: 'center', marginTop: '20px' }}
-          >
-            <Button
-              variant='contained'
-              onClick={handleCall}
-              disabled={!isAValidPhoneNumber(phoneNumber)}
-              sx={{
-                backgroundColor: 'green',
-                color: 'white',
-                fontSize: '20px',
-                padding: '12px 24px',
-                borderRadius: '8px',
-                width: '10%',
-                '&:hover': {
-                  backgroundColor: 'darkgreen',
-                },
-              }}
+      >
+        {userState === USER_STATE.INCOMING 
+          ? <Incoming device={currentDevice.current} connection={conn} />
+          : <></>
+        }
+        {userState === USER_STATE.ON_CALL
+        ? <OnCall handleHangup={handleHangup} connection={conn} />
+        : (
+          <>
+            <Dialler number={phoneNumber} setNumber={setPhoneNumber} />
+            <div
+              className="call"
+              style={{ textAlign: 'center', marginTop: '20px' }}
             >
-              Ligar
-            </Button>
-          </div>
-        </>
-       )
-      }
+              <Button
+                variant='contained'
+                onClick={handleCall}
+                disabled={!isAValidPhoneNumber(phoneNumber)}
+                sx={{
+                  backgroundColor: 'green',
+                  color: 'white',
+                  fontSize: '20px',
+                  padding: '12px 24px',
+                  borderRadius: '8px',
+                  width: '10%',
+                  '&:hover': {
+                    backgroundColor: 'darkgreen',
+                  },
+                }}
+              >
+                Ligar
+              </Button>
+            </div>
+          </>
+        )
+        }
+      </CurrentState>
       <p className="status">{userState}</p>
     </div>
   );

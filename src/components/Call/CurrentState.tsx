@@ -1,31 +1,17 @@
 import React from "react";
 import { Call } from "@twilio/voice-sdk";
 import { Box, FormControl, FormLabel, RadioGroup, FormControlLabel, Radio } from "@mui/material";
-
-import { useCall } from "../../contexts/call/hooks";
 import { USER_STATE } from "../../types";
+
+import "./CurrentState.module.css";
 
 interface Props {
   currentState: USER_STATE;
-  setConn: (conn: Call | undefined) => void;
+  setConn?: (conn: Call | undefined) => void;
   children?: React.ReactNode;
 }
 
-export const FakeState: React.FC<Props> = ({ currentState, setConn }: Props) => {
-  const { setUserState } = useCall();
-
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    // @ts-ignore
-    const newState = USER_STATE[event?.target?.value];
-    setUserState(newState);
-
-    if (newState === USER_STATE.INCOMING || newState === USER_STATE.ON_CALL) {
-      //setConn(true);
-    } else {
-      setConn(undefined);
-    }
-  };
-
+export const CurrentState: React.FC<Props> = ({ currentState }: Props) => {
   return (
     <Box
       sx={{
@@ -40,13 +26,12 @@ export const FakeState: React.FC<Props> = ({ currentState, setConn }: Props) => 
     >
       <FormControl component="fieldset" fullWidth>
         <FormLabel component="legend" sx={{ color: "white", fontSize: "20px" }}>
-          Modo Ligação
+          Status de Atendimento
         </FormLabel>
         <RadioGroup
           row
-          name="fake-state"
+          name="state"
           value={currentState}
-          onChange={handleChange}
         >
           <FormControlLabel
             key={currentState}
