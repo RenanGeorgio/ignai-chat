@@ -502,3 +502,8 @@
     max-width: 100%;
   }
 }
+
+.timeContainer {
+  color: black;
+  margin-right: 40px;
+}

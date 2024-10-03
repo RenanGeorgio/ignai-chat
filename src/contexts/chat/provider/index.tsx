@@ -256,7 +256,7 @@ export const ChatProvider = ({ children }: ChatProviderProps) => {
             waitTime: undefined,
           },
         };
-
+        console.log(com)
         dispatch(addConversationReference(com));
       }
     });
@@ -341,21 +341,6 @@ export const ChatProvider = ({ children }: ChatProviderProps) => {
     },
     [],
   );
-
-  useEffect(() => {
-    // @ts-ignore
-    const chatItems: ChatDTO[] = queueChats?.filter((item: ConversationDTO) =>
-      isChat(item.conversation),
-    );
-
-    if (chatItems != undefined && chatItems?.length > 0) {
-      const chatConversations: Chat[] = chatItems?.map(
-        (item: ChatDTO) => item?.conversation,
-      );
-
-      setUserChats(chatConversations);
-    }
-  }, [queueChats]);
 
   return (
     <ChatContext.Provider

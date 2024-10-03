@@ -1,4 +1,11 @@
-import React, { FunctionComponent, useState, useRef, useEffect } from 'react';
+import React, {
+  FunctionComponent,
+  useState,
+  useRef,
+  useEffect,
+  useContext,
+  // useCallback,
+} from 'react';
 import {
   Switch,
   Stack,
@@ -25,6 +32,8 @@ import { ConversationDTO } from '../../store/types';
 
 import styles from './queue.module.css';
 import { checkChatStatus } from '../../helpers/checkStatus';
+import { TimeContext } from '../../contexts/time/TimeContext';
+import { secondsToTime } from '../../helpers/timeConverter';
 // import { ChatStatus } from '../../contexts/chat/types';
 
 export type QueueItemsType = {
@@ -35,6 +44,19 @@ const QueueComponent: FunctionComponent<QueueItemsType> = () => {
   const queueConversations: ConversationDTO[] = useAppSelector(
     selectQueueConversation,
   );
+
+  const {
+    generalTime,
+    serviceTime,
+    pauseTime,
+    pausedTime,
+    pauseClicks,
+    totalTime,
+    startTiming,
+    pauseTiming,
+    clearTiming,
+    isPaused,
+  } = useContext(TimeContext);
 
   const { handleIndexChange } = useCall();
   const { handleSocketIndexChange, updateCurrentChat } = useChat();
@@ -82,7 +104,16 @@ const QueueComponent: FunctionComponent<QueueItemsType> = () => {
   };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setChecked(event.target.checked);
+    const isChecked = event.target.checked; 
+    setChecked(isChecked);
+    
+    if (isChecked) {
+      startTiming();
+      console.log('startTiming');
+    } else {
+      console.log('pauseTiming');
+      pauseTiming();
+    }
   };
 
   const handleChangeManualMode = (
@@ -135,26 +166,31 @@ const QueueComponent: FunctionComponent<QueueItemsType> = () => {
 
     setLabels(queueItems);
   }, [queueConversations]);
-  console.log(labels);
+
+  useEffect(() => {
+    startTiming();
+    return () => clearTiming();
+  }, []);
+
   return (
     <div className={styles.queueItems}>
       <div className={styles.containerHeader}>
         <div className={styles.formGroupContainer}>
-          <FormGroup>
-            <FormControlLabel
-              control={
-                <Switch
-                  checked={checked}
-                  onChange={handleChange}
-                  inputProps={{ 'aria-label': 'controlled' }}
-                />
-              }
-              label={checked ? 'Habilitado' : 'Em Pausa'}
-              className={styles.slider}
-            />
-          </FormGroup>
+          {/* <FormControlLabel */}
+          {/* control={ */}
+          <Switch
+            checked={checked}
+            onChange={handleChange}
+            inputProps={{ 'aria-label': 'controlled' }}
+          />
+
+          {/* </FormGroup> */}
         </div>
         <h3 className={styles.filaDeAtendimento}>Fila de atendimento</h3>
+        {/* tempo total de atendimento */}
+        <div className={styles.timeContainer}>
+          <span className={styles.time}>{secondsToTime(totalTime)}</span>
+        </div>
       </div>
       <div className={styles.queueHeadings}>
         <Stack direction="row" spacing={2}>

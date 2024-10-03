@@ -1,36 +1,36 @@
 .contactContainer {
   display: flex;
   flex-wrap: wrap;
-  gap: 1rem; 
-  justify-content: center; 
+  gap: 1rem;
+  justify-content: center;
   cursor: pointer;
 }
 
 .contactItem {
-  background-color: #a09e9e; 
+  background-color: #a09e9e;
   padding: 1rem;
   border-radius: 0.5rem;
   display: flex;
-  flex-direction: column; 
-  align-items: left; 
-  justify-content: center; 
-  flex: 1 1 45%; 
+  flex-direction: column;
+  align-items: left;
+  justify-content: center;
+  flex: 1 1 45%;
   max-width: 45%;
   box-sizing: border-box;
   transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 .contactItem:hover {
-  transform: scale(1.02); 
+  transform: scale(1.02);
 }
 
 .selected {
-  background-color: #d3d3d3; 
-  border: 2px solid #1890ff; 
+  background-color: #d3d3d3;
+  border: 2px solid #1890ff;
 }
 
 .emoji {
-  font-size: 20px; 
+  font-size: 20px;
 }
 
 .statusContainer {
@@ -38,19 +38,22 @@
   flex-direction: column;
 }
 
-.p, .inicio, .statusOn, .espera {
+.p,
+.inicio,
+.statusOn,
+.espera {
   font-size: 12px;
   margin: 0;
 }
 
 .p {
-  width: 100%; 
+  width: 100%;
   word-wrap: break-word;
 }
 
 .statusOn {
   font-weight: bold;
-  color: #36880d; 
+  color: #36880d;
   background-color: #ccdcc8;
   padding: 5px;
   border-radius: 5px;
@@ -58,7 +61,7 @@
 }
 
 .espera {
-  color: #c00b14; 
+  color: #c00b14;
   background-color: #dcc8c8;
   padding: 5px;
   border-radius: 5px;
