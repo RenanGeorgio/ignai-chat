@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useState, useRef, useEffect } from "react";
+import React, { FunctionComponent, useState, useRef, useEffect, useContext } from "react";
 import {
   Switch,
   Stack,
@@ -16,8 +16,10 @@ import { selectQueueConversation } from "../../store/conversations/slice";
 import { useAppSelector } from "../../store/hooks";
 import { useCall } from "../../contexts/call/hooks";
 import { useChat } from "../../contexts/chat/hooks";
+import { TimeContext } from "../../contexts/time/TimeContext";
 import { QueueItems } from "./items";
 import { checkChatStatus } from "../../helpers/checkStatus";
+import { secondsToTime } from "../../helpers/timeConverter";
 import { MessageCircleIcon, SettingIcon } from "../../assets/icons";
 import { CONVERSATION_CHANNEL, QueueItemLabel } from "../../types";
 import { ConversationDTO } from "../../store/types";
@@ -31,8 +33,21 @@ export type QueueItemsType = {
 const QueueComponent: FunctionComponent<QueueItemsType> = () => {
   const queueConversations: ConversationDTO[] = useAppSelector(selectQueueConversation);
 
+  const {
+    generalTime,
+    serviceTime,
+    pauseTime,
+    pausedTime,
+    pauseClicks,
+    totalTime,
+    startTiming,
+    pauseTiming,
+    clearTiming,
+    isPaused,
+  } = useContext(TimeContext);
+
   const { handleIndexChange } = useCall();
-  const { handleSocketIndexChange } = useChat();
+  const { handleSocketIndexChange, updateCurrentChat } = useChat();
 
   const anchorRef = useRef<HTMLDivElement>(null);
 
@@ -40,7 +55,9 @@ const QueueComponent: FunctionComponent<QueueItemsType> = () => {
   const [open, setOpen] = useState<boolean>(false);
   const [manual, setManual] = useState<boolean>(true);
   const [controllDisabled, setControllDisabled] = useState<boolean>(false);
+
   const [blockSend, setBlockSend] = useState<boolean>(true);
+
   const [labels, setLabels] = useState<QueueItemLabel[]>([]);
   const [selectedItem, setSelectedItem] = useState<QueueItemLabel | undefined>(undefined);
   const [currentItem, setCurrentItem] = useState<QueueItemLabel | undefined>(undefined);
@@ -61,7 +78,16 @@ const QueueComponent: FunctionComponent<QueueItemsType> = () => {
   };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setChecked(event.target.checked);
+    const isChecked = event.target.checked; 
+    setChecked(isChecked);
+    
+    if (isChecked) {
+      startTiming();
+      console.log('startTiming');
+    } else {
+      console.log('pauseTiming');
+      pauseTiming();
+    }
   };
 
   const handleChangeManualMode = (
@@ -109,25 +135,34 @@ const QueueComponent: FunctionComponent<QueueItemsType> = () => {
     setLabels(queueItems);
   }, [queueConversations]);
 
+  useEffect(() => {
+    startTiming();
+    return () => clearTiming();
+  }, []);
+
   return (
     <div className={styles.queueItems}>
       <div className={styles.containerHeader}>
         <div className={styles.formGroupContainer}>
-          <FormGroup>
-            <FormControlLabel
-              control={
-                <Switch
-                  checked={checked}
-                  onChange={handleChange}
-                  inputProps={{ 'aria-label': 'controlled' }}
-                />
-              }
+         {/*<FormGroup>*/}
+          {/* <FormControlLabel */}
+          {/* control={ */}
+          <Switch
+            checked={checked}
+            onChange={handleChange}
+            inputProps={{ 'aria-label': 'controlled' }}
+          />
+          {/*}
               label={checked ? 'Habilitado' : 'Em Pausa'}
               className={styles.slider}
-            />
-          </FormGroup>
+            />*/}
+          {/* </FormGroup> */}
         </div>
         <h3 className={styles.filaDeAtendimento}>Fila de atendimento</h3>
+        {/* tempo total de atendimento */}
+        <div className={styles.timeContainer}>
+          <span className={styles.time}>{secondsToTime(totalTime)}</span>
+        </div>
       </div>
       <div className={styles.queueHeadings}>
         <Stack direction='row' spacing={2}>

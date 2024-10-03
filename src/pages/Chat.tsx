@@ -1,17 +1,17 @@
 import { FunctionComponent } from "react";
 
-//import { useChat } from "../contexts/chat/hooks";
-import QueueComponent from "../components/Queue/index";
+import { useChat } from "../contexts/chat/hooks";
+import QueueComponent from "../components/Queue/queue";
 import TicketsComponent from "../components/Tickets/index";
-//import ChatComponent from "../components/Chat/index";
+import ChatComponent from "../components/Chat/index";
 //import VoiceCall from "../components/Call/voice-call";
 import { Phone } from "../components/Call/Phone";
 
 import "../styles/chat.css";
 
 const Chat: FunctionComponent = () => {
-  //const { currentChat } = useChat();
-  
+  const { currentChat } = useChat();
+
   return (
     <div className="dashboard">
       <div className="messageAndSidebar">
@@ -23,7 +23,7 @@ const Chat: FunctionComponent = () => {
         <section className="content">
           <div className="container">
             <div className="separador">
-            < Phone />
+              {currentChat ? <ChatComponent /> : <Phone />}
             </div>
           </div>
         </section>
