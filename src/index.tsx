@@ -10,11 +10,12 @@ import "./index.css";
 
 const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
 root.render(
-  <React.StrictMode>
+  // desativei temporariamente por conta dos 2 renders estarem incrementando o contador de 2 em 2
+  // <React.StrictMode>
     <BrowserRouter>    
       <App />
     </BrowserRouter>
-  </React.StrictMode>
+  // </React.StrictMode>
 );
 
 reportWebVitals();

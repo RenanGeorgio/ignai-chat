@@ -9,7 +9,7 @@ import {
   Popper,
   Grow,
   Paper,
-  ClickAwayListener,
+  ClickAwayListener
 } from "@mui/material";
 
 import { selectQueueConversation } from "../../store/conversations/slice";
@@ -59,6 +59,7 @@ const QueueComponent: FunctionComponent<QueueItemsType> = () => {
   const [blockSend, setBlockSend] = useState<boolean>(true);
 
   const [labels, setLabels] = useState<QueueItemLabel[]>([]);
+
   const [selectedItem, setSelectedItem] = useState<QueueItemLabel | undefined>(undefined);
   const [currentItem, setCurrentItem] = useState<QueueItemLabel | undefined>(undefined);
 

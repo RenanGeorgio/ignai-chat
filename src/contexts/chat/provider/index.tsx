@@ -48,7 +48,7 @@ export const ChatProvider = ({ children }: ChatProviderProps) => {
   const [messageError, setMessageError] = useState<string | null>(null);
   const [messages, setMessages] = useState<Message[] | null>(null);
   const [newMessage, setNewMessage] = useState<Message | null>(null);
-
+  const [onlineUsers, setOnlineUsers] = useState<OnlineUser[]>([]);
   // const { user } = useUser();
 
   const socket = useRef<Socket | undefined>(undefined);
@@ -59,7 +59,7 @@ export const ChatProvider = ({ children }: ChatProviderProps) => {
 
   const handleSocketIndexChange = (index: string | number) => {
     // @ts-ignore
-    const found: ChatDTO | undefined = queueChats?.find(
+    const found: ChatDTO = queueChats?.find(
       (item: ConversationDTO) => item?.id == index,
     );
 
@@ -106,6 +106,25 @@ export const ChatProvider = ({ children }: ChatProviderProps) => {
 
     getUserChats();
   }, [user]);
+
+  useEffect(() => {
+    if (socket === null) {
+      return;
+    }
+
+    socket.current?.emit('addNewUser', {
+      userId: user?.companyId,
+      platform: 'ignai_chat',
+    });
+
+    socket.current?.on('onlineUsers', (users: OnlineUser[]) => {
+      setOnlineUsers(users);
+    });
+
+    return () => {
+      socket.current?.off('onlineUsers');
+    };
+  }, [socket, user?.companyId]);
 
   useEffect(() => {
     userChats.forEach((chat) => {
@@ -162,6 +181,31 @@ export const ChatProvider = ({ children }: ChatProviderProps) => {
   }, [newMessage, socket.current]);
 
   useEffect(() => {
+    console.log('currentChat updated:', currentChat);
+  }, [currentChat]);
+
+  useEffect(() => {
+    console.log('socket.current:', socket.current);
+  }, [socket]);
+  useEffect(() => {
+    if (!socket.current || !currentChat) {
+      return;
+    }
+
+    socket.current.on('getMessage', (res: Message) => {
+      if (currentChat?._id !== res.chatId) {
+        return;
+      }
+
+      setMessages((prev: any) => [...(prev || []), res]);
+    });
+
+    return () => {
+      socket.current?.off('getMessage');
+    };
+  }, [socket.current, currentChat]);
+
+  useEffect(() => {
     if (socket.current === null) {
       return;
     }
@@ -185,7 +229,7 @@ export const ChatProvider = ({ children }: ChatProviderProps) => {
 
         const com: ChatDTO = {
           id: id.toString(),
-          socket: socket.current as Socket,
+          // socket: socket.current as Socket,
           conversation: client,
           label: {
             emoji: client.origin.platform,
@@ -195,7 +239,7 @@ export const ChatProvider = ({ children }: ChatProviderProps) => {
             waitTime: undefined,
           },
         };
-
+        console.log(com)
         dispatch(addConversationReference(com));
       }
     });
@@ -204,25 +248,6 @@ export const ChatProvider = ({ children }: ChatProviderProps) => {
       socket.current?.off('newUserChat');
     };
   }, [socket.current, userChats]);
-
-  useEffect(() => {
-    if (!user) {
-      return;
-    }
-
-    socket.current = io(baseUrl as string, {
-      auth: {
-        // token: 'Bearer ' + Cookies.get('token'),
-        token:
-          'Bearer ' +
-          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NWJiZTAzNTlmODRkYTNhZjYwMWYzNzMifQ.kDH1o74vbiZgnYvNhBfQuFYIf8F4JlLVBLb3TIW1uKc',
-      },
-    }) as Socket;
-
-    return () => {
-      socket.current?.disconnect();
-    };
-  }, [user]);
 
   useEffect(() => {
     const getMessages = async () => {
@@ -275,7 +300,7 @@ export const ChatProvider = ({ children }: ChatProviderProps) => {
       if (textMessage === '') {
         return;
       }
-
+      console.log('send message', sender, currentChatId);
       const msgObj = {
         text: textMessage,
         senderId: sender.companyId,
@@ -298,21 +323,6 @@ export const ChatProvider = ({ children }: ChatProviderProps) => {
     },
     [],
   );
-
-  useEffect(() => {
-    // @ts-ignore
-    const chatItems: ChatDTO[] = queueChats?.filter((item: ConversationDTO) =>
-      isChat(item.conversation),
-    );
-
-    if (chatItems != undefined && chatItems?.length > 0) {
-      const chatConversations: Chat[] = chatItems?.map(
-        (item: ChatDTO) => item?.conversation,
-      );
-
-      setUserChats(chatConversations);
-    }
-  }, [queueChats]);
 
   return (
     <ChatContext.Provider

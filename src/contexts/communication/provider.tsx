@@ -2,13 +2,18 @@ import React from "react";
 
 import { CallProvider } from "../call/provider";
 import { ChatProvider } from "../chat/provider";
+import { TimeProvider } from "../time/TimeProvider";
 
-export function CommunicationProviders({ children }: { children: React.ReactNode }) {
+export function CommunicationProviders({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
-    <ChatProvider>
-      <CallProvider>
-        {children}
-      </CallProvider>
-    </ChatProvider>
+    <TimeProvider>
+      <ChatProvider>
+        <CallProvider>{children}</CallProvider>
+      </ChatProvider>
+    </TimeProvider>
   );
 }

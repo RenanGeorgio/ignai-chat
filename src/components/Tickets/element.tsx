@@ -43,7 +43,7 @@ export const TicketElement = ({
       }`}
       onClick={() => {
         // @ts-ignore
-        updateCurrentChat(conversation?.conversation)
+        // updateCurrentChat(conversation?.conversation)
       }}
     >
       <span role="img" aria-label="chat" className={styles.chatIcon}>

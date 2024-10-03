@@ -54,15 +54,17 @@ export const QueueItems: FunctionComponent<QueueItemsType> = ({
         queueItem.status === 'on' || queueItem.status === ChatStatus.ACTIVE ? (
           <div
             key={index}
-            className={styles.contactItem}
+            className={`${styles.contactItem} ${
+              currentItemRef.current?.id === queueItem.id ? styles.selected : ''
+            }`}
             onClick={() => handleClick(index, queueItem)}
           >
             <div className={styles.statusContainer}>
               <span className={styles.emoji}>{queueItem.emoji}</span>
               <p className={styles.p}>{queueItem.id}</p>
               <p className={styles.incio}>{queueItem.startTime}</p>
-              <p className={styles.statusOn}>{queueItem.status}</p>
-              <p className={styles.espera}>{queueItem.waitTime}</p>
+              {queueItem.status && <p className={styles.statusOn}>{queueItem.status}</p>}
+              {queueItem.waitTime && <p className={styles.espera}>{queueItem.waitTime}</p>}
             </div>
           </div>
         ) : null,
