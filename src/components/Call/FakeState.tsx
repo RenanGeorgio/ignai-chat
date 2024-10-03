@@ -48,20 +48,18 @@ export const FakeState: React.FC<Props> = ({ currentState, setConn }: Props) => 
           value={currentState}
           onChange={handleChange}
         >
-          {Object.keys(USER_STATE).map((stateKey: string) => (
-            <FormControlLabel
-              key={stateKey}
-              value={stateKey}
-              control={<Radio sx={{ color: "white" }} />}
-              label={stateKey}
-              sx={{
+          <FormControlLabel
+            key={currentState}
+            value={currentState}
+            control={<Radio sx={{ color: "white" }} />}
+            label={currentState}
+            sx={{
+              color: "white",
+              "& .MuiRadio-root": {
                 color: "white",
-                "& .MuiRadio-root": {
-                  color: "white",
-                },
-              }}
-            />
-          ))}
+              },
+            }}
+          />
         </RadioGroup>
       </FormControl>
     </Box>

@@ -212,7 +212,7 @@ export const Phone: React.FC = () => {
             <Button
               variant='contained'
               onClick={handleCall}
-              disabled={isAValidPhoneNumber(phoneNumber)}
+              disabled={!isAValidPhoneNumber(phoneNumber)}
               sx={{
                 backgroundColor: 'green',
                 color: 'white',
