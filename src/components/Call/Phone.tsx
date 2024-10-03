@@ -4,8 +4,6 @@ import { Button } from "@mui/material";
 
 import { useCall } from "../../contexts/call/hooks";
 import { useUser } from "../../contexts/user/hooks";
-//import { useAppSelector } from "../../store/hooks";
-//import { selectQueueConversation } from "../../store/conversations/slice";
 import { Dialler } from "./Dialler";
 import { Incoming } from "./Incoming";
 import { OnCall } from "./OnCall";
@@ -19,13 +17,11 @@ export const Phone: React.FC = () => {
   const { options, userState, setUserState } = useCall();
   const { twilioToken } = useUser();
 
-  //const queue = useAppSelector(selectQueueConversation);
+  const currentDevice = useRef<Device | undefined>(undefined);
 
   const [phoneNumber, setPhoneNumber] = useState<string>("");
   const [conn, setConn] = useState<Call | undefined | null>(undefined);
-
-  const currentDevice = useRef<Device | undefined>(undefined);
-  
+  const [callButtonDisabled, setCallButtonDisabled] = useState<boolean>(true);
 
   const init = async () => {
     if (twilioToken) {
@@ -151,6 +147,16 @@ export const Phone: React.FC = () => {
   };
 
   useEffect(() => {
+    if ((!(userState === USER_STATE.ON_CALL)) && (isAValidPhoneNumber(phoneNumber))) {
+      setCallButtonDisabled(false);
+    } else if (userState === USER_STATE.ON_CALL) {
+      setCallButtonDisabled(false);
+    } else {
+      setCallButtonDisabled(true);
+    }
+  }, [phoneNumber, userState]);
+
+  useEffect(() => {
     if (twilioToken !== undefined) {
       init();
     }
@@ -162,14 +168,8 @@ export const Phone: React.FC = () => {
         currentState={userState}
         setConn={setConn}
       >
-        {userState === USER_STATE.INCOMING 
-          ? <Incoming device={currentDevice.current} connection={conn} />
-          : <></>
-        }
-        {userState === USER_STATE.ON_CALL
-          ? <OnCall connection={conn} />
-          : <></>
-        }
+        {userState === USER_STATE.INCOMING && <Incoming device={currentDevice.current} connection={conn} />}
+        {userState === USER_STATE.ON_CALL && <OnCall connection={conn} />}
         <>
           <Dialler number={phoneNumber} setNumber={setPhoneNumber} />
           <div
@@ -182,7 +182,7 @@ export const Phone: React.FC = () => {
                 ? handleHangup
                 : handleCall
               }
-              disabled={!isAValidPhoneNumber(phoneNumber)}
+              disabled={callButtonDisabled}
               sx={{
                 backgroundColor: userState === USER_STATE.ON_CALL ? 'red' : 'green',
                 color: 'white',

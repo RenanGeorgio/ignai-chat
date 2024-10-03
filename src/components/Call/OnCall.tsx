@@ -3,6 +3,7 @@ import { Call } from "@twilio/voice-sdk";
 
 import { useLoudness, useMuteWarning } from "../../hooks/call";
 import { KeypadButton } from "./KeypadButton";
+import { Timer } from "../timer";
 
 import "./OnCall.module.css";
 
@@ -24,11 +25,12 @@ export const OnCall: React.FC<Props> = () => {
   };
 
   const muteWarning = (
-    <p className="warning">Are you speaking? You are on mute!</p>
+    <p className="warning">Você está falando? Você está no mudo!</p>
   );
   
   return (
     <>
+      <Timer />
       {showMuteWarning && muteWarning}
       <div className="call">
         <div className="call-options">

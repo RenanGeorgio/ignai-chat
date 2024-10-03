@@ -11,6 +11,15 @@ interface Props {
   children?: React.ReactNode;
 }
 
+const stateColor = {
+  [USER_STATE.CONNECTING]: "#B7AC44",
+  [USER_STATE.READY]: "#DAD870",
+  [USER_STATE.INCOMING]: "#DAD870",
+  [USER_STATE.ON_CALL]: "#FF5C4D",
+  [USER_STATE.OFFLINE]: "#FFB52E",
+  [USER_STATE.ERROR]: "#FFB52E",
+};
+
 export const CurrentState: React.FC<Props> = ({ currentState, children }: Props) => {
   return (
     <Box
@@ -25,7 +34,7 @@ export const CurrentState: React.FC<Props> = ({ currentState, children }: Props)
       }}
     >
       <FormControl component="fieldset" fullWidth>
-        <FormLabel component="legend" sx={{ color: "white", fontSize: "20px" }}>
+        <FormLabel component="legend" sx={{ color: stateColor[currentState], fontSize: "20px" }}>
           Status de Atendimento
         </FormLabel>
         <RadioGroup
@@ -36,10 +45,10 @@ export const CurrentState: React.FC<Props> = ({ currentState, children }: Props)
           <FormControlLabel
             key={currentState}
             value={currentState}
-            control={<Radio sx={{ color: "white" }} />}
+            control={<Radio sx={{ color: stateColor[currentState] }} />}
             label={currentState}
             sx={{
-              color: "white",
+              color: stateColor[currentState],
               "& .MuiRadio-root": {
                 color: "white",
               },
