@@ -4,7 +4,6 @@ import { useChat } from "../contexts/chat/hooks";
 import QueueComponent from "../components/Queue/queue";
 import TicketsComponent from "../components/Tickets/index";
 import ChatComponent from "../components/Chat/index";
-//import VoiceCall from "../components/Call/voice-call";
 import { Phone } from "../components/Call/Phone";
 
 import "../styles/chat.css";
