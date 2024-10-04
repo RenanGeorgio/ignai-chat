@@ -1,7 +1,18 @@
 import Avatar from "@mui/material/Avatar";
 import { styled } from "@mui/material/styles";
 
-export default styled(Avatar)(({ theme, ownerState }) => {
+type Params = {
+  bgColor: 'transparent' | 'primary' | 'secondary' | 'info' | 'success' | 'warning' | 'error' | 'light' | 'dark'
+  size: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl'
+  shadow: 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl' | 'inset'
+};
+
+interface Props {
+  theme: any
+  ownerState: Params
+}
+
+export default styled(Avatar)(({ theme, ownerState }: Props) => {
   const { palette, functions, typography, boxShadows } = theme;
   const { shadow, bgColor, size } = ownerState;
 
@@ -9,13 +20,10 @@ export default styled(Avatar)(({ theme, ownerState }) => {
   const { pxToRem, linearGradient } = functions;
   const { size: fontSize, fontWeightRegular } = typography;
 
-  // backgroundImage value
-  const backgroundValue =
-    bgColor === "transparent"
-      ? transparent.main
-      : linearGradient(gradients[bgColor].main, gradients[bgColor].state);
+  const backgroundValue = bgColor === 'transparent'
+    ? transparent.main
+    : linearGradient(gradients[bgColor]?.main, gradients[bgColor]?.state);
 
-  // size value
   let sizeValue;
 
   switch (size) {
@@ -23,49 +31,49 @@ export default styled(Avatar)(({ theme, ownerState }) => {
       sizeValue = {
         width: pxToRem(24),
         height: pxToRem(24),
-        fontSize: fontSize.xs,
+        fontSize: fontSize?.xs,
       };
       break;
     case "sm":
       sizeValue = {
         width: pxToRem(36),
         height: pxToRem(36),
-        fontSize: fontSize.sm,
+        fontSize: fontSize?.sm,
       };
       break;
     case "lg":
       sizeValue = {
         width: pxToRem(58),
         height: pxToRem(58),
-        fontSize: fontSize.sm,
+        fontSize: fontSize?.sm,
       };
       break;
     case "xl":
       sizeValue = {
         width: pxToRem(74),
         height: pxToRem(74),
-        fontSize: fontSize.md,
+        fontSize: fontSize?.md,
       };
       break;
     case "xxl":
       sizeValue = {
         width: pxToRem(110),
         height: pxToRem(110),
-        fontSize: fontSize.md,
+        fontSize: fontSize?.md,
       };
       break;
     default: {
       sizeValue = {
         width: pxToRem(48),
         height: pxToRem(48),
-        fontSize: fontSize.md,
+        fontSize: fontSize?.md,
       };
     }
   }
 
   return {
     background: backgroundValue,
-    color: white.main,
+    color: white?.main,
     fontWeight: fontWeightRegular,
     boxShadow: boxShadows[shadow],
     ...sizeValue,

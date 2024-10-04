@@ -2,7 +2,21 @@
 import Button from "@mui/material/Button";
 import { styled } from "@mui/material/styles";
 
-export default styled(Button)(({ theme, ownerState }) => {
+type Params = {
+  size: 'small' | 'medium' | 'large'
+  variant: 'text' | 'contained' | 'outlined' | 'gradient'
+  color: 'white' | 'primary' | 'secondary' | 'info' | 'success' | 'warning' | 'error' | 'light' | 'dark'
+  circular?: boolean
+  iconOnly?: boolean
+  darkMode: boolean
+};
+
+interface Props {
+  theme: any
+  ownerState: Params
+}
+
+export default styled(Button)(({ theme, ownerState }: Props) => {
   const { palette, functions, borders, boxShadows } = theme;
   const { color, variant, size, circular, iconOnly, darkMode } = ownerState;
 
@@ -11,15 +25,11 @@ export default styled(Button)(({ theme, ownerState }) => {
   const { borderRadius } = borders;
   const { colored } = boxShadows;
 
-  // styles for the button with variant="contained"
   const containedStyles = () => {
-    // background color value
     const backgroundValue = palette[color] ? palette[color].main : white.main;
 
-    // backgroundColor value when button is focused
     const focusedBackgroundValue = palette[color] ? palette[color].focus : white.focus;
 
-    // boxShadow value
     const boxShadowValue = colored[color]
       ? `${boxShadow([0, 3], [3, 0], palette[color].main, 0.15)}, ${boxShadow(
           [0, 3],

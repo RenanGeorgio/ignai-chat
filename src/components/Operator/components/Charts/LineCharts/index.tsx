@@ -1,5 +1,4 @@
 import { useMemo } from "react";
-import PropTypes from "prop-types";
 import { Line } from "react-chartjs-2";
 import {
   Chart as ChartJS,
@@ -16,7 +15,19 @@ import { Card, Divider, Icon } from "@mui/material";
 
 import MDBox from "../../MDBox";
 import MDTypography from "../../Typography";
-import configs from "./ReportsLineChart/configs";
+import configs from "./configs";
+
+type Obj = {
+  [key: string]: any
+};
+
+interface Props {
+  color: 'primary' | 'secondary' | 'info' | 'success' | 'warning' | 'error' | 'dark'
+  title: string
+  description: string | unknown
+  date: string
+  chart: Obj
+}
 
 ChartJS.register(
   CategoryScale,
@@ -29,7 +40,7 @@ ChartJS.register(
   Filler
 );
 
-function ReportsLineChart({ color, title, description, date, chart }) {
+function ReportsLineChart({ color='info', title, description="", date, chart }: Props) {
   const { data, options } = configs(chart.labels || [], chart.datasets || {});
 
   return (
@@ -73,20 +84,5 @@ function ReportsLineChart({ color, title, description, date, chart }) {
     </Card>
   );
 }
-
-// Setting default values for the props of ReportsLineChart
-ReportsLineChart.defaultProps = {
-  color: "info",
-  description: "",
-};
-
-// Typechecking props for the ReportsLineChart
-ReportsLineChart.propTypes = {
-  color: PropTypes.oneOf(["primary", "secondary", "info", "success", "warning", "error", "dark"]),
-  title: PropTypes.string.isRequired,
-  description: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
-  date: PropTypes.string.isRequired,
-  chart: PropTypes.objectOf(PropTypes.oneOfType([PropTypes.array, PropTypes.object])).isRequired,
-};
 
 export default ReportsLineChart;

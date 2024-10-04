@@ -1,10 +1,17 @@
-import PropTypes from "prop-types";
+import { ReactNode } from "react";
 import Icon from "@mui/material/Icon";
 
 import { useMaterialUIController } from "../../contexts";
 import MDBox from "../MDBox";
 
-function DataTableHeadCell({ width, children, sorted, align, ...rest }) {
+interface Props {
+  width: string |number
+  sorted: false | 'none' | 'asce' | 'desc'
+  align: 'left' | 'right' | 'center'
+  children: ReactNode
+}
+
+function DataTableHeadCell({ width='auto', children, sorted='none', align='left', ...rest }: Props) {
   const [controller] = useMaterialUIController();
   const { darkMode } = controller;
 
@@ -65,20 +72,5 @@ function DataTableHeadCell({ width, children, sorted, align, ...rest }) {
     </MDBox>
   );
 }
-
-// Setting default values for the props of DataTableHeadCell
-DataTableHeadCell.defaultProps = {
-  width: "auto",
-  sorted: "none",
-  align: "left",
-};
-
-// Typechecking props for the DataTableHeadCell
-DataTableHeadCell.propTypes = {
-  width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  children: PropTypes.node.isRequired,
-  sorted: PropTypes.oneOf([false, "none", "asce", "desc"]),
-  align: PropTypes.oneOf(["left", "right", "center"]),
-};
 
 export default DataTableHeadCell;

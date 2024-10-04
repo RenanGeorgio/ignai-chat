@@ -1,7 +1,13 @@
-import PropTypes from "prop-types";
+import { ReactNode } from "react";
 import MDBox from "../MDBox";
 
-function DataTableBodyCell({ noBorder, align, children }) {
+interface Props {
+  noBorder?: boolean
+  align: 'left' | 'right' | 'center'
+  children: ReactNode
+}
+
+function DataTableBodyCell({ noBorder=false, align='left', children }: Props) {
   return (
     <MDBox
       component="td"
@@ -24,18 +30,5 @@ function DataTableBodyCell({ noBorder, align, children }) {
     </MDBox>
   );
 }
-
-// Setting default values for the props of DataTableBodyCell
-DataTableBodyCell.defaultProps = {
-  noBorder: false,
-  align: "left",
-};
-
-// Typechecking props for the DataTableBodyCell
-DataTableBodyCell.propTypes = {
-  children: PropTypes.node.isRequired,
-  noBorder: PropTypes.bool,
-  align: PropTypes.oneOf(["left", "right", "center"]),
-};
 
 export default DataTableBodyCell;

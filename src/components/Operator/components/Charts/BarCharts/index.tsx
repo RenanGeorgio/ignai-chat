@@ -1,5 +1,4 @@
 import { useMemo } from "react";
-import PropTypes from "prop-types";
 import { Bar } from "react-chartjs-2";
 import {
   Chart as ChartJS,
@@ -15,11 +14,24 @@ import { Card, Divider, Icon } from "@mui/material";
 import MDBox from "../../MDBox";
 import MDTypography from "../../Typography";
 
-import configs from "./ReportsBarChart/configs";
+import configs from "./configs";
+
+type Obj = {
+  [key: string]: any
+}
+
+interface Props {
+  color: 'primary' | 'secondary' | 'info' | 'success' | 'warning' | 'error' | 'dark'
+  title: string
+  description: string | unknown
+  date: string
+  chart: Obj
+}
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
-function ReportsBarChart({ color, title, description, date, chart }) {
+function ReportsBarChart({ color='info', title, description="", date, chart }: Props) {
+  // @ts-ignore
   const { data, options } = configs(chart.labels || [], chart.datasets || {});
 
   return (
@@ -63,20 +75,5 @@ function ReportsBarChart({ color, title, description, date, chart }) {
     </Card>
   );
 }
-
-// Setting default values for the props of ReportsBarChart
-ReportsBarChart.defaultProps = {
-  color: "info",
-  description: "",
-};
-
-// Typechecking props for the ReportsBarChart
-ReportsBarChart.propTypes = {
-  color: PropTypes.oneOf(["primary", "secondary", "info", "success", "warning", "error", "dark"]),
-  title: PropTypes.string.isRequired,
-  description: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
-  date: PropTypes.string.isRequired,
-  chart: PropTypes.objectOf(PropTypes.oneOfType([PropTypes.array, PropTypes.object])).isRequired,
-};
 
 export default ReportsBarChart;

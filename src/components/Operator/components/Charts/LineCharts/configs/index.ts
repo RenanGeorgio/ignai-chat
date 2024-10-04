@@ -1,4 +1,8 @@
-function configs(labels, datasets) {
+type Obj = {
+  [key: string]: any
+};
+
+function configs(labels: Array<any>, datasets: Obj) {
   return {
     data: {
       labels,

@@ -1,12 +1,20 @@
-import { forwardRef } from "react";
-import PropTypes from "prop-types";
+import { forwardRef, ReactNode, MutableRefObject } from "react";
 
 import { useMaterialUIController } from "../../contexts";
 import MDButtonRoot from "./MDButtonRoot";
 
 
+interface Props {
+  size: 'small' | 'medium' | 'large'
+  variant: 'text' | 'contained' | 'outlined' | 'gradient'
+  color: 'white' | 'primary' | 'secondary' | 'info' | 'success' | 'warning' | 'error' | 'light' | 'dark'
+  circular?: boolean
+  iconOnly?: boolean
+  children: ReactNode
+}
+
 const MDButton = forwardRef(
-  ({ color, variant, size, circular, iconOnly, children, ...rest }, ref) => {
+  ({ color='white', variant='contained', size='medium', circular=false, iconOnly=false, children, ...rest }: Props, ref: MutableRefObject<any>) => {
     const [controller] = useMaterialUIController();
     const { darkMode } = controller;
 
@@ -24,34 +32,5 @@ const MDButton = forwardRef(
     );
   }
 );
-
-// Setting default values for the props of MDButton
-MDButton.defaultProps = {
-  size: "medium",
-  variant: "contained",
-  color: "white",
-  circular: false,
-  iconOnly: false,
-};
-
-// Typechecking props for the MDButton
-MDButton.propTypes = {
-  size: PropTypes.oneOf(["small", "medium", "large"]),
-  variant: PropTypes.oneOf(["text", "contained", "outlined", "gradient"]),
-  color: PropTypes.oneOf([
-    "white",
-    "primary",
-    "secondary",
-    "info",
-    "success",
-    "warning",
-    "error",
-    "light",
-    "dark",
-  ]),
-  circular: PropTypes.bool,
-  iconOnly: PropTypes.bool,
-  children: PropTypes.node.isRequired,
-};
 
 export default MDButton;

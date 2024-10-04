@@ -1,7 +1,22 @@
 import Box from "@mui/material/Box";
 import { styled } from "@mui/material/styles";
 
-export default styled(Box)(({ theme, ownerState }) => {
+type Params = {
+  variant: 'contained' | 'gradient'
+  bgColor?: string
+  color?: string
+  opacity?: number
+  borderRadius?: string
+  shadow?: string
+  coloredShadow: 'primary' | 'secondary' | 'info' | 'success' | 'warning' | 'error' | 'light' | 'dark' | 'none'
+};
+
+interface Props {
+  theme: any
+  ownerState: Params
+}
+
+export default styled(Box)(({ theme, ownerState }: Props) => {
   const { palette, functions, borders, boxShadows } = theme;
   const { variant, bgColor, color, opacity, borderRadius, shadow, coloredShadow } = ownerState;
 
@@ -61,39 +76,38 @@ export default styled(Box)(({ theme, ownerState }) => {
   const validBoxShadows = ["xs", "sm", "md", "lg", "xl", "xxl", "inset"];
 
   // background value
-  let backgroundValue = bgColor;
+  let backgroundValue = bgColor as string;
 
   if (variant === "gradient") {
     backgroundValue = validGradients.find((el) => el === bgColor)
-      ? linearGradient(gradients[bgColor].main, gradients[bgColor].state)
+      ? linearGradient(gradients[bgColor as string]?.main, gradients[bgColor as string].state)
       : white.main;
   } else if (validColors.find((el) => el === bgColor)) {
-    backgroundValue = palette[bgColor] ? palette[bgColor].main : greyColors[bgColor];
+    // @ts-ignore
+    backgroundValue = palette[bgColor] ? palette[bgColor]?.main : greyColors[bgColor];
   } else {
-    backgroundValue = bgColor;
+    backgroundValue = bgColor as string;
   }
 
-  // color value
   let colorValue = color;
 
   if (validColors.find((el) => el === color)) {
-    colorValue = palette[color] ? palette[color].main : greyColors[color];
+    // @ts-ignore
+    colorValue = palette[color] ? palette[color]?.main : greyColors[color];
   }
 
-  // borderRadius value
-  let borderRadiusValue = borderRadius;
+  let borderRadiusValue = borderRadius as string;
 
   if (validBorderRadius.find((el) => el === borderRadius)) {
-    borderRadiusValue = radius[borderRadius];
+    borderRadiusValue = radius[borderRadius as string];
   }
 
-  // boxShadow value
   let boxShadowValue = "none";
 
   if (validBoxShadows.find((el) => el === shadow)) {
-    boxShadowValue = boxShadows[shadow];
+    boxShadowValue = boxShadows[shadow as string];
   } else if (coloredShadow) {
-    boxShadowValue = colored[coloredShadow] ? colored[coloredShadow] : "none";
+    boxShadowValue = colored[coloredShadow] ? colored[coloredShadow] : 'none';
   }
 
   return {
