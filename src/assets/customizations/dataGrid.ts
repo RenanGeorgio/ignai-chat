@@ -1,4 +1,3 @@
-import { paperClasses } from "@mui/material/Paper";
 import { alpha, Theme } from "@mui/material/styles";
 import type { DataGridProComponents } from "@mui/x-data-grid-pro/themeAugmentation";
 import type { DataGridComponents } from "@mui/x-data-grid/themeAugmentation";
@@ -47,7 +46,7 @@ export const dataGridCustomizations: DataGridProComponents<Theme> & DataGridComp
       menu: ({ theme }: any) => ({
         borderRadius: theme.shape.borderRadius,
         backgroundImage: 'none',
-        [`& .${paperClasses.root}`]: {
+        [`& .${menuItemClasses.root}`]: {
           border: `1px solid ${(theme.vars || theme).palette.divider}`,
         },
 
