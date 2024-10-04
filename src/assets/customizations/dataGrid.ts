@@ -1,5 +1,4 @@
 import { alpha, Theme } from "@mui/material/styles";
-import type { DataGridProComponents } from "@mui/x-data-grid-pro/themeAugmentation";
 import type { DataGridComponents } from "@mui/x-data-grid/themeAugmentation";
 import { menuItemClasses } from "@mui/material/MenuItem";
 import { listItemIconClasses } from "@mui/material/ListItemIcon";
@@ -8,10 +7,11 @@ import { checkboxClasses } from "@mui/material/Checkbox";
 import { listClasses } from "@mui/material/List";
 import { gridClasses } from "@mui/x-data-grid";
 import { tablePaginationClasses } from "@mui/material/TablePagination";
+
 import { gray } from "../theme/primitives";
 
 /* eslint-disable import/prefer-default-export */
-export const dataGridCustomizations: DataGridProComponents<Theme> & DataGridComponents<Theme> = {
+export const dataGridCustomizations: DataGridComponents<Theme> = {
   MuiDataGrid: {
     styleOverrides: {
       root: ({ theme }: any) => ({
