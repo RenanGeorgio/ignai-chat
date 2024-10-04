@@ -49,7 +49,7 @@ export const Phone: React.FC = () => {
         currentDevice.current?.on('connect', (connection: Call) => {
           console.log("Call connect");
           setConn(connection);
-          setUserState(USER_STATE.ON_CALL);
+          //setUserState(USER_STATE.ON_CALL);
         });
 
         currentDevice.current?.on('disconnect', () => {
@@ -81,60 +81,62 @@ export const Phone: React.FC = () => {
   };
 
   const handleCall = async () => {
-    try {
-      console.log('handlecall');
-      const params: Record<string, string> = { 
-        To: phoneNumber,
-        // callerId: 'Seu caller ID aqui', // Se você tiver um callerId, adicione aqui
-      };
+    if (userState !== USER_STATE.ON_CALL) {
+      try {
+        console.log('handlecall');
+        const params: Record<string, string> = { 
+          To: phoneNumber,
+          // callerId: 'Seu caller ID aqui', // Se você tiver um callerId, adicione aqui
+        };
 
-      if (currentDevice.current) {
-        currentDevice.current?.emit('connect');
+        if (currentDevice.current) {
+          currentDevice.current?.emit('connect');
 
-        currentDevice.current?.connect({ 
-          params,
-          rtcConstraints: {
-            audio: true
-          }
-         }).then((callInstance: Call) => {
-          callInstance.on('accept', () => {
-            console.log('Call accepted');
-            setConn(conn);
-            setUserState(USER_STATE.ON_CALL);
-          });
-          
-          callInstance.on('answered', () => {
-            console.log('Call answered');
-          });
-          
-          callInstance.on('disconnect', () => {
-            console.log('Call disconnected');
-            setPhoneNumber("");
-            setUserState(USER_STATE.READY);
-            setConn(null);
-          });
+          currentDevice.current?.connect({ 
+            params,
+            rtcConstraints: {
+              audio: true
+            }
+          }).then((callInstance: Call) => {
+            callInstance.on('accept', () => {
+              console.log('Call accepted');
+              setConn(conn);
+              setUserState(USER_STATE.ON_CALL);
+            });
+            
+            callInstance.on('answered', () => {
+              console.log('Call answered');
+            });
+            
+            callInstance.on('disconnect', () => {
+              console.log('Call disconnected');
+              setPhoneNumber("");
+              setUserState(USER_STATE.READY);
+              setConn(null);
+            });
 
-          callInstance.on('reject', () => {
-            console.log('Call reject');
-            setPhoneNumber("");
-            setUserState(USER_STATE.READY);
-            setConn(undefined);
+            callInstance.on('reject', () => {
+              console.log('Call reject');
+              setPhoneNumber("");
+              setUserState(USER_STATE.READY);
+              setConn(undefined);
+            });
+            
+            callInstance.on('cancel', () => {
+              console.log('Call canceled');
+              setUserState(USER_STATE.READY);
+              setConn(undefined);
+            });
           });
-          
-          callInstance.on('cancel', () => {
-            console.log('Call canceled');
-            setUserState(USER_STATE.READY);
-            setConn(undefined);
-          });
-        });
-      } else {
-        setUserState(USER_STATE.OFFLINE);
-        setConn(undefined);
+        } else {
+          setUserState(USER_STATE.OFFLINE);
+          setConn(undefined);
 
-        throw new Error("Unable to make call");
+          throw new Error("Unable to make call");
+        }
+      } catch (error: any) {
+        throw new Error(error);
       }
-    } catch (error: any) {
-      throw new Error(error);
     }
   };
 
