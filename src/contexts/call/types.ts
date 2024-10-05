@@ -45,7 +45,7 @@ export type Chat = {
     platform: Platforms
     chatId?: string
   }
-  status: ChatStatus
+  status: CHAT_STATUS
   createdAt: string
   updatedAt: string
   __v?: number
@@ -66,7 +66,7 @@ export enum Platforms {
   PHONE = 'phone'
 }
 
-export enum ChatStatus {
+export enum CHAT_STATUS {
   ACTIVE = "active",
   FINISHED = "finished",
   ARCHIVED = "archived",

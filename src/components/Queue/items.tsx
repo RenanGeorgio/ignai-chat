@@ -1,6 +1,6 @@
 import React, { FunctionComponent, useState, useEffect, useRef } from "react";
 
-import { ChatStatus } from "../../contexts/chat/types";
+import { CHAT_STATUS } from "../../contexts/chat/types";
 import { QueueItemLabel } from "../../types";
 
 import styles from "./items.module.css";
@@ -51,7 +51,7 @@ export const QueueItems: FunctionComponent<QueueItemsType> = ({
   return (
     <div className={styles.contactContainer}>
       {queueItems?.map((queueItem: QueueItemLabel, index: number) =>
-        queueItem.status === 'on' || queueItem.status === ChatStatus.ACTIVE ? (
+        queueItem.status === 'on' || queueItem.status === CHAT_STATUS.ACTIVE ? (
           <div
             key={index}
             className={`${styles.contactItem} ${

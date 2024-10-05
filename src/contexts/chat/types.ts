@@ -60,7 +60,7 @@ export enum Platforms {
   WHATSAPP = 'whatsapp',
 }
 
-export enum ChatStatus {
+export enum CHAT_STATUS {
   ACTIVE = 'active',
   FINISHED = 'finished',
   ARCHIVED = 'archived',

@@ -21,6 +21,7 @@ export const Phone: React.FC = () => {
 
   const [phoneNumber, setPhoneNumber] = useState<string>("");
   const [conn, setConn] = useState<Call | undefined | null>(undefined);
+  const [callState, setCallState] = useState<USER_STATE>(USER_STATE.OFFLINE);
   const [callButtonDisabled, setCallButtonDisabled] = useState<boolean>(true);
 
   const init = async () => {
@@ -38,12 +39,24 @@ export const Phone: React.FC = () => {
 
         currentDevice.current?.on('registered', () => {
           console.log("Agent registered");
-          setUserState(USER_STATE.READY);
+          setCallState((prev: USER_STATE) => {
+            if (prev === USER_STATE.ON_CALL) {
+              setUserState(USER_STATE.READY);
+            }
+
+            return USER_STATE.READY;
+          });
         });
 
         currentDevice.current?.on('ready', () => {
           console.log("Agent ready");
-          setUserState(USER_STATE.READY);
+          setCallState((prev: USER_STATE) => {
+            if (prev === USER_STATE.ON_CALL) {
+              setUserState(USER_STATE.READY);
+            }
+
+            return USER_STATE.READY;
+          });
         });
 
         currentDevice.current?.on('connect', (connection: Call) => {
@@ -54,14 +67,21 @@ export const Phone: React.FC = () => {
 
         currentDevice.current?.on('disconnect', () => {
           console.log("Disconnect event");
-          setUserState(USER_STATE.READY);
           setConn(null);
+
+          setCallState((prev: USER_STATE) => {
+            if (prev === USER_STATE.ON_CALL) {
+              setUserState(USER_STATE.READY);
+            }
+
+            return USER_STATE.READY;
+          });
         });
 
         currentDevice.current?.on('error', (error: any) => {
           console.log("Error event detected: ", error);
-          setUserState(USER_STATE.ERROR);
           setConn(null);
+          setCallState(USER_STATE.ERROR);
         });
 
         return () => {
@@ -69,7 +89,8 @@ export const Phone: React.FC = () => {
           currentDevice.current?.destroy();
 
           currentDevice.current = undefined;
-          setUserState(USER_STATE.OFFLINE);
+          setCallState(USER_STATE.OFFLINE);
+          setUserState(USER_STATE.READY);
           setConn(undefined);
         };
       } catch (error: any) {
@@ -81,7 +102,7 @@ export const Phone: React.FC = () => {
   };
 
   const handleCall = async () => {
-    if (userState !== USER_STATE.ON_CALL) {
+    if ((userState !== USER_STATE.ON_CALL) && (callState !== USER_STATE.ON_CALL)) {
       try {
         console.log('handlecall');
         const params: Record<string, string> = { 
@@ -101,6 +122,8 @@ export const Phone: React.FC = () => {
             callInstance.on('accept', () => {
               console.log('Call accepted');
               setConn(conn);
+
+              setCallState(USER_STATE.ON_CALL);
               setUserState(USER_STATE.ON_CALL);
             });
             
@@ -111,25 +134,40 @@ export const Phone: React.FC = () => {
             callInstance.on('disconnect', () => {
               console.log('Call disconnected');
               setPhoneNumber("");
-              setUserState(USER_STATE.READY);
               setConn(null);
+
+              setCallState((prev: USER_STATE) => {
+                setUserState(USER_STATE.READY);
+    
+                return USER_STATE.READY;
+              });
             });
 
             callInstance.on('reject', () => {
               console.log('Call reject');
               setPhoneNumber("");
-              setUserState(USER_STATE.READY);
               setConn(undefined);
+
+              setCallState((prev: USER_STATE) => {
+                setUserState(USER_STATE.READY);
+    
+                return USER_STATE.READY;
+              });
             });
             
             callInstance.on('cancel', () => {
               console.log('Call canceled');
-              setUserState(USER_STATE.READY);
               setConn(undefined);
+
+              setCallState((prev: USER_STATE) => {
+                setUserState(USER_STATE.READY);
+    
+                return USER_STATE.READY;
+              });
             });
           });
         } else {
-          setUserState(USER_STATE.OFFLINE);
+          setCallState(USER_STATE.OFFLINE);
           setConn(undefined);
 
           throw new Error("Unable to make call");
@@ -143,7 +181,13 @@ export const Phone: React.FC = () => {
   const handleHangup = () => {
     console.log('handlehungup');
     currentDevice.current?.disconnectAll();
-    setUserState(USER_STATE.READY);
+
+    setCallState((prev: USER_STATE) => {
+      setUserState(USER_STATE.READY);
+
+      return USER_STATE.READY;
+    });
+
     setConn(undefined);
     setPhoneNumber("");
   };
@@ -164,14 +208,22 @@ export const Phone: React.FC = () => {
     }
   }, [twilioToken]);
 
+  useEffect(() => {
+    setCallState(userState);
+
+    return () => {
+      setCallState(USER_STATE.OFFLINE);
+    };
+  }, []);
+
   return (
     <div className='phone'>
       <CurrentState
-        currentState={userState}
+        currentState={callState}
         setConn={setConn}
       >
-        {userState === USER_STATE.INCOMING && <Incoming device={currentDevice.current} connection={conn} />}
-        {userState === USER_STATE.ON_CALL && <OnCall connection={conn} />}
+        {callState === USER_STATE.INCOMING && <Incoming device={currentDevice.current} connection={conn} />}
+        {callState === USER_STATE.ON_CALL && <OnCall connection={conn} />}
         <>
           <Dialler number={phoneNumber} setNumber={setPhoneNumber} />
           <div
@@ -180,13 +232,13 @@ export const Phone: React.FC = () => {
           >
             <Button
               variant='contained'
-              onClick={userState === USER_STATE.ON_CALL
+              onClick={callState === USER_STATE.ON_CALL
                 ? handleHangup
                 : handleCall
               }
               disabled={callButtonDisabled}
               sx={{
-                backgroundColor: userState === USER_STATE.ON_CALL ? 'red' : 'green',
+                backgroundColor: callState === USER_STATE.ON_CALL ? 'red' : 'green',
                 color: 'white',
                 fontSize: '20px',
                 padding: '12px 24px',

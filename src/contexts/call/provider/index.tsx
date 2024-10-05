@@ -11,21 +11,24 @@ import BackgroundAudioProcessor from "../../../libs/audio";
 import { CallState, CurrentDeviceToCall } from "../types";
 import { CONVERSATION_CHANNEL, Obj, USER_STATE } from "../../../types";
 import { CallDTO, ConversationDTO } from "../../../store/types";
+import { COMM_STATE } from "../../communication/types";
 
 type CallProviderProps = {
+  workerStatus: COMM_STATE
+  setWorkerStatus: (status: COMM_STATE) => void
   children: ReactNode
 }
 
-
-export const CallProvider = ({ children }: CallProviderProps) => {
+export const CallProvider = ({ workerStatus, setWorkerStatus, children }: CallProviderProps) => {
   const queueConversations: ConversationDTO[] = useAppSelector(selectQueueConversation);
   const dispatch = useAppDispatch();
 
   const { twilioToken, user } = useUser();
 
   const [currentConversationCall, setCurrentConversationCall] = useState<CurrentDeviceToCall | null>(null);
-  const [userState, setUserState] = useState(USER_STATE.OFFLINE);
+
   const [connection, setConnection] = useState<Call | string | null>(null);
+  const [userState, setUserState] = useState(USER_STATE.OFFLINE);
   const [currentState, setCurrentState] = useState<CallState>({
     identity: "",
     status: null,
@@ -44,7 +47,6 @@ export const CallProvider = ({ children }: CallProviderProps) => {
     debug: true, // TO-DO: se for dev
     allowIncomingWhileBusy: true,
   }
-
 
   const forwardCall = async (conn: Call) => {
     const currentDate = (Date.now()).toString();
@@ -97,6 +99,14 @@ export const CallProvider = ({ children }: CallProviderProps) => {
     call.on('reject', () => {
       console.log('reject');
       updateUserState(USER_STATE.READY, call);
+
+      /*setCallState((prev: USER_STATE) => {
+        if (prev === USER_STATE.ON_CALL) {
+          setUserState(USER_STATE.READY);
+        }
+
+        return USER_STATE.READY;
+      });*/
     });
 
     call.on('cancel', () => { 
@@ -107,6 +117,7 @@ export const CallProvider = ({ children }: CallProviderProps) => {
     call.on('accept', () => {
       console.log('accept');
       updateUserState(USER_STATE.ON_CALL, call);
+      setWorkerStatus(COMM_STATE.BUSY);
     });
 
     call.on('reconnected', () => { 

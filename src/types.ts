@@ -1,5 +1,5 @@
 import { Call } from "@twilio/voice-sdk";
-import { ChatStatus, Platforms } from "./contexts/chat/types";
+import { CHAT_STATUS, Platforms } from "./contexts/chat/types";
 
 export type Obj = {
   [key: string]: any
@@ -29,7 +29,7 @@ export type Chat = {
     platform: Platforms
     chatId?: string
   }
-  status: ChatStatus
+  status: CHAT_STATUS
   createdAt: string
   updatedAt: string
   __v?: number

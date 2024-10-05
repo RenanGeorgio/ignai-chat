@@ -12,8 +12,11 @@ import { checkChatStatus } from "../../../helpers/checkStatus";
 
 import { Chat, ConsumersQueue, Message, OnlineUser } from "../../../types";
 import { ChatDTO, ConversationDTO } from "../../../store/types";
+import { COMM_STATE } from "../../communication/types";
 
 type ChatProviderProps = {
+  workerStatus: COMM_STATE
+  setWorkerStatus: (status: COMM_STATE) => void
   children: ReactNode;
 };
 
@@ -35,7 +38,7 @@ const user = {
 
 const baseUrl = process.env.REACT_APP_CHAT_API;
 
-export const ChatProvider = ({ children }: ChatProviderProps) => {
+export const ChatProvider = ({ workerStatus, setWorkerStatus, children }: ChatProviderProps) => {
   const queueChats: ConversationDTO[] = useAppSelector(selectQueueConversation);
   const dispatch = useAppDispatch();
   
@@ -283,7 +286,7 @@ export const ChatProvider = ({ children }: ChatProviderProps) => {
       if (currentChat) {
         // setCurrentChat((prev: Chat) => ({
         //   ...prev,
-        //   status: ChatStatus.FINISHED,
+        //   status: CHAT_STATUS.FINISHED,
         // }));
       }
     });
