@@ -53,6 +53,7 @@ const AppTheme: React.FC<AppThemeProps> = ({
   }
 
   return (
+    // @ts-ignore
     <ThemeProvider theme={theme} disableTransitionOnChange>
       {children}
     </ThemeProvider>
