@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useState, useRef, useEffect, useContext } from "react";
+import React, { FunctionComponent, useState, useRef, useEffect } from "react";
 import {
   Switch,
   Stack,
@@ -16,7 +16,7 @@ import { selectQueueConversation } from "../../store/conversations/slice";
 import { useAppSelector } from "../../store/hooks";
 import { useCall } from "../../contexts/call/hooks";
 import { useChat } from "../../contexts/chat/hooks";
-import { TimeContext } from "../../contexts/time/TimeContext";
+import { useTime } from "../../contexts/time/hooks";
 import { QueueItems } from "./items";
 import { checkChatStatus } from "../../helpers/checkStatus";
 import { secondsToTime } from "../../helpers/timeConverter";
@@ -33,19 +33,7 @@ export type QueueItemsType = {
 const QueueComponent: FunctionComponent<QueueItemsType> = () => {
   const queueConversations: ConversationDTO[] = useAppSelector(selectQueueConversation);
 
-  const {
-    generalTime,
-    serviceTime,
-    pauseTime,
-    pausedTime,
-    pauseClicks,
-    totalTime,
-    startTiming,
-    pauseTiming,
-    clearTiming,
-    isPaused,
-  } = useContext(TimeContext);
-
+  const { totalTime, startTiming, pauseTiming, clearTiming } = useTime();
   const { handleIndexChange } = useCall();
   const { handleSocketIndexChange, updateCurrentChat } = useChat();
 

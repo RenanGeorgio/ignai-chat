@@ -4,11 +4,7 @@ import { CallProvider } from "../call/provider";
 import { ChatProvider } from "../chat/provider";
 import { TimeProvider } from "../time/provider";
 
-export function CommunicationProviders({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export function CommunicationProviders({ children }: { children: React.ReactNode }) {
   return (
     <TimeProvider>
       <ChatProvider>
