@@ -21,30 +21,34 @@ export default function AppTheme({
   themeComponents,
 }: AppThemeProps) {
   const theme = React.useMemo(() => {
-    return disableCustomTheme
-      ? {}
-      : createTheme({
-          cssVariables: {
-            colorSchemeSelector: 'data-mui-color-scheme',
-            cssVarPrefix: 'template',
-          },
-          colorSchemes,
-          typography,
-          shadows,
-          shape,
-          components: {
-            ...inputsCustomizations,
-            ...dataDisplayCustomizations,
-            ...feedbackCustomizations,
-            ...navigationCustomizations,
-            ...surfacesCustomizations,
-            ...themeComponents,
-          },
-        });
+    return disableCustomTheme = createTheme({
+        cssVariables: {
+          colorSchemeSelector: 'data-mui-color-scheme',
+          cssVarPrefix: 'template',
+        },
+        colorSchemes,
+        typography,
+        shadows,
+        shape,
+        components: {
+          ...inputsCustomizations,
+          ...dataDisplayCustomizations,
+          ...feedbackCustomizations,
+          ...navigationCustomizations,
+          ...surfacesCustomizations,
+          ...themeComponents,
+        },
+      });
   }, [disableCustomTheme, themeComponents]);
+
   if (disableCustomTheme) {
-    return <React.Fragment>{children}</React.Fragment>;
+    return (
+      <React.Fragment>
+        {children}
+      </React.Fragment>
+    );
   }
+
   return (
     <ThemeProvider theme={theme} disableTransitionOnChange>
       {children}
