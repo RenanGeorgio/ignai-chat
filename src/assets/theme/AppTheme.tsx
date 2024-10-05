@@ -10,16 +10,16 @@ import { surfacesCustomizations } from './customizations/surfaces';
 import { colorSchemes, typography, shadows, shape } from "./primitives";
 
 interface AppThemeProps {
-  children: React.ReactNode;
   disableCustomTheme?: boolean;
   themeComponents?: ThemeOptions['components'];
+  children: React.ReactNode;
 }
 
-export default function AppTheme({
-  children,
+const AppTheme: React.FC<AppThemeProps> = ({
   disableCustomTheme,
   themeComponents,
-}: AppThemeProps) {
+  children
+}: AppThemeProps) => {
   const theme = React.useMemo(() => {
     return disableCustomTheme
       ? {} 
@@ -58,3 +58,5 @@ export default function AppTheme({
     </ThemeProvider>
   );
 }
+
+export default AppTheme;
