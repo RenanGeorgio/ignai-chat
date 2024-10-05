@@ -1,4 +1,4 @@
-import type { ConversationDTO } from '@store/types';
+import type { ConversationDTO } from '../../store/types';
 import { Chat, Message } from '../../types';
 
 export interface ChatContextType {
@@ -29,19 +29,6 @@ export interface ChatContextType {
 export type InactiveChatsContextType = {
   inactiveConversations: ConversationDTO[];
   // setInactiveChats: (chats: Chat[]) => void
-};
-
-export type TimerContextType = {
-  generalTime: number;
-  serviceTime: number;
-  pauseTime: number;
-  pausedTime: number;
-  pauseClicks: number;
-  clearTiming: () => void;
-  totalTime: number;
-  startTiming: () => void;
-  pauseTiming: () => void;
-  isPaused: boolean;
 };
 
 export type User = {

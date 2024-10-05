@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import PropTypes from "prop-types";
-import { TimeContext } from "./TimeContext";
+
+import { TimeContext } from "../TimeContext";
 
 interface TimeProviderProps {
   children: React.ReactNode;
@@ -19,6 +19,7 @@ export const TimeProvider: React.FC<TimeProviderProps> = ({ children }: TimeProv
 
   useEffect(() => {
     const storedTimes = JSON.parse(localStorage.getItem('times') || '{}');
+
     if (storedTimes) {
       setGeneralTime(storedTimes.generalTime || 0);
       setServiceTime(storedTimes.serviceTime || 0);
@@ -38,18 +39,20 @@ export const TimeProvider: React.FC<TimeProviderProps> = ({ children }: TimeProv
       pauseClicks,
       totalTime,
     };
+
     localStorage.setItem('times', JSON.stringify(times));
   }, [generalTime, serviceTime, pauseTime, pausedTime, pauseClicks, totalTime]);
 
   const startTiming = () => {
     if (!intervalId) {
       const id = setInterval(() => {
-        setTotalTime(prev => prev + 1);  
-        setGeneralTime(prev => prev + 1);
+        setTotalTime((prev: number) => prev + 1);  
+        setGeneralTime((prev: number) => prev + 1);
       }, 1000);
 
       setIntervalId(id);
       setIsPaused(false);
+
       if (pausedIntervalId) {
         clearInterval(pausedIntervalId);
         setPausedIntervalId(null);
@@ -60,23 +63,25 @@ export const TimeProvider: React.FC<TimeProviderProps> = ({ children }: TimeProv
   const pauseTiming = () => {
     if (isPaused) {
       setIsPaused(false);
-      setPauseClicks(prev => prev + 1);
+      setPauseClicks((prev: number) => prev + 1);
       startTiming();
     } else {
       if (intervalId) {
         clearInterval(intervalId);
         setIntervalId(null);
       }
+
       setIsPaused(true);
-      setPauseClicks(prev => prev + 1);
+      setPauseClicks((prev: number) => prev + 1);
 
       const pausedStart = Date.now();
-      const pausedInterval = setInterval(() => {
-        // calcula o tempo em pausa
+
+      const pausedInterval = setInterval(() => { // calcula o tempo em pausa
         const elapsedPausedTime = Math.floor((Date.now() - pausedStart) / 1000);
+
         setPausedTime(elapsedPausedTime);  // atualiza o tempo da sessão de pausa
-        setPauseTime(prev => prev + 1);    // incrementa o tempo acumulado de pausa
-        setGeneralTime(prev => prev + 1);  // continua contando o tempo geral
+        setPauseTime((prev: number) => prev + 1);    // incrementa o tempo acumulado de pausa
+        setGeneralTime((prev: number) => prev + 1);  // continua contando o tempo geral
       }, 1000);
 
       setPausedIntervalId(pausedInterval);
@@ -88,6 +93,7 @@ export const TimeProvider: React.FC<TimeProviderProps> = ({ children }: TimeProv
       clearInterval(intervalId);
       setIntervalId(null);
     }
+    
     if (pausedIntervalId) {
       clearInterval(pausedIntervalId);
       setPausedIntervalId(null);
@@ -112,8 +118,4 @@ export const TimeProvider: React.FC<TimeProviderProps> = ({ children }: TimeProv
       {children}
     </TimeContext.Provider>
   );
-};
-
-TimeProvider.propTypes = {
-  children: PropTypes.node.isRequired,
 };
