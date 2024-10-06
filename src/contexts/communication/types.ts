@@ -1,7 +1,7 @@
 import { CONVERSATION_CHANNEL } from "../../types";
 
 export interface CommunicationContextType {
-  workerPlataform: CONVERSATION_CHANNEL
+  workerPlataform: CONVERSATION_CHANNEL | null
 }
 
 export enum COMM_STATE {
