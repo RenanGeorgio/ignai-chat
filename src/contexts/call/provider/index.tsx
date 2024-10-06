@@ -8,14 +8,14 @@ import { addConversationReference, updateConversation } from "../../../store/con
 import { selectQueueConversation } from "../../../store/conversations/slice";
 import BackgroundAudioProcessor from "../../../libs/audio";
 
-import { CallState, CurrentDeviceToCall } from "../types";
+import { CurrentDeviceToCall } from "../types";
 import { CONVERSATION_CHANNEL, Obj, USER_STATE } from "../../../types";
 import { CallDTO, ConversationDTO } from "../../../store/types";
 import { COMM_STATE } from "../../communication/types";
 
 type CallProviderProps = {
   workerStatus: COMM_STATE
-  setWorkerStatus: (status: COMM_STATE) => void
+  setWorkerStatus: (status: COMM_STATE, channel?: CONVERSATION_CHANNEL) => void
   children: ReactNode
 }
 
@@ -29,11 +29,6 @@ export const CallProvider = ({ workerStatus, setWorkerStatus, children }: CallPr
 
   const [connection, setConnection] = useState<Call | string | null>(null);
   const [userState, setUserState] = useState(USER_STATE.OFFLINE);
-  const [currentState, setCurrentState] = useState<CallState>({
-    identity: "",
-    status: null,
-    ready: false,
-  });
 
   const device = useRef<Device | null>(null);
 
@@ -98,26 +93,32 @@ export const CallProvider = ({ workerStatus, setWorkerStatus, children }: CallPr
 
     call.on('reject', () => {
       console.log('reject');
-      updateUserState(USER_STATE.READY, call);
+      setConnection(call);
 
-      /*setCallState((prev: USER_STATE) => {
-        if (prev === USER_STATE.ON_CALL) {
-          setUserState(USER_STATE.READY);
-        }
+      setUserState((prev: USER_STATE) => {
+        setWorkerStatus(COMM_STATE.READY);
 
         return USER_STATE.READY;
-      });*/
+      });
     });
 
     call.on('cancel', () => { 
       console.log('cancel');
-      updateUserState(USER_STATE.READY, call);
+      setConnection(call);
+
+      setUserState((prev: USER_STATE) => {
+        setWorkerStatus(COMM_STATE.READY);
+
+        return USER_STATE.READY;
+      });
     });
 
     call.on('accept', () => {
       console.log('accept');
-      updateUserState(USER_STATE.ON_CALL, call);
-      setWorkerStatus(COMM_STATE.BUSY);
+      setConnection(call);
+      setUserState(USER_STATE.ON_CALL);
+   
+      setWorkerStatus(COMM_STATE.BUSY, CONVERSATION_CHANNEL.CALL);
     });
 
     call.on('reconnected', () => { 
@@ -140,7 +141,13 @@ export const CallProvider = ({ workerStatus, setWorkerStatus, children }: CallPr
         setCurrentConversationCall(null); // TO-DO: Verificar se esta é a abordagem correta
       }
       
-      updateUserState(USER_STATE.READY, null);
+      setConnection(null);
+
+      setUserState((prev: USER_STATE) => {
+        setWorkerStatus(COMM_STATE.READY);
+
+        return USER_STATE.READY;
+      });
       
       cleanResourcers();
     });
@@ -151,42 +158,25 @@ export const CallProvider = ({ workerStatus, setWorkerStatus, children }: CallPr
   };
 
   const handleIndexChange = (index: string | number) => { 
-    // @ts-ignore
-    const found: CallDTO | undefined = queueConversations.find((item: ConversationDTO) => item?.id == index);
+    if (workerStatus !== COMM_STATE.BUSY) {
+      // @ts-ignore
+      const found: CallDTO | undefined = queueConversations.find((item: ConversationDTO) => item?.id == index);
 
-    if (found != undefined) {
-      dispatch(updateConversation(index)); 
-      
-      const comm: CurrentDeviceToCall = {
-        currentConversation: found?.conversation,
-        device: found?.device,
-        connectToken: found?.connectToken,
-      };
+      if (found != undefined) {
+        dispatch(updateConversation(index)); 
+        
+        const comm: CurrentDeviceToCall = {
+          currentConversation: found?.conversation,
+          device: found?.device,
+          connectToken: found?.connectToken,
+        };
 
-      setCurrentConversationCall(comm);
+        setCurrentConversationCall(comm);
 
-      setAcceptedCall();
+        setAcceptedCall();
+      }
     }
   };
-
-  const updateUserState = (stateType: any, conn: any) => {
-    setUserState(stateType);
-    setConnection(conn);
-
-    let st = null;
-
-    if (conn != null) {
-      st = conn.status();
-    }
-  
-    const incomingState = {
-      identity: currentState.identity,
-      status: st,
-      ready: true
-    }
-
-    setCurrentState(incomingState);
-  }
 
   useEffect(() => {
     if (twilioToken == undefined) {
@@ -205,35 +195,63 @@ export const CallProvider = ({ workerStatus, setWorkerStatus, children }: CallPr
 
       device.current?.on('ready', () => {
         console.log('ready');
-        setUserState(USER_STATE.READY);
+        setUserState((prev: USER_STATE) => {
+          if (prev === USER_STATE.ON_CALL) {
+            setWorkerStatus(COMM_STATE.READY);
+          }
 
-        const readyState = {
-          identity: currentState.identity,
-          status: "device ready",
-          ready: true
-        }
-
-        setCurrentState(readyState);
+          return USER_STATE.READY;
+        });
       });
 
       device.current?.on('registered', () => {
         console.log("Agent registered");
-        updateUserState(USER_STATE.READY, connection);
+        setUserState((prev: USER_STATE) => {
+          if (prev === USER_STATE.ON_CALL) {
+            setWorkerStatus(COMM_STATE.READY);
+          }
+
+          return USER_STATE.READY;
+        });
       });
 
       device.current?.on('connect', (conn: Call) => {
         console.log("Connect event");
-        updateUserState(USER_STATE.ON_CALL, conn);
+        setConnection(conn);
+
+        setUserState((prev: USER_STATE) => {
+          if (prev === USER_STATE.ON_CALL) {
+            setWorkerStatus(COMM_STATE.READY); // VOLTAR
+          }
+
+          return USER_STATE.ON_CALL;
+        });
       });
 
       device.current?.on('disconnect', () => {
         console.log("Disconnect event");
-        updateUserState(USER_STATE.READY, null);
+        setConnection(null);
+
+        setUserState((prev: USER_STATE) => {
+          if (prev === USER_STATE.ON_CALL) {
+            setWorkerStatus(COMM_STATE.READY);
+          }
+
+          return USER_STATE.READY;
+        });
       });
 
       device.current?.on('incoming', (conn: Call) => {
         console.log('incoming');
-        updateUserState(USER_STATE.INCOMING, conn);
+        setConnection(conn);
+
+        setUserState((prev: USER_STATE) => {
+          if (prev === USER_STATE.ON_CALL) {
+            setWorkerStatus(COMM_STATE.READY); //ISSO PRECISA SER VERIFICADO
+          }
+
+          return USER_STATE.INCOMING;
+        });
 
         forwardCall(conn);
 
@@ -241,23 +259,23 @@ export const CallProvider = ({ workerStatus, setWorkerStatus, children }: CallPr
           console.log(error);
         });
         /*conn.on('reject', () => {
-          updateUserState(USER_STATE.READY, null);
         });
 
         conn.on('accept', () => {
-          updateUserState(USER_STATE.ON_CALL, conn);
         });*/
       });
 
       device.current?.on('error', (error: any) => {
         console.log("Error event detected: ", error);
-        updateUserState(USER_STATE.ERROR, null);
+        setConnection(null);
+        setUserState(USER_STATE.ERROR);
       });
     }
 
     return () => {
       device.current?.destroy();
-      updateUserState(USER_STATE.OFFLINE, null);
+      setConnection(null);
+      setUserState(USER_STATE.OFFLINE);
     }
   }, [user]);
 
@@ -266,7 +284,6 @@ export const CallProvider = ({ workerStatus, setWorkerStatus, children }: CallPr
       value={{
         userState,
         setUserState,
-        currentState,
         handleIndexChange,
         options
       }}

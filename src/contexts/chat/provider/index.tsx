@@ -10,13 +10,13 @@ import { getChat, postChat } from "../../../controllers/chat";
 import compareArrays from "../../../helpers/compareArrays";
 import { checkChatStatus } from "../../../helpers/checkStatus";
 
-import { Chat, ConsumersQueue, Message, OnlineUser } from "../../../types";
+import { Chat, ConsumersQueue, CONVERSATION_CHANNEL, Message, OnlineUser } from "../../../types";
 import { ChatDTO, ConversationDTO } from "../../../store/types";
 import { COMM_STATE } from "../../communication/types";
 
 type ChatProviderProps = {
   workerStatus: COMM_STATE
-  setWorkerStatus: (status: COMM_STATE) => void
+  setWorkerStatus: (status: COMM_STATE, channel?: CONVERSATION_CHANNEL) => void
   children: ReactNode;
 };
 
@@ -61,14 +61,16 @@ export const ChatProvider = ({ workerStatus, setWorkerStatus, children }: ChatPr
   }
 
   const handleSocketIndexChange = (index: string | number) => {
-    // @ts-ignore
-    const found: ChatDTO = queueChats?.find((item: ConversationDTO) => item?.id == index);
-
-    if (found != undefined) {
+    if (workerStatus !== COMM_STATE.BUSY) {
       // @ts-ignore
-      dispatch(updateConversation(index));
-      const conversation: Chat = found?.conversation;
-      setCurrentChat(conversation);
+      const found: ChatDTO = queueChats?.find((item: ConversationDTO) => item?.id == index);
+
+      if (found != undefined) {
+        // @ts-ignore
+        dispatch(updateConversation(index));
+        const conversation: Chat = found?.conversation;
+        setCurrentChat(conversation);
+      }
     }
   };
 

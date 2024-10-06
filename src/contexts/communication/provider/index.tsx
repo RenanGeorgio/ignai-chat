@@ -1,18 +1,27 @@
 import React, { useState, useEffect } from "react";
 
-import { CallProvider } from "../call/provider";
-import { ChatProvider } from "../chat/provider";
-import { TimeProvider } from "../time/provider";
-import { useCall } from "../call/hooks";
-import { useChat } from "../chat/hooks";
-import { CommunicationContext } from "./CommunicationContext";
-import { COMM_STATE } from "./types";
+import { CallProvider } from "../../call/provider";
+import { ChatProvider } from "../../chat/provider";
+import { TimeProvider } from "../../time/provider";
+import { CommunicationContext } from "../CommunicationContext";
+import { COMM_STATE } from "../types";
+import { CONVERSATION_CHANNEL } from "../../../types";
 
 function AppProviders({ children }: { children: React.ReactNode }) {
   const [workerStatus, setWorkerStatus] = useState<COMM_STATE>(COMM_STATE.OFFLINE);
-  const [workerPlataform, setWorkerPlataform] = useState();
+  const [workerPlataform, setWorkerPlataform] = useState<CONVERSATION_CHANNEL | null>(CONVERSATION_CHANNEL.DEFAULT);
 
-  const handleWorkerStatusChange = (value: COMM_STATE) => {
+  const handleWorkerStatusChange = (value: COMM_STATE, channel?: CONVERSATION_CHANNEL) => {
+    if (value !== COMM_STATE.BUSY) {
+      setWorkerPlataform(null);
+    } else {
+      if (channel) {
+        setWorkerPlataform(channel);
+      } else {
+        setWorkerPlataform(CONVERSATION_CHANNEL.DEFAULT);
+      }
+    }
+
     setWorkerStatus(value);
   };
 
@@ -21,7 +30,7 @@ function AppProviders({ children }: { children: React.ReactNode }) {
   },[]);
 
   return (
-    <CommunicationContext.Provider value={{}}>
+    <CommunicationContext.Provider value={{ workerPlataform }}>
       <ChatProvider workerStatus={workerStatus} setWorkerStatus={handleWorkerStatusChange}>
         <CallProvider workerStatus={workerStatus} setWorkerStatus={handleWorkerStatusChange}>
           {children}
@@ -32,9 +41,6 @@ function AppProviders({ children }: { children: React.ReactNode }) {
 }
 
 export function CommunicationProviders({ children }: { children: React.ReactNode }) {
-  const { userState, setUserState } = useCall();
-  const {} = useChat();
-
   return (
     <TimeProvider>
       <AppProviders>

@@ -1,5 +1,7 @@
+import { CONVERSATION_CHANNEL } from "../../types";
+
 export interface CommunicationContextType {
-  [key: string]: any
+  workerPlataform: CONVERSATION_CHANNEL
 }
 
 export enum COMM_STATE {

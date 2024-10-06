@@ -77,4 +77,5 @@ export enum CONVERSATION_CHANNEL {
   EMBED = 'embed-on-site',
   SMS = 'sms',
   TELEGRAM = 'telegram',
+  DEFAULT = 'default',
 }
