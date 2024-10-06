@@ -219,6 +219,7 @@ export const CallProvider = ({ workerStatus, setWorkerStatus, children }: CallPr
         console.log("Connect event");
         setConnection(conn);
 
+        // TESTAR ESTAR ABORDAGEM, TALVEZ O MAIS APROPRIADO SEJA ADOTAR A PROPSTA UTILIZADA EM PHONE
         setUserState((prev: USER_STATE) => {
           if (prev === USER_STATE.ON_CALL) {
             setWorkerStatus(COMM_STATE.READY); // VOLTAR
@@ -246,9 +247,7 @@ export const CallProvider = ({ workerStatus, setWorkerStatus, children }: CallPr
         setConnection(conn);
 
         setUserState((prev: USER_STATE) => {
-          if (prev === USER_STATE.ON_CALL) {
-            setWorkerStatus(COMM_STATE.READY); //ISSO PRECISA SER VERIFICADO
-          }
+          setWorkerStatus(COMM_STATE.WAITING);
 
           return USER_STATE.INCOMING;
         });
