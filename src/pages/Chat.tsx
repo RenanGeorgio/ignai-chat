@@ -1,12 +1,12 @@
-import { FunctionComponent, useRef, useEffect } from "react";
+import { FunctionComponent } from "react";
 
-import { useCommunication } from "../contexts/communication/hooks";
-import QueueComponent from "../components/Queue/queue";
+//import { useCommunication } from "../contexts/communication/hooks";
+//import QueueComponent from "../components/Queue/queue";
 import TicketsComponent from "../components/Tickets/index";
-import ChatComponent from "../components/Chat/index";
+//import ChatComponent from "../components/Chat/index";
 import { Phone } from "../components/Call/Phone";
-import Dashboard from "../components/Communication/Dashboard";
-import { CONVERSATION_CHANNEL } from "../types";
+//import Dashboard from "../components/Communication/Dashboard";
+//import { CONVERSATION_CHANNEL } from "../types";
 
 import "../styles/chat.css";
 
