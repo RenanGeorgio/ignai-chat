@@ -11,7 +11,7 @@ import { CONVERSATION_CHANNEL } from "../types";
 import "../styles/chat.css";
 
 const Chat: FunctionComponent = () => {
-  const render = useRef<any>(undefined);
+  /*const render = useRef<any>(undefined);
   const { workerPlataform } = useCommunication();
 
   useEffect(() => {
@@ -22,7 +22,7 @@ const Chat: FunctionComponent = () => {
     } else {
       render.current = <ChatComponent />
     }
-  }, [workerPlataform]);
+  }, [workerPlataform]);*/
 
   return (
     <div className="dashboard">
@@ -42,7 +42,7 @@ const Chat: FunctionComponent = () => {
       </main>
       <div className="rightSideBar">
         <div className="queue">
-          <QueueComponent />
+          <Phone />
         </div>
       </div>
     </div>
