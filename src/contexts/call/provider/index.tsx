@@ -278,7 +278,7 @@ export const CallProvider = ({ workerStatus, setWorkerStatus, children }: CallPr
       setConnection(null);
       setUserState(USER_STATE.OFFLINE);
     }
-  }, []);
+  }, [twilioToken]);
 
   return (
     <CallContext.Provider
