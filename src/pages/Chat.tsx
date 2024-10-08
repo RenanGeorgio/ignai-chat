@@ -1,7 +1,7 @@
 import { FunctionComponent } from "react";
 
 //import { useCommunication } from "../contexts/communication/hooks";
-//import QueueComponent from "../components/Queue/queue";
+import QueueComponent from "../components/Queue/queue";
 import TicketsComponent from "../components/Tickets/index";
 //import ChatComponent from "../components/Chat/index";
 import { Phone } from "../components/Call/Phone";
