@@ -35,14 +35,14 @@ const Chat: FunctionComponent = () => {
         <section className="content">
           <div className="container">
             <div className="separador">
-              {render.current}
+              <Phone />
             </div>
           </div>
         </section>
       </main>
       <div className="rightSideBar">
         <div className="queue">
-          <Phone />
+          <QueueComponent />
         </div>
       </div>
     </div>
