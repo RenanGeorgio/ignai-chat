@@ -43,20 +43,21 @@ export const CallProvider = ({ workerStatus, setWorkerStatus, children }: CallPr
     allowIncomingWhileBusy: true,
   }
 
-  const forwardCall = async (conn: Call) => {
+  const forwardCall = (conn: Call) => {
+    console.log('forwardCall 1');
     const currentDate = (Date.now()).toString();
 
     const id = queueConversations.length;
-
+    console.log(id);
     const connectToken = conn?.connectToken;
-
+    console.log(connectToken);
     if (connectToken == undefined) {
       return
     }
 
     const forwardDevice: Device = new Device(twilioToken as string, options as any);
-
-    await forwardDevice?.audio?.addProcessor(processor);
+    console.log('forwardCall 2');
+    //await forwardDevice?.audio?.addProcessor(processor);
 
     const com: CallDTO = {
       id: id,
@@ -79,6 +80,7 @@ export const CallProvider = ({ workerStatus, setWorkerStatus, children }: CallPr
 
     // @ts-ignore
     dispatch(addConversationReference(com));
+    console.log('forwardCall 3');
   }
 
   const setAcceptedCall = async () => {
@@ -179,104 +181,104 @@ export const CallProvider = ({ workerStatus, setWorkerStatus, children }: CallPr
   };
 
   useEffect(() => {
-    if (twilioToken == undefined) {
+    console.log('parte 1');
+    if ((twilioToken == undefined) || (user == undefined)) {
       return
     }
 
-    if (user) {
-      device.current = new Device(twilioToken, options) as Device;
-    
-      device.current?.register();
+    device.current = new Device(twilioToken, options) as Device;
+  
+    device.current?.register();
+    console.log('parte 2');
+    /*device.current.addListener('connect', (device: any) => {
+      console.log("Connect event listener added .....");
+      return device;
+    });*/
 
-      /*device.current.addListener('connect', (device: any) => {
-        console.log("Connect event listener added .....");
-        return device;
+    device.current?.on('ready', () => {
+      console.log('ready');
+      setUserState((prev: USER_STATE) => {
+        if (prev === USER_STATE.ON_CALL) {
+          setWorkerStatus(COMM_STATE.READY);
+        }
+
+        return USER_STATE.READY;
+      });
+    });
+
+    device.current?.on('registered', () => {
+      console.log("Agent registered");
+      setUserState((prev: USER_STATE) => {
+        if (prev === USER_STATE.ON_CALL) {
+          setWorkerStatus(COMM_STATE.READY);
+        }
+
+        return USER_STATE.READY;
+      });
+    });
+
+    device.current?.on('connect', (conn: Call) => {
+      console.log("Connect event");
+      setConnection(conn);
+
+      // TESTAR ESTAR ABORDAGEM, TALVEZ O MAIS APROPRIADO SEJA ADOTAR A PROPSTA UTILIZADA EM PHONE
+      setUserState((prev: USER_STATE) => {
+        if (prev === USER_STATE.ON_CALL) {
+          setWorkerStatus(COMM_STATE.READY); // VOLTAR
+        }
+
+        return USER_STATE.ON_CALL;
+      });
+    });
+
+    device.current?.on('disconnect', () => {
+      console.log("Disconnect event");
+      setConnection(null);
+
+      setUserState((prev: USER_STATE) => {
+        if (prev === USER_STATE.ON_CALL) {
+          setWorkerStatus(COMM_STATE.READY);
+        }
+
+        return USER_STATE.READY;
+      });
+    });
+
+    device.current?.on('incoming', (conn: Call) => {
+      console.log('incoming 1');
+      setConnection(conn);
+
+      setUserState((prev: USER_STATE) => {
+        setWorkerStatus(COMM_STATE.WAITING);
+
+        return USER_STATE.INCOMING;
+      });
+
+      console.log('incoming 2');
+      forwardCall(conn);
+
+      conn?.on('error', (error: any) => { 
+        console.log(error);
+      });
+      /*conn.on('reject', () => {
+      });
+
+      conn.on('accept', () => {
       });*/
+    });
 
-      device.current?.on('ready', () => {
-        console.log('ready');
-        setUserState((prev: USER_STATE) => {
-          if (prev === USER_STATE.ON_CALL) {
-            setWorkerStatus(COMM_STATE.READY);
-          }
-
-          return USER_STATE.READY;
-        });
-      });
-
-      device.current?.on('registered', () => {
-        console.log("Agent registered");
-        setUserState((prev: USER_STATE) => {
-          if (prev === USER_STATE.ON_CALL) {
-            setWorkerStatus(COMM_STATE.READY);
-          }
-
-          return USER_STATE.READY;
-        });
-      });
-
-      device.current?.on('connect', (conn: Call) => {
-        console.log("Connect event");
-        setConnection(conn);
-
-        // TESTAR ESTAR ABORDAGEM, TALVEZ O MAIS APROPRIADO SEJA ADOTAR A PROPSTA UTILIZADA EM PHONE
-        setUserState((prev: USER_STATE) => {
-          if (prev === USER_STATE.ON_CALL) {
-            setWorkerStatus(COMM_STATE.READY); // VOLTAR
-          }
-
-          return USER_STATE.ON_CALL;
-        });
-      });
-
-      device.current?.on('disconnect', () => {
-        console.log("Disconnect event");
-        setConnection(null);
-
-        setUserState((prev: USER_STATE) => {
-          if (prev === USER_STATE.ON_CALL) {
-            setWorkerStatus(COMM_STATE.READY);
-          }
-
-          return USER_STATE.READY;
-        });
-      });
-
-      device.current?.on('incoming', (conn: Call) => {
-        console.log('incoming');
-        setConnection(conn);
-
-        setUserState((prev: USER_STATE) => {
-          setWorkerStatus(COMM_STATE.WAITING);
-
-          return USER_STATE.INCOMING;
-        });
-
-        forwardCall(conn);
-
-        conn?.on('error', (error: any) => { 
-          console.log(error);
-        });
-        /*conn.on('reject', () => {
-        });
-
-        conn.on('accept', () => {
-        });*/
-      });
-
-      device.current?.on('error', (error: any) => {
-        console.log("Error event detected: ", error);
-        setConnection(null);
-        setUserState(USER_STATE.ERROR);
-      });
-    }
+    device.current?.on('error', (error: any) => {
+      console.log("Error event detected: ", error);
+      setConnection(null);
+      setUserState(USER_STATE.ERROR);
+    });
 
     return () => {
       device.current?.destroy();
       setConnection(null);
       setUserState(USER_STATE.OFFLINE);
     }
-  }, [user]);
+  }, []);
 
   return (
     <CallContext.Provider
