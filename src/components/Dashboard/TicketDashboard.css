@@ -1,0 +1,94 @@
+.ticket-container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.ticket {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid #ddd;
+  padding: 10px;
+  border-radius: 8px;
+  width: 19%; 
+  cursor: pointer;
+}
+
+.ticket-content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.ticket-title {
+  font-size: 1rem;
+  margin: 0;
+}
+
+.ticket-subtitle {
+  font-size: 0.8rem;
+  color: #666;
+  margin: 0;
+}
+
+.ticket-percentage {
+  font-size: 1.5rem;
+  margin: 0.5rem 0;
+}
+
+.ticket-growth {
+  font-size: 0.8rem;
+  color: green;
+  margin: 0;
+}
+
+.ticket-number {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+}
+
+.number-circle {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 50px; 
+  height: 50px;
+  border-width: 10px; 
+  border-radius: 50%;
+  font-size: 1rem;
+}
+
+.color-1 {
+  border: 4px solid blue;
+}
+
+.color-2 {
+  border: 4px solid green;
+}
+
+.color-3 {
+  border: 4px solid rgb(69, 169, 69);
+}
+
+.color-4 {
+  border: 4px solid orange;
+}
+
+.color-5 {
+  border: 4px solid red;
+}
+
+.number {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.date {
+  font-size: 0.8rem;
+  color: green;
+  margin-top: 2px; 
+}
