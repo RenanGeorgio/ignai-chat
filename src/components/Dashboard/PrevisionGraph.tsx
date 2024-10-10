@@ -1,9 +1,8 @@
-import React from 'react';
-import { LineChart, lineElementClasses, markElementClasses } from '@mui/x-charts/LineChart';
-import { Box, Typography } from '@mui/material';
+import React from "react";
+import { LineChart, lineElementClasses, markElementClasses } from "@mui/x-charts/LineChart";
+import { Box, Typography } from "@mui/material";
 
 const DemandForecast: React.FC = () => {
-  
   const timeLabels = ['8:00', '9:00', '10:00', '11:00', '12:00', '13:00'];
   const realDemandData = [120, 150, 180, 200, 210, 230];
   const todayData = [105, 125, 155, 185, 200, 215];
@@ -61,6 +60,6 @@ const DemandForecast: React.FC = () => {
       />
     </Box>
   );
-};
+}
 
 export default DemandForecast;
