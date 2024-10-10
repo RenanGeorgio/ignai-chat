@@ -1,5 +1,5 @@
 import React from "react";
-import { PieChart } from '@mui/x-charts/PieChart';
+import { PieChart } from "@mui/x-charts/PieChart";
 
 const PieChartView: React.FC = () => {
   const data = [
@@ -36,6 +36,6 @@ const PieChartView: React.FC = () => {
       />
     </div>
   );
-};
+}
 
 export default PieChartView;
