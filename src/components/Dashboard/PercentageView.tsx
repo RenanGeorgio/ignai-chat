@@ -1,6 +1,7 @@
-import React from 'react';
-import './PercentageView.css'; 
-import { ArrowUpCircleIcon } from '../../assets/icons';
+import React from "react";
+
+import "./PercentageView.css"; 
+import { ArrowUpCircleIcon } from "../../assets/icons";
 
 const PercentageView: React.FC= () => {
   const totalPercentage = 100;
@@ -25,7 +26,6 @@ const PercentageView: React.FC= () => {
             left: `${currentLeft}%`,
           };
           currentLeft += data.percentage;
-
           return (
             <div key={index} style={styleData} className="graph1-item">
               {`${data.percentage}%`}
@@ -64,6 +64,6 @@ const PercentageView: React.FC= () => {
       </div>
     </div>
   );
-};
+}
 
 export default PercentageView;
