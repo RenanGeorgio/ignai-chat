@@ -1,5 +1,5 @@
-import React from 'react';
-import './TicketDashboard.css';
+import React from "react";
+import "./TicketDashboard.css";
 
 const TicketsDashboard: React.FC = () => {
   const tickets = [
@@ -30,6 +30,6 @@ const TicketsDashboard: React.FC = () => {
       ))}
     </div>
   );
-};
+}
 
 export default TicketsDashboard;
