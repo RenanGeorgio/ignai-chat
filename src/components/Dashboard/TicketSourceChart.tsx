@@ -1,6 +1,6 @@
-import * as React from 'react';
-import { Box, Typography, Grid } from '@mui/material';
-import { BarChart } from '@mui/x-charts/BarChart';
+import * as React from "react";
+import { Box, Typography, Grid } from "@mui/material";
+import { BarChart } from "@mui/x-charts/BarChart";
 
 const dataset = [
   { month: 'Jan', value: 50 },
@@ -86,6 +86,6 @@ const TicketSourceChart = () => {
       </Grid>
     </Box>
   );
-};
+}
 
 export default TicketSourceChart;
