@@ -157,3 +157,43 @@ export const PesquisaIcon = () => {
     </div>
   )
 }
+
+export const DashboardIcon = () => {
+  return (
+    <div>
+      <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="2.75" y="11" width="5.5" height="7.33333" rx="1" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <rect x="8.25" y="7.33334" width="5.5" height="11" rx="1" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <rect x="13.75" y="3.66666" width="5.5" height="14.6667" rx="1" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M3.66663 18.3333H16.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+  );
+}
+
+export const ArrowUpCircleIcon = () => {
+  return (
+    <div>
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <g id="arrow-up-circle">
+      <g id="Oval">
+      <circle cx="12" cy="12" r="9" stroke="#4B465C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <circle cx="12" cy="12" r="9" stroke="white" stroke-opacity="0.1" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </g>
+      <g id="Path">
+      <path d="M12 8L8 12" stroke="#4B465C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M12 8L8 12" stroke="white" stroke-opacity="0.1" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </g>
+      <g id="Path_2">
+      <path d="M12 8V16" stroke="#4B465C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M12 8V16" stroke="white" stroke-opacity="0.1" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </g>
+      <g id="Path_3">
+      <path d="M16 12L12 8" stroke="#4B465C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M16 12L12 8" stroke="white" stroke-opacity="0.1" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </g>
+      </g>
+      </svg>
+    </div>
+  )
+}

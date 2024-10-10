@@ -7,6 +7,7 @@ import { CommunicationProviders, UserProvider } from "./contexts";
 import Chat from "./pages/Chat";
 import Faq from "./pages/Faq";
 import User from "./pages/User";
+import Dashboard from "./pages/Dashboard";
 import SideBar from "./components/side-bar";
 
 import "./App.css";
@@ -26,6 +27,7 @@ function App() {
               <Route path="/" element={<Chat />} />
               <Route path="/faq" element={<Faq />} />
               <Route path="/user" element={<User />} />
+              <Route path="/dashboard" element={<Dashboard />} />
             </Routes>
           </CommunicationProviders>
         </Provider>
