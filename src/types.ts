@@ -79,3 +79,17 @@ export enum CONVERSATION_CHANNEL {
   TELEGRAM = 'telegram',
   DEFAULT = 'default',
 }
+
+export interface IAddress {
+  _id?: string;
+  client: string;
+  name: string;
+  street: string;
+  number: number;
+  district: string;
+  city: string;
+  state: string;
+  zipCode: number;
+  isMain: boolean;
+  expanded: boolean;
+}
