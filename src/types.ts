@@ -44,6 +44,15 @@ export interface ConsumersQueue {
   createdAt: string
 }
 
+export interface EnqueueStreamItem {
+  queueId: string | number
+  data: Obj
+  priority?: number
+  error?: any
+  updatedAt: string
+  createdAt: string
+}
+
 export interface OnlineUser  {
   userId: string
   socketId: string
