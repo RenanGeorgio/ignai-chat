@@ -1,9 +1,11 @@
 import { FunctionComponent, useState } from "react";
-import "../styles/configuration.css";
+
 import FormColaborador from "../components/Configuration/FormColaborador";
 import TableColaborador from "../components/Configuration/TableColaborador";
 import AtendimentoComponent from "../components/Configuration/Atendimento";
 import PaymentAddress from "../components/Configuration/PaymentAddress";
+
+import "../styles/configuration.css";
 
 const Configuration: FunctionComponent = () => {
   const [activeTab, setActiveTab] = useState<'geral' | 'endereco'>('geral');
@@ -42,6 +44,6 @@ const Configuration: FunctionComponent = () => {
       </div>
     </div>
   );
-};
+}
 
 export default Configuration;
