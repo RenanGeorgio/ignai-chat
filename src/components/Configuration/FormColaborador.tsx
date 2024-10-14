@@ -1,5 +1,5 @@
-import React from 'react';
-import { Box, Typography, TextField, Select, MenuItem, FormControl, InputLabel } from '@mui/material';
+import React from "react";
+import { Box, Typography, TextField, Select, MenuItem, FormControl, InputLabel } from "@mui/material";
 
 const FormColaborador: React.FC = () => {
   return (
@@ -68,6 +68,6 @@ const FormColaborador: React.FC = () => {
       />
     </Box>
   );
-};
+}
 
 export default FormColaborador;
