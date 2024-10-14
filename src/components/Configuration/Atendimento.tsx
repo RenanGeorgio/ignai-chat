@@ -1,5 +1,5 @@
-import React from 'react';
-import { Box, Typography, Icon } from '@mui/material';
+import React from "react";
+import { Box, Typography, Icon } from "@mui/material";
 
 const AtendimentoComponent: React.FC = () => {
   return (
@@ -31,7 +31,6 @@ const AtendimentoComponent: React.FC = () => {
           <Icon fontSize="small">event</Icon> 
         </Box>
       </Box>
-
       <Box
         display="flex"
         flexDirection="column"
@@ -55,6 +54,6 @@ const AtendimentoComponent: React.FC = () => {
       </Box>
     </Box>
   );
-};
+}
 
 export default AtendimentoComponent;
