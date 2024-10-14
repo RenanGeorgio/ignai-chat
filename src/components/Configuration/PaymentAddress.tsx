@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { IconButton, Button, Checkbox } from "@mui/material";
-import { DotsVertical, Pencil, Trash } from "../../assets/icons";
 
-import { IAddress } from "../../types";
 import ModalComponent from "../Forms/Modal";
 import ModalForm from "../Forms/ModalForm";
 import PaymentAddressFormFields from "../Forms/PaymentForm";
+import { DotsVertical, Pencil, Trash } from "../../assets/icons";
+import { IAddress } from "../../types";
 
 import "../../styles/payment.css";
 
@@ -123,12 +123,10 @@ export default function PaymentAddress() {
                           onClick={(e) => {
                             e.stopPropagation();
                             setSelectedItem(addr);
-                            
                             setModalMode({
                               mode: "edit",
                               title: "Editar contato",
                             });
-                            
                             setOpenModal(true);
                           }}
                         >
@@ -313,7 +311,6 @@ export default function PaymentAddress() {
           </div>
         </div>
       </div>
-      
     </>
   );
 }
