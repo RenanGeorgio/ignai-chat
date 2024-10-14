@@ -1,7 +1,8 @@
-import React from 'react';
-import { DataGrid, GridColDef } from '@mui/x-data-grid';
-import { IconButton } from '@mui/material';
-import { Edit, Trash } from '../../assets/icons';
+import React from "react";
+import { DataGrid, GridColDef } from "@mui/x-data-grid";
+import { IconButton } from "@mui/material";
+
+import { Edit, Trash } from "../../assets/icons";
 
 interface Colaborador {
   image: string | null;
@@ -157,6 +158,6 @@ const TableColaborador: React.FC = () => {
       </div>
     </div>
   );
-};
+}
 
 export default TableColaborador;
