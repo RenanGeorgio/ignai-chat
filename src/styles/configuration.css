@@ -1,0 +1,63 @@
+.containerConfig {
+  width: 100%;
+  height: 100vh;
+  background-color: #DEE7E2;
+  overflow-y: auto;
+}
+
+.headerConfig {
+  margin: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: -15px;
+} 
+
+.titleConfig {
+  color: #000;
+  font-weight: bold;
+  margin-left: 40px;
+}
+
+.buttonGroup {
+  display: flex;
+  gap: 10px;
+  margin-right: auto;
+  margin-left: 60px;
+}
+
+.tabButton {
+  border: none;
+  padding: 10px 20px;
+  background-color: transparent;
+  color: #4B465C;
+  font-family: sans-serif;
+  cursor: pointer;
+}
+
+.tabButton.active {
+  background-color: #7367F0;
+  color: #fff;
+  border-radius: 4px;
+}
+
+.bodyConfig {
+  display: flex;
+  gap: 20px; 
+  padding: 20px; 
+  justify-content: space-between; 
+  align-items: center; 
+}
+
+.footerConfig { 
+  margin-left: 50px;
+  margin-bottom: 20px;
+  width: 450px;
+}
+
+.body2Config {
+  display: flex;
+  padding: 20px;
+  width: 80%;
+  margin-left: 50px;
+}

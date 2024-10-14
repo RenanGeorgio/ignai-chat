@@ -197,3 +197,81 @@ export const ArrowUpCircleIcon = () => {
     </div>
   )
 }
+
+export const ConfigIcon = () => {
+  return (
+    <div>
+      <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M14 16.9167C15.933 16.9167 17.5 15.3497 17.5 13.4167C17.5 11.4837 15.933 9.91667 14 9.91667C12.067 9.91667 10.5 11.4837 10.5 13.4167C10.5 15.3497 12.067 16.9167 14 16.9167Z" stroke="#9DB2CE" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M23.9246 18.9583C23.0088 20.51 21.9785 20.9533 20.0323 20.2883C18.7731 19.845 17.2848 20.6208 17.0559 21.9508C16.7124 23.9458 15.7966 24.5 13.9649 24.5C12.1332 24.5 11.2174 23.835 10.874 21.9508C10.645 20.6208 9.15678 19.845 7.8975 20.2883C5.95135 20.9533 4.92103 20.51 4.00519 18.9583C3.08936 17.5175 3.4328 16.2983 4.92103 15.0792C5.95135 14.1925 5.83687 12.6408 4.80655 11.865C3.31832 10.4242 3.20384 9.42666 4.11967 7.87499C5.03551 6.43416 6.18031 6.10166 8.01198 6.65583C9.27126 7.09916 10.645 6.2125 10.874 4.99333C11.3319 2.99833 12.1332 2.33333 14.0794 2.33333C15.7966 2.33333 16.7124 3.21999 17.0559 5.10416C17.2848 6.32333 18.7731 7.09916 20.0323 6.65583C21.9785 5.88 23.0088 6.32333 23.9246 7.87499C24.8405 9.42666 24.726 10.4242 23.1233 11.7542C22.093 12.6408 22.093 14.1925 23.1233 15.0792C24.726 16.4092 24.8405 17.4067 23.9246 18.9583Z" stroke="#9DB2CE" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+  )
+}
+
+export const Edit = ({ }) => {
+  return (
+    <div >
+      <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <g id="edit">
+          <g id="Path">
+            <path d="M8.24984 6.41699H5.49984C4.48732 6.41699 3.6665 7.2378 3.6665 8.25033V16.5003C3.6665 17.5128 4.48732 18.3337 5.49984 18.3337H13.7498C14.7624 18.3337 15.5832 17.5128 15.5832 16.5003V13.7503" stroke="#4B465C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M8.24984 6.41699H5.49984C4.48732 6.41699 3.6665 7.2378 3.6665 8.25033V16.5003C3.6665 17.5128 4.48732 18.3337 5.49984 18.3337H13.7498C14.7624 18.3337 15.5832 17.5128 15.5832 16.5003V13.7503" stroke="white" stroke-opacity="0.2" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+          </g>
+          <g id="Path_2">
+            <path d="M8.25 13.7499H11L18.7917 5.95822C19.5511 5.19882 19.5511 3.96761 18.7917 3.20822C18.0323 2.44882 16.8011 2.44882 16.0417 3.20822L8.25 10.9999V13.7499" stroke="#4B465C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M8.25 13.7499H11L18.7917 5.95822C19.5511 5.19882 19.5511 3.96761 18.7917 3.20822C18.0323 2.44882 16.8011 2.44882 16.0417 3.20822L8.25 10.9999V13.7499" stroke="white" stroke-opacity="0.2" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+          </g>
+          <g id="Path_3">
+            <path d="M14.6665 4.58301L17.4165 7.33301" stroke="#4B465C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M14.6665 4.58301L17.4165 7.33301" stroke="white" stroke-opacity="0.2" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+          </g>
+        </g>
+      </svg>
+    </div>
+  );
+};
+
+export const Trash = () => {
+  return (
+    <div >
+      <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <g id="trash">
+          <path id="Path" d="M3.6665 6.41634H18.3332" stroke="#A8AAAE" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+          <path id="Path_2" d="M9.16683 10.083V15.583" stroke="#A8AAAE" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+          <path id="Path_3" d="M12.8333 10.083V15.583" stroke="#A8AAAE" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+          <path id="Path_4" d="M4.5835 6.41699L5.50016 17.417C5.50016 18.4295 6.32097 19.2503 7.3335 19.2503H14.6668C15.6794 19.2503 16.5002 18.4295 16.5002 17.417L17.4168 6.41699" stroke="#A8AAAE" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+          <path id="Path_5" d="M8.25 6.41667V3.66667C8.25 3.16041 8.66041 2.75 9.16667 2.75H12.8333C13.3396 2.75 13.75 3.16041 13.75 3.66667V6.41667" stroke="#A8AAAE" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+        </g>
+      </svg>
+    </div>
+  );
+};
+
+export const DotsVertical = () => {
+  return (
+    <div >
+      <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="10.9999" cy="10.9997" r="0.916667" stroke="#4B465C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+        <circle cx="10.9999" cy="10.9997" r="0.916667" stroke="white" stroke-opacity="0.2" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+        <circle cx="10.9999" cy="17.4167" r="0.916667" stroke="#4B465C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+        <circle cx="10.9999" cy="17.4167" r="0.916667" stroke="white" stroke-opacity="0.2" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+        <ellipse cx="10.9999" cy="4.58366" rx="0.916667" ry="0.916667" stroke="#4B465C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+        <ellipse cx="10.9999" cy="4.58366" rx="0.916667" ry="0.916667" stroke="white" stroke-opacity="0.2" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
+    </div>
+  );
+};
+
+export const Pencil = () => {
+  return (
+    <div >
+      <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <g id="pencil">
+          <path id="Path" d="M3.6665 18.3333H7.33317L16.9582 8.70829C17.9707 7.69576 17.9707 6.05414 16.9582 5.04162C15.9456 4.0291 14.304 4.0291 13.2915 5.04162L3.6665 14.6666V18.3333" stroke="#A8AAAE" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+          <path id="Path_2" d="M12.375 5.95801L16.0417 9.62467" stroke="#A8AAAE" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+        </g>
+      </svg>
+    </div>
+  );
+};
