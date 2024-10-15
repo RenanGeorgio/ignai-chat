@@ -16,7 +16,7 @@ export const Dialler: React.FC<Props> = ({ number, setNumber }: Props) => {
   };
 
   const handleNumberPressed = (newNumber: string) => {
-    if (newNumber === "⌫") {
+    if (newNumber === '⌫') {
       return () => {
         setNumber(number.substring(0, number.length - 1));
       };
