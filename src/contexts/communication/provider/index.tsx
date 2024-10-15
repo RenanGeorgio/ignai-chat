@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 
-import { CallProvider } from "../../call/provider";
+import { CallProvider, QueueProvider } from "../../call/provider";
 import { ChatProvider } from "../../chat/provider";
 import { TimeProvider } from "../../time/provider";
 import { CommunicationContext } from "../CommunicationContext";
+
 import { COMM_STATE } from "../types";
 import { CONVERSATION_CHANNEL } from "../../../types";
 
@@ -32,9 +33,11 @@ function AppProviders({ children }: { children: React.ReactNode }) {
   return (
     <CommunicationContext.Provider value={{ workerPlataform }}>
       <ChatProvider workerStatus={workerStatus} setWorkerStatus={handleWorkerStatusChange}>
-        <CallProvider workerStatus={workerStatus} setWorkerStatus={handleWorkerStatusChange}>
-          {children}
-        </CallProvider>
+        <QueueProvider workerStatus={workerStatus} setWorkerStatus={handleWorkerStatusChange}>
+          <CallProvider workerStatus={workerStatus} setWorkerStatus={handleWorkerStatusChange}>
+            {children}
+          </CallProvider>
+        </QueueProvider>
       </ChatProvider>
     </CommunicationContext.Provider>
   );

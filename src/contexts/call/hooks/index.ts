@@ -1,5 +1,7 @@
 import useCall from "./useCall";
+import useQueue from "./useQueue";
 
 export {
-  useCall
+  useCall,
+  useQueue
 }

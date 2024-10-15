@@ -1,5 +1,4 @@
 import React, { useEffect, useState, ReactNode, useRef } from "react";
-import { Device, Call } from "@twilio/voice-sdk";
 
 import { QueueContext } from "../CallContext";
 import { useUser } from "../../user/hooks";
@@ -7,7 +6,6 @@ import { useAppDispatch, useAppSelector } from "../../../store/hooks";
 import { addConversationReference, updateConversation } from "../../../store/conversations/actions";
 import { selectQueueConversation } from "../../../store/conversations/slice";
 import { postCall } from "../../../controllers/call";
-import BackgroundAudioProcessor from "../../../libs/audio";
 
 import { DequeueCurrentDeviceToCall } from "../types";
 import { CONVERSATION_CHANNEL, Obj, USER_STATE } from "../../../types";
@@ -27,13 +25,9 @@ export const QueueProvider = ({ workerStatus, setWorkerStatus, children }: Queue
   const { twilioToken, user } = useUser();
 
   const [currentConversationCall, setCurrentConversationCall] = useState<DequeueCurrentDeviceToCall | null>(null);
-
-  const [connection, setConnection] = useState<Call | string | null>(null);
   const [userState, setUserState] = useState(USER_STATE.OFFLINE);
 
   const eventSource = useRef<any>(undefined);
-
-  const processor = new BackgroundAudioProcessor();
 
   const setAcceptedCall = async () => {
     if (currentConversationCall == undefined) {
@@ -48,6 +42,7 @@ export const QueueProvider = ({ workerStatus, setWorkerStatus, children }: Queue
       const response = await postCall("dequeue-incoming", currentConversationCall);
 
       if (response) {
+        console.log(response);
         // Se neste momento nao estiver mais em ligação reverter os estados dos operadores
         //setUserState(USER_STATE.ON_CALL);
         //setWorkerStatus(COMM_STATE.BUSY, CONVERSATION_CHANNEL.CALL);    
@@ -62,11 +57,8 @@ export const QueueProvider = ({ workerStatus, setWorkerStatus, children }: Queue
 
     const id = queueConversations.length;
 
-    const forwardDevice: Device = new Device(twilioToken as string, options as any);
-
     const com: EnqueueDTO = {
       id: id,
-      device: forwardDevice,
       conversation: {
         queueId: id,
         data: data,
@@ -95,8 +87,7 @@ export const QueueProvider = ({ workerStatus, setWorkerStatus, children }: Queue
         dispatch(updateConversation(index)); 
         
         const comm: DequeueCurrentDeviceToCall = {
-          currentConversation: found?.conversation,
-          device: found?.device
+          currentConversation: found?.conversation
         };
 
         setCurrentConversationCall(comm);
@@ -111,7 +102,7 @@ export const QueueProvider = ({ workerStatus, setWorkerStatus, children }: Queue
       return
     }
   
-    eventSource.current = new EventSource('http://localhost:3000/events');
+    eventSource.current = new EventSource(`${process.env.REACT_APP_CALL_API}/events`);
 
     eventSource.current?.onmessage((event: any) => {
       const data = JSON.parse(event.data);
@@ -124,7 +115,6 @@ export const QueueProvider = ({ workerStatus, setWorkerStatus, children }: Queue
 
     return () => {
       eventSource.current?.destroy();
-      setConnection(null);
       setUserState(USER_STATE.OFFLINE);
     }
   }, [twilioToken]);
