@@ -1,5 +1,5 @@
 import { Device } from "@twilio/voice-sdk";
-import { ConsumersQueue, Obj, USER_STATE } from "../../types";
+import { ConsumersQueue, Obj, USER_STATE, EnqueueStreamItem } from "../../types";
 
 export interface Message {
   _id: string
@@ -30,10 +30,21 @@ export interface CallContextType {
   options: Obj
 }
 
+export interface QueueContextType {
+  userState: USER_STATE
+  setUserState: (state: USER_STATE) => void
+  handleIndexChange: (currentIndex: string | number) => void
+}
+
 export type CurrentDeviceToCall = {
   currentConversation: ConsumersQueue
   device: Device
   connectToken: string
+}
+
+export type DequeueCurrentDeviceToCall = {
+  currentConversation: EnqueueStreamItem
+  device?: Device
 }
 
 export type Chat = {

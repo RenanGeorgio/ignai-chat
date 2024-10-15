@@ -1,15 +1,16 @@
 // import { getTwilioAppToken } from "@helpers/getClient";
-import { CallApi } from "@services";
+//import { CallApi } from "@services";
+
+const baseURL = process.env.REACT_APP_CALL_API
 
 export async function getCall(basePath: string) {
   // const token = getTwilioAppToken;
-  const token = "";
   try {
-    const response = await CallApi(basePath, {
+    const response = await fetch(`${baseURL}/token`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
+        //Authorization: `Bearer ${auth}`,
       }
     });
     
@@ -25,20 +26,21 @@ export async function getCall(basePath: string) {
 }
 
 export async function postCall(basePath: string, body: any) {
-  // const token = getTwilioAppToken;
-  const token = "";
   try {
-    const response = await CallApi(basePath, {
+    const response = await fetch(`${baseURL}/${basePath}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
+        //Authorization: `Bearer ${auth}`,
       },
-      data: body
+      body: JSON.stringify(body)
     });
     
     if (response) {
-      return response;
+      console.log(response);
+      const value = await response.json();
+      
+      return value;
     }
    
     return null;
