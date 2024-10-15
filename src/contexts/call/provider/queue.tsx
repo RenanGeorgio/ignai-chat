@@ -101,23 +101,34 @@ export const QueueProvider = ({ workerStatus, setWorkerStatus, children }: Queue
     if ((twilioToken == undefined) || (user == undefined)) {
       return
     }
-  
-    eventSource.current = new EventSource(`${process.env.REACT_APP_CALL_API}/events`);
 
-    eventSource.current?.onmessage((event: any) => {
-      const data = JSON.parse(event.data);
-      console.log('New event received:', data);
+    try {
+      eventSource.current = new EventSource(`${process.env.REACT_APP_CALL_API}/events?userId=${user._id}`);
 
-      if (data) {
-        forwardEnqueueCall(data?.data);
+      if (eventSource.current) {
+        eventSource.current.onmessage = (event: any) => {
+          const data = JSON.parse(event.data);
+          console.log('New event received:', data);
+
+          if (data) {
+            forwardEnqueueCall(data?.data);
+          }
+        };
+
+        eventSource.current.onerror = (err: any) => {
+          console.error("EventSource failed:", err);
+        };
       }
-    });
+    } catch (err: any) {
+      throw new Error(err);
+    }
 
     return () => {
+      eventSource.current?.close();
       eventSource.current?.destroy();
       setUserState(USER_STATE.OFFLINE);
     }
-  }, [twilioToken]);
+  }, [user]);
 
   return (
     <QueueContext.Provider
