@@ -44,10 +44,13 @@ export const QueueProvider = ({ workerStatus, setWorkerStatus, children }: Queue
     setWorkerStatus(COMM_STATE.BUSY, CONVERSATION_CHANNEL.CALL);
     
     try {
-      const response = await postCall("dequeue", currentConversationCall);
+      // enviar From no body e a queue como query param
+      const response = await postCall("dequeue-incoming", currentConversationCall);
 
       if (response) {
-        
+        // Se neste momento nao estiver mais em ligação reverter os estados dos operadores
+        //setUserState(USER_STATE.ON_CALL);
+        //setWorkerStatus(COMM_STATE.BUSY, CONVERSATION_CHANNEL.CALL);    
       }
     } catch (error: any) {
       throw new Error(error);
