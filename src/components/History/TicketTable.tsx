@@ -1,6 +1,6 @@
-import React from 'react';
-import { Box, Button, Checkbox, MenuItem, Select, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, Typography, Paper, Avatar } from '@mui/material';
-import { Edit } from '../../assets/icons';
+import React from "react";
+import { Box, Button, Checkbox, MenuItem, Select, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, Typography, Paper, Avatar } from "@mui/material";
+import { Edit } from "../../assets/icons";
 
 const ticketData = [
   {
@@ -133,6 +133,6 @@ const TicketTable: React.FC = () => {
       </TableContainer>
     </Box>
   );
-};
+}
 
 export default TicketTable;
