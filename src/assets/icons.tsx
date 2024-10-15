@@ -275,3 +275,15 @@ export const Pencil = () => {
     </div>
   );
 };
+
+export const HistoryIcon = () => {
+  return (
+    <div>
+      <svg width="28" height="27" viewBox="0 0 28 27" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M21.875 4.5V22.5H8.375C7.13236 22.5 6.125 21.4926 6.125 20.25V6.75C6.125 5.50736 7.13236 4.5 8.375 4.5H21.875Z" stroke="#B3B3B3" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M21.875 18H8.375C7.13236 18 6.125 19.0074 6.125 20.25" stroke="#B3B3B3" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M10.625 9H17.375" stroke="#B3B3B3" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+  )
+}

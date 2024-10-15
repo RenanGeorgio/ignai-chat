@@ -1,6 +1,6 @@
 import { FunctionComponent } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { FileTextIcon, MessageCircleIcon, SettingIcon, IgnaiIcon, DashboardIcon, ConfigIcon } from "../assets/icons";
+import { FileTextIcon, MessageCircleIcon, SettingIcon, IgnaiIcon, DashboardIcon, ConfigIcon, HistoryIcon } from "../assets/icons";
 
 import "../styles/sidebar.css";
 
@@ -38,6 +38,11 @@ const SideBar: FunctionComponent = () => {
           <Link className="link" to="/configuration">
             <div className={`menu-item ${currentPath === "/configuration" ? "menu-item-active" : ""}`}>
               <ConfigIcon />
+            </div>
+          </Link>
+          <Link className="link" to="/historico">
+            <div className={`menu-item ${currentPath === "/historico" ? "menu-item-active" : ""}`}>
+              <HistoryIcon />
             </div>
           </Link>
         </div>
