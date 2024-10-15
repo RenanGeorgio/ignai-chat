@@ -14,7 +14,7 @@ import {
 
 import { selectQueueConversation } from "../../store/conversations/slice";
 import { useAppSelector } from "../../store/hooks";
-import { useCall } from "../../contexts/call/hooks";
+import { useQueue } from "../../contexts/call/hooks";
 import { useChat } from "../../contexts/chat/hooks";
 import { useTime } from "../../contexts/time/hooks";
 import { QueueItems } from "./items";
@@ -34,7 +34,7 @@ const QueueComponent: FunctionComponent<QueueItemsType> = () => {
   const queueConversations: ConversationDTO[] = useAppSelector(selectQueueConversation);
 
   const { totalTime, startTiming, pauseTiming, clearTiming } = useTime();
-  const { handleIndexChange } = useCall();
+  const { handleIndexChange } = useQueue();
   const { handleSocketIndexChange, updateCurrentChat } = useChat();
 
   const anchorRef = useRef<HTMLDivElement>(null);
