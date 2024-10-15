@@ -225,11 +225,16 @@ export const Phone: React.FC = () => {
         {callState === USER_STATE.INCOMING && <Incoming device={currentDevice.current} connection={conn} />}
         {callState === USER_STATE.ON_CALL && <OnCall connection={conn} />}
         <>
-          <Dialler number={phoneNumber} setNumber={setPhoneNumber} />
           <div
             className="call"
-            style={{ textAlign: 'center', marginTop: '20px' }}
+            style={{ 
+              display: 'flex',         
+              flexDirection: 'column',  
+              alignItems: 'center',
+              marginTop: '20px' 
+            }}
           >
+            <Dialler number={phoneNumber} setNumber={setPhoneNumber} />
             <Button
               variant='contained'
               onClick={callState === USER_STATE.ON_CALL
@@ -240,10 +245,13 @@ export const Phone: React.FC = () => {
               sx={{
                 backgroundColor: callState === USER_STATE.ON_CALL ? 'red' : 'green',
                 color: 'white',
+                display: 'block',
+                margin: '0 auto',
+                marginTop: '20px',
                 fontSize: '20px',
                 padding: '12px 24px',
                 borderRadius: '8px',
-                width: '10%',
+                width: '20%',
                 '&:hover': {
                   backgroundColor: 'darkgreen',
                 },
