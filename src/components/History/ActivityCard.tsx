@@ -1,9 +1,8 @@
-import React from 'react';
-import { Box, Typography, TextField, IconButton, List, ListItem, ListItemText } from '@mui/material';
-import MessageIcon from '@mui/icons-material/Message'; 
+import React from "react";
+import { Box, Typography, TextField, IconButton, List, ListItem, ListItemText } from "@mui/material";
+import MessageIcon from "@mui/icons-material/Message"; 
 
 const ActivityCard: React.FC = () => {
-
   const activityData = [
     { id: 1, number: '554355', startTime: '15:43', status: 'Espera 03:45' },
     { id: 2, number: '678902', startTime: '12:30', status: 'Espera 01:15' },
@@ -56,6 +55,6 @@ const ActivityCard: React.FC = () => {
       ))}
     </Box>
   );
-};
+}
 
 export default ActivityCard;
