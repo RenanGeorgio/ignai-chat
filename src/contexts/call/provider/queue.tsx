@@ -5,10 +5,10 @@ import { useUser } from "../../user/hooks";
 import { useAppDispatch, useAppSelector } from "../../../store/hooks";
 import { addConversationReference, updateConversation } from "../../../store/conversations/actions";
 import { selectQueueConversation } from "../../../store/conversations/slice";
-import { postCall } from "../../../controllers/call";
+import { dequeueCall, NotyfyDequeueEvent } from "../../../controllers/call";
 
 import { DequeueCurrentDeviceToCall } from "../types";
-import { CONVERSATION_CHANNEL, Obj, USER_STATE } from "../../../types";
+import { CONVERSATION_CHANNEL, NotifyEnqueue, USER_STATE } from "../../../types";
 import { ConversationDTO, EnqueueDTO } from "../../../store/types";
 import { COMM_STATE } from "../../communication/types";
 
@@ -38,21 +38,34 @@ export const QueueProvider = ({ workerStatus, setWorkerStatus, children }: Queue
     setWorkerStatus(COMM_STATE.BUSY, CONVERSATION_CHANNEL.CALL);
     
     try {
-      // enviar From no body e a queue como query param
-      const response = await postCall("dequeue-incoming", currentConversationCall);
+      const value: NotifyEnqueue = currentConversationCall?.currentConversation?.data;
+
+      const notyfy: NotyfyDequeueEvent = {
+        agentName: value.agentName,
+        company: value.company,
+        From: value.data.From,
+        To: value.data.To,
+        Caller: value.data.Caller,
+        position: value.data.QueuePosition,
+      }
+
+      const response = await dequeueCall(notyfy, value.queue);
 
       if (response) {
         console.log(response);
-        // Se neste momento nao estiver mais em ligação reverter os estados dos operadores
-        //setUserState(USER_STATE.ON_CALL);
-        //setWorkerStatus(COMM_STATE.BUSY, CONVERSATION_CHANNEL.CALL);    
+
+        setUserState(USER_STATE.READY);
+        setWorkerStatus(COMM_STATE.READY);   
       }
     } catch (error: any) {
+      setUserState(USER_STATE.ERROR);
+      setWorkerStatus(COMM_STATE.READY); 
+
       throw new Error(error);
     }
   };
 
-  const forwardEnqueueCall = (data: Obj) => {
+  const forwardEnqueueCall = (data: NotifyEnqueue) => {
     const currentDate = (Date.now()).toString();
 
     const id = queueConversations.length;
@@ -70,7 +83,7 @@ export const QueueProvider = ({ workerStatus, setWorkerStatus, children }: Queue
         id: id,
         startTime: currentDate,
         status: 'on',
-        waitTime: undefined,
+        waitTime: data.data?.QueueTime,
       },
     };
 

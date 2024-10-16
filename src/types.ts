@@ -35,6 +35,13 @@ export type Chat = {
   __v?: number
 }
 
+export type NotifyEnqueue = {
+  agentName: string
+  company: string
+  queue: string
+  data: Obj
+}
+
 export interface ConsumersQueue {
   queueId: string | number
   callData: Call
@@ -46,7 +53,7 @@ export interface ConsumersQueue {
 
 export interface EnqueueStreamItem {
   queueId: string | number
-  data: Obj
+  data: NotifyEnqueue 
   priority?: number
   error?: any
   updatedAt: string
