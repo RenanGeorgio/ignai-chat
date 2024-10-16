@@ -11,6 +11,7 @@ export async function getVoiceToken(userName: string) {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        'ngrok-skip-browser-warning': true,
         //Authorization: `Bearer ${auth}`,
       },
       body: JSON.stringify({ identity: userName })
