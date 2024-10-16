@@ -66,6 +66,7 @@ export const QueueProvider = ({ workerStatus, setWorkerStatus, children }: Queue
   };
 
   const forwardEnqueueCall = (data: NotifyEnqueue) => {
+    console.log("queue parte 4")
     const currentDate = (Date.now()).toString();
 
     const id = queueConversations.length;
@@ -86,6 +87,7 @@ export const QueueProvider = ({ workerStatus, setWorkerStatus, children }: Queue
         waitTime: data.data?.QueueTime,
       },
     };
+    console.log("queue parte 5")
 
     // @ts-ignore
     dispatch(addConversationReference(com));
@@ -111,14 +113,17 @@ export const QueueProvider = ({ workerStatus, setWorkerStatus, children }: Queue
   };
 
   useEffect(() => {
+    console.log("queue parte 1")
     if ((twilioToken == undefined) || (user == undefined)) {
       return
     }
 
     try {
+      console.log("queue parte 2")
       eventSource.current = new EventSource(`${process.env.REACT_APP_CALL_API}/events?userId=${user._id}`);
 
       if (eventSource.current) {
+        console.log("queue parte 3")
         eventSource.current.onmessage = (event: any) => {
           const data = JSON.parse(event.data);
           console.log('New event received:', data);
@@ -141,7 +146,7 @@ export const QueueProvider = ({ workerStatus, setWorkerStatus, children }: Queue
       eventSource.current?.destroy();
       setUserState(USER_STATE.OFFLINE);
     }
-  }, [user]);
+  }, [user, twilioToken]);
 
   return (
     <QueueContext.Provider
