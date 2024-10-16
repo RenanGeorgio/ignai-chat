@@ -1,5 +1,6 @@
-import React, { forwardRef, HTMLAttributes, CSSProperties } from 'react';
-import './Item.css';
+import React, { forwardRef, HTMLAttributes, CSSProperties } from "react";
+
+import "./Item.css";
 
 export type ItemProps = HTMLAttributes<HTMLDivElement> & {
   id: string;
