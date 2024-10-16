@@ -1,12 +1,4 @@
-import React, {
-  FunctionComponent,
-  useState,
-  useEffect,
-  useRef,
-  useCallback,
-} from 'react';
-import { QueueItemLabel } from '../../types';
-
+import React, { FunctionComponent, useState, useEffect, useRef, useCallback } from "react";
 import {
   closestCenter,
   DndContext,
@@ -17,20 +9,20 @@ import {
   useSensors,
   type DragEndEvent,
   type DragStartEvent,
-} from '@dnd-kit/core';
+} from "@dnd-kit/core";
+import { arrayMove, SortableContext, rectSortingStrategy } from "@dnd-kit/sortable";
+import { useDispatch } from "react-redux";
+import days from "dayjs";
+        
+import Grid from "../Dnd/Grid";
+import SortableItem from "../Dnd/SortableItem";
+import Item from "../Dnd/Item";
+import { TelegramIcon } from "../../components/Icons";
+// import { updateConversation } from "../../store/conversations/actions";
+import { CHAT_STATUS } from "../../contexts/chat/types";
+import { QueueItemLabel } from "../../types";
 
-import {
-  arrayMove,
-  SortableContext,
-  rectSortingStrategy,
-} from '@dnd-kit/sortable';
-import Grid from '../Dnd/Grid';
-import SortableItem from '../Dnd/SortableItem';
-import Item from '../Dnd/Item';
-import days from 'dayjs';
-import { TelegramIcon } from '../../components/Icons';
-import { useDispatch } from 'react-redux';
-// import { updateConversation } from '../../store/conversations/actions';
+import styles from "./items.module.css";
 
 export interface QueueItemsType {
   queueItemsLabel: QueueItemLabel[];
@@ -44,8 +36,7 @@ export const QueueItems: FunctionComponent<QueueItemsType> = ({
   selectItem,
   manual,
 }: QueueItemsType) => {
-  const [queueItems, setQueueItems] =
-    useState<QueueItemLabel[]>(queueItemsLabel);
+  const [queueItems, setQueueItems] = useState<QueueItemLabel[]>(queueItemsLabel);
 
   const currentItemRef = useRef<QueueItemLabel | undefined>(undefined);
   const dispatch = useDispatch();
@@ -66,7 +57,7 @@ export const QueueItems: FunctionComponent<QueueItemsType> = ({
     if (!manual) {
       const queueItem = queueItems[0];
 
-      if (currentItemRef.current === undefined) {
+      if (currentItemRef.current == undefined) {
         setSelectedQueueItem(queueItem);
       }
     }
@@ -124,16 +115,35 @@ export const QueueItems: FunctionComponent<QueueItemsType> = ({
     >
       <SortableContext items={queueItems} strategy={rectSortingStrategy}>
         <Grid columns={3}>
-          {queueItems?.map((queueItem: QueueItemLabel, index: number) => (
-            <SortableItem
-              key={queueItem.id}
-              id={queueItem.id.toString()}
-              date={days(queueItem.startTime).format('HH:mm - DD/MM/YYYY')}
-              platform={selectedIcon(queueItem.emoji)}
-              // index={index}
-              // handleClick={() => handleClick(index, queueItem)}
-            ></SortableItem>
-          ))}
+          <div className={styles.contactContainer}>
+            {queueItems?.map((queueItem: QueueItemLabel, index: number) =>
+              queueItem.status === 'on' || queueItem.status === CHAT_STATUS.ACTIVE ? (
+	              <SortableItem
+                  key={queueItem.id}
+                  id={queueItem.id.toString()}
+                  date={days(queueItem.startTime).format('HH:mm - DD/MM/YYYY')}
+                  platform={selectedIcon(queueItem.emoji)}
+                  // index={index}
+                  // handleClick={() => handleClick(index, queueItem)}
+                 ></SortableItem>
+                <div
+                  key={index}
+                  className={`${styles.contactItem} ${
+                    currentItemRef.current?.id === queueItem.id ? styles.selected : ''
+                  }`}
+                  onClick={() => handleClick(index, queueItem)}
+                 >
+                   <div className={styles.statusContainer}>
+                     <span className={styles.emoji}>{queueItem.emoji}</span>
+                     <p className={styles.p}>{queueItem.id}</p>
+                     <p className={styles.incio}>{queueItem.startTime}</p>
+                     {queueItem.status && <p className={styles.statusOn}>{queueItem.status}</p>}
+                     {queueItem.waitTime && <p className={styles.espera}>{queueItem.waitTime}</p>}
+                   </div>
+                </div>
+              ) : null,
+            )}
+         </div>
         </Grid>
       </SortableContext>
       <DragOverlay adjustScale style={{ transformOrigin: '0 0 ' }}>

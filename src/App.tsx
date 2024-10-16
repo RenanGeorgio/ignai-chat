@@ -7,6 +7,9 @@ import { CommunicationProviders, UserProvider } from "./contexts";
 import Chat from "./pages/Chat";
 import Faq from "./pages/Faq";
 import User from "./pages/User";
+import Dashboard from "./pages/Dashboard";
+import Configuration from "./pages/Configuration";
+import Historico from "./pages/Historico";
 import SideBar from "./components/side-bar";
 
 import "./App.css";
@@ -26,6 +29,9 @@ function App() {
               <Route path="/" element={<Chat />} />
               <Route path="/faq" element={<Faq />} />
               <Route path="/user" element={<User />} />
+              <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/configuration" element={<Configuration />} />
+              <Route path="/historico" element={<Historico />} />
             </Routes>
           </CommunicationProviders>
         </Provider>

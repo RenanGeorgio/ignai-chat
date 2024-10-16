@@ -1,0 +1,527 @@
+:root {
+  --light-basic-typography-caption-font-family: "PublicSans-Regular", Helvetica;
+  --light-basic-typography-caption-font-size: 11px;
+  --light-basic-typography-caption-font-style: normal;
+  --light-basic-typography-caption-font-weight: 400;
+  --light-basic-typography-caption-letter-spacing: 0px;
+  --light-basic-typography-caption-line-height: 14px;
+  --light-basic-typography-h4-heading-font-family: "PublicSans-Medium", Helvetica;
+  --light-basic-typography-h4-heading-font-size: 22px;
+  --light-basic-typography-h4-heading-font-style: normal;
+  --light-basic-typography-h4-heading-font-weight: 500;
+  --light-basic-typography-h4-heading-letter-spacing: 0px;
+  --light-basic-typography-h4-heading-line-height: 30px;
+  --light-basic-typography-h5-heading-font-family: "PublicSans-Medium", Helvetica;
+  --light-basic-typography-h5-heading-font-size: 18px;
+  --light-basic-typography-h5-heading-font-style: normal;
+  --light-basic-typography-h5-heading-font-weight: 500;
+  --light-basic-typography-h5-heading-letter-spacing: 0px;
+  --light-basic-typography-h5-heading-line-height: 24px;
+  --light-basic-typography-h6-heading-font-family: "PublicSans-Medium", Helvetica;
+  --light-basic-typography-h6-heading-font-size: 15px;
+  --light-basic-typography-h6-heading-font-style: normal;
+  --light-basic-typography-h6-heading-font-weight: 500;
+  --light-basic-typography-h6-heading-letter-spacing: 0px;
+  --light-basic-typography-h6-heading-line-height: 21px;
+  --light-basic-typography-paragraph-font-family: "PublicSans-Regular", Helvetica;
+  --light-basic-typography-paragraph-font-size: 15px;
+  --light-basic-typography-paragraph-font-style: normal;
+  --light-basic-typography-paragraph-font-weight: 400;
+  --light-basic-typography-paragraph-letter-spacing: 0px;
+  --light-basic-typography-paragraph-line-height: 22px;
+  --light-basic-typography-paragraph-semi-bold-font-family: "PublicSans-SemiBold", Helvetica;
+  --light-basic-typography-paragraph-semi-bold-font-size: 15px;
+  --light-basic-typography-paragraph-semi-bold-font-style: normal;
+  --light-basic-typography-paragraph-semi-bold-font-weight: 600;
+  --light-basic-typography-paragraph-semi-bold-letter-spacing: 0px;
+  --light-basic-typography-paragraph-semi-bold-line-height: 22px;
+  --light-basic-typography-paragraph-small-font-family: "PublicSans-Regular", Helvetica;
+  --light-basic-typography-paragraph-small-font-size: 13px;
+  --light-basic-typography-paragraph-small-font-style: normal;
+  --light-basic-typography-paragraph-small-font-weight: 400;
+  --light-basic-typography-paragraph-small-letter-spacing: 0px;
+  --light-basic-typography-paragraph-small-line-height: 20px;
+  --light-basic-typography-paragraph-small-medium-font-family: "PublicSans-Medium", Helvetica;
+  --light-basic-typography-paragraph-small-medium-font-size: 13px;
+  --light-basic-typography-paragraph-small-medium-font-style: normal;
+  --light-basic-typography-paragraph-small-medium-font-weight: 500;
+  --light-basic-typography-paragraph-small-medium-letter-spacing: 0px;
+  --light-basic-typography-paragraph-small-medium-line-height: 14px;
+  --light-button-1-button-lg-font-family: "PublicSans-Medium", Helvetica;
+  --light-button-1-button-lg-font-size: 17px;
+  --light-button-1-button-lg-font-style: normal;
+  --light-button-1-button-lg-font-weight: 500;
+  --light-button-1-button-lg-letter-spacing: 0.4300000071525574px;
+  --light-button-1-button-lg-line-height: 22px;
+  --light-button-2-button-default-font-family: "PublicSans-Medium", Helvetica;
+  --light-button-2-button-default-font-size: 15px;
+  --light-button-2-button-default-font-style: normal;
+  --light-button-2-button-default-font-weight: 500;
+  --light-button-2-button-default-letter-spacing: 0.4300000071525574px;
+  --light-button-2-button-default-line-height: 18px;
+  --light-button-3-button-small-font-family: "PublicSans-Medium", Helvetica;
+  --light-button-3-button-small-font-size: 13px;
+  --light-button-3-button-small-font-style: normal;
+  --light-button-3-button-small-font-weight: 500;
+  --light-button-3-button-small-letter-spacing: 0.4300000071525574px;
+  --light-button-3-button-small-line-height: 16px;
+  --light-danger-danger-SM: 0px 2px 3px 0px rgba(234, 84, 85, 0.3);
+  --light-gray-card: 0px 4px 18px 0px rgba(75, 70, 92, 0.1);
+  --light-gray-gray-SM: 0px 2px 4px 0px rgba(165, 163, 174, 0.3);
+  --light-info-info-SM: 0px 2px 3px 0px rgba(0, 207, 232, 0.3);
+  --light-primary-primary-SM: 0px 2px 3px 0px rgba(115, 103, 240, 0.3);
+  --light-secondary-secondary-SM: 0px 2px 3px 0px rgba(168, 170, 174, 0.3);
+  --light-success-success-SM: 0px 2px 3px 0px rgba(40, 199, 111, 0.3);
+  --light-warning-warning-SM: 0px 2px 3px 0px rgba(255, 159, 67, 0.3);
+  --lightopacity-colordangerdanger-16: rgba(234, 84, 85, 0.16);
+  --lightopacity-colordangerdanger-24: rgba(234, 84, 85, 0.24);
+  --lightopacity-colordangerdanger-8: rgba(234, 84, 85, 0.08);
+  --lightopacity-colorextradark-16: rgba(75, 75, 75, 0.16);
+  --lightopacity-colorextramenu-hover: rgba(75, 70, 92, 0.04);
+  --lightopacity-colorgraygray-8: rgba(75, 70, 92, 0.08);
+  --lightopacity-colorinfoinfo-16: rgba(0, 207, 232, 0.16);
+  --lightopacity-colorinfoinfo-24: rgba(0, 207, 232, 0.24);
+  --lightopacity-colorinfoinfo-8: rgba(0, 207, 232, 0.08);
+  --lightopacity-colorprimaryprimary-16: rgba(115, 103, 240, 0.16);
+  --lightopacity-colorprimaryprimary-24: rgba(115, 103, 240, 0.24);
+  --lightopacity-colorprimaryprimary-8: rgba(115, 103, 240, 0.08);
+  --lightopacity-colorsecondarysecondary-16: rgba(168, 170, 174, 0.16);
+  --lightopacity-colorsecondarysecondary-24: rgba(168, 170, 174, 0.24);
+  --lightopacity-colorsecondarysecondary-8: rgba(168, 170, 174, 0.08);
+  --lightopacity-colorsuccesssuccess-16: rgba(40, 199, 111, 0.16);
+  --lightopacity-colorsuccesssuccess-24: rgba(40, 199, 111, 0.24);
+  --lightopacity-colorsuccesssuccess-8: rgba(40, 199, 111, 0.08);
+  --lightopacity-colorwarningwarning-16: rgba(255, 159, 67, 0.16);
+  --lightopacity-colorwarningwarning-24: rgba(255, 159, 67, 0.24);
+  --lightopacity-colorwarningwarning-8: rgba(255, 159, 67, 0.08);
+  --lightsolid-colordangerdanger-400: rgba(234, 84, 85, 1);
+  --lightsolid-colordangerdanger-500-base: rgba(234, 84, 85, 1);
+  --lightsolid-colordangerdanger-600-hover: rgba(234, 84, 85, 1);
+  --lightsolid-colorextracard-background: rgba(255, 255, 255, 1);
+  --lightsolid-colorextradark: rgba(75, 75, 75, 1);
+  --lightsolid-colorextradivider: rgba(219, 218, 222, 1);
+  --lightsolid-colorextrawhite: rgba(255, 255, 255, 1);
+  --lightsolid-colorinfoinfo-400: rgba(0, 207, 232, 1);
+  --lightsolid-colorinfoinfo-500-base: rgba(0, 207, 232, 1);
+  --lightsolid-colorinfoinfo-600-hover: rgba(0, 207, 232, 1);
+  --lightsolid-colorprimaryprimary-400: rgba(115, 103, 240, 1);
+  --lightsolid-colorprimaryprimary-500-base: rgba(115, 103, 240, 1);
+  --lightsolid-colorprimaryprimary-600-hover: rgba(115, 103, 240, 1);
+  --lightsolid-colorsecondarysecondary-400: rgba(168, 170, 174, 1);
+  --lightsolid-colorsecondarysecondary-500-base: rgba(168, 170, 174, 1);
+  --lightsolid-colorsecondarysecondary-600-hover: rgba(168, 170, 174, 1);
+  --lightsolid-colorsuccesssuccess-400: rgba(40, 199, 111, 1);
+  --lightsolid-colorsuccesssuccess-500-base: rgba(40, 199, 111, 1);
+  --lightsolid-colorsuccesssuccess-600-hover: rgba(40, 199, 111, 1);
+  --lightsolid-colorwarningwarning-400: rgba(255, 159, 67, 1);
+  --lightsolid-colorwarningwarning-500-base: rgba(255, 159, 67, 1);
+  --lightsolid-colorwarningwarning-600-hover: rgba(255, 159, 67, 1);
+  --lighttypography-colorbody-text: rgba(75, 70, 92, 0.801);
+  --lighttypography-colorheading-text: rgba(75, 70, 92, 0.8013);
+  --lighttypography-colormuted-text: rgba(75, 70, 92, 0.693);
+}
+
+.card-wrapper{
+align-items: center;
+display: flex;
+flex: 1;
+flex-direction: column;
+flex-grow: 1;
+gap: 6px;
+height: auto;
+position: relative;
+/* padding: 15px; */
+color: #4b465c9f;
+}
+
+.row-container{
+  align-items: flex-start;
+  align-self: stretch;
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  width: 100%;
+  /* min-width: 300px; */
+  color: #4b465c9f;
+}
+
+.index {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  /* width: 110% !important;  */
+  font-family: sans-serif;
+}
+
+.index .card {
+  align-items: flex-start;
+  align-self: stretch;
+  background-color: white;
+  border-radius: 6px;
+  box-shadow: var(--light-gray-card);
+  display: flex;
+  flex: 0 0 auto;
+  flex-direction: column;
+  position: relative;
+  width: 100%;
+  border: 1px solid rgba(166, 166, 166, 0.119);
+  margin-bottom: 15px;
+  padding: 0px 0px 0px 5px;
+}
+
+.index .card-top {
+  align-self: stretch;
+  background-color: white;
+  border-radius: 6px;
+  box-shadow: var(--light-gray-card);
+  display: flex;
+  flex: 0 0 auto;
+  flex-direction: column;
+  position: relative;
+  width: 100%;
+  border: 1px solid rgba(166, 166, 166, 0.119);
+  margin-bottom: 10px;
+  padding: 0px 0px 0px 5px;
+}
+
+.index .text-wrapper-11 {
+  color: var(--lighttypography-colorbody-text);
+  font-family: var(--light-basic-typography-paragraph-semi-bold-font-family);
+  font-size: var(--light-basic-typography-paragraph-semi-bold-font-size);
+  font-style: var(--light-basic-typography-paragraph-semi-bold-font-style);
+  font-weight: var(--light-basic-typography-paragraph-semi-bold-font-weight);
+  letter-spacing: var(--light-basic-typography-paragraph-semi-bold-letter-spacing);
+  line-height: var(--light-basic-typography-paragraph-semi-bold-line-height);
+  margin-top: -1px;
+  position: relative;
+  white-space: nowrap;
+  width: fit-content;
+}
+
+
+.index .badge-3 {
+  flex: 0 0 auto !important;
+}
+
+
+.index .card-heading {
+  align-items: flex-start;
+  align-self: stretch;
+  display: flex;
+  flex: 0 0 auto;
+  padding: 24px 24px 0px;
+  position: relative;
+  width: 92%;
+  overflow-x: hidden;
+}
+
+
+.index .text-wrapper-26 {
+  color: var(--lighttypography-colorbody-text);
+  font-family: var(--light-basic-typography-paragraph-font-family);
+  font-size: var(--light-basic-typography-paragraph-font-size);
+  font-style: var(--light-basic-typography-paragraph-font-style);
+  font-weight: var(--light-basic-typography-paragraph-font-weight);
+  letter-spacing: var(--light-basic-typography-paragraph-letter-spacing);
+  line-height: var(--light-basic-typography-paragraph-line-height);
+  margin-top: -1px;
+  position: relative;
+  width: 60px;
+}
+
+.index .text-wrapper-27 {
+  color: var(--lighttypography-colorbody-text);
+  font-family: var(--light-basic-typography-paragraph-font-family);
+  font-size: var(--light-basic-typography-paragraph-font-size);
+  font-style: var(--light-basic-typography-paragraph-font-style);
+  font-weight: var(--light-basic-typography-paragraph-font-weight);
+  letter-spacing: var(--light-basic-typography-paragraph-letter-spacing);
+  line-height: var(--light-basic-typography-paragraph-line-height);
+  margin-top: -1px;
+  position: relative;
+  width: 100px;
+}
+
+.index .row-9 {
+  align-items: center;
+  display: inline-flex;
+  flex: 0 0 auto;
+  gap: 10px;
+  position: relative;
+}
+
+.index .check-wrapper {
+  align-items: flex-start;
+  background-color: var(--lightopacity-colorsuccesssuccess-8);
+  border-radius: 16px;
+  display: inline-flex;
+  flex: 0 0 auto;
+  gap: 10px;
+  padding: 3px;
+  position: relative;
+}
+
+.index .check-3 {
+  height: 14px !important;
+  position: relative !important;
+  width: 14px !important;
+}
+
+.index .text-wrapper-19 {
+  color: var(--lighttypography-colorheading-text);
+  flex: 1;
+  font-family: var(--light-basic-typography-h5-heading-font-family);
+  font-size: var(--light-basic-typography-h5-heading-font-size);
+  font-style: var(--light-basic-typography-h5-heading-font-style);
+  font-weight: var(--light-basic-typography-h5-heading-font-weight);
+  letter-spacing: var(--light-basic-typography-h5-heading-letter-spacing);
+  line-height: var(--light-basic-typography-h5-heading-line-height);
+  margin-top: -1px;
+  position: relative;
+}
+
+.index .card-body {
+  align-items: flex-start;
+  align-self: stretch;
+  display: flex;
+  flex: 0 0 auto;
+  flex-direction: column;
+  gap: 1px;
+  padding: 4px;
+  position: relative;
+  width: 100%;
+}
+
+.index .card-body-top {
+  align-items: flex-start;
+  align-self: stretch;
+  display: flex;
+  flex: 0 0 auto;
+  flex-direction: column;
+  gap: 1px;
+  padding: 4px 8px 4px 4px;
+  position: relative;
+  /* width: 100%; */
+  height: 300px;
+}
+
+.index .accordion-without {
+  align-items: flex-start;
+  align-self: stretch;
+  display: flex;
+  flex: 0 0 auto;
+  flex-direction: column;
+  position: relative;
+  width: 100%;
+}
+
+.index .body-content {
+  align-items: flex-start;
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  width: 100%;
+  overflow-y: auto;
+  height: 280px;
+}
+
+.index .accordion-collapse {
+  align-items: center;
+  align-self: stretch;
+  border-radius: 6px;
+  display: flex;
+  flex: 0 0 auto;
+  gap: 1px;
+  padding: 3px 0px;
+  position: relative;
+  width: 100%;
+  border-bottom: #4b465c53 solid 1px; 
+  color: #4b465c9f;
+}
+
+.index .accordion-collapse-medium {
+  align-items: center;
+  align-self: stretch;
+  /* border-radius: 6px; */
+  display: flex;
+  flex: 0 0 auto;
+  /* gap: 1px; */
+  padding: 5px 0px;
+  position: relative;
+  width: 99%;
+  border-top: #4b465c3a solid 1px;
+  color: #4b465c9f;
+}
+
+.index .accordion-collapse-footer {
+  align-items: center;
+  align-self: stretch;
+  /* border-radius: 6px; */
+  display: flex;
+  flex: 0 0 auto;
+  /* gap: 1px; */
+  padding: 5px 0px;
+  position: relative;
+  width: 99%;
+  border-top: #4b465c3a solid 1px;
+  color: #4b465c9f;
+}
+
+.index .chevron-right {
+  height: 20px !important;
+  position: relative !important;
+  width: 20px !important;
+}
+
+.index .text-6 {
+  align-items: flex-start;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  flex-grow: 1;
+  gap: 2px;
+  position: relative;
+  color: #4b465c9f;
+}
+
+.index .row-4 {
+  align-items: flex-start;
+  display: flex;
+  flex: 0 0 auto;
+  gap: 10px;
+  margin-right: -118px;
+  position: relative;
+  width: 658px;
+}
+
+.index .text-wrapper-20 {
+  color: #4b465cb9;
+  font-family: var(--light-basic-typography-paragraph-semi-bold-font-family);
+  font-size: var(--light-basic-typography-paragraph-semi-bold-font-size);
+  font-style: var(--light-basic-typography-paragraph-semi-bold-font-style);
+  font-weight: var(--light-basic-typography-paragraph-semi-bold-font-weight);
+  letter-spacing: var(--light-basic-typography-paragraph-semi-bold-letter-spacing);
+  line-height: var(--light-basic-typography-paragraph-semi-bold-line-height);
+  margin-top: -1px;
+  position: relative;
+  white-space: nowrap;
+  width: fit-content;
+}
+
+.index .text-wrapper-21 {
+  color: #4b465cb9;
+  color: var(--lighttypography-colormuted-text);
+  font-family: var(--light-basic-typography-paragraph-small-font-family);
+  font-size: var(--light-basic-typography-paragraph-small-font-size);
+  font-style: var(--light-basic-typography-paragraph-small-font-style);
+  font-weight: var(--light-basic-typography-paragraph-small-font-weight);
+  letter-spacing: var(--light-basic-typography-paragraph-small-letter-spacing);
+  line-height: .5px;
+  position: relative;
+}
+
+.index .actions {
+  align-items: flex-start;
+  display: inline-flex;
+  flex: 0 0 auto;
+  position: relative;
+}
+
+.index .button-icon-instance {
+  border: unset !important;
+  border-color: unset !important;
+  flex: 0 0 auto !important;
+}
+
+.index .accordion-expanded {
+  align-items: center;
+  align-self: stretch;
+  border-radius: 6px;
+  display: flex;
+  flex: 0 0 auto;
+  flex-direction: column;
+  position: relative;
+  width: 100%;
+}
+
+.index .text-7 {
+  align-items: center;
+  display: flex;
+  flex: 1;
+  flex-grow: 1;
+  gap: 16px;
+  position: relative;
+}
+
+.index .img-3 {
+  height: 30px;
+  position: relative;
+  width: 50px;
+}
+
+.index .text-wrapper-24 {
+  color: var(--lighttypography-colorheading-text);
+  font-family: var(--light-basic-typography-paragraph-semi-bold-font-family);
+  font-size: var(--light-basic-typography-paragraph-semi-bold-font-size);
+  font-style: var(--light-basic-typography-paragraph-semi-bold-font-style);
+  font-weight: var(--light-basic-typography-paragraph-semi-bold-font-weight);
+  letter-spacing: var(--light-basic-typography-paragraph-semi-bold-letter-spacing);
+  line-height: var(--light-basic-typography-paragraph-semi-bold-line-height);
+  margin-top: -1px;
+  position: relative;
+  width: 178.67px;
+}
+
+.index .text-wrapper-25 {
+  color: var(--lighttypography-colormuted-text);
+  font-family: var(--light-basic-typography-paragraph-small-font-family);
+  font-size: var(--light-basic-typography-paragraph-small-font-size);
+  font-style: var(--light-basic-typography-paragraph-small-font-style);
+  font-weight: var(--light-basic-typography-paragraph-small-font-weight);
+  height: 24px;
+  letter-spacing: var(--light-basic-typography-paragraph-small-letter-spacing);
+  line-height: var(--light-basic-typography-paragraph-small-line-height);
+  position: relative;
+  white-space: nowrap;
+  width: 178.67px;
+}
+
+.index .row-5 {
+  align-items: flex-start;
+  align-self: stretch;
+  display: flex;
+  flex: 0 0 auto;
+  gap: 10px;
+  position: relative;
+  width: 100%;
+}
+
+.index .row-6 {
+  align-items: flex-start;
+  align-self: stretch;
+  display: flex;
+  flex: 0 0 auto;
+  gap: 32px;
+  padding: 0px 32px 16px;
+  position: relative;
+  width: 100%;
+}
+
+.index .row-7 {
+  align-items: flex-start;
+  display: inline-flex;
+  flex: 0 0 auto;
+  flex-direction: column;
+  gap: 4px;
+  position: relative;
+}
+
+.index .row-8 {
+  align-items: flex-start;
+  display: inline-flex;
+  flex: 0 0 auto;
+  gap: 24px;
+  position: relative;
+}

@@ -1,5 +1,5 @@
 import { Call } from "@twilio/voice-sdk";
-import { ChatStatus, Platforms } from "./contexts/chat/types";
+import { CHAT_STATUS, Platforms } from "./contexts/chat/types";
 
 export type Obj = {
   [key: string]: any
@@ -29,15 +29,31 @@ export type Chat = {
     platform: Platforms
     chatId?: string
   }
-  status: ChatStatus
+  status: CHAT_STATUS
   createdAt: string
   updatedAt: string
   __v?: number
 }
 
+export type NotifyEnqueue = {
+  agentName: string
+  company: string
+  queue: string
+  data: Obj
+}
+
 export interface ConsumersQueue {
   queueId: string | number
   callData: Call
+  priority?: number
+  error?: any
+  updatedAt: string
+  createdAt: string
+}
+
+export interface EnqueueStreamItem {
+  queueId: string | number
+  data: NotifyEnqueue 
   priority?: number
   error?: any
   updatedAt: string
@@ -77,4 +93,19 @@ export enum CONVERSATION_CHANNEL {
   EMBED = 'embed-on-site',
   SMS = 'sms',
   TELEGRAM = 'telegram',
+  DEFAULT = 'default',
+}
+
+export interface IAddress {
+  _id?: string;
+  client: string;
+  name: string;
+  street: string;
+  number: number;
+  district: string;
+  city: string;
+  state: string;
+  zipCode: number;
+  isMain: boolean;
+  expanded: boolean;
 }

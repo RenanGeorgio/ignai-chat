@@ -5,7 +5,8 @@ import {
   updateUserChats, // SAMUEL
   RaiseError,
   CallDTO,
-  ChatDTO
+  ChatDTO,
+  EnqueueDTO
 } from "./types";
 
 export interface IConversationsStore {
@@ -17,5 +18,5 @@ export interface IConversationsStore {
 }
 
 export interface IConversationsState {
-  queueConversations: (CallDTO | ChatDTO)[]
+  queueConversations: (CallDTO | ChatDTO | EnqueueDTO)[]
 }

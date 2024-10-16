@@ -1,6 +1,5 @@
 import React from "react";
 import { Grid, Button, Box, TextField } from "@mui/material";
-import { KeypadButton } from "./KeypadButton";
 
 interface Props {
   number: string;
@@ -17,22 +16,30 @@ export const Dialler: React.FC<Props> = ({ number, setNumber }: Props) => {
   };
 
   const handleNumberPressed = (newNumber: string) => {
-    return () => {
-      setNumber(`${number}${newNumber}`);
-    };
+    if (newNumber === '⌫') {
+      return () => {
+        setNumber(number.substring(0, number.length - 1));
+      };
+    } else {
+      return () => {
+        setNumber(`${number}${newNumber}`);
+      };
+    }
   };
 
   return (
-    <Box mt={4}>
+    <Box mt={4} ml="-20px">
       <TextField
         type="tel"
         value={number}
         onChange={handleNumberChange}
+        placeholder="Enter phone number"
         variant="outlined"
         margin="none"
         sx={{
           backgroundColor: "#fff", 
-          width: "50%",            
+          width: "30%",           
+          borderRadius: "20px", 
           marginBottom: "8px",     
           input: {
             textAlign: "center",    
@@ -52,7 +59,7 @@ export const Dialler: React.FC<Props> = ({ number, setNumber }: Props) => {
             borderRadius: "8px" 
           }}
         >
-          {["1", "2", "3", "4", "5", "6", "7", "8", "9", "*", "0", "#"].map((num) => (
+          {["1", "2", "3", "4", "5", "6", "7", "8", "9", "*", "0", "#", "-", "+", "⌫"].map((num) => (
             <Grid item xs={4} key={num}>
               <Button
                 variant="contained"
@@ -61,8 +68,8 @@ export const Dialler: React.FC<Props> = ({ number, setNumber }: Props) => {
                 sx={{
                   backgroundColor: "#F28B82", 
                   color: "white", 
-                  margin: "4px", 
-                  padding: "12px",
+                  margin: "5px", 
+                  padding: "15px",
                   fontSize: "18px",
                   "&:hover": {
                     backgroundColor: "#ee6161", 
@@ -74,13 +81,6 @@ export const Dialler: React.FC<Props> = ({ number, setNumber }: Props) => {
             </Grid>
           ))}
         </Grid>
-        {number.length > 0 && (
-          <Box mt={2}>
-            <KeypadButton handleClick={handleBackSpace}>
-              <span style={{ fontSize: "24px" }}>⌫</span>
-            </KeypadButton>
-          </Box>
-        )}
       </Box>
     </Box>
   );

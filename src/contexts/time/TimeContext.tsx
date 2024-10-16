@@ -1,4 +1,4 @@
-import type { TimerContextType } from '@contexts/chat/types';
-import { createContext } from 'react';
+import { createContext } from "react";
+import type { TimerContextType } from "./types";
 
 export const TimeContext = createContext<TimerContextType>({} as TimerContextType);

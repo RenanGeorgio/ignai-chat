@@ -79,7 +79,7 @@ export const SettingIcon = () => {
 export const IgnaiIcon = () => {
   return (
     <div>
-      <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 150 100" preserveAspectRatio="xMidYMid meet">
+      <svg xmlns="http://www.w3.org/2000/svg" width="50px" height="50px">
         <g><path opacity="0.899" fill="#fd645b" d="M 1.5,-0.5 C 3.83333,-0.5 6.16667,-0.5 8.5,-0.5C 13.2507,3.32691 17.9173,3.32691 22.5,-0.5C 25.1667,-0.5 27.8333,-0.5 30.5,-0.5C 34.5316,7.27261 32.1983,10.7726 23.5,10C 21.1342,8.76696 18.6342,7.93363 16,7.5C 12.1807,8.20328 8.51407,9.20328 5,10.5C 2.8218,10.6052 0.988468,9.93854 -0.5,8.5C -0.5,6.16667 -0.5,3.83333 -0.5,1.5C 0.5,1.16667 1.16667,0.5 1.5,-0.5 Z"/></g>
         <g><path opacity="0.657" fill="#ffede5" d="M 51.5,8.5 C 53.1667,8.5 54.8333,8.5 56.5,8.5C 56.5,16.8333 56.5,25.1667 56.5,33.5C 54.8333,33.5 53.1667,33.5 51.5,33.5C 51.5,25.1667 51.5,16.8333 51.5,8.5 Z"/></g>
         <g><path opacity="0.834" fill="#ffeee6" d="M 64.5,8.5 C 72.0245,7.04144 76.0245,10.0414 76.5,17.5C 75.0222,17.762 73.6888,17.4287 72.5,16.5C 70.4024,11.8417 67.9024,11.5084 65,15.5C 64.3333,19.1667 64.3333,22.8333 65,26.5C 67.673,30.0326 70.173,29.6993 72.5,25.5C 71.3112,24.5713 69.9778,24.238 68.5,24.5C 68.5,23.1667 68.5,21.8333 68.5,20.5C 71.1667,20.5 73.8333,20.5 76.5,20.5C 77.8394,31.0013 73.5061,34.8346 63.5,32C 62.6667,31.1667 61.8333,30.3333 61,29.5C 60.3333,23.8333 60.3333,18.1667 61,12.5C 62.1022,11.051 63.2689,9.7177 64.5,8.5 Z"/></g>
@@ -153,6 +153,136 @@ export const PesquisaIcon = () => {
         <rect x="0.5" y="0.5" width="47" height="47" rx="23.5" stroke="#33373D"/>
         <path d="M23 31C27.4183 31 31 27.4183 31 23C31 18.5817 27.4183 15 23 15C18.5817 15 15 18.5817 15 23C15 27.4183 18.5817 31 23 31Z" stroke="#93989A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
         <path d="M29 29L33 33" stroke="#93989A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+  )
+}
+
+export const DashboardIcon = () => {
+  return (
+    <div>
+      <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="2.75" y="11" width="5.5" height="7.33333" rx="1" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <rect x="8.25" y="7.33334" width="5.5" height="11" rx="1" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <rect x="13.75" y="3.66666" width="5.5" height="14.6667" rx="1" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M3.66663 18.3333H16.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+  );
+}
+
+export const ArrowUpCircleIcon = () => {
+  return (
+    <div>
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <g id="arrow-up-circle">
+      <g id="Oval">
+      <circle cx="12" cy="12" r="9" stroke="#4B465C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <circle cx="12" cy="12" r="9" stroke="white" stroke-opacity="0.1" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </g>
+      <g id="Path">
+      <path d="M12 8L8 12" stroke="#4B465C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M12 8L8 12" stroke="white" stroke-opacity="0.1" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </g>
+      <g id="Path_2">
+      <path d="M12 8V16" stroke="#4B465C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M12 8V16" stroke="white" stroke-opacity="0.1" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </g>
+      <g id="Path_3">
+      <path d="M16 12L12 8" stroke="#4B465C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M16 12L12 8" stroke="white" stroke-opacity="0.1" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </g>
+      </g>
+      </svg>
+    </div>
+  )
+}
+
+export const ConfigIcon = () => {
+  return (
+    <div>
+      <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M14 16.9167C15.933 16.9167 17.5 15.3497 17.5 13.4167C17.5 11.4837 15.933 9.91667 14 9.91667C12.067 9.91667 10.5 11.4837 10.5 13.4167C10.5 15.3497 12.067 16.9167 14 16.9167Z" stroke="#9DB2CE" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M23.9246 18.9583C23.0088 20.51 21.9785 20.9533 20.0323 20.2883C18.7731 19.845 17.2848 20.6208 17.0559 21.9508C16.7124 23.9458 15.7966 24.5 13.9649 24.5C12.1332 24.5 11.2174 23.835 10.874 21.9508C10.645 20.6208 9.15678 19.845 7.8975 20.2883C5.95135 20.9533 4.92103 20.51 4.00519 18.9583C3.08936 17.5175 3.4328 16.2983 4.92103 15.0792C5.95135 14.1925 5.83687 12.6408 4.80655 11.865C3.31832 10.4242 3.20384 9.42666 4.11967 7.87499C5.03551 6.43416 6.18031 6.10166 8.01198 6.65583C9.27126 7.09916 10.645 6.2125 10.874 4.99333C11.3319 2.99833 12.1332 2.33333 14.0794 2.33333C15.7966 2.33333 16.7124 3.21999 17.0559 5.10416C17.2848 6.32333 18.7731 7.09916 20.0323 6.65583C21.9785 5.88 23.0088 6.32333 23.9246 7.87499C24.8405 9.42666 24.726 10.4242 23.1233 11.7542C22.093 12.6408 22.093 14.1925 23.1233 15.0792C24.726 16.4092 24.8405 17.4067 23.9246 18.9583Z" stroke="#9DB2CE" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+  )
+}
+
+export const Edit = ({ }) => {
+  return (
+    <div >
+      <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <g id="edit">
+          <g id="Path">
+            <path d="M8.24984 6.41699H5.49984C4.48732 6.41699 3.6665 7.2378 3.6665 8.25033V16.5003C3.6665 17.5128 4.48732 18.3337 5.49984 18.3337H13.7498C14.7624 18.3337 15.5832 17.5128 15.5832 16.5003V13.7503" stroke="#4B465C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M8.24984 6.41699H5.49984C4.48732 6.41699 3.6665 7.2378 3.6665 8.25033V16.5003C3.6665 17.5128 4.48732 18.3337 5.49984 18.3337H13.7498C14.7624 18.3337 15.5832 17.5128 15.5832 16.5003V13.7503" stroke="white" stroke-opacity="0.2" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+          </g>
+          <g id="Path_2">
+            <path d="M8.25 13.7499H11L18.7917 5.95822C19.5511 5.19882 19.5511 3.96761 18.7917 3.20822C18.0323 2.44882 16.8011 2.44882 16.0417 3.20822L8.25 10.9999V13.7499" stroke="#4B465C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M8.25 13.7499H11L18.7917 5.95822C19.5511 5.19882 19.5511 3.96761 18.7917 3.20822C18.0323 2.44882 16.8011 2.44882 16.0417 3.20822L8.25 10.9999V13.7499" stroke="white" stroke-opacity="0.2" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+          </g>
+          <g id="Path_3">
+            <path d="M14.6665 4.58301L17.4165 7.33301" stroke="#4B465C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M14.6665 4.58301L17.4165 7.33301" stroke="white" stroke-opacity="0.2" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+          </g>
+        </g>
+      </svg>
+    </div>
+  );
+};
+
+export const Trash = () => {
+  return (
+    <div >
+      <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <g id="trash">
+          <path id="Path" d="M3.6665 6.41634H18.3332" stroke="#A8AAAE" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+          <path id="Path_2" d="M9.16683 10.083V15.583" stroke="#A8AAAE" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+          <path id="Path_3" d="M12.8333 10.083V15.583" stroke="#A8AAAE" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+          <path id="Path_4" d="M4.5835 6.41699L5.50016 17.417C5.50016 18.4295 6.32097 19.2503 7.3335 19.2503H14.6668C15.6794 19.2503 16.5002 18.4295 16.5002 17.417L17.4168 6.41699" stroke="#A8AAAE" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+          <path id="Path_5" d="M8.25 6.41667V3.66667C8.25 3.16041 8.66041 2.75 9.16667 2.75H12.8333C13.3396 2.75 13.75 3.16041 13.75 3.66667V6.41667" stroke="#A8AAAE" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+        </g>
+      </svg>
+    </div>
+  );
+};
+
+export const DotsVertical = () => {
+  return (
+    <div >
+      <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="10.9999" cy="10.9997" r="0.916667" stroke="#4B465C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+        <circle cx="10.9999" cy="10.9997" r="0.916667" stroke="white" stroke-opacity="0.2" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+        <circle cx="10.9999" cy="17.4167" r="0.916667" stroke="#4B465C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+        <circle cx="10.9999" cy="17.4167" r="0.916667" stroke="white" stroke-opacity="0.2" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+        <ellipse cx="10.9999" cy="4.58366" rx="0.916667" ry="0.916667" stroke="#4B465C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+        <ellipse cx="10.9999" cy="4.58366" rx="0.916667" ry="0.916667" stroke="white" stroke-opacity="0.2" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
+    </div>
+  );
+};
+
+export const Pencil = () => {
+  return (
+    <div >
+      <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <g id="pencil">
+          <path id="Path" d="M3.6665 18.3333H7.33317L16.9582 8.70829C17.9707 7.69576 17.9707 6.05414 16.9582 5.04162C15.9456 4.0291 14.304 4.0291 13.2915 5.04162L3.6665 14.6666V18.3333" stroke="#A8AAAE" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+          <path id="Path_2" d="M12.375 5.95801L16.0417 9.62467" stroke="#A8AAAE" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+        </g>
+      </svg>
+    </div>
+  );
+};
+
+export const HistoryIcon = () => {
+  return (
+    <div>
+      <svg width="28" height="27" viewBox="0 0 28 27" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M21.875 4.5V22.5H8.375C7.13236 22.5 6.125 21.4926 6.125 20.25V6.75C6.125 5.50736 7.13236 4.5 8.375 4.5H21.875Z" stroke="#B3B3B3" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M21.875 18H8.375C7.13236 18 6.125 19.0074 6.125 20.25" stroke="#B3B3B3" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M10.625 9H17.375" stroke="#B3B3B3" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
     </div>
   )

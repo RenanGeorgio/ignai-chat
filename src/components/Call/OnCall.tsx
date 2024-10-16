@@ -3,17 +3,16 @@ import { Call } from "@twilio/voice-sdk";
 
 import { useLoudness, useMuteWarning } from "../../hooks/call";
 import { KeypadButton } from "./KeypadButton";
+import { Timer } from "../timer";
 
 import "./OnCall.module.css";
 
 
 interface Props {
-  handleHangup: () => void
-  connection?: Call
-  children?: React.ReactNode
+  connection?: Call | null
 }
 
-export const OnCall: React.FC<Props> = ({ handleHangup }: Props) => {
+export const OnCall: React.FC<Props> = () => {
   const [muted, setMuted] = useState<boolean>(false);
 
   const [running, setRunning, loudness] = useLoudness();
@@ -26,21 +25,17 @@ export const OnCall: React.FC<Props> = ({ handleHangup }: Props) => {
   };
 
   const muteWarning = (
-    <p className="warning">Are you speaking? You are on mute!</p>
+    <p className="warning">Você está falando? Você está no mudo!</p>
   );
-
+  
   return (
     <>
+      <Timer />
       {showMuteWarning && muteWarning}
       <div className="call">
         <div className="call-options">
           <KeypadButton handleClick={handleMute} color={muted ? "red" : ""}>
             {muted ? "Unmute" : "Mute"}
-          </KeypadButton>
-        </div>
-        <div className="hang-up">
-          <KeypadButton handleClick={handleHangup} color="red">
-            Hang up
           </KeypadButton>
         </div>
       </div>

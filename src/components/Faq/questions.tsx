@@ -1,7 +1,11 @@
-import React, { useState } from "react";
-import { EditIcon, PesquisaIcon } from "../../assets/icons";
+import React from "react";
 
+import { EditIcon, PesquisaIcon } from "../../assets/icons";
 import styles from "./questions.module.css";
+
+interface QuestionsComponentsProps {
+  onSelectQuestion: (index: number) => void;
+}
 
 const questions = [
   'Como encontrar a 2° via do boleto?',
@@ -11,13 +15,7 @@ const questions = [
   'Qual o tempo máximo de espera do cliente?',
 ];
 
-const QuestionsComponents: React.FC = () => {
-  const [selected, setSelected] = useState<number | null>(null);
-
-  const handleSelect = (index: number) => {
-    setSelected(index);
-  };
-
+const QuestionsComponents: React.FC<QuestionsComponentsProps> = ({ onSelectQuestion }) => {
   return (
     <div className={styles.message}>
       <div className={styles.title}>
@@ -33,16 +31,16 @@ const QuestionsComponents: React.FC = () => {
         <div className={styles.menu}>
           <div className={styles.hoje}>Perguntas em destaque</div>
           <div className={styles.list}>
-            {questions?.map((questions, index) => (
+            {questions?.map((question, index) => (
               <div
                 key={index}
                 className={styles.menuItemQuestion}
-                onClick={() => handleSelect(index)}
+                onClick={() => onSelectQuestion(index)}
               >
                 <span role="img" aria-label="chat" className={styles.chatIcon}>
                   💬
                 </span>
-                <div>{questions}</div>
+                <div>{question}</div>
               </div>
             ))}
           </div>
