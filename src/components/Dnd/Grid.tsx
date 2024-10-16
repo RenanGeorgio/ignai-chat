@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC } from "react";
 
 type GridProps = {
     columns: number;
@@ -21,6 +21,6 @@ const Grid: FC<GridProps> = ({ children, columns }) => {
             {children}
         </div>
     );
-};
+}
 
 export default Grid;
