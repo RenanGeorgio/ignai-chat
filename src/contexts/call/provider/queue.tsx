@@ -5,10 +5,10 @@ import { useUser } from "../../user/hooks";
 import { useAppDispatch, useAppSelector } from "../../../store/hooks";
 import { addConversationReference, updateConversation } from "../../../store/conversations/actions";
 import { selectQueueConversation } from "../../../store/conversations/slice";
-import { dequeueCall, NotyfyDequeueEvent, postCall } from "../../../controllers/call";
+import { dequeueCall, NotyfyDequeueEvent } from "../../../controllers/call";
 
 import { DequeueCurrentDeviceToCall } from "../types";
-import { CONVERSATION_CHANNEL, EnqueueStreamItem, NotifyEnqueue, Obj, USER_STATE } from "../../../types";
+import { CONVERSATION_CHANNEL, NotifyEnqueue, USER_STATE } from "../../../types";
 import { ConversationDTO, EnqueueDTO } from "../../../store/types";
 import { COMM_STATE } from "../../communication/types";
 
