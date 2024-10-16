@@ -284,13 +284,13 @@ const QueueComponent: FunctionComponent<QueueItemsType> = () => {
           </Popper>
         </Stack>
       </div>
-      <div className={styles.queueContacts}>
+      {/* <div className={styles.queueContacts}> */}
         <QueueItems
           queueItemsLabel={labels}
           selectItem={handleItemSelect}
           manual={manual}
         />
-      </div>
+      {/* </div> */}
       <footer className={styles.footerFila} />
     </div>
   );

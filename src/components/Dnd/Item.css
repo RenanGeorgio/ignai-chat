@@ -1,0 +1,24 @@
+.card-header {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.card-footer {
+  font-size: 14px;
+  color: #555;
+  margin-top: 8px;
+}
+
+.card-footer time {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.card-id {
+  font-size: 12px;
+  color: #888;
+  background-color: #f5f5f5;
+  padding: 4px 8px;
+  border-radius: 4px;
+}
