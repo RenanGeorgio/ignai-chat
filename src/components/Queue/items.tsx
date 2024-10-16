@@ -11,15 +11,13 @@ import {
   type DragStartEvent,
 } from "@dnd-kit/core";
 import { arrayMove, SortableContext, rectSortingStrategy } from "@dnd-kit/sortable";
-import { useDispatch } from "react-redux";
 import days from "dayjs";
         
 import Grid from "../Dnd/Grid";
 import SortableItem from "../Dnd/SortableItem";
 import Item from "../Dnd/Item";
-import { TelegramIcon } from "../../components/Icons";
+import { TelegramIcon } from "../icons";
 // import { updateConversation } from "../../store/conversations/actions";
-import { CHAT_STATUS } from "../../contexts/chat/types";
 import { QueueItemLabel } from "../../types";
 
 import styles from "./items.module.css";
@@ -39,7 +37,7 @@ export const QueueItems: FunctionComponent<QueueItemsType> = ({
   const [queueItems, setQueueItems] = useState<QueueItemLabel[]>(queueItemsLabel);
 
   const currentItemRef = useRef<QueueItemLabel | undefined>(undefined);
-  const dispatch = useDispatch();
+
   const setSelectedQueueItem = (queueItem: QueueItemLabel) => {
     currentItemRef.current = queueItem;
     selectItem(queueItem);
@@ -78,15 +76,17 @@ export const QueueItems: FunctionComponent<QueueItemsType> = ({
     const { active, over } = event;
 
     if (active.id !== over?.id) {
-      setQueueItems((items) => {
-        const oldIndex = items.findIndex((item) => item.id === active.id);
-        const newIndex = items.findIndex((item) => item.id === over!.id);
+      setQueueItems((items: QueueItemLabel[]) => {
+        const oldIndex = items.findIndex((item) => item?.id === active?.id);
+        const newIndex = items.findIndex((item) => item?.id === over!.id);
+
         const newArray = arrayMove(items, oldIndex, newIndex);
+
         return newArray;
       });
+
       // console.log(queueItems)
       // dispatch(updateConversation(queueItems));
-     
     }
 
     setActiveId(null);
@@ -116,33 +116,16 @@ export const QueueItems: FunctionComponent<QueueItemsType> = ({
       <SortableContext items={queueItems} strategy={rectSortingStrategy}>
         <Grid columns={3}>
           <div className={styles.contactContainer}>
-            {queueItems?.map((queueItem: QueueItemLabel, index: number) =>
-              queueItem.status === 'on' || queueItem.status === CHAT_STATUS.ACTIVE ? (
-	              <SortableItem
-                  key={queueItem.id}
-                  id={queueItem.id.toString()}
-                  date={days(queueItem.startTime).format('HH:mm - DD/MM/YYYY')}
-                  platform={selectedIcon(queueItem.emoji)}
-                  // index={index}
-                  // handleClick={() => handleClick(index, queueItem)}
-                 ></SortableItem>
-                <div
-                  key={index}
-                  className={`${styles.contactItem} ${
-                    currentItemRef.current?.id === queueItem.id ? styles.selected : ''
-                  }`}
-                  onClick={() => handleClick(index, queueItem)}
-                 >
-                   <div className={styles.statusContainer}>
-                     <span className={styles.emoji}>{queueItem.emoji}</span>
-                     <p className={styles.p}>{queueItem.id}</p>
-                     <p className={styles.incio}>{queueItem.startTime}</p>
-                     {queueItem.status && <p className={styles.statusOn}>{queueItem.status}</p>}
-                     {queueItem.waitTime && <p className={styles.espera}>{queueItem.waitTime}</p>}
-                   </div>
-                </div>
-              ) : null,
-            )}
+            {queueItems?.map((queueItem: QueueItemLabel, index: number) => (
+              <SortableItem
+                key={queueItem.id}
+                id={queueItem.id.toString()}
+                date={days(queueItem.startTime).format('HH:mm - DD/MM/YYYY')}
+                platform={selectedIcon(queueItem.emoji)}
+                index={index}
+                handleClick={() => handleClick(index, queueItem)}
+              ></SortableItem>
+            ))}
          </div>
         </Grid>
       </SortableContext>
