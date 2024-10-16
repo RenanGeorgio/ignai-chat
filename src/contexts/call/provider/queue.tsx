@@ -120,7 +120,7 @@ export const QueueProvider = ({ workerStatus, setWorkerStatus, children }: Queue
 
     try {
       console.log("queue parte 2")
-      eventSource.current = new EventSource(`${process.env.REACT_APP_CALL_API}/events?userId=${user._id}`);
+      eventSource.current = new EventSource(`${process.env.REACT_APP_CALL_API}/events?userId=${user._id}&company=${user.companyId}`);
 
       if (eventSource.current) {
         console.log("queue parte 3")
