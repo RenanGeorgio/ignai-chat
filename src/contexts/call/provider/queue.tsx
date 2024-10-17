@@ -127,18 +127,21 @@ export const QueueProvider = ({ workerStatus, setWorkerStatus, children }: Queue
         eventSource.current.onmessage = (event: any) => {
           console.log('event:', event);
           const receivedEventData = JSON.parse(event.data);
-          console.log('New event received:', receivedEventData);
-          const parsedEventData = JSON.parse(receivedEventData.data);
 
-          console.log('Parsed event data:', parsedEventData);
+          if (receivedEventData) {
+            console.log('New event received:', receivedEventData);
+            const parsedEventData = JSON.parse(receivedEventData.data);
 
-          const newEvent = {
-            ...receivedEventData, data: parsedEventData
-          }
-          console.log('FowardedEvent:', newEvent);
+            console.log('Parsed event data:', parsedEventData);
 
-          if (newEvent) {
-            forwardEnqueueCall(newEvent);
+            const newEvent = {
+              ...receivedEventData, data: parsedEventData
+            }
+            console.log('FowardedEvent:', newEvent);
+
+            if (newEvent) {
+              forwardEnqueueCall(newEvent);
+            }
           }
         };
 
