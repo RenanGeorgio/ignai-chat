@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Box, Typography } from '@mui/material';
+import React, { useState, useEffect } from "react";
+import { Box, Typography } from "@mui/material";
 
 const Footer: React.FC = () => {
   const [isOnline, setIsOnline] = useState(navigator.onLine);
@@ -44,6 +44,6 @@ const Footer: React.FC = () => {
       </Typography>
     </Box>
   );
-};
+}
 
 export default Footer;
