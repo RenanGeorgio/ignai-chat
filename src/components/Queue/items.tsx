@@ -122,7 +122,6 @@ export const QueueItems: FunctionComponent<QueueItemsType> = ({
                 id={queueItem.id.toString()}
                 date={days(queueItem.startTime).format('HH:mm - DD/MM/YYYY')}
                 platform={selectedIcon(queueItem.emoji)}
-                index={index}
                 handleClick={() => handleClick(index, queueItem)}
               ></SortableItem>
             ))}
