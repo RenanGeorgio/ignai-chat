@@ -20,6 +20,7 @@ module.exports = {
     'unused-imports/no-unused-imports': 'error',
     'react/react-in-jsx-scope': 'off',
     '@typescript-eslint/ban-ts-comment': 'off',
+    "react/prop-types": "off"
   },
   settings: {
     'import/parsers': {
