@@ -1,7 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
+import { persistReducer, persistStore } from "redux-persist";
+import storage from "redux-persist/lib/storage";
 import { conversationsReducer } from "./conversations/slice";
-import storage from 'redux-persist/lib/storage';
-import { persistReducer, persistStore } from 'redux-persist';
 
 const key = localStorage.getItem('DocsGPTApiKey');
 const prompt = localStorage.getItem('DocsGPTPrompt');
