@@ -8,7 +8,7 @@ import { selectQueueConversation } from "../../../store/conversations/slice";
 import { dequeueCall, NotyfyDequeueEvent } from "../../../controllers/call";
 
 import { DequeueCurrentDeviceToCall } from "../types";
-import { CONVERSATION_CHANNEL, NotifyEnqueue, USER_STATE } from "../../../types";
+import { CONVERSATION_CHANNEL, NotifyDisconnectEnqueue, NotifyEnqueue, USER_STATE } from "../../../types";
 import { ConversationDTO, EnqueueDTO } from "../../../store/types";
 import { COMM_STATE } from "../../communication/types";
 
@@ -112,6 +112,17 @@ export const QueueProvider = ({ workerStatus, setWorkerStatus, children }: Queue
     }
   };
 
+  const handleClientDisconnect = (data: NotifyDisconnectEnqueue) => {
+    const callSid = data.data.CallSid;
+
+    // @ts-ignore
+    const found: EnqueueDTO | undefined = queueConversations.find((item: ConversationDTO) => item.conversation.data.data.CallSid == callSid);
+
+    if (found != undefined) {
+      dispatch(updateConversation(found.id));
+    }
+  };
+
   useEffect(() => {
     console.log("queue parte 1")
     if ((twilioToken == undefined) || (user == undefined)) {
@@ -144,6 +155,23 @@ export const QueueProvider = ({ workerStatus, setWorkerStatus, children }: Queue
             }
           }
         };
+
+        eventSource.current.addEventListener('userdisconnect', (event: any) => {
+          console.log('event:', event);
+          const receivedEventData = JSON.parse(event.data);
+
+          if (receivedEventData) {
+            const parsedEventData = JSON.parse(receivedEventData.data);
+
+            const newEvent = {
+              ...receivedEventData, data: parsedEventData
+            }
+
+            if (newEvent) {
+              handleClientDisconnect(newEvent);
+            }
+          }
+        });
 
         eventSource.current.onerror = (err: any) => {
           console.error("EventSource failed:", err);

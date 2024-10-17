@@ -42,6 +42,21 @@ export type NotifyEnqueue = {
   data: Obj
 }
 
+export type NotifyData = {
+  CallSid: string
+  Caller: string | undefined
+  From: string | undefined
+  To: string | undefined
+  QueueSid: string
+  QueueTime: string
+}
+
+export type NotifyDisconnectEnqueue = {
+  agentName: string
+  company: string
+  data: NotifyData
+}
+
 export interface ConsumersQueue {
   queueId: string | number
   callData: Call
