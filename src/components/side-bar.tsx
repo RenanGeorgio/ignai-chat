@@ -1,6 +1,6 @@
 import { FunctionComponent } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { FileTextIcon, MessageCircleIcon, SettingIcon, IgnaiIcon, DashboardIcon, ConfigIcon, HistoryIcon } from "../assets/icons";
+import { MessageCircleIcon, SettingIcon, IgnaiIcon, DashboardIcon, HistoryIcon } from "../assets/icons";
 
 import "../styles/sidebar.css";
 
@@ -20,24 +20,14 @@ const SideBar: FunctionComponent = () => {
               <DashboardIcon />
             </div>
           </Link>
-          <Link className="link" to="/">
-            <div className={`menu-item ${currentPath === "/" ? "menu-item-active" : ""}`}>
-              <MessageCircleIcon />
-            </div>
-          </Link>
-          <Link className="link" to="/user">
-            <div className={`menu-item ${currentPath === "/user" ? "menu-item-active" : ""}`}>
+          <Link className="link" to="/configuration">
+            <div className={`menu-item ${currentPath === "/configuration" ? "menu-item-active" : ""}`}>
               <SettingIcon />
             </div>
           </Link>
-          <Link className="link" to="/faq">
-            <div className={`menu-item ${currentPath === "/faq" ? "menu-item-active" : ""}`}>
-              <FileTextIcon />
-            </div>
-          </Link>
-          <Link className="link" to="/configuration">
-            <div className={`menu-item ${currentPath === "/configuration" ? "menu-item-active" : ""}`}>
-              <ConfigIcon />
+          <Link className="link" to="/">
+            <div className={`menu-item ${currentPath === "/" ? "menu-item-active" : ""}`}>
+              <MessageCircleIcon />
             </div>
           </Link>
           <Link className="link" to="/historico">
