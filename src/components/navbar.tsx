@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import React, { useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 import { FileTextIcon, UserIcon, MessageCircleIcon } from "../assets/icons";
+
 import "../styles/navbar.css";
 
 const Navbar: React.FC = () => {
   const location = useLocation();
   const currentPath = location.pathname;
+  
   const [showMenu, setShowMenu] = useState(false);
 
   const toggleMenu = () => {
@@ -38,6 +40,6 @@ const Navbar: React.FC = () => {
       </div>
     </div>
   );
-};
+}
 
 export default Navbar;
