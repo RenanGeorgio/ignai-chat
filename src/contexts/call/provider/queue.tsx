@@ -36,7 +36,7 @@ export const QueueProvider = ({ workerStatus, setWorkerStatus, children }: Queue
 
     setUserState(USER_STATE.ON_CALL);
     setWorkerStatus(COMM_STATE.BUSY, CONVERSATION_CHANNEL.CALL);
-    
+
     try {
       const value: NotifyEnqueue = currentConversationCall?.currentConversation?.data;
 
@@ -55,11 +55,11 @@ export const QueueProvider = ({ workerStatus, setWorkerStatus, children }: Queue
         console.log(response);
 
         setUserState(USER_STATE.READY);
-        setWorkerStatus(COMM_STATE.READY);   
+        setWorkerStatus(COMM_STATE.READY);
       }
     } catch (error: any) {
       setUserState(USER_STATE.ERROR);
-      setWorkerStatus(COMM_STATE.READY); 
+      setWorkerStatus(COMM_STATE.READY);
 
       throw new Error(error);
     }
@@ -93,14 +93,14 @@ export const QueueProvider = ({ workerStatus, setWorkerStatus, children }: Queue
     dispatch(addConversationReference(com));
   }
 
-  const handleIndexChange = (index: string | number) => { 
+  const handleIndexChange = (index: string | number) => {
     if (workerStatus !== COMM_STATE.BUSY) {
       // @ts-ignore
       const found: EnqueueDTO | undefined = queueConversations.find((item: ConversationDTO) => item?.id == index);
 
       if (found != undefined) {
-        dispatch(updateConversation(index)); 
-        
+        dispatch(updateConversation(index));
+
         const comm: DequeueCurrentDeviceToCall = {
           currentConversation: found?.conversation
         };
@@ -125,11 +125,23 @@ export const QueueProvider = ({ workerStatus, setWorkerStatus, children }: Queue
       if (eventSource.current) {
         console.log("queue parte 3")
         eventSource.current.onmessage = (event: any) => {
-          const data = JSON.parse(event.data);
-          console.log('New event received:', data);
+          console.log('event:', event);
+          const receivedEventData = JSON.parse(event.data);
 
-          if (data) {
-            forwardEnqueueCall(data?.data);
+          if (receivedEventData) {
+            console.log('New event received:', receivedEventData);
+            const parsedEventData = JSON.parse(receivedEventData.data);
+
+            console.log('Parsed event data:', parsedEventData);
+
+            const newEvent = {
+              ...receivedEventData, data: parsedEventData
+            }
+            console.log('FowardedEvent:', newEvent);
+
+            if (newEvent) {
+              forwardEnqueueCall(newEvent);
+            }
           }
         };
 
