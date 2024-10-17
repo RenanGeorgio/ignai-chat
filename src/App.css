@@ -2,37 +2,93 @@
   font-family: 'Poppins', sans-serif;
   font-weight: 400;
   width: 100%;
-  max-height: 100vh;
+  height: 100vh;
   position: relative;
-  border-radius: 13xl;
-  background-color: black;
+  display: flex;
+  flex-direction: column;
+}
+
+.navbar {
+  display: flex;
+  right: 0;
+  height: 50px; 
+  background-color: #333; 
+  color: white;
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  z-index: 1;
+  margin-bottom: 50px;
+}
+
+.main-content {
+  flex: 1;
+  height: 100vh;
+  width: 100%;
   overflow: hidden;
   display: flex;
   flex-direction: row;
-  align-items: start;
-  justify-content: start;
-  line-height: normal;
-  letter-spacing: normal;
 }
 
 .sidebar {
-  height: 81.25rem;
+  height: 100%;
   width: 6.25rem;
   display: flex;
+  flex-direction: column;
   flex-direction: row;
   align-items: start;
   justify-content: start;
   margin-top: 0px;
   margin-left: -15px;
+  z-index: 2;
 }
 
-.App {
-  text-align: center;
+.footer { 
+  height: 40px;
+  background-color: #333; 
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.link {
+  text-decoration: none;
+  color: inherit;
+  margin-bottom: 10px;
+}
+
+.menu-item {
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+}
+
+.menu-item-active {
+  background-color: #444;
+}
+
+.dropdown-menu {
+  position: absolute;
+  background-color: white;
+  color: black;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+}
+
+.dropdown-item {
+  padding: 5px 10px;
+  cursor: pointer;
+  text-decoration: none;
+  color: black;
+}
+
+.dropdown-item:hover {
+  background-color: #eee;
 }
 
 @media (prefers-reduced-motion: no-preference) {
