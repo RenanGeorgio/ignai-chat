@@ -43,13 +43,13 @@ export const QueueItems: FunctionComponent<QueueItemsType> = ({
     selectItem(queueItem);
   };
 
-  const handleClick = (index: number, queueItem: QueueItemLabel) => {
+  /*const handleClick = (index: number, queueItem: QueueItemLabel) => {
     console.log('Clicked index:', index); // TO-DO: Usar para dar highlight no item
 
     if (manual) {
       setSelectedQueueItem(queueItem);
     }
-  };
+  };*/
 
   useEffect(() => {
     if (!manual) {
@@ -116,13 +116,13 @@ export const QueueItems: FunctionComponent<QueueItemsType> = ({
       <SortableContext items={queueItems} strategy={rectSortingStrategy}>
         <Grid columns={3}>
           <div className={styles.contactContainer}>
-            {queueItems?.map((queueItem: QueueItemLabel, index: number) => (
+            {queueItems?.map((queueItem: QueueItemLabel, _index: number) => (
               <SortableItem
                 key={queueItem.id}
                 id={queueItem.id.toString()}
                 date={days(queueItem.startTime).format('HH:mm - DD/MM/YYYY')}
                 platform={selectedIcon(queueItem.emoji)}
-                handleClick={() => handleClick(index, queueItem)}
+                //handleClick={() => handleClick(index, queueItem)}
               ></SortableItem>
             ))}
          </div>
