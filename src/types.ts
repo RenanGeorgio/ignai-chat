@@ -36,7 +36,7 @@ export type Chat = {
 }
 
 export type NotifyEnqueue = {
-  agentName: string
+  agentName?: string
   company: string
   queue: string
   data: Obj

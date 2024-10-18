@@ -5,10 +5,10 @@ import { useUser } from "../../user/hooks";
 import { useAppDispatch, useAppSelector } from "../../../store/hooks";
 import { addConversationReference, updateConversation } from "../../../store/conversations/actions";
 import { selectQueueConversation } from "../../../store/conversations/slice";
-import { dequeueCall, NotyfyDequeueEvent } from "../../../controllers/call";
+import { dequeueCall, listCalls, NotyfyDequeueEvent } from "../../../controllers/call";
 
 import { DequeueCurrentDeviceToCall } from "../types";
-import { CONVERSATION_CHANNEL, NotifyDisconnectEnqueue, NotifyEnqueue, USER_STATE } from "../../../types";
+import { CONVERSATION_CHANNEL, NotifyDisconnectEnqueue, NotifyEnqueue, Obj, USER_STATE } from "../../../types";
 import { ConversationDTO, EnqueueDTO } from "../../../store/types";
 import { COMM_STATE } from "../../communication/types";
 
@@ -41,7 +41,7 @@ export const QueueProvider = ({ workerStatus, setWorkerStatus, children }: Queue
       const value: NotifyEnqueue = currentConversationCall?.currentConversation?.data;
 
       const notyfy: NotyfyDequeueEvent = {
-        agentName: value.agentName,
+        agentName: value?.agentName as string,
         company: value.company,
         From: value.data.From,
         To: value.data.To,
@@ -64,6 +64,32 @@ export const QueueProvider = ({ workerStatus, setWorkerStatus, children }: Queue
       throw new Error(error);
     }
   };
+
+  const populateQueue = (info: Obj) => {
+    const currentDate = (Date.now()).toString();
+
+    const id = queueConversations.length;
+
+    const com: EnqueueDTO = {
+      id: id,
+      conversation: {
+        queueId: id,
+        data: info as NotifyEnqueue,
+        updatedAt: currentDate,
+        createdAt: info.data.date_created,
+      },
+      label: {
+        emoji: CONVERSATION_CHANNEL.CALL,
+        id: id,
+        startTime: currentDate,
+        status: 'on',
+        waitTime: info.data?.QueueTime,
+      },
+    };
+
+    // @ts-ignore
+    dispatch(addConversationReference(com));
+  }
 
   const forwardEnqueueCall = (data: NotifyEnqueue) => {
     console.log("queue parte 4")
@@ -187,6 +213,23 @@ export const QueueProvider = ({ workerStatus, setWorkerStatus, children }: Queue
       setUserState(USER_STATE.OFFLINE);
     }
   }, [user, twilioToken]);
+
+  // TO-DO: se certificar de que apenas seja feita uma chamada
+  useEffect(() => {
+    const getQueues = async (id: string) => {
+      const response = await listCalls(id);
+
+      if (response) {
+        const members: Obj[] = response.members;
+
+        members.forEach((member: Obj) => {
+          populateQueue(member);
+        });
+      }
+    }
+
+    getQueues(user.companyId);
+  }, [user]);
 
   return (
     <QueueContext.Provider

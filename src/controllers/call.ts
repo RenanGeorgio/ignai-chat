@@ -83,3 +83,27 @@ export async function dequeueCall(body: NotyfyDequeueEvent, queue: string) {
     return null;
   }
 }
+
+export async function listCalls(company: string) {
+  try {
+    const response = await fetch(`${baseURL}/queue/clients?company=${company}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        //Authorization: `Bearer ${auth}`,
+      }
+    });
+    
+    if (response) {
+      console.log(response);
+      const value = await response.json();
+      
+      return value;
+    }
+   
+    return null;
+  } catch (error: any) {
+    console.log(error);
+    return null;
+  }
+}
