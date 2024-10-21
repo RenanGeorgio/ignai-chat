@@ -114,7 +114,7 @@ export const QueueItems: FunctionComponent<QueueItemsType> = ({
       onDragCancel={handleDragCancel}
     >
       <SortableContext items={queueItems} strategy={rectSortingStrategy}>
-        <Grid columns={3}>
+        <Grid columns={1}>
           <div className={styles.contactContainer}>
             {queueItems?.map((queueItem: QueueItemLabel, _index: number) => (
               <SortableItem
