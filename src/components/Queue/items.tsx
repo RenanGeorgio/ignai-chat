@@ -17,7 +17,6 @@ import Grid from "../Dnd/Grid";
 import SortableItem from "../Dnd/SortableItem";
 import Item from "../Dnd/Item";
 import { TelegramIcon } from "../icons";
-// import { updateConversation } from "../../store/conversations/actions";
 import { QueueItemLabel } from "../../types";
 
 import styles from "./items.module.css";
