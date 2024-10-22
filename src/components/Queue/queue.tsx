@@ -17,6 +17,7 @@ import { useAppSelector } from "../../store/hooks";
 import { useQueue } from "../../contexts/call/hooks";
 import { useChat } from "../../contexts/chat/hooks";
 import { useTime } from "../../contexts/time/hooks";
+import { updateChat } from "../../controllers/chat";
 import { QueueItems } from "./items";
 import { checkChatStatus } from "../../helpers/checkStatus";
 import { secondsToTime } from "../../helpers/timeConverter";
@@ -55,6 +56,8 @@ const QueueComponent: FunctionComponent<QueueItemsType> = () => {
     if (blockSend) {
       // TO-DO: olhar para o emoji -> identificar meio de comunicação do consumidor
       if (currentItem) {
+        console.log('handleStartWork');
+        updateChat(`/chat/${currentItem.id}/status`, { inProgress: true });
         if (currentItem?.emoji == CONVERSATION_CHANNEL.CALL) {
           handleIndexChange(currentItem.id); // TO-DO: confirmar atendimento - Bloquear alterações do item
         } else {

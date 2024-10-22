@@ -12,7 +12,7 @@ import {
 } from "@dnd-kit/core";
 import { arrayMove, SortableContext, rectSortingStrategy } from "@dnd-kit/sortable";
 import days from "dayjs";
-        
+
 import Grid from "../Dnd/Grid";
 import SortableItem from "../Dnd/SortableItem";
 import Item from "../Dnd/Item";
@@ -38,17 +38,18 @@ export const QueueItems: FunctionComponent<QueueItemsType> = ({
   const currentItemRef = useRef<QueueItemLabel | undefined>(undefined);
 
   const setSelectedQueueItem = (queueItem: QueueItemLabel) => {
+    console.log('Selected item:', queueItem);
     currentItemRef.current = queueItem;
     selectItem(queueItem);
   };
 
-  /*const handleClick = (index: number, queueItem: QueueItemLabel) => {
-    console.log('Clicked index:', index); // TO-DO: Usar para dar highlight no item
+  const handleClick = (queueItem: QueueItemLabel) => {
+    console.log('Clicked index:', queueItem); // TO-DO: Usar para dar highlight no item
 
     if (manual) {
       setSelectedQueueItem(queueItem);
     }
-  };*/
+  };
 
   useEffect(() => {
     if (!manual) {
@@ -65,7 +66,17 @@ export const QueueItems: FunctionComponent<QueueItemsType> = ({
   }, [queueItemsLabel]);
 
   const [activeId, setActiveId] = useState<string | null>(null);
-  const sensors = useSensors(useSensor(MouseSensor), useSensor(TouchSensor));
+  const sensors = useSensors(useSensor(MouseSensor, {
+    activationConstraint: {
+      delay: 250,
+      tolerance: 5
+    }
+  }), useSensor(TouchSensor, {
+    activationConstraint: {
+      delay: 250,
+      tolerance: 5
+    }
+  }));
 
   const handleDragStart = useCallback((event: DragStartEvent) => {
     setActiveId(event.active.id as string);
@@ -121,13 +132,13 @@ export const QueueItems: FunctionComponent<QueueItemsType> = ({
                 id={queueItem.id.toString()}
                 date={days(queueItem.startTime).format('HH:mm - DD/MM/YYYY')}
                 platform={selectedIcon(queueItem.emoji)}
-                //handleClick={() => handleClick(index, queueItem)}
-              ></SortableItem>
+                onClick={() => handleClick(queueItem)}
+              />
             ))}
-         </div>
+          </div>
         </Grid>
       </SortableContext>
-      <DragOverlay adjustScale style={{ transformOrigin: '0 0 ' }}>
+      <DragOverlay adjustScale style={{ transformOrigin: '0 0 ' }} >
         {activeId ? <Item id={activeId} isDragging /> : null}
       </DragOverlay>
     </DndContext>
