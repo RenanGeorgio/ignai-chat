@@ -1,5 +1,5 @@
-import { getToken } from '../helpers/getClient';
-import { ChatApi } from '../services';
+import { ChatApi } from "../services";
+import { getToken } from "../helpers/getClient";
 
 export async function getChat(basePath: string) {
   const token = getToken;
