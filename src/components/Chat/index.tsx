@@ -1,14 +1,15 @@
-import React, { useState } from "react";
-import { TextField } from "@mui/material";
+import React, { useEffect, useState } from 'react';
+import { TextField } from '@mui/material';
 
 // import { useUser } from "../../contexts/user/hooks";
-import { useChat, useFetchRecipient } from "../../contexts/chat/hooks";
-import ChatMessage from "./ChatMessage";
-import { WhatsAppIcon } from "../../assets/icons";
-import { Message } from "../../types";
+import { useChat, useFetchRecipient } from '../../contexts/chat/hooks';
+import ChatMessage from './ChatMessage';
+import { WhatsAppIcon } from '../../assets/icons';
+import { Message } from '../../types';
 
-import styles from "./chatbox.module.css";
-import { useChatScroll } from "../../hooks/useChatScroll";
+import styles from './chatbox.module.css';
+import { useChatScroll } from '../../hooks/useChatScroll';
+import { updateChat } from '@controllers/chat';
 
 const userMock = {
   _id: '65bbe0359f84da3af601f373',
@@ -49,6 +50,10 @@ const ChatComponent: React.FC = () => {
       );
     }
   };
+
+  useEffect(() => {
+    updateChat(`/chat/${currentChat?._id}/agent`, { assignedAgent: user._id });
+  }, []);
 
   return (
     <div className={styles.conversation}>

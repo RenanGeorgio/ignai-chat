@@ -25,6 +25,7 @@ import { CONVERSATION_CHANNEL, QueueItemLabel } from "../../types";
 import { ConversationDTO } from "../../store/types";
 
 import styles from "./queue.module.css";
+import { updateChat } from "../../controllers/chat";
 
 export type QueueItemsType = {
   children?: React.ReactNode;
@@ -55,6 +56,8 @@ const QueueComponent: FunctionComponent<QueueItemsType> = () => {
     if (blockSend) {
       // TO-DO: olhar para o emoji -> identificar meio de comunicação do consumidor
       if (currentItem) {
+        console.log('handleStartWork');
+        updateChat(`/chat/${currentItem.id}/status`, { inProgress: true });
         if (currentItem?.emoji == CONVERSATION_CHANNEL.CALL) {
           handleIndexChange(currentItem.id); // TO-DO: confirmar atendimento - Bloquear alterações do item
         } else {

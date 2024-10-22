@@ -8,6 +8,7 @@ export type ItemProps = HTMLAttributes<HTMLDivElement> & {
   isDragging?: boolean;
   date?: string;
   platform?: string | JSX.Element;
+  onClick?: (id: string) => void;
 };
 
 const Item = forwardRef<HTMLDivElement, ItemProps>(
