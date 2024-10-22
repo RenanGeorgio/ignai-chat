@@ -77,18 +77,6 @@
   align-items: flex-start;
   justify-content: flex-start;
 }
-.queueContacts {
-  flex: 1;
-  border-radius: var(--br-5xl);
-  background-color: var(--color-silver-200);
-  flex-direction: column;
-  padding: var(--padding-5xs) var(--padding-10xs) var(--padding-12xl)
-    var(--padding-mini);
-  box-sizing: border-box;
-  gap: var(--gap-2xs);
-  min-width: 9.875rem;
-  overflow-y: auto; 
-}
 .queueHeadings {
   align-self: stretch;
   flex-direction: row;
@@ -473,7 +461,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
-  justify-content: space-between; 
+  justify-content: flex-start; 
 }
 .queueContactStatuses {
   display: flex;

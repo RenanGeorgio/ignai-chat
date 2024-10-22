@@ -17,7 +17,6 @@ import Grid from "../Dnd/Grid";
 import SortableItem from "../Dnd/SortableItem";
 import Item from "../Dnd/Item";
 import { TelegramIcon } from "../icons";
-// import { updateConversation } from "../../store/conversations/actions";
 import { QueueItemLabel } from "../../types";
 
 import styles from "./items.module.css";
@@ -114,7 +113,7 @@ export const QueueItems: FunctionComponent<QueueItemsType> = ({
       onDragCancel={handleDragCancel}
     >
       <SortableContext items={queueItems} strategy={rectSortingStrategy}>
-        <Grid columns={3}>
+        <Grid columns={1}>
           <div className={styles.contactContainer}>
             {queueItems?.map((queueItem: QueueItemLabel, _index: number) => (
               <SortableItem
