@@ -1,17 +1,17 @@
-import { FunctionComponent } from "react";
+import { FunctionComponent, useRef, useEffect } from "react";
 
-//import { useCommunication } from "../contexts/communication/hooks";
+import { useCommunication } from "../contexts/communication/hooks";
 import QueueComponent from "../components/Queue/queue";
 import TicketsComponent from "../components/Tickets/index";
-//import ChatComponent from "../components/Chat/index";
+import ChatComponent from "../components/Chat/index";
 import { Phone } from "../components/Call/Phone";
-//import Dashboard from "../components/Communication/Dashboard";
-//import { CONVERSATION_CHANNEL } from "../types";
+import Dashboard from "../components/Communication/Dashboard";
+import { CONVERSATION_CHANNEL } from "../types";
 
 import "../styles/chat.css";
 
 const Chat: FunctionComponent = () => {
-  /*const render = useRef<any>(undefined);
+  const render = useRef<any>(undefined);
   const { workerPlataform } = useCommunication();
 
   useEffect(() => {
@@ -22,7 +22,7 @@ const Chat: FunctionComponent = () => {
     } else {
       render.current = <ChatComponent />
     }
-  }, [workerPlataform]);*/
+  }, [workerPlataform]);
 
   return (
     <div className="dashboard">
@@ -35,7 +35,7 @@ const Chat: FunctionComponent = () => {
         <section className="content">
           <div className="container">
             <div className="separador">
-              <Phone />
+              {render.current}
             </div>
           </div>
         </section>

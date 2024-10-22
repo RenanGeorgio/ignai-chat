@@ -184,6 +184,12 @@ export const ChatProvider = ({ workerStatus, setWorkerStatus, children }: ChatPr
   }, [newMessage, socket.current]);
 
   useEffect(() => {
+    if (currentChat == null) {
+      setWorkerStatus(COMM_STATE.READY);
+    } else {
+      setWorkerStatus(COMM_STATE.BUSY, currentChat.origin.platform);
+    }
+
     console.log('currentChat updated:', currentChat);
   }, [currentChat]);
 
@@ -274,10 +280,6 @@ export const ChatProvider = ({ workerStatus, setWorkerStatus, children }: ChatPr
     getMessages();
   }, [currentChat]);
 
-  const updateCurrentChat = useCallback((chat: Chat | null) => {
-    setCurrentChat(chat);
-  }, []);
-
   useEffect(() => {
     if (!socket.current) {
       return;
@@ -328,6 +330,10 @@ export const ChatProvider = ({ workerStatus, setWorkerStatus, children }: ChatPr
     },
     [],
   );
+
+  const updateCurrentChat = useCallback((chat: Chat | null) => {
+    setCurrentChat(chat);
+  }, []);
 
   return (
     <ChatContext.Provider
