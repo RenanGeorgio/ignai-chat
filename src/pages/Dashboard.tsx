@@ -17,13 +17,23 @@ const Dashboard: FunctionComponent = () => {
         <TicketsDashboard />
       </div>
       <div className="bodyDashboard">
-        <PrevisionGraph />
-        <PercentageView />
-        <PieChartView />
+        <div>
+          <PrevisionGraph />
+        </div>
+        <div className="bodyPercentage">
+          <PercentageView />
+        </div>
+        <div className="bodyChart">
+          <PieChartView />
+        </div>
       </div>
       <div className="footerDashboard">
-        <TableDashboard />
-        <TicketSourceChart />
+        <div className="footerTable">
+          <TableDashboard />
+        </div>
+        <div className="footerTicket">
+          <TicketSourceChart />
+        </div>
       </div>
     </div>
   );

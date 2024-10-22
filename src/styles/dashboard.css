@@ -25,9 +25,19 @@
 
 .footerDashboard {
   display: flex; 
+  width: 90%;
+  margin-bottom: 15px;
   gap: 20px; 
   padding: 20px; 
   justify-content: flex-start; 
   align-items: flex-start; 
   flex-wrap: wrap; 
+}
+
+.bodyPercentage {
+  margin-left: 30px;
+}
+
+.bodyChart {
+  margin-left: -25px;
 }

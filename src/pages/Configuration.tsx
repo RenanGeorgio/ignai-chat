@@ -31,8 +31,12 @@ const Configuration: FunctionComponent = () => {
       </div>
       {activeTab === 'geral' ? (
         <div className="bodyConfig">
-          <FormColaborador />
-          <TableColaborador />
+          <div className="bodyForm">
+            <FormColaborador />
+          </div>
+          <div className="bodyTable">
+            <TableColaborador />
+          </div>
         </div>
       ) : (
         <div className="body2Config">
