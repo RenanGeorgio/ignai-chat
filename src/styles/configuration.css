@@ -50,6 +50,15 @@
   align-items: center; 
 }
 
+.bodyTable {
+  position: relative;
+  left: -20px;
+}
+
+.bodyForm {
+  margin-left: 20px;
+}
+
 .footerConfig { 
   margin-left: 50px;
   margin-bottom: 20px;
