@@ -17,6 +17,7 @@ import { useAppSelector } from "../../store/hooks";
 import { useQueue } from "../../contexts/call/hooks";
 import { useChat } from "../../contexts/chat/hooks";
 import { useTime } from "../../contexts/time/hooks";
+import { updateChat } from "../../controllers/chat";
 import { QueueItems } from "./items";
 import { checkChatStatus } from "../../helpers/checkStatus";
 import { secondsToTime } from "../../helpers/timeConverter";
@@ -25,7 +26,6 @@ import { CONVERSATION_CHANNEL, QueueItemLabel } from "../../types";
 import { ConversationDTO } from "../../store/types";
 
 import styles from "./queue.module.css";
-import { updateChat } from "../../controllers/chat";
 
 export type QueueItemsType = {
   children?: React.ReactNode;
