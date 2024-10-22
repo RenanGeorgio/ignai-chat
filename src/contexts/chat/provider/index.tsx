@@ -187,7 +187,8 @@ export const ChatProvider = ({ workerStatus, setWorkerStatus, children }: ChatPr
     if (currentChat == null) {
       setWorkerStatus(COMM_STATE.READY);
     } else {
-      setWorkerStatus(COMM_STATE.BUSY, currentChat.origin.platform as CONVERSATION_CHANNEL);
+      const plataform = currentChat.origin.platform as unknown;
+      setWorkerStatus(COMM_STATE.BUSY, plataform as CONVERSATION_CHANNEL);
     }
 
     console.log('currentChat updated:', currentChat);
