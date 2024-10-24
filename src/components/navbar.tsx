@@ -31,8 +31,8 @@ const Navbar: React.FC = () => {
           <UserIcon />
           {showMenu && (
             <div className="dropdown-menu">
-              <Link to="/profile" className="dropdown-item">Perfil do Usuário</Link>
-              <Link to="/help" className="dropdown-item">Help</Link>
+              <Link to="/user" className="dropdown-item">Perfil do Usuário</Link>
+              <Link to="/faq" className="dropdown-item">Help</Link>
               <Link to="/logout" className="dropdown-item">Deslogar</Link>
             </div>
           )}
