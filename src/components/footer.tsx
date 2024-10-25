@@ -22,12 +22,13 @@ const Footer: React.FC = () => {
       sx={{
         width: '100%',
         height: '40px', 
-        backgroundColor: '#202226', 
+        backgroundColor: '#000', 
         display: 'flex',
         alignItems: 'center',
-        justifyContent: 'center',
+        justifyContent: 'flex-start', 
         position: 'fixed',
         bottom: 0,
+        paddingLeft: '16px' 
       }}
     >
       <Box
@@ -37,6 +38,7 @@ const Footer: React.FC = () => {
           borderRadius: '50%',
           backgroundColor: isOnline ? 'green' : 'red',
           marginRight: '8px',
+          marginLeft: '10px'
         }}
       />
       <Typography variant="body2" color="white">

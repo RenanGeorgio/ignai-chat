@@ -32,15 +32,14 @@
 
 .sidebar {
   height: 100%;
-  width: 6.25rem;
+  width: 5rem;
   display: flex;
   flex-direction: column;
   flex-direction: row;
   align-items: start;
   justify-content: start;
   margin-top: 0px;
-  margin-left: -15px;
-  z-index: 2;
+  margin-left: 0px;
 }
 
 .footer { 

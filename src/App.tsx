@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Routes, Route } from "react-router-dom";
 import { Provider } from "react-redux";
 
@@ -17,7 +17,6 @@ import Navbar from "./components/navbar";
 import "./App.css";
 
 function App() {
-  const [expanded, setExpanded] = useState(false);
 
   return (
     <div className="app-container">
