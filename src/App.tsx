@@ -27,17 +27,17 @@ function App() {
               <Navbar />
             </div>
             <div className="main-content">
-              <div className="sidebar">
-                <SideBar />
+              <SideBar />
+              <div className="content">
+                <Routes>
+                  <Route path="/" element={<Chat />} />
+                  <Route path="/faq" element={<Faq />} />
+                  <Route path="/user" element={<User />} />
+                  <Route path="/dashboard" element={<Dashboard />} />
+                  <Route path="/configuration" element={<Configuration />} />
+                  <Route path="/historico" element={<Historico />} />
+                </Routes>
               </div>
-              <Routes>
-                <Route path="/" element={<Chat />} />
-                <Route path="/faq" element={<Faq />} />
-                <Route path="/user" element={<User />} />
-                <Route path="/dashboard" element={<Dashboard />} />
-                <Route path="/configuration" element={<Configuration />} />
-                <Route path="/historico" element={<Historico />} />
-              </Routes>
             </div>
             <Footer />
           </CommunicationProviders>

@@ -22,100 +22,16 @@
 }
 
 .main-content {
-  flex: 1;
-  height: 100vh;
-  width: 100%;
-  overflow: hidden;
+  flex: 1;  
   display: flex;
-  flex-direction: row;
 }
 
 .sidebar {
-  height: 100%;
-  width: 5rem;
-  display: flex;
-  flex-direction: column;
-  flex-direction: row;
-  align-items: start;
-  justify-content: start;
-  margin-top: 0px;
-  margin-left: 0px;
+  transition: width 0.3s ease;
 }
 
-.footer { 
-  height: 40px;
-  background-color: #333; 
-  color: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.link {
-  text-decoration: none;
-  color: inherit;
-  margin-bottom: 10px;
-}
-
-.menu-item {
-  padding: 10px;
-  cursor: pointer;
-  border-radius: 5px;
-  display: flex;
-  align-items: center;
-}
-
-.menu-item-active {
-  background-color: #444;
-}
-
-.dropdown-menu {
-  position: absolute;
-  background-color: white;
-  color: black;
-  padding: 10px;
-  border-radius: 5px;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-  z-index: 1000;
-}
-
-.dropdown-item {
-  padding: 5px 10px;
-  cursor: pointer;
-  text-decoration: none;
-  color: black;
-}
-
-.dropdown-item:hover {
-  background-color: #eee;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.content {
+  flex-grow: 1;
+  overflow-y: auto;
+  transition: margin-left 0.3s ease;
 }
