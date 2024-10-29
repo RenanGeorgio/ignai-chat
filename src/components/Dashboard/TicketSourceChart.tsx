@@ -38,7 +38,7 @@ const TicketSourceChart = () => {
         boxShadow: 3,
         padding: 2,
         borderRadius: 2,
-        maxWidth: '600px',
+        maxWidth: '590px',
         height: '380px',
         margin: '0 auto',
         cursor: 'pointer'
@@ -58,7 +58,7 @@ const TicketSourceChart = () => {
             {...chartSetting}
           />
         </Grid>
-        <Grid item xs={4}>
+        <Grid item xs={4} mt={5}>
           <Grid container spacing={1}>
             {legends.map((legend, index) => (
               <Grid item xs={6} key={index} display="flex" alignItems="center">
