@@ -25,6 +25,7 @@
   align-items: center;
   padding: 10px;
   position: relative;
+  margin-bottom: 12px;
 }
 
 .dropdown-menu {

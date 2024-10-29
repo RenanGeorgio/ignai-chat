@@ -14,7 +14,7 @@ const TableDashboard: React.FC = () => {
     <Box
       m={3}
       sx={{
-        width: 750,
+        width: 630,
         height: 380,
         margin: '0 auto',
         padding: '20px',

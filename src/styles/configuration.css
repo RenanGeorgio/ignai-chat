@@ -17,7 +17,7 @@
 .titleConfig {
   color: #000;
   font-weight: bold;
-  margin-left: 40px;
+  margin-left: 0px;
 }
 
 .buttonGroup {
@@ -48,19 +48,22 @@
   padding: 20px; 
   justify-content: space-between; 
   align-items: center; 
+  overflow: hidden;
 }
 
 .bodyTable {
   position: relative;
-  left: -20px;
+  left: 0px;
+  margin-right: 30px;
+  overflow-x: hidden;
 }
 
 .bodyForm {
-  margin-left: 20px;
+  margin-left: 0px;
 }
 
 .footerConfig { 
-  margin-left: 50px;
+  margin-left: 0px;
   margin-bottom: 20px;
   width: 450px;
 }
@@ -69,5 +72,5 @@
   display: flex;
   padding: 20px;
   width: 80%;
-  margin-left: 50px;
+  margin-left: 10px;
 }

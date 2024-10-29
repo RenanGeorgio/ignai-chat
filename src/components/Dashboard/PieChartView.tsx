@@ -10,7 +10,7 @@ const PieChartView: React.FC = () => {
   ];
 
   return (
-    <div style={{ margin: '20px', height: '320px', width: '300px', backgroundColor: '#fff',   boxShadow: '0px 0px 8px rgba(0, 0, 0, 0.1)', borderRadius: '10px', cursor: 'pointer' }}>
+    <div style={{ margin: '20px', height: '325px', width: '300px', backgroundColor: '#fff',   boxShadow: '0px 0px 8px rgba(0, 0, 0, 0.1)', borderRadius: '10px', cursor: 'pointer' }}>
       <h3 style={{ margin: 'auto', position:'relative', top:'10px', marginBottom: '-5px', textAlign: 'left', marginLeft: '10px' }}>Tempo médio</h3>
       <p style={{ fontSize: '14px', color: 'gray', marginBottom: '-25px', textAlign: 'left', marginLeft: '10px' }}>
         Média mensal: 56s
