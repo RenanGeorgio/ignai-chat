@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Routes, Route } from "react-router-dom";
 import { Provider } from "react-redux";
 
@@ -17,7 +17,6 @@ import Navbar from "./components/navbar";
 import "./App.css";
 
 function App() {
-  const [expanded, setExpanded] = useState(false);
 
   return (
     <div className="app-container">
@@ -28,17 +27,17 @@ function App() {
               <Navbar />
             </div>
             <div className="main-content">
-              <div className="sidebar">
-                <SideBar />
+              <SideBar />
+              <div className="content">
+                <Routes>
+                  <Route path="/" element={<Chat />} />
+                  <Route path="/faq" element={<Faq />} />
+                  <Route path="/user" element={<User />} />
+                  <Route path="/dashboard" element={<Dashboard />} />
+                  <Route path="/configuration" element={<Configuration />} />
+                  <Route path="/historico" element={<Historico />} />
+                </Routes>
               </div>
-              <Routes>
-                <Route path="/" element={<Chat />} />
-                <Route path="/faq" element={<Faq />} />
-                <Route path="/user" element={<User />} />
-                <Route path="/dashboard" element={<Dashboard />} />
-                <Route path="/configuration" element={<Configuration />} />
-                <Route path="/historico" element={<Historico />} />
-              </Routes>
             </div>
             <Footer />
           </CommunicationProviders>
