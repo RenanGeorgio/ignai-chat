@@ -7,6 +7,7 @@ import PaymentAddress from "../components/Configuration/PaymentAddress";
 
 import "../styles/configuration.css";
 
+
 const Configuration: FunctionComponent = () => {
   const [activeTab, setActiveTab] = useState<'geral' | 'endereco'>('geral');
 
@@ -31,21 +32,15 @@ const Configuration: FunctionComponent = () => {
       </div>
       {activeTab === 'geral' ? (
         <div className="bodyConfig">
-          <div className="bodyForm">
-            <FormColaborador />
-          </div>
-          <div className="bodyTable">
-            <TableColaborador />
-          </div>
+          <FormColaborador />
+          <TableColaborador />
+          <AtendimentoComponent />
         </div>
       ) : (
         <div className="body2Config">
           <PaymentAddress />
         </div>
       )}
-      <div className="footerConfig">
-        {activeTab === 'geral' && <AtendimentoComponent />}
-      </div>
     </div>
   );
 }
