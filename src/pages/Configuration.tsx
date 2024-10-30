@@ -7,6 +7,7 @@ import PaymentAddress from "../components/Configuration/PaymentAddress";
 
 import "../styles/configuration.css";
 
+
 const Configuration: FunctionComponent = () => {
   const [activeTab, setActiveTab] = useState<'geral' | 'endereco'>('geral');
 
