@@ -9,7 +9,7 @@ const FormColaborador: React.FC = () => {
         boxShadow: 2,
         borderRadius: '10px',
         padding: 3,
-        width: '650px',
+        width: '450px',
         margin: 'auto'
       }}
     >

@@ -8,7 +8,7 @@ const AtendimentoComponent: React.FC = () => {
       flexDirection="column"
       gap={2}
       padding={2}
-      sx={{ maxWidth: '400px', margin: '0 auto' }}
+      sx={{ width: '400px', margin: '0 auto' }}
     >
       <Box
         display="flex"

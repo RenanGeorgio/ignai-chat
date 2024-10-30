@@ -31,21 +31,15 @@ const Configuration: FunctionComponent = () => {
       </div>
       {activeTab === 'geral' ? (
         <div className="bodyConfig">
-          <div className="bodyForm">
-            <FormColaborador />
-          </div>
-          <div className="bodyTable">
-            <TableColaborador />
-          </div>
+          <FormColaborador />
+          <TableColaborador />
+          <AtendimentoComponent />
         </div>
       ) : (
         <div className="body2Config">
           <PaymentAddress />
         </div>
       )}
-      <div className="footerConfig">
-        {activeTab === 'geral' && <AtendimentoComponent />}
-      </div>
     </div>
   );
 }

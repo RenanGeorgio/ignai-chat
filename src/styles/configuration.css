@@ -51,23 +51,6 @@
   overflow: hidden;
 }
 
-.bodyTable {
-  position: relative;
-  left: 0px;
-  margin-right: 30px;
-  overflow-x: hidden;
-}
-
-.bodyForm {
-  margin-left: 0px;
-}
-
-.footerConfig { 
-  margin-left: 0px;
-  margin-bottom: 20px;
-  width: 450px;
-}
-
 .body2Config {
   display: flex;
   padding: 20px;

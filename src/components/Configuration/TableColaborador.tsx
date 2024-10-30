@@ -125,7 +125,7 @@ const rows = [
 
 const TableColaborador: React.FC = () => {
   return (
-    <div className="business-app-container">
+    <div>
       <div
         style={{
           width: '100%',
