@@ -1,21 +1,29 @@
-import React from "react";
-
+import React, { useEffect, useState } from "react";
 import { EditIcon, PesquisaIcon } from "../../assets/icons";
 import styles from "./questions.module.css";
+import { getQuestions } from "../../controllers/dato";
 
 interface QuestionsComponentsProps {
   onSelectQuestion: (index: number) => void;
 }
 
-const questions = [
-  'Como encontrar a 2° via do boleto?',
-  'Qual botão pula para o próximo da fila?',
-  'Como atender somente ligação?',
-  'Como atender somente whatsapp?',
-  'Qual o tempo máximo de espera do cliente?',
-];
-
 const QuestionsComponents: React.FC<QuestionsComponentsProps> = ({ onSelectQuestion }) => {
+  const [questions, setQuestions] = useState<{ id: string; name: string }[]>([]);
+
+  useEffect(() => {
+    async function loadQuestions() {
+      try {
+        const questionsData = await getQuestions();
+        console.log("Dados recebidos:", questionsData); 
+        setQuestions(questionsData || []);
+      } catch (error) {
+        console.error("Erro ao carregar perguntas:", error);
+      }
+    }
+
+    loadQuestions();
+  }, []);
+
   return (
     <div className={styles.message}>
       <div className={styles.title}>
@@ -31,23 +39,27 @@ const QuestionsComponents: React.FC<QuestionsComponentsProps> = ({ onSelectQuest
         <div className={styles.menu}>
           <div className={styles.hoje}>Perguntas em destaque</div>
           <div className={styles.list}>
-            {questions?.map((question, index) => (
-              <div
-                key={index}
-                className={styles.menuItemQuestion}
-                onClick={() => onSelectQuestion(index)}
-              >
-                <span role="img" aria-label="chat" className={styles.chatIcon}>
-                  💬
-                </span>
-                <div>{question}</div>
-              </div>
-            ))}
+            {questions.length > 0 ? (
+              questions.map((question, index) => (
+                <div
+                  key={question.id}
+                  className={styles.menuItemQuestion}
+                  onClick={() => onSelectQuestion(index)}
+                >
+                  <span role="img" aria-label="chat" className={styles.chatIcon}>
+                    💬
+                  </span>
+                  <div>{question.name}</div>
+                </div>
+              ))
+            ) : (
+              <p>Carregando perguntas...</p>
+            )}
           </div>
         </div>
       </div>
     </div>
   );
-}
+};
 
 export default QuestionsComponents;
