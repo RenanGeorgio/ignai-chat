@@ -1,5 +1,5 @@
 .dashboard {
-  width: 95%;
+  width: 100%;
   height: 90vh;
   margin-top: 50px;
   background-color: #fff;
@@ -45,19 +45,13 @@
   background-color: #33373D;
 }
 
-/* .rightSideBar {
-  width: 25.75rem;
-  background-color: var(--white);
-  border-left: 1px solid var(--line);
+.rightSideBar {
+  width: 20rem;
   flex-direction: column;
   padding: 0 0 14.687rem;
-  gap: var(--gap-xl);
   text-align: center;
-  font-size: var(--heading-size);
-  color: var(--black);
-  font-family: var(--heading);
   max-height: 100vh; 
-} */
+} 
 
 @media screen and (max-width: 850px) {
   .dashboard {

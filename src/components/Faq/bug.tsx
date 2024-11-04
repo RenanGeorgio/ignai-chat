@@ -33,21 +33,6 @@ const BugComponents: FunctionComponent<BugType> = ({ className = "" }) => {
           Enviar
         </button>
       </div>
-      <div className={styles.bugBody}>
-        <div className={styles.bugHeader}>
-          <h3 className={styles.bugTitle}>Lista de Tickets</h3>
-        </div>
-        <div className={styles.containerBug}>
-          {tickets?.map((ticket, index) => (
-            <div className={styles.bugItem} key={index}>
-              <div className={styles.statusBug}>
-                <p className={styles.bug}>{`${index + 1}. ${ticket}`}</p>
-                <span className={styles.emojiBug}>✔️</span>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
     </div>
   );
 }

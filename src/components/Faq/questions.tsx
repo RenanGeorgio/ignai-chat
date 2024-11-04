@@ -53,7 +53,7 @@ const QuestionsComponents: React.FC<QuestionsComponentsProps> = ({ onSelectQuest
                 </div>
               ))
             ) : (
-              <p>Carregando perguntas...</p>
+              <p className={styles.loading}>Carregando perguntas...</p>
             )}
           </div>
         </div>
