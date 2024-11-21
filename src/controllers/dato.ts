@@ -43,4 +43,16 @@ export async function getQuestions() {
   return data?.allQuestions || [];
 }
 
+export async function getAnswer() {
+  const data = await fetchCmsAPI(`
+    {
+      allAnswer {
+        id
+        name
+      }
+    }
+  `);
+  return data?.allAnswer || [];
+}
+
 export default fetchCmsAPI;

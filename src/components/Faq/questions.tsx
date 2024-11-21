@@ -4,7 +4,7 @@ import styles from "./questions.module.css";
 import { getQuestions } from "../../controllers/dato";
 
 interface QuestionsComponentsProps {
-  onSelectQuestion: (index: number) => void;
+  onSelectQuestion: (questionIndex: number) => void;
 }
 
 const QuestionsComponents: React.FC<QuestionsComponentsProps> = ({ onSelectQuestion }) => {
@@ -14,7 +14,6 @@ const QuestionsComponents: React.FC<QuestionsComponentsProps> = ({ onSelectQuest
     async function loadQuestions() {
       try {
         const questionsData = await getQuestions();
-        console.log("Dados recebidos:", questionsData); 
         setQuestions(questionsData || []);
       } catch (error) {
         console.error("Erro ao carregar perguntas:", error);
